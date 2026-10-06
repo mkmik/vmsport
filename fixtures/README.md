@@ -11,6 +11,7 @@ The vmsport crates are tested against these. The inputs were written for vmsport
 | `cld/` | `VPTEST.CLD`, `cases.txt` (`gen.py` makes `cld.com`), `CLIDUMP.MAR` | what `CLI$PRESENT`/`CLI$GET_VALUE` return per command line, or DCL's error |
 | `rms/` | `*.FDL`, `rms.com` | one RMS file per organization and record format (`.DAT`, raw blocks), `ANALYZE/RMS_FILE` output, record attributes in `ods-manifest.json` |
 | `dcl/` | `*.COM` | the procedures' output |
+| `lnm/` | `LNM.COM` | logical names: SHOW LOGICAL, F$TRNLNM items, rooted and concealed devices through F$PARSE |
 
 Each area's `vms.txt` says what goes to VMS, what runs there and what comes
 back. To record areas again (about 5 minutes; it borrows the real-VMS setup of

@@ -22,9 +22,26 @@ name = "vms-filespec"
 version = "0.1.0"
 
 [[package]]
+name = "vms-lnm"
+version = "0.1.0"
+dependencies = [
+ "vms-cond",
+ "vms-filespec",
+]
+
+[[package]]
 name = "vms-msg"
 version = "0.1.0"
 dependencies = [
  "vms-cond",
  "vms-fao",
+]
+
+[[package]]
+name = "vmsportd"
+version = "0.1.0"
+dependencies = [
+ "vms-cond",
+ "vms-filespec",
+ "vms-lnm",
 ]
