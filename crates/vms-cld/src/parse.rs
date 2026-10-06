@@ -230,17 +230,20 @@ pub fn parse(tables: &Tables, line: &str) -> Result<ParseResult, Error> {
     let start = c.i;
     let mut syntax = verb.clone();
     let mut skip = None;
-    // A qualifier with SYNTAX= starts the parse over in that syntax, without it.
+    let mut name = verb.name.clone();
+    // A qualifier or keyword with SYNTAX= starts the parse over in that
+    // syntax; a qualifier that switched is left out of the new parse.
     for _ in 0..8 {
         c.i = start;
-        match Parser::new(tables, verb, &syntax)?.run(&mut c, &typed_verb, skip)? {
+        match Parser::new(tables, verb, &syntax, &name)?.run(&mut c, &typed_verb, skip)? {
             Run::Done(r) => return Ok(*r),
-            Run::Switch(name, at) => {
+            Run::Switch(to, at) => {
                 let s = tables
-                    .syntax(&name)
+                    .syntax(&to)
                     .expect("syntax checked at compile time");
                 syntax = effective(verb, s);
-                skip = Some(at);
+                name = to;
+                skip = at;
             }
         }
     }
@@ -380,12 +383,16 @@ impl Cursor {
 
 enum Run {
     Done(Box<ParseResult>),
-    Switch(String, usize),
+    Switch(String, Option<usize>),
 }
 
 struct Parser {
     s: Syntax,
+    /// The syntax's own name (`s.name` is the verb's).
+    syntax_name: String,
     kw_defs: Vec<Vec<Entity>>,
+    /// Keywords of each parameter's type.
+    param_kws: Vec<Vec<Entity>>,
     params: Vec<Vec<PVal>>,
     quals: Vec<QualState>,
     /// Pieces of $LINE.
@@ -453,24 +460,22 @@ fn typed_value(typ: Option<&str>, raw: &str, plain: &str) -> Result<String, Erro
 }
 
 impl Parser {
-    fn new(tables: &Tables, verb: &Syntax, s: &Syntax) -> Result<Self, Error> {
+    fn new(tables: &Tables, verb: &Syntax, s: &Syntax, syntax_name: &str) -> Result<Self, Error> {
         let s = if s.name == verb.name {
             s.clone()
         } else {
             effective(verb, s)
         };
-        let kw_defs = s
-            .quals
-            .iter()
-            .map(|q| {
-                q.value
-                    .as_ref()
-                    .and_then(|v| v.typ.as_deref())
-                    .and_then(|t| tables.typ(t))
-                    .map(|t| t.keywords.clone())
-                    .unwrap_or_default()
-            })
-            .collect::<Vec<_>>();
+        let keywords = |e: &Entity| {
+            e.value
+                .as_ref()
+                .and_then(|v| v.typ.as_deref())
+                .and_then(|t| tables.typ(t))
+                .map(|t| t.keywords.clone())
+                .unwrap_or_default()
+        };
+        let kw_defs = s.quals.iter().map(keywords).collect::<Vec<_>>();
+        let param_kws = s.params.iter().map(keywords).collect();
         let quals = kw_defs
             .iter()
             .map(|k| QualState {
@@ -479,6 +484,8 @@ impl Parser {
             })
             .collect();
         Ok(Parser {
+            syntax_name: syntax_name.to_string(),
+            param_kws,
             params: vec![Vec::new(); s.params.len()],
             quals,
             kw_defs,
@@ -499,7 +506,7 @@ impl Parser {
                 let at = c.i;
                 c.i += 1;
                 if let Some(sw) = self.qualifier(c, ctx, skip == Some(at))? {
-                    return Ok(Run::Switch(sw, at));
+                    return Ok(Run::Switch(sw, Some(at)));
                 }
                 continue;
             }
@@ -541,6 +548,20 @@ impl Parser {
                     });
                 }
                 let text = typed_value(typ.as_deref(), &raw, &plain)?;
+                // A keyword parameter: it must name a keyword, which may
+                // switch syntax.
+                if !self.param_kws[param].is_empty() {
+                    let defs = &self.param_kws[param];
+                    let (ki, negated) = resolve(defs, &plain).map_err(|e| {
+                        if e.ident == "IVQUAL" { err("IVKEYW", e.token) } else { e }
+                    })?;
+                    if negated && defs[ki].negatable != Some(true) {
+                        return Err(err("NOTNEG", Some(plain)));
+                    }
+                    if let Some(sw) = defs[ki].syntax.clone().filter(|sw| *sw != self.syntax_name) {
+                        return Ok(Run::Switch(sw, None));
+                    }
+                }
                 self.line.push_str(&text);
                 let idx = self.params[param].len();
                 self.params[param].push(PVal {
@@ -557,7 +578,7 @@ impl Parser {
                     let at = c.i;
                     c.i += 1;
                     if let Some(sw) = self.qualifier(c, ctx, skip == Some(at))? {
-                        return Ok(Run::Switch(sw, at));
+                        return Ok(Run::Switch(sw, Some(at)));
                     }
                     c.ws();
                 }
