@@ -551,7 +551,11 @@ impl Dcl {
                 && let Some((text, end)) = self.substitution(&cs, s)
             {
                 out.push_str(&text);
-                i = if cs.get(end) == Some(&'\'') { end + 1 } else { end };
+                i = if cs.get(end) == Some(&'\'') {
+                    end + 1
+                } else {
+                    end
+                };
                 continue;
             }
             out.push(c);
@@ -593,7 +597,10 @@ impl Dcl {
             let v = self.evaluate(&call).map(|v| v.to_str()).unwrap_or_default();
             return Some((v, e));
         }
-        Some((self.symbol(&name).map(|v| v.to_str()).unwrap_or_default(), e))
+        Some((
+            self.symbol(&name).map(|v| v.to_str()).unwrap_or_default(),
+            e,
+        ))
     }
 
     /// Runs a command line after substitution. `Ok(None)`: the command set

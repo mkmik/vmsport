@@ -8,7 +8,9 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-const PROCS: [&str; 9] = ["SYMBOLS", "LEXICALS", "CONTROL", "ERRORS", "FILES", "BLOCKS", "VERIFY", "LOGICALS", "SUBST"];
+const PROCS: [&str; 9] = [
+    "SYMBOLS", "LEXICALS", "CONTROL", "ERRORS", "FILES", "BLOCKS", "VERIFY", "LOGICALS", "SUBST",
+];
 
 fn fixtures() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fixtures/dcl")

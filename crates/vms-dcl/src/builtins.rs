@@ -5,6 +5,9 @@ use crate::{Dcl, DclError, Frame, If, Mode, NORMAL, Table, split_args, split_the
 use vms_cld::{ParseResult, status};
 use vms_cond::Cond;
 
+/// RMS$_NORMAL: what WRITE and READ (RMS $PUT, $GET) leave in $STATUS.
+const RMS_NORMAL: Cond = Cond(0x0001_0001);
+
 /// RMS$_EOF, which READ returns at end of file.
 const RMS_EOF: Cond = Cond(0x0001_827A);
 
@@ -90,11 +93,10 @@ impl Dcl {
                 Ok(None)
             }
             "RETURN" => {
-                let pc = self
-                    .top()
-                    .gosubs
-                    .pop()
-                    .ok_or_else(|| DclError::new("BADRET"))?;
+                // Without a GOSUB, VMS says nothing and marks $STATUS shown.
+                let Some(pc) = self.top().gosubs.pop() else {
+                    return Ok(Some(Cond(self.status.0 | 0x1000_0000)));
+                };
                 self.top().pc = pc;
                 match value(&mut r, "STATUS").filter(|s| !s.is_empty()) {
                     Some(s) => Ok(Some(Cond(self.evaluate(&s)?.to_int() as u32))),
@@ -129,13 +131,13 @@ impl Dcl {
             "SUBROUTINE" => Ok(None),
             "ENDSUBROUTINE" => {
                 if self.top().sub_end.is_some() {
-                    let st = self.status;
-                    self.exiting = Some((st, 1));
+                    self.exiting = Some((NORMAL, 1));
                 }
                 Ok(None)
             }
             "ON" => self.on(&value(&mut r, "ACTION").unwrap_or_default()),
-            "CONTINUE" => Ok(Some(NORMAL)),
+            // CONTINUE leaves $STATUS alone (ON WARNING THEN CONTINUE).
+            "CONTINUE" => Ok(None),
             "WRITE" => self.write(&mut r),
             "READ" => self.read(&mut r),
             "OPEN" => self.open(&mut r),
@@ -143,7 +145,7 @@ impl Dcl {
                 let l = value(&mut r, "LOGICAL").unwrap_or_default();
                 self.files
                     .remove(&l)
-                    .ok_or_else(|| DclError::with("UNDFIL", &l))?;
+                    .ok_or_else(|| DclError::new("UNDFIL"))?;
                 Ok(Some(NORMAL))
             }
             "INQUIRE" => {
@@ -415,11 +417,11 @@ impl Dcl {
                 let f = self
                     .files
                     .get_mut(&logical)
-                    .ok_or_else(|| DclError::with("UNDFIL", &logical))?;
+                    .ok_or_else(|| DclError::new("UNDFIL"))?;
                 f.write(&line).map_err(DclError::status)?;
             }
         }
-        Ok(Some(NORMAL))
+        Ok(Some(RMS_NORMAL))
     }
 
     fn read(&mut self, r: &mut ParseResult) -> R {
@@ -434,14 +436,14 @@ impl Dcl {
                 let f = self
                     .files
                     .get_mut(&logical)
-                    .ok_or_else(|| DclError::with("UNDFIL", &logical))?;
+                    .ok_or_else(|| DclError::new("UNDFIL"))?;
                 f.read().map_err(DclError::status)?
             }
         };
         match rec {
             Some(rec) => {
                 self.top().locals.set(&sym, Value::Str(rec));
-                Ok(Some(NORMAL))
+                Ok(Some(RMS_NORMAL))
             }
             None => match value(r, "END_OF_FILE") {
                 Some(label) => {
@@ -476,17 +478,34 @@ impl Dcl {
                 self.files.insert(logical, f);
                 Ok(Some(NORMAL))
             }
-            Err(st) => match value(r, "ERROR") {
-                Some(label) => {
+            Err(st) => {
+                // The RMS status, marked shown, whether DCL shows it or takes
+                // /ERROR.
+                let shown = Cond(st.0 | 0x1000_0000);
+                if let Some(label) = value(r, "ERROR") {
                     let pc = self
                         .label(&label)
                         .ok_or_else(|| DclError::with("USGOTO", &label))?;
                     self.top().pc = pc;
-                    self.status = st;
-                    Ok(None)
+                    self.status = shown;
+                    return Ok(None);
                 }
-                None => Err(DclError::status(st)),
-            },
+                // %DCL-E-OPENIN (or OPENOUT), then the reason.
+                let full = self.host.parse(&spec, "", "", false).unwrap_or(spec);
+                let what = if mode == Mode::Read {
+                    0x0003_109A
+                } else {
+                    0x0003_10A2
+                };
+                let lines = self.catalog.put_msg(
+                    &[(Cond(what), vec![vms_fao::Arg::Str(&full)]), (st, vec![])],
+                    self.msg_flags,
+                );
+                for l in lines {
+                    self.print(&l.replacen("%CLI-", "%DCL-", 1));
+                }
+                Ok(Some(shown))
+            }
         }
     }
 

@@ -134,13 +134,16 @@ impl Session {
             s.trim().to_uppercase().parse().map_err(|_| status::SYN)
         };
         let (s, d, r) = (p(spec)?, p(default)?, p(related)?);
-        // The default device now; the default directory only once logical
-        // names have had their say (`SYS$LOGIN:X` has a directory).
-        let device = FileSpec {
-            device: self.default.device.clone(),
-            ..Default::default()
+        // With the default device comes the default directory. A device
+        // named in the spec gets it only once its logical name has had its
+        // say (`SYS$LOGIN:X` has a directory), in `locate`.
+        let named = s.device.is_some() || d.device.is_some() || r.device.is_some();
+        let current = if named {
+            FileSpec::default()
+        } else {
+            self.default.clone()
         };
-        Ok(s.merge(&[&d, &r], &device))
+        Ok(s.merge(&[&d, &r], &current))
     }
 
     /// The process default directory.
