@@ -340,6 +340,69 @@ fn parse_dir_body(body: &[Tok]) -> Result<Directory, Error> {
     Ok(dir)
 }
 
+impl Directory {
+    /// A relative directory (`[.A]`, `[-.B]`, `[]`) made absolute against
+    /// `base`; absolute ones come back as they are.
+    pub fn resolve(&self, base: &Directory) -> Directory {
+        if !self.relative {
+            return self.clone();
+        }
+        let mut parts = base.parts.clone();
+        parts.truncate(parts.len().saturating_sub(self.up));
+        parts.extend(self.parts.iter().cloned());
+        Directory { root: base.root.clone(), relative: false, up: 0, parts }
+    }
+}
+
+impl FileSpec {
+    /// `$PARSE` defaulting: what `self` lacks comes from `defaults` in
+    /// order, then the device and directory of `current` (the process
+    /// default). A relative directory is taken from the process default
+    /// directory. The version stays missing if nobody gives one.
+    pub fn merge(&self, defaults: &[&FileSpec], current: &FileSpec) -> FileSpec {
+        let pick = |f: &dyn Fn(&FileSpec) -> bool| defaults.iter().find(|d| f(d));
+        let mut out = self.clone();
+        if out.device.is_none() {
+            out.device = pick(&|d| d.device.is_some()).and_then(|d| d.device.clone()).or(current.device.clone());
+        }
+        if out.directory.is_none() {
+            out.directory = pick(&|d| d.directory.is_some()).and_then(|d| d.directory.clone());
+        }
+        let base = current.directory.clone().unwrap_or_default();
+        out.directory = Some(out.directory.map_or(base.clone(), |d| d.resolve(&base)));
+        if out.name.is_empty() {
+            out.name = pick(&|d| !d.name.is_empty()).map(|d| d.name.clone()).unwrap_or_default();
+        }
+        if out.typ.is_none() {
+            out.typ = pick(&|d| d.typ.is_some()).and_then(|d| d.typ.clone());
+        }
+        if out.version.is_none() {
+            out.version = pick(&|d| d.version.is_some()).and_then(|d| d.version);
+        }
+        out
+    }
+
+    /// The full form `$PARSE` returns: every field, `.` and `;` even when
+    /// empty.
+    pub fn expanded(&self) -> String {
+        let mut s = String::new();
+        if let Some(n) = &self.node {
+            s.push_str(&format!("{n}::"));
+        }
+        if let Some(d) = &self.device {
+            s.push_str(&format!("{d}:"));
+        }
+        if let Some(d) = &self.directory {
+            s.push_str(&d.to_string());
+        }
+        s.push_str(&format!("{}.{};", self.name, self.typ.as_deref().unwrap_or("")));
+        if let Some(v) = self.version {
+            s.push_str(&v.to_string());
+        }
+        s
+    }
+}
+
 impl fmt::Display for Directory {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str("[")?;
@@ -543,6 +606,18 @@ mod tests {
         ] {
             assert_eq!(p(s).to_string(), s);
         }
+    }
+
+    #[test]
+    fn merge_like_parse() {
+        // From F$PARSE on VMS with the default directory DKA200:[T.DCL].
+        let cur = p("DKA200:[T.DCL]");
+        let m = |s: &str, d: &str| p(s).merge(&[&p(d)], &cur).expanded();
+        assert_eq!(m("[C]X", "DKA100:[A.B].TXT"), "DKA100:[C]X.TXT;");
+        assert_eq!(m("X", "[A.B]Z.TXT"), "DKA200:[A.B]X.TXT;");
+        assert_eq!(m("[-.X]Y", "[A.B]"), "DKA200:[T.X]Y.;");
+        assert_eq!(m("[.X]Y", "[A.B]"), "DKA200:[T.DCL.X]Y.;");
+        assert_eq!(m("X.Y;3", "DKA100:[A.B]Z.TXT"), "DKA100:[A.B]X.Y;3");
     }
 
     #[test]
