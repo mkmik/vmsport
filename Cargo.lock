@@ -22,6 +22,7 @@ dependencies = [
  "vms-fao",
  "vms-filespec",
  "vms-msg",
+ "vms-time",
 ]
 
 [[package]]
@@ -34,6 +35,14 @@ dependencies = [
 [[package]]
 name = "vms-filespec"
 version = "0.1.0"
+
+[[package]]
+name = "vms-lnm"
+version = "0.1.0"
+dependencies = [
+ "vms-cond",
+ "vms-filespec",
+]
 
 [[package]]
 name = "vms-msg"
@@ -52,4 +61,13 @@ name = "vms-time"
 version = "0.1.0"
 dependencies = [
  "vms-cond",
+]
+
+[[package]]
+name = "vmsportd"
+version = "0.1.0"
+dependencies = [
+ "vms-cond",
+ "vms-filespec",
+ "vms-lnm",
 ]
