@@ -6,67 +6,7 @@ in one, depth 2
 in two
 %SYSTEM-F-FILNOTPUR, error deleting !AS
 gosub status 00001234
-%DCL-W-STKOVF, command procedures too deeply nested - limit to 32 levels
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
-%DCL-W-UNDSYM, undefined symbol - check validity and spelling
- \RESULT\
+5! = 120
 in fails, depth 3
 %SYSTEM-F-ABORT, abort
 call status 0000002C sev 4

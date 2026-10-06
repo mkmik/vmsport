@@ -153,9 +153,10 @@ impl Host for RealHost {
         default: &str,
         related: &str,
         syntax_only: bool,
+        directory_must_exist: bool,
     ) -> Option<String> {
         self.session
-            .parse_checked(spec, default, related, syntax_only)
+            .parse_checked(spec, default, related, syntax_only, directory_must_exist)
     }
 
     fn search(&mut self, spec: &str, stream: u32) -> Option<String> {

@@ -62,7 +62,8 @@ $ THEN
 $   result == 1
 $   EXIT
 $ ENDIF
-$ CALL fact 'P1 - 1'
+$ n = P1 - 1
+$ CALL fact 'n'
 $ result == result * P1
 $ EXIT
 $ ENDSUBROUTINE

@@ -55,13 +55,15 @@ pub trait Host {
     fn read_terminal(&mut self, prompt: &str) -> Option<String>;
 
     /// `$PARSE`: the expanded spec (upcased), `None` if it doesn't parse or,
-    /// unless `syntax_only`, the device or directory doesn't exist.
+    /// unless `syntax_only`, the device doesn't exist (or the directory, if
+    /// it must).
     fn parse(
         &mut self,
         spec: &str,
         default: &str,
         related: &str,
         syntax_only: bool,
+        directory_must_exist: bool,
     ) -> Option<String>;
     /// `$SEARCH`: the next file matching `spec` in the search context
     /// `stream`; a new spec restarts it.

@@ -131,7 +131,8 @@ impl Session {
     /// filled in, upcased.
     pub fn parse(&self, spec: &str, default: &str, related: &str) -> Result<FileSpec, Cond> {
         let p = |s: &str| -> Result<FileSpec, Cond> {
-            s.trim().to_uppercase().parse().map_err(|_| status::SYN)
+            let f: FileSpec = s.trim().to_uppercase().parse().map_err(|_| status::SYN)?;
+            Ok(self.name_as_logical(f))
         };
         let (s, d, r) = (p(spec)?, p(default)?, p(related)?);
         // With the default device comes the default directory. A device
@@ -144,6 +145,45 @@ impl Session {
             self.default.clone()
         };
         Ok(s.merge(&[&d, &r], &current))
+    }
+
+    /// A spec that is only a name may be a logical name for a file spec
+    /// (`DEFINE OUT [.LOG]RUN.TXT` then `OPEN/WRITE F OUT`), as RMS has it.
+    fn name_as_logical(&self, f: FileSpec) -> FileSpec {
+        let bare = f.device.is_none()
+            && f.directory.is_none()
+            && f.typ.is_none()
+            && f.version.is_none()
+            && f.node.is_none();
+        if !bare || f.name.is_empty() {
+            return f;
+        }
+        let mut cur = f;
+        for _ in 0..vms_lnm::MAX_DEPTH {
+            let Some(found) = self
+                .names
+                .translate(&cur.name, "LNM$FILE_DEV", Mode::User, false)
+            else {
+                break;
+            };
+            let Some(next) = found
+                .logical
+                .equivs
+                .first()
+                .and_then(|e| e.text.to_uppercase().parse::<FileSpec>().ok())
+            else {
+                break;
+            };
+            let again = next.device.is_none()
+                && next.directory.is_none()
+                && next.typ.is_none()
+                && next.version.is_none();
+            cur = next;
+            if !again {
+                break;
+            }
+        }
+        cur
     }
 
     /// The process default directory.
@@ -166,21 +206,32 @@ impl Session {
             spec.directory = Some(base);
             resolved = self.names.resolve(&spec)?;
         }
-        resolved
-            .into_iter()
-            .map(|r| Ok((r.display.clone(), host_dir(&r)?)))
-            .collect()
+        // Search-list values on devices that don't exist are skipped.
+        let mut out = Vec::new();
+        let mut err = None;
+        for r in resolved {
+            match host_dir(&r) {
+                Ok(d) => out.push((r.display.clone(), d)),
+                Err(e) => err = Some(e),
+            }
+        }
+        match (out.is_empty(), err) {
+            (true, Some(e)) => Err(e),
+            _ => Ok(out),
+        }
     }
 
-    /// F$PARSE: unless `syntax_only`, the device must be known. (VMS gave
-    /// fields of a spec whose directory didn't exist, so that isn't
-    /// checked.) Returns the expanded spec.
+    /// F$PARSE: unless `syntax_only`, the device must be known, and the
+    /// directory must exist if `directory_must_exist` (VMS checks it for a
+    /// whole spec, not when it is asked for one field). Returns the
+    /// expanded spec.
     pub fn parse_checked(
         &self,
         spec: &str,
         default: &str,
         related: &str,
         syntax_only: bool,
+        directory_must_exist: bool,
     ) -> Option<String> {
         let mut s = self.parse(spec, default, related).ok()?;
         if syntax_only {
@@ -188,8 +239,8 @@ impl Session {
             s.directory = Some(s.directory.map_or(base.clone(), |d| d.resolve(&base)));
             return Some(s.expanded());
         }
-        let (display, _) = self.locate(&s).ok()?.into_iter().next()?;
-        Some(display.expanded())
+        let (display, dir) = self.locate(&s).ok()?.into_iter().next()?;
+        (!directory_must_exist || dir.is_dir()).then(|| display.expanded())
     }
 
     /// The existing file `spec` names (version 0 or none: the highest; -n:

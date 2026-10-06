@@ -185,7 +185,10 @@ pub(crate) fn call(d: &mut Dcl, name: &str, args: &[Expr]) -> Result<Value, DclE
             let syntax_only = "SYNTAX_ONLY"
                 .starts_with(ev(4)?.to_str().to_ascii_uppercase().as_str())
                 && !ev(4)?.to_str().is_empty();
-            match d.host.parse(&spec, &default, &related, syntax_only) {
+            match d
+                .host
+                .parse(&spec, &default, &related, syntax_only, field.is_empty())
+            {
                 None => s(String::new()),
                 Some(full) if field.is_empty() => s(full),
                 Some(full) => s(parse_field(&full, &field)?),

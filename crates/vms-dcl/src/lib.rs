@@ -146,6 +146,8 @@ impl Symbols {
 struct Proc {
     spec: String,
     lines: Vec<String>,
+    /// Each command's lines as they are in the file (for SET VERIFY).
+    records: Vec<Vec<String>>,
     labels: HashMap<String, usize>,
 }
 
@@ -153,6 +155,7 @@ impl Proc {
     fn new(spec: String, records: Vec<String>) -> Proc {
         // Join continuations (a trailing `-`), keep lines that start a command.
         let mut lines: Vec<String> = Vec::new();
+        let mut raw: Vec<Vec<String>> = Vec::new();
         let mut cont = false;
         for r in records {
             let text = if cont {
@@ -170,8 +173,10 @@ impl Proc {
             };
             if cont {
                 lines.last_mut().unwrap().push_str(&body);
+                raw.last_mut().unwrap().push(r.clone());
             } else {
                 lines.push(body);
+                raw.push(vec![r.trim_start().to_string()]);
             }
             cont = more;
         }
@@ -184,6 +189,7 @@ impl Proc {
         Proc {
             spec,
             lines,
+            records: raw,
             labels,
         }
     }
@@ -273,7 +279,7 @@ pub struct Dcl {
     /// $STATUS's message was shown already (by DCL or an image).
     shown: bool,
     /// The command just run showed its status itself.
-    just_shown: bool,
+    pub(crate) just_shown: bool,
 }
 
 impl Dcl {
@@ -390,9 +396,15 @@ impl Dcl {
                 continue;
             }
             let line = p.lines[f.pc].clone();
+            let records = p.records[f.pc].clone();
             f.pc += 1;
+            // Verify shows the lines as in the file, after apostrophe
+            // substitution, if it was on when they were read.
             if self.verify && self.top().active() {
-                self.print(&format!("${line}"));
+                for r in records {
+                    let shown = self.substitute_only(&r);
+                    self.print(&shown);
+                }
             }
             self.step(&line);
         }
@@ -532,6 +544,12 @@ impl Dcl {
 
     /// Apostrophe substitution: `'expr'` outside quotes, `''expr'` inside.
     fn substitute(&mut self, line: &str) -> Result<String, DclError> {
+        let out = self.substitute_only(line);
+        Ok(strip_comment(&out))
+    }
+
+    /// Apostrophe substitution alone, comments kept.
+    fn substitute_only(&mut self, line: &str) -> String {
         let cs: Vec<char> = line.chars().collect();
         let mut out = String::new();
         let mut quoted = false;
@@ -541,7 +559,6 @@ impl Dcl {
             if c == '"' {
                 quoted = !quoted;
             }
-            // 'name' outside quotes, ''name' inside; the closing ' is optional.
             let start = match (c, quoted) {
                 ('\'', false) => Some(i + 1),
                 ('\'', true) if cs.get(i + 1) == Some(&'\'') => Some(i + 2),
@@ -561,7 +578,7 @@ impl Dcl {
             out.push(c);
             i += 1;
         }
-        Ok(strip_comment(&out))
+        out
     }
 
     /// What `'` at `s` substitutes: a symbol's value ("" if undefined), or a

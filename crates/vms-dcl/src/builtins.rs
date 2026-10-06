@@ -99,7 +99,18 @@ impl Dcl {
                 };
                 self.top().pc = pc;
                 match value(&mut r, "STATUS").filter(|s| !s.is_empty()) {
-                    Some(s) => Ok(Some(Cond(self.evaluate(&s)?.to_int() as u32))),
+                    Some(s) => {
+                        // A failure the subroutine returns is shown, as EXIT's is.
+                        let st = Cond(self.evaluate(&s)?.to_int() as u32);
+                        if !st.is_success() && !st.inhibit_msg() {
+                            let m = self.message(st);
+                            for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
+                                self.print(&l);
+                            }
+                            self.just_shown = true;
+                        }
+                        Ok(Some(st))
+                    }
                     None => Ok(None),
                 }
             }
@@ -168,19 +179,25 @@ impl Dcl {
             }
             "DEFINE" | "ASSIGN" => {
                 let name = value(&mut r, "LOGICAL").unwrap_or_default();
-                let equivs = values(&mut r, "EQUIVALENCE");
+                // Quotes keep case and blanks; they aren't part of the name.
+                let equivs: Vec<String> = values(&mut r, "EQUIVALENCE")
+                    .iter()
+                    .map(|e| unquote(e))
+                    .collect();
                 let attrs = values(&mut r, "TRANSLATION_ATTRIBUTES");
                 let t = table(&mut r);
                 let st = self
                     .host
                     .define(&name, &equivs, &t, &attrs)
                     .map_err(DclError::status)?;
-                if st != Cond(1) && present(&r, "LOG") {
-                    let m = self
-                        .catalog
-                        .put_msg(&[(st, vec![vms_fao::Arg::Str(&name)])], self.msg_flags);
+                // SS$_SUPERSEDE: DCL's own %DCL-I-SUPERSEDE, with the name.
+                if st == Cond(0x631) && present(&r, "LOG") {
+                    let m = self.catalog.put_msg(
+                        &[(Cond(0x0003_DDEB), vec![vms_fao::Arg::Str(&name)])],
+                        self.msg_flags,
+                    );
                     for l in m {
-                        self.print(&l.replacen("%SYSTEM-", "%DCL-", 1));
+                        self.print(&l.replacen("%CLI-", "%DCL-", 1));
                     }
                 }
                 Ok(Some(NORMAL))
@@ -266,10 +283,15 @@ impl Dcl {
                 let lines = self.host.show_logical(&names, &tables, present(&r, "FULL"));
                 match lines {
                     Ok(lines) => {
-                        for l in lines {
-                            self.print(&l);
+                        for l in &lines {
+                            self.print(l);
                         }
-                        Ok(Some(Cond(1)))
+                        // No translation: SHOW-S-NOTRAN, shown.
+                        Ok(Some(if lines.iter().any(|l| l.contains("-NOTRAN,")) {
+                            Cond(0x1078_8019)
+                        } else {
+                            Cond(1)
+                        }))
                     }
                     Err(st) => Err(DclError::status(st)),
                 }
@@ -491,7 +513,7 @@ impl Dcl {
                     return Ok(None);
                 }
                 // %DCL-E-OPENIN (or OPENOUT), then the reason.
-                let full = self.host.parse(&spec, "", "", false).unwrap_or(spec);
+                let full = self.host.parse(&spec, "", "", false, false).unwrap_or(spec);
                 let what = if mode == Mode::Read {
                     0x0003_109A
                 } else {
@@ -561,7 +583,10 @@ impl Dcl {
         let mut lines = Vec::new();
         match name {
             Some(n) if !all => {
-                let found = if global {
+                let found = if matches!(n.as_str(), "$STATUS" | "$SEVERITY") && !local {
+                    // Kept by DCL, shown as globals.
+                    self.symbol(&n).map(|v| (v, true))
+                } else if global {
                     self.globals.get(&n).map(|v| (v.clone(), true))
                 } else if local {
                     self.frames
