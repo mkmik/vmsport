@@ -25,6 +25,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "vms-c"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "libvms",
+ "vms-cond",
+ "vms-fao",
+]
+
+[[package]]
 name = "vms-cld"
 version = "0.1.0"
 dependencies = [
@@ -49,6 +59,16 @@ dependencies = [
  "vms-msg",
  "vms-rms",
  "vms-time",
+ "vmsportd",
+]
+
+[[package]]
+name = "vms-examples"
+version = "0.1.0"
+dependencies = [
+ "libvms",
+ "vms-cond",
+ "vms-fao",
  "vmsportd",
 ]
 
@@ -110,6 +130,7 @@ name = "vmsport"
 version = "0.1.0"
 dependencies = [
  "libvms",
+ "vms-cld",
  "vms-filespec",
  "vms-lnm",
  "vms-msg",

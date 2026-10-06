@@ -13,6 +13,7 @@ The vmsport crates are tested against these. The inputs were written for vmsport
 | `rmsblk/` | `*.FDL`, `rmsblk.com` | sequential files whose records meet block boundaries (`BLOCK_SPAN no`, records longer than a block) and a FORTRAN carriage-control file |
 | `dcl/` | `*.COM` | the procedures' output |
 | `utils/` | `setup.txt`, `cases.txt` (`gen.py` makes `UTILS.COM`) | DIRECTORY, TYPE, COPY, DELETE, PURGE and SEARCH output and `$STATUS`, case by case |
+| `cabi/` | `CODES.COM` | the `#define` lines of the LIB$, SS$, CLI$, STS$ and DSC$ values vmsport's C headers use, from DEC C's SYS$STARLET_C.TLB (`to_headers.py` writes `include/`) |
 | `lnm/` | `LNM.COM` | logical names: SHOW LOGICAL, F$TRNLNM items, rooted and concealed devices through F$PARSE |
 
 Each area's `vms.txt` says what goes to VMS, what runs there and what comes

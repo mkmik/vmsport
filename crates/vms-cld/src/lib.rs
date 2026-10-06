@@ -156,4 +156,26 @@ impl Tables {
     pub fn to_cld(&self) -> String {
         cld::emit(self)
     }
+
+    /// The tables as C, what SET COMMAND/OBJECT gives on VMS: the CLD text
+    /// in `const char NAME[]`, for `cli$dcl_parse(0, &NAME)`.
+    pub fn to_c(&self, name: &str) -> String {
+        let mut out = format!(
+            "/* {name}: command tables for cli$dcl_parse, made by vmsport cdu. */\nconst char {name}[] =\n"
+        );
+        for line in self.to_cld().lines() {
+            out.push_str("\t\"");
+            for b in line.bytes() {
+                match b {
+                    b'"' | b'\\' => out.extend(['\\', b as char]),
+                    b'\t' => out.push_str("\\t"),
+                    0x20..=0x7E => out.push(b as char),
+                    _ => out.push_str(&format!("\\{b:03o}")),
+                }
+            }
+            out.push_str("\\n\"\n");
+        }
+        out.push_str(";\n");
+        out
+    }
 }

@@ -5,6 +5,7 @@
 //!
 //! See docs/design/m1.md.
 
+pub mod cli;
 pub mod files;
 pub mod image;
 pub mod sys;

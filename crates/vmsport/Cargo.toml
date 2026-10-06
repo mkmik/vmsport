@@ -9,3 +9,4 @@ vms-filespec = { path = "../vms-filespec" }
 vms-lnm = { path = "../vms-lnm" }
 vmsportd = { path = "../vmsportd" }
 vms-msg = { path = "../vms-msg" }
+vms-cld = { path = "../vms-cld" }

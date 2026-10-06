@@ -1,0 +1,3 @@
+in CODES.COM
+run @CODES.COM/OUTPUT=CODES.LOG
+text CODES.LOG recorded/codes.log

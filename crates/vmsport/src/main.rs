@@ -2,6 +2,9 @@
 //!
 //!     vmsport path SPEC    the host path of a file or directory
 //!     vmsport spec PATH    the VMS spec of a host path
+//!     vmsport cdu FILE.CLD [-o FILE.c]
+//!                          command tables as C (SET COMMAND/OBJECT), for
+//!                          cli$dcl_parse; named after the CLD's MODULE
 
 use std::path::Path;
 
@@ -10,14 +13,39 @@ fn main() {
     let r = match args.iter().map(String::as_str).collect::<Vec<_>>()[..] {
         ["path", spec] => path(spec),
         ["spec", p] => Ok(spec(Path::new(p))),
-        _ => Err("usage: vmsport path SPEC | vmsport spec PATH".to_string()),
+        ["cdu", cld] => cdu(cld, None),
+        ["cdu", cld, "-o", out] => cdu(cld, Some(out)),
+        _ => Err(
+            "usage: vmsport path SPEC | vmsport spec PATH | vmsport cdu FILE.CLD [-o FILE.c]"
+                .to_string(),
+        ),
     };
     match r {
-        Ok(s) => println!("{s}"),
+        Ok(s) if s.is_empty() => {}
+        Ok(s) => println!("{}", s.trim_end()),
         Err(e) => {
             eprintln!("{e}");
             std::process::exit(1);
         }
+    }
+}
+
+/// The CLD as C: `const char MODULE[]`, or FILE_TABLES without a MODULE.
+fn cdu(cld: &str, out: Option<&str>) -> Result<String, String> {
+    let text = std::fs::read_to_string(cld)
+        .map_err(|e| format!("%CDU-E-OPENIN, error opening {cld} as input: {e}"))?;
+    let t = vms_cld::compile(&text).map_err(|e| format!("%CDU-E-SYNTAX, {cld}: {e}"))?;
+    let stem = Path::new(cld)
+        .file_stem()
+        .map(|s| s.to_string_lossy().to_ascii_uppercase())
+        .unwrap_or_default();
+    let name = t.module.clone().unwrap_or(format!("{stem}_TABLES"));
+    let c = t.to_c(&name);
+    match out {
+        Some(o) => std::fs::write(o, c)
+            .map(|_| String::new())
+            .map_err(|e| format!("%CDU-E-OPENOUT, {o}: {e}")),
+        None => Ok(c),
     }
 }
 

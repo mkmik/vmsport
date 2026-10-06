@@ -119,3 +119,22 @@ fn statuses() {
     let e = parse(&tables, "VPTEST").unwrap_err();
     assert_eq!((e.ident, e.prompt.as_deref()), ("INSFPRM", Some("From")));
 }
+
+#[test]
+fn tables_as_c() {
+    let tables = compile(&fixture("VPTEST.CLD")).unwrap();
+    let c = tables.to_c("VPT_TABLES");
+    assert!(c.starts_with("/* VPT_TABLES") && c.contains("const char VPT_TABLES[] =\n"));
+    // The C string is the canonical CLD: undo the escapes and compile it.
+    let text: String = c
+        .lines()
+        .filter_map(|l| l.strip_prefix("\t\"")?.strip_suffix("\\n\""))
+        .map(|l| {
+            l.replace("\\t", "\t")
+                .replace("\\\"", "\"")
+                .replace("\\\\", "\\")
+                + "\n"
+        })
+        .collect();
+    assert_eq!(compile(&text).unwrap(), tables);
+}

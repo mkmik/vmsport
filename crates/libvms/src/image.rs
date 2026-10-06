@@ -398,16 +398,7 @@ impl Image {
             }
             None => {
                 let t = vms_cld::compile(cld).expect("built-in CLD");
-                let mut line = t.verbs[0].name.clone();
-                for a in std::env::args().skip(1) {
-                    line.push(' ');
-                    if a.contains(char::is_whitespace) {
-                        line.push_str(&format!("\"{}\"", a.replace('"', "\"\"")));
-                    } else {
-                        line.push_str(&a);
-                    }
-                }
-                (cld.to_string(), line)
+                (cld.to_string(), shell_line(&t))
             }
         };
         let tables = vms_cld::compile(&tables).expect("command tables");
@@ -441,6 +432,26 @@ impl Image {
         }
         std::process::exit(if st.is_success() { 0 } else { 1 });
     }
+}
+
+/// A command from a Unix shell: the table's first verb, then the argv,
+/// quoted where it holds blanks (`directory /size [.src]`; a qualifier's
+/// value alone: `/sign=with love` is `/sign="with love"`).
+pub fn shell_line(t: &vms_cld::Tables) -> String {
+    let mut line = t.verbs.first().map_or(String::new(), |v| v.name.clone());
+    for a in std::env::args().skip(1) {
+        line.push(' ');
+        if !a.contains(char::is_whitespace) {
+            line.push_str(&a);
+            continue;
+        }
+        let quote = |s: &str| format!("\"{}\"", s.replace('"', "\"\""));
+        match a.split_once('=').filter(|_| a.starts_with('/')) {
+            Some((q, v)) => line.push_str(&format!("{q}={}", quote(v))),
+            None => line.push_str(&quote(&a)),
+        }
+    }
+    line
 }
 
 /// Messages go to SYS$OUTPUT, and to SYS$ERROR too when that is somewhere
