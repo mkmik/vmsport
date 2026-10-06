@@ -204,9 +204,8 @@ fn directive(
         }
         "%D" | "%T" => {
             let t = a.num()?;
-            let s = asctim(if t == 0 { now() } else { t }).ok_or(Error::BadParam)?;
-            let s = if d == "%T" { &s[12..] } else { &s[..] };
-            out.push_str(&pad_right(s, width));
+            let s = vms_time::asctim(if t == 0 { now() } else { t }, d == "%T");
+            out.push_str(&pad_right(&s, width));
         }
         _ => {
             let mut c = d.chars();
@@ -285,44 +284,12 @@ fn number(kind: char, bits: u32, v: i64, width: Option<usize>) -> String {
     }
 }
 
-/// 100 ns ticks from 17-NOV-1858 (the VMS epoch) to 1-JAN-1970.
-pub const UNIX_EPOCH: i64 = 35_067_168_000_000_000;
-
 fn now() -> i64 {
+    // ponytail: UTC, while VMS times are local; DCL passes its own times.
     let d = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap_or_default();
-    UNIX_EPOCH + (d.as_nanos() / 100) as i64
-}
-
-const MONTHS: [&str; 12] = [
-    "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC",
-];
-
-/// `$ASCTIM` of an absolute VMS time: `dd-MMM-yyyy hh:mm:ss.cc`, the day
-/// padded with a space. Delta (negative) times are not handled yet.
-pub fn asctim(t: i64) -> Option<String> {
-    if t < 0 {
-        return None;
-    }
-    let cs = t / 100_000; // hundredths
-    let (days, rem) = (cs / 8_640_000, cs % 8_640_000);
-    // Days since 1858-11-17 to a civil date (Howard Hinnant's algorithm,
-    // shifted to the 1970 epoch: 1858-11-17 is day -40587).
-    let z = days - 40587 + 719_468;
-    let era = z.div_euclid(146_097);
-    let doe = z - era * 146_097;
-    let yoe = (doe - doe / 1460 + doe / 36524 - doe / 146_096) / 365;
-    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
-    let mp = (5 * doy + 2) / 153;
-    let d = doy - (153 * mp + 2) / 5 + 1;
-    let m = if mp < 10 { mp + 3 } else { mp - 9 };
-    let y = yoe + era * 400 + i64::from(m <= 2);
-    let (h, mi, s, c) = (rem / 360_000, rem / 6000 % 60, rem / 100 % 60, rem % 100);
-    Some(format!(
-        "{d:>2}-{}-{y} {h:02}:{mi:02}:{s:02}.{c:02}",
-        MONTHS[m as usize - 1]
-    ))
+    vms_time::UNIX_EPOCH + (d.as_nanos() / 100) as i64
 }
 
 #[cfg(test)]
@@ -348,9 +315,7 @@ mod tests {
 
     #[test]
     fn time() {
-        assert_eq!(asctim(0).unwrap(), "17-NOV-1858 00:00:00.00");
-        assert_eq!(asctim(UNIX_EPOCH).unwrap(), " 1-JAN-1970 00:00:00.00");
-        let t = UNIX_EPOCH + 951_782_400 * 10_000_000 + 12_345_600_000; // 29-FEB-2000 00:20:34.56
+        let t = vms_time::UNIX_EPOCH + 951_782_400 * 10_000_000 + 12_345_600_000; // 29-FEB-2000 00:20:34.56
         assert_eq!(
             fao("!%D|!%T", &[Num(t), Num(t)]).unwrap(),
             "29-FEB-2000 00:20:34.56|00:20:34.56"
