@@ -35,7 +35,9 @@ device `HOST:`; `SYS$LOGIN` is your home directory.
 | `libvms` | the host side: specs to paths, versions, `$SEARCH`, files, images |
 | `vms-dcl` | DCL, and the `dcl` binary |
 | `vms-utils` | `directory`, `type`, `copy`, `delete`, `purge`, `search` |
-| `vmsport` | `vmsport path`/`spec`, and `lnm` |
+| `vmsport` | `vmsport path`/`spec`/`cdu`, and `lnm` |
+| `vms-c` | the C ABI: `libvms` with `cli$present`, `lib$get_symbol`, ... and `include/` ([docs/design/m2.md](docs/design/m2.md)) |
+| `vms-examples` | `greet`: one CLD, a Rust and a C program (`examples/greet`) |
 
 The `vms-*` cores are pure (no host I/O). `sys/` holds what VMS keeps in
 SYS$SYSROOT: the command tables (`SYSLIB/DCLTABLES`) and the system messages
