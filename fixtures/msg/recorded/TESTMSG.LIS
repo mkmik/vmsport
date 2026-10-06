@@ -1,5 +1,5 @@
-TESTMSG                         Message definitions           7-OCT-2026 00:18:51  Message A01-12                   Page   1
-                                                              6-OCT-2026 22:17:48  DKA200:[T]TESTMSG.MSG;1                     
+TESTMSG                         Message definitions           7-OCT-2026 00:28:02  Message A01-12                   Page   1
+                                                              6-OCT-2026 22:26:58  DKA200:[T]TESTMSG.MSG;1                     
  
                                       1 ! Test messages for vmsport, compiled by the VMS MESSAGE utility to record
                                       2 ! the codes, symbols and texts that vms-msg must reproduce.

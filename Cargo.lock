@@ -5,6 +5,9 @@ version = 4
 [[package]]
 name = "vms-cld"
 version = "0.1.0"
+dependencies = [
+ "vms-cond",
+]
 
 [[package]]
 name = "vms-cond"

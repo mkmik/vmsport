@@ -1,16 +1,16 @@
 
-Check RMS File Integrity                      7-OCT-2026 00:18:56.47   Page 1
+Check RMS File Integrity                      7-OCT-2026 00:28:24.44   Page 1
 DKA200:[T]SEQSTM.DAT;1
 
 
 FILE HEADER
 
 	File Spec: DKA200:[T]SEQSTM.DAT;1
-	File ID: (47,1,0)
+	File ID: (49,1,0)
 	Owner UIC: [1,4]
 	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
-	Creation Date:    7-OCT-2026 00:18:55.16
-	Revision Date:    7-OCT-2026 00:18:55.17, Number: 2
+	Creation Date:    7-OCT-2026 00:28:23.14
+	Revision Date:    7-OCT-2026 00:28:23.15, Number: 2
 	Expiration Date: none specified
 	Backup Date:     none posted
 	Contiguity Options:  none

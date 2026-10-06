@@ -1,17 +1,17 @@
 
 Directory DKA200:[T]
 
-IDX.DAT;1                     File ID:  (52,1,0)              
+IDX.DAT;1                     File ID:  (54,1,0)              
 Size:           48/48         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.36
-Modified:    7-OCT-2026 00:18:55.99 (2)
+Created:     7-OCT-2026 00:28:23.34
+Modified:    7-OCT-2026 00:28:23.97 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.36
-Attr Mod:    7-OCT-2026 00:18:55.99
-Data Mod:    7-OCT-2026 00:18:55.36
+Accessed:    7-OCT-2026 00:28:23.34
+Attr Mod:    7-OCT-2026 00:28:23.97
+Data Mod:    7-OCT-2026 00:28:23.34
 Linkcount:  1
 File organization:  Indexed, Prolog: 3, Using 4 keys
 Shelved state:      Online 
@@ -25,17 +25,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-IDXVAR.DAT;1                  File ID:  (53,1,0)              
+IDXVAR.DAT;1                  File ID:  (55,1,0)              
 Size:           16/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:56.02
-Modified:    7-OCT-2026 00:18:56.12 (2)
+Created:     7-OCT-2026 00:28:24.00
+Modified:    7-OCT-2026 00:28:24.10 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:56.02
-Attr Mod:    7-OCT-2026 00:18:56.12
-Data Mod:    7-OCT-2026 00:18:56.02
+Accessed:    7-OCT-2026 00:28:24.00
+Attr Mod:    7-OCT-2026 00:28:24.10
+Data Mod:    7-OCT-2026 00:28:24.00
 Linkcount:  1
 File organization:  Indexed, Prolog: 3, Using 1 key
 Shelved state:      Online 
@@ -49,17 +49,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-REL.DAT;1                     File ID:  (51,1,0)              
+REL.DAT;1                     File ID:  (53,1,0)              
 Size:           16/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.29
-Modified:    7-OCT-2026 00:18:55.33 (2)
+Created:     7-OCT-2026 00:28:23.27
+Modified:    7-OCT-2026 00:28:23.31 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.29
-Attr Mod:    7-OCT-2026 00:18:55.33
-Data Mod:    7-OCT-2026 00:18:55.29
+Accessed:    7-OCT-2026 00:28:23.27
+Attr Mod:    7-OCT-2026 00:28:23.31
+Data Mod:    7-OCT-2026 00:28:23.27
 Linkcount:  1
 File organization:  Relative, maximum record number: 2147483647
 Shelved state:      Online 
@@ -73,17 +73,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-SEQCRSTM.DAT;1                File ID:  (49,1,0)              
+SEQCRSTM.DAT;1                File ID:  (51,1,0)              
 Size:            1/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.23
-Modified:    7-OCT-2026 00:18:55.24 (2)
+Created:     7-OCT-2026 00:28:23.21
+Modified:    7-OCT-2026 00:28:23.22 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.23
-Attr Mod:    7-OCT-2026 00:18:55.24
-Data Mod:    7-OCT-2026 00:18:55.23
+Accessed:    7-OCT-2026 00:28:23.21
+Attr Mod:    7-OCT-2026 00:28:23.22
+Data Mod:    7-OCT-2026 00:28:23.21
 Linkcount:  1
 File organization:  Sequential
 Shelved state:      Online 
@@ -97,17 +97,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-SEQFIX.DAT;1                  File ID:  (50,1,0)              
+SEQFIX.DAT;1                  File ID:  (52,1,0)              
 Size:            1/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.26
-Modified:    7-OCT-2026 00:18:55.27 (2)
+Created:     7-OCT-2026 00:28:23.25
+Modified:    7-OCT-2026 00:28:23.25 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.26
-Attr Mod:    7-OCT-2026 00:18:55.27
-Data Mod:    7-OCT-2026 00:18:55.26
+Accessed:    7-OCT-2026 00:28:23.25
+Attr Mod:    7-OCT-2026 00:28:23.25
+Data Mod:    7-OCT-2026 00:28:23.25
 Linkcount:  1
 File organization:  Sequential
 Shelved state:      Online 
@@ -121,17 +121,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-SEQLFSTM.DAT;1                File ID:  (48,1,0)              
+SEQLFSTM.DAT;1                File ID:  (50,1,0)              
 Size:            1/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.20
-Modified:    7-OCT-2026 00:18:55.21 (2)
+Created:     7-OCT-2026 00:28:23.17
+Modified:    7-OCT-2026 00:28:23.19 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.20
-Attr Mod:    7-OCT-2026 00:18:55.21
-Data Mod:    7-OCT-2026 00:18:55.20
+Accessed:    7-OCT-2026 00:28:23.17
+Attr Mod:    7-OCT-2026 00:28:23.19
+Data Mod:    7-OCT-2026 00:28:23.17
 Linkcount:  1
 File organization:  Sequential
 Shelved state:      Online 
@@ -145,17 +145,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-SEQSTM.DAT;1                  File ID:  (47,1,0)              
+SEQSTM.DAT;1                  File ID:  (49,1,0)              
 Size:            1/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.16
-Modified:    7-OCT-2026 00:18:55.17 (2)
+Created:     7-OCT-2026 00:28:23.14
+Modified:    7-OCT-2026 00:28:23.15 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.16
-Attr Mod:    7-OCT-2026 00:18:55.17
-Data Mod:    7-OCT-2026 00:18:55.16
+Accessed:    7-OCT-2026 00:28:23.14
+Attr Mod:    7-OCT-2026 00:28:23.15
+Data Mod:    7-OCT-2026 00:28:23.14
 Linkcount:  1
 File organization:  Sequential
 Shelved state:      Online 
@@ -169,17 +169,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-SEQVAR.DAT;1                  File ID:  (45,1,0)              
+SEQVAR.DAT;1                  File ID:  (47,1,0)              
 Size:            1/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.09
-Modified:    7-OCT-2026 00:18:55.10 (2)
+Created:     7-OCT-2026 00:28:23.07
+Modified:    7-OCT-2026 00:28:23.08 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.09
-Attr Mod:    7-OCT-2026 00:18:55.10
-Data Mod:    7-OCT-2026 00:18:55.09
+Accessed:    7-OCT-2026 00:28:23.07
+Attr Mod:    7-OCT-2026 00:28:23.08
+Data Mod:    7-OCT-2026 00:28:23.07
 Linkcount:  1
 File organization:  Sequential
 Shelved state:      Online 
@@ -193,17 +193,17 @@ File protection:    System:RWED, Owner:RWED, Group:RE, World:
 Access Cntrl List:  None
 Client attributes:  None
 
-SEQVFC.DAT;1                  File ID:  (46,1,0)              
+SEQVFC.DAT;1                  File ID:  (48,1,0)              
 Size:            1/16         Owner:    [1,4]
-Created:     7-OCT-2026 00:18:55.12
-Modified:    7-OCT-2026 00:18:55.14 (2)
+Created:     7-OCT-2026 00:28:23.11
+Modified:    7-OCT-2026 00:28:23.12 (2)
 Expires:    <None specified>
 Backup:     <No backup recorded>
 Effective:  <None specified>
 Recording:  <None specified>
-Accessed:    7-OCT-2026 00:18:55.12
-Attr Mod:    7-OCT-2026 00:18:55.14
-Data Mod:    7-OCT-2026 00:18:55.12
+Accessed:    7-OCT-2026 00:28:23.11
+Attr Mod:    7-OCT-2026 00:28:23.12
+Data Mod:    7-OCT-2026 00:28:23.11
 Linkcount:  1
 File organization:  Sequential
 Shelved state:      Online 

@@ -1,0 +1,7 @@
+[package]
+name = "vms-cld"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+vms-cond = { path = "../vms-cond" }

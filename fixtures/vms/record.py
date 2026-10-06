@@ -24,7 +24,7 @@ ODS = os.environ.get("ODS", "ods")
 
 # Input files, copied to [T] under their upper-cased names.
 INPUTS = {
-    "msg": ["TESTMSG.MSG", "msg.com", "EXITWITH.COM"],
+    "msg": ["TESTMSG.MSG", "msg.com", "EXITWITH.COM", "SYSMSG.COM"],
     "fao": ["fao.com"],
     "cld": ["VPTEST.CLD", "CLIDUMP.MAR", "cld.com"],
     "rms": [p.name for p in sorted((FIX / "rms").glob("*.FDL"))] + ["rms.com"],
@@ -35,6 +35,7 @@ RECORD_COM = """\
 $ SET NOON
 $ SET DEFAULT DKA200:[T]
 $ @MSG.COM/OUTPUT=MSG.LOG
+$ @SYSMSG.COM/OUTPUT=SYSMSG.LOG
 $ @FAO.COM/OUTPUT=FAO.LOG
 $ MACRO CLIDUMP.MAR
 $ LINK CLIDUMP
@@ -61,6 +62,7 @@ DISMOUNT DKA100:
 # Results: VMS name -> fixtures path. Text files come out one line per record.
 TEXT_OUT = {
     "MSG.LOG": "msg/recorded/msg.log",
+    "SYSMSG.LOG": "msg/recorded/sysmsg.log",
     "TESTMSG.SDL": "msg/recorded/TESTMSG.SDL",
     "TESTMSG.LIS": "msg/recorded/TESTMSG.LIS",
     "FAO.LOG": "fao/recorded/fao.log",
