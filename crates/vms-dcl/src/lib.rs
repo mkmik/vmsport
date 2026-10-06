@@ -6,6 +6,7 @@ mod builtins;
 pub mod expr;
 pub mod host;
 mod lexicals;
+pub mod lineedit;
 pub mod real;
 
 use expr::Value;

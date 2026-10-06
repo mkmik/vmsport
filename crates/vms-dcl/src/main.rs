@@ -4,7 +4,7 @@
 //!     dcl -c 'COMMAND'        one command, then exit with its status
 //!     dcl FILE.COM [P1...]    @FILE.COM
 
-use std::io::{BufRead, IsTerminal, Write};
+use std::io::{BufRead, IsTerminal};
 use vms_dcl::Dcl;
 use vms_dcl::real::RealHost;
 
@@ -34,21 +34,24 @@ fn main() {
 
 fn interactive(dcl: &mut Dcl) -> vms_cond::Cond {
     let stdin = std::io::stdin();
-    let tty = stdin.is_terminal();
+    let tty = stdin.is_terminal() && std::io::stdout().is_terminal();
+    let mut editor = vms_dcl::lineedit::Editor::default();
     let mut pending = String::new();
     loop {
-        if tty {
-            print!("{}", if pending.is_empty() { "$ " } else { "_$ " });
-            let _ = std::io::stdout().flush();
-        }
-        let mut line = String::new();
-        if stdin.lock().read_line(&mut line).unwrap_or(0) == 0 {
-            if tty {
-                println!();
+        let prompt = if pending.is_empty() { "$ " } else { "_$ " };
+        let line = if tty {
+            match editor.read(prompt) {
+                Some(l) => l,
+                None => return dcl.status,
             }
-            return dcl.status;
-        }
-        let line = line.trim_end_matches(['\n', '\r']);
+        } else {
+            let mut l = String::new();
+            if stdin.lock().read_line(&mut l).unwrap_or(0) == 0 {
+                return dcl.status;
+            }
+            l.trim_end_matches(['\n', '\r']).to_string()
+        };
+        let line = line.as_str();
         // A trailing - continues the command on the next line.
         if let Some(head) = line.trim_end().strip_suffix('-') {
             pending.push_str(head);

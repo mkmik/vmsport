@@ -10,6 +10,7 @@ vms-msg = { path = "../vms-msg" }
 vms-cld = { path = "../vms-cld" }
 vms-filespec = { path = "../vms-filespec" }
 vms-time = { path = "../vms-time" }
+libc = "0.2"
 libvms = { path = "../libvms" }
 vms-lnm = { path = "../vms-lnm" }
 vms-rms = { path = "../vms-rms" }

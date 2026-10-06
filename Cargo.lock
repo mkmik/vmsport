@@ -39,6 +39,7 @@ version = "0.1.0"
 name = "vms-dcl"
 version = "0.1.0"
 dependencies = [
+ "libc",
  "libvms",
  "vms-cld",
  "vms-cond",
