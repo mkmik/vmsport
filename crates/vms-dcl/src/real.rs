@@ -108,6 +108,11 @@ fn table_name(t: &Table) -> String {
 /// otherwise `directory` next to this program (the install's bin, or the
 /// cargo target directory).
 fn image_path(s: &Session, image: &str) -> Option<std::path::PathBuf> {
+    // IMAGE "/usr/local/bin/tool": a host path.
+    if image.starts_with('/') {
+        let p = libvms::case_blind_path(std::path::Path::new(image));
+        return p.exists().then_some(p);
+    }
     let spec = s.parse(image, ".EXE", "").ok()?;
     if let Ok((p, _)) = s.find(&spec) {
         return Some(p);

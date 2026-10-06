@@ -826,7 +826,12 @@ impl Dcl {
                 let out = self.outputs[self.frames.last().map_or(0, |f| f.output)].host_file();
                 // The image parses the command itself: the line as typed, since
                 // $LINE has lost the quotes around untyped values.
-                let st = self.child(Child::Image(&image), &cld, line, &[], out);
+                // A plain Unix program as IMAGE sees the parameters as argv.
+                let verb_len = line
+                    .find(|c: char| !(c.is_alphanumeric() || c == '$' || c == '_'))
+                    .unwrap_or(line.len());
+                let args = split_args(&line[verb_len..]);
+                let st = self.child(Child::Image(&image), &cld, line, &args, out);
                 // A failure the image didn't show itself, DCL shows.
                 if !st.is_success() && !st.inhibit_msg() {
                     let m = self.message(st);

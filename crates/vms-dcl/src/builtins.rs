@@ -237,8 +237,19 @@ impl Dcl {
             }
             "SET_MESSAGE" => self.set_message(&mut r),
             "SET_COMMAND" => {
-                for f in values(&mut r, "FILE") {
-                    let text = self.read_file(&f, ".CLD")?;
+                // /DELETE=(verb,...): verbs this process no longer has.
+                let gone = values(&mut r, "DELETE");
+                for v in &gone {
+                    self.tables.verbs.retain(|x| {
+                        !(x.name == *v || (v.len() >= 4 && x.name.starts_with(v.as_str())))
+                    });
+                }
+                let files = values(&mut r, "FILE");
+                if files.is_empty() && gone.is_empty() {
+                    return Err(DclError::new("INSFPRM"));
+                }
+                for f in files {
+                    let text = self.read_file(&unquote(&f), ".CLD")?;
                     let t = vms_cld::compile(&text).map_err(|e| {
                         self.print(&format!("%CDU-E-SYNTAX, {e}"));
                         DclError::status(Cond(0x0017_8012))
