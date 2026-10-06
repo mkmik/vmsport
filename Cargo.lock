@@ -21,3 +21,7 @@ version = "0.1.0"
 [[package]]
 name = "vms-msg"
 version = "0.1.0"
+dependencies = [
+ "vms-cond",
+ "vms-fao",
+]

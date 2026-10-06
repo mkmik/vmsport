@@ -51,6 +51,21 @@ impl Cond {
         }
     }
 
+    /// The letter in `%FACIL-S-IDENT`; `?` for the reserved severities 5..7.
+    pub fn severity_letter(self) -> char {
+        if self.0 & 7 > 4 {
+            '?'
+        } else {
+            self.severity().letter()
+        }
+    }
+
+    /// Facility-specific bit (`STS$V_FAC_SP`). Codes without it share the
+    /// system's messages.
+    pub fn is_fac_specific(self) -> bool {
+        self.0 & 0x8000 != 0
+    }
+
     /// Low bit set: success or informational.
     pub fn is_success(self) -> bool {
         self.0 & 1 != 0
@@ -118,5 +133,7 @@ mod tests {
         assert_eq!((c.facility(), c.msg_no()), (0x923, 5));
         assert!(c.matches(Cond(Cond::new(0x123, 5, Severity::Warning).0 | 1 << 27)));
         assert_eq!(Severity::Severe.letter(), 'F');
+        assert_eq!(Cond(7).severity_letter(), '?');
+        assert_eq!(Cond(4).severity_letter(), 'F');
     }
 }
