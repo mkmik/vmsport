@@ -1,0 +1,4 @@
+[package]
+name = "vms-cond"
+edition.workspace = true
+version.workspace = true
