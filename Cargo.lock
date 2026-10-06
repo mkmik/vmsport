@@ -28,3 +28,7 @@ dependencies = [
  "vms-cond",
  "vms-fao",
 ]
+
+[[package]]
+name = "vms-rms"
+version = "0.1.0"
