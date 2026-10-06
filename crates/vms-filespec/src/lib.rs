@@ -362,8 +362,8 @@ impl Directory {
 impl FileSpec {
     /// `$PARSE` defaulting: what `self` lacks comes from `defaults` in
     /// order, then the device and directory of `current` (the process
-    /// default). A relative directory is taken from the process default
-    /// directory. The version stays missing if nobody gives one.
+    /// default), if it has them. A relative directory is taken from
+    /// `current`'s. The version stays missing if nobody gives one.
     pub fn merge(&self, defaults: &[&FileSpec], current: &FileSpec) -> FileSpec {
         let pick = |f: &dyn Fn(&FileSpec) -> bool| defaults.iter().find(|d| f(d));
         let mut out = self.clone();
@@ -375,8 +375,9 @@ impl FileSpec {
         if out.directory.is_none() {
             out.directory = pick(&|d| d.directory.is_some()).and_then(|d| d.directory.clone());
         }
-        let base = current.directory.clone().unwrap_or_default();
-        out.directory = Some(out.directory.map_or(base.clone(), |d| d.resolve(&base)));
+        if let Some(base) = &current.directory {
+            out.directory = Some(out.directory.map_or(base.clone(), |d| d.resolve(base)));
+        }
         if out.name.is_empty() {
             out.name = pick(&|d| !d.name.is_empty())
                 .map(|d| d.name.clone())

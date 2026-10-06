@@ -91,6 +91,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "vmsport"
+version = "0.1.0"
+dependencies = [
+ "libvms",
+ "vms-filespec",
+ "vms-lnm",
+ "vms-msg",
+ "vmsportd",
+]
+
+[[package]]
 name = "vmsportd"
 version = "0.1.0"
 dependencies = [

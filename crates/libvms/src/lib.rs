@@ -115,14 +115,35 @@ impl Session {
             s.trim().to_uppercase().parse().map_err(|_| status::SYN)
         };
         let (s, d, r) = (p(spec)?, p(default)?, p(related)?);
-        Ok(s.merge(&[&d, &r], &self.default))
+        // The default device now; the default directory only once logical
+        // names have had their say (`SYS$LOGIN:X` has a directory).
+        let device = FileSpec {
+            device: self.default.device.clone(),
+            ..Default::default()
+        };
+        Ok(s.merge(&[&d, &r], &device))
+    }
+
+    /// The process default directory.
+    fn default_dir(&self) -> Directory {
+        self.default.directory.clone().unwrap_or_default()
     }
 
     /// Where a (merged) spec is on the host: its logical names resolved, one
     /// entry per search-list value. Each gives the spec as it should be
     /// shown, and the host directory.
     pub fn locate(&self, spec: &FileSpec) -> Result<Vec<(FileSpec, PathBuf)>, Cond> {
-        let resolved = self.names.resolve(spec)?;
+        let base = self.default_dir();
+        let mut spec = spec.clone();
+        if let Some(d) = spec.directory.as_mut() {
+            *d = d.resolve(&base);
+        }
+        let mut resolved = self.names.resolve(&spec)?;
+        // No directory from the spec or its logical names: the default one.
+        if resolved.iter().any(|r| r.display.directory.is_none()) {
+            spec.directory = Some(base);
+            resolved = self.names.resolve(&spec)?;
+        }
         resolved
             .into_iter()
             .map(|r| Ok((r.display.clone(), host_dir(&r)?)))
@@ -139,8 +160,10 @@ impl Session {
         related: &str,
         syntax_only: bool,
     ) -> Option<String> {
-        let s = self.parse(spec, default, related).ok()?;
+        let mut s = self.parse(spec, default, related).ok()?;
         if syntax_only {
+            let base = self.default_dir();
+            s.directory = Some(s.directory.map_or(base.clone(), |d| d.resolve(&base)));
             return Some(s.expanded());
         }
         let (display, _) = self.locate(&s).ok()?.into_iter().next()?;
@@ -309,7 +332,7 @@ impl Session {
     }
 
     pub fn deassign(&mut self, table: &str, name: &str) -> Result<Cond, Cond> {
-        self.names.deassign(table, name, Mode::User)
+        self.names.deassign(table, name, Mode::Supervisor)
     }
 }
 
