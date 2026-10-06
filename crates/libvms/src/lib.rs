@@ -457,6 +457,16 @@ fn host_dir(r: &Resolved) -> Result<PathBuf, Cond> {
     Ok(p)
 }
 
+/// A host path with each component found case-blind (DCL upcases
+/// `X :== $/bin/ls`).
+pub fn case_blind_path(p: &Path) -> PathBuf {
+    let mut out = PathBuf::from("/");
+    for c in p.components().skip(1) {
+        out = case_blind(out, &c.as_os_str().to_string_lossy());
+    }
+    out
+}
+
 /// `dir/name`, or the entry of `dir` that differs from `name` only in case
 /// (VMS names are case-blind; Linux file systems are not).
 fn case_blind(dir: PathBuf, name: &str) -> PathBuf {

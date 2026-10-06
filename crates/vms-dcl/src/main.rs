@@ -7,7 +7,7 @@
 //! An interactive session runs SYS$LOGIN:LOGIN.COM first. Run by DCL with
 //! a context (SPAWN, PIPE), it is a subprocess.
 
-use std::io::{BufRead, IsTerminal};
+use std::io::IsTerminal;
 use vms_dcl::Dcl;
 use vms_dcl::real::RealHost;
 
@@ -104,11 +104,10 @@ fn interactive(dcl: &mut Dcl) -> vms_cond::Cond {
                 None => return dcl.status,
             }
         } else {
-            let mut l = String::new();
-            if stdin.lock().read_line(&mut l).unwrap_or(0) == 0 {
-                return dcl.status;
+            match vms_dcl::real::read_line() {
+                Some(l) => l,
+                None => return dcl.status,
             }
-            l.trim_end_matches(['\n', '\r']).to_string()
         };
         let line = line.as_str();
         // A trailing - continues the command on the next line.

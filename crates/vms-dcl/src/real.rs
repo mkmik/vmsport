@@ -3,7 +3,7 @@
 use crate::host::{Change, Child, Host, Launch, Mode, RecordFile, Table};
 use libvms::Session;
 use libvms::files::{Reader, Writer};
-use std::io::{BufRead, Write};
+use std::io::Write;
 use vms_cond::Cond;
 use vms_lnm::{Equiv, Logical};
 
@@ -42,6 +42,31 @@ impl RecordFile for Io {
 }
 
 struct Terminal;
+
+/// A line from stdin, read a byte at a time: whatever follows stays there
+/// for the images and subprocesses that share the input.
+pub fn read_line() -> Option<String> {
+    use std::io::Read;
+    // SAFETY: borrows descriptor 0, which we don't close.
+    let mut f = std::mem::ManuallyDrop::new(unsafe {
+        <std::fs::File as std::os::fd::FromRawFd>::from_raw_fd(0)
+    });
+    let mut buf = Vec::new();
+    let mut b = [0u8];
+    loop {
+        match f.read(&mut b) {
+            Ok(1) if b[0] == b'\n' => break,
+            Ok(1) => buf.push(b[0]),
+            _ if buf.is_empty() => return None,
+            _ => break,
+        }
+    }
+    Some(
+        String::from_utf8_lossy(&buf)
+            .trim_end_matches('\r')
+            .to_string(),
+    )
+}
 
 struct Stderr;
 
@@ -85,6 +110,14 @@ fn table_name(t: &Table) -> String {
 fn image_path(s: &Session, image: &str) -> Option<std::path::PathBuf> {
     let spec = s.parse(image, ".EXE", "").ok()?;
     if let Ok((p, _)) = s.find(&spec) {
+        return Some(p);
+    }
+    // A host program has no type: `HOST:[usr.local.bin]greet`.
+    let bare = vms_filespec::FileSpec {
+        typ: Some(String::new()),
+        ..s.parse(image, "", "").ok()?
+    };
+    if let Ok((p, _)) = s.find(&bare) {
         return Some(p);
     }
     let bin = std::env::var_os("VMSPORT_BIN")
@@ -172,11 +205,7 @@ impl Host for RealHost {
     fn read_terminal(&mut self, prompt: &str) -> Option<String> {
         print!("{prompt}");
         let _ = std::io::stdout().flush();
-        let mut line = String::new();
-        match std::io::stdin().lock().read_line(&mut line) {
-            Ok(0) | Err(_) => None,
-            Ok(_) => Some(line.trim_end_matches(['\n', '\r']).to_string()),
-        }
+        read_line()
     }
 
     fn parse(
@@ -285,7 +314,9 @@ impl Host for RealHost {
         let program = match what {
             Child::Image(spec) => image_path(&self.session, spec).ok_or(libvms::status::FNF)?,
             // A foreign command names a host program by path, or by VMS spec.
-            Child::Foreign(p) if p.starts_with('/') => std::path::PathBuf::from(p),
+            Child::Foreign(p) if p.starts_with('/') => {
+                libvms::case_blind_path(std::path::Path::new(p))
+            }
             Child::Foreign(spec) => image_path(&self.session, spec)
                 .or_else(|| {
                     let p = std::path::PathBuf::from(spec);
