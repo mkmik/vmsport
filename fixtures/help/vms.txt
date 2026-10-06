@@ -1,0 +1,4 @@
+in TEST.HLP
+in help.com
+run @HELP.COM/OUTPUT=HELP.LOG
+text HELP.LOG recorded/help.log
