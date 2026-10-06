@@ -103,7 +103,10 @@ impl Dcl {
             }
             "EXIT" => {
                 let st = match value(&mut r, "STATUS").filter(|s| !s.is_empty()) {
-                    Some(s) => Cond(self.evaluate(&s)?.to_int() as u32),
+                    Some(s) => {
+                        self.shown = false;
+                        Cond(self.evaluate(&s)?.to_int() as u32)
+                    }
                     None => self.status,
                 };
                 if self.frames.len() > 1 {
@@ -339,6 +342,9 @@ impl Dcl {
     }
 
     fn call(&mut self, rest: &str) -> R {
+        if self.depth() >= crate::MAX_DEPTH {
+            return Err(DclError::new("STKOVF"));
+        }
         let mut args = split_args(rest);
         let label = args.remove(0).to_ascii_uppercase();
         let start = self

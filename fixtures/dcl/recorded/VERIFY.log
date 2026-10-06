@@ -1,0 +1,14 @@
+verify 0
+$ a = 1 ! a comment
+$ b = "x"
+$ IF a THEN -
+	WRITE SYS$OUTPUT "continued line"
+continued line
+$label:
+$ WRITE SYS$OUTPUT 1
+1
+$ old = F$VERIFY(0)
+was 1
+now 0
+$ SET NOVERIFY
+off

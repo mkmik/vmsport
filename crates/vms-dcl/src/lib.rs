@@ -17,6 +17,9 @@ use vms_cld::Tables;
 use vms_cond::Cond;
 use vms_msg::{Catalog, Flags};
 
+/// Procedure levels (@ and CALL) DCL allows.
+const MAX_DEPTH: usize = 32;
+
 /// `CLI$_NORMAL`: what a DCL command that worked leaves in `$STATUS`.
 pub const NORMAL: Cond = Cond(0x0003_0001);
 
@@ -47,6 +50,7 @@ const CLI: &[(&str, u32)] = &[
     ("USCALL", 0x382D8),
     ("USGOSUB", 0x382E0),
     ("IVVALU", 0x38088),
+    ("STKOVF", 0x38128),
 ];
 
 /// A failed command: a status, and the element DCL shows as ` \TOKEN\`.
@@ -266,6 +270,8 @@ pub struct Dcl {
     files: HashMap<String, Box<dyn RecordFile>>,
     /// EXIT or STOP in progress: the status, and how many frames to pop.
     exiting: Option<(Cond, usize)>,
+    /// $STATUS's message was shown already (by DCL or an image).
+    shown: bool,
 }
 
 impl Dcl {
@@ -294,6 +300,7 @@ impl Dcl {
             outputs: vec![terminal],
             files: HashMap::new(),
             exiting: None,
+            shown: false,
         }
     }
 
@@ -382,7 +389,7 @@ impl Dcl {
             let line = p.lines[f.pc].clone();
             f.pc += 1;
             if self.verify && self.top().active() {
-                self.print(&format!("$ {line}"));
+                self.print(&format!("${line}"));
             }
             self.step(&line);
         }
@@ -391,8 +398,8 @@ impl Dcl {
         }
     }
 
-    /// Leaves `levels` procedure levels with `status`. A procedure (not a
-    /// CALL) that fails shows its status, unless it was shown already.
+    /// Leaves `levels` procedure levels with `status`. A failure status is
+    /// shown here, unless it was shown already.
     fn unwind(&mut self, status: Cond, levels: usize) {
         for _ in 0..levels.min(self.frames.len() - 1) {
             let f = self.frames.pop().unwrap();
@@ -401,7 +408,8 @@ impl Dcl {
             }
         }
         self.status = status;
-        if !status.is_success() && !status.inhibit_msg() && !self.frames.is_empty() {
+        if !status.is_success() && !status.inhibit_msg() && !self.shown {
+            self.shown = true;
             let m = self.message(status);
             for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
                 self.print(&l);
@@ -428,7 +436,10 @@ impl Dcl {
         }
         let result = self.substitute(line).and_then(|l| self.dispatch(&l));
         match result {
-            Ok(Some(st)) => self.after(st),
+            Ok(Some(st)) => {
+                self.shown = st.inhibit_msg();
+                self.after(st);
+            }
             Ok(None) => {}
             Err(e) => {
                 if e.ident.is_empty() {
@@ -437,6 +448,7 @@ impl Dcl {
                 } else {
                     self.report(&e);
                 }
+                self.shown = true;
                 self.after(e.code);
             }
         }
@@ -462,7 +474,7 @@ impl Dcl {
                 f.on_level = 2;
                 self.step(&cmd);
             }
-            None => self.exiting = Some((Cond(status.0 | 0x1000_0000), 1)),
+            None => self.exiting = Some((status, 1)),
         }
     }
 
@@ -526,30 +538,59 @@ impl Dcl {
             if c == '"' {
                 quoted = !quoted;
             }
-            let start = if !quoted && c == '\'' {
-                Some(i + 1)
-            } else if quoted && c == '\'' && cs.get(i + 1) == Some(&'\'') {
-                Some(i + 2)
-            } else {
-                None
+            // 'name' outside quotes, ''name' inside; the closing ' is optional.
+            let start = match (c, quoted) {
+                ('\'', false) => Some(i + 1),
+                ('\'', true) if cs.get(i + 1) == Some(&'\'') => Some(i + 2),
+                _ => None,
             };
             if let Some(s) = start
-                && let Some(len) = cs[s..].iter().position(|&c| c == '\'')
+                && let Some((text, end)) = self.substitution(&cs, s)
             {
-                let inner: String = cs[s..s + len].iter().collect();
-                let up = upcase_outside_quotes(&inner);
-                if let Ok(e) = expr::parse(&up)
-                    && let Ok(v) = expr::eval(&e, self)
-                {
-                    out.push_str(&v.to_str());
-                }
-                i = s + len + 1;
+                out.push_str(&text);
+                i = if cs.get(end) == Some(&'\'') { end + 1 } else { end };
                 continue;
             }
             out.push(c);
             i += 1;
         }
         Ok(strip_comment(&out))
+    }
+
+    /// What `'` at `s` substitutes: a symbol's value ("" if undefined), or a
+    /// lexical function's result. Returns the text and where it ended.
+    fn substitution(&mut self, cs: &[char], s: usize) -> Option<(String, usize)> {
+        let mut e = s;
+        while e < cs.len() && (cs[e].is_alphanumeric() || cs[e] == '$' || cs[e] == '_') {
+            e += 1;
+        }
+        if e == s {
+            return None;
+        }
+        let name: String = cs[s..e].iter().collect::<String>().to_ascii_uppercase();
+        if name.starts_with("F$") && cs.get(e) == Some(&'(') {
+            // To the matching parenthesis, strings included.
+            let (mut depth, mut q) = (0, false);
+            while e < cs.len() {
+                match cs[e] {
+                    '"' => q = !q,
+                    '(' if !q => depth += 1,
+                    ')' if !q => {
+                        depth -= 1;
+                        if depth == 0 {
+                            e += 1;
+                            break;
+                        }
+                    }
+                    _ => {}
+                }
+                e += 1;
+            }
+            let call: String = cs[s..e].iter().collect();
+            let v = self.evaluate(&call).map(|v| v.to_str()).unwrap_or_default();
+            return Some((v, e));
+        }
+        Some((self.symbol(&name).map(|v| v.to_str()).unwrap_or_default(), e))
     }
 
     /// Runs a command line after substitution. `Ok(None)`: the command set
@@ -601,7 +642,15 @@ impl Dcl {
             (None, Some(image)) => {
                 let cld = self.verb_tables(&r.verb);
                 let out = self.outputs[self.frames.last().map_or(0, |f| f.output)].host_file();
-                Ok(Some(self.host.run_image(&image, &cld, &r.line, out)))
+                let st = self.host.run_image(&image, &cld, &r.line, out);
+                if !st.is_success() && !st.inhibit_msg() {
+                    let m = self.message(st);
+                    for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
+                        self.print(&l);
+                    }
+                    return Ok(Some(Cond(st.0 | 0x1000_0000)));
+                }
+                Ok(Some(st))
             }
             _ => Err(DclError::with("IVVERB", &r.verb)),
         }
@@ -772,6 +821,9 @@ impl Dcl {
                     return Err(DclError::with("IVQUAL", &k.to_ascii_uppercase()));
                 }
             }
+        }
+        if self.depth() >= MAX_DEPTH {
+            return Err(DclError::new("STKOVF"));
         }
         let (mut file, full) = self
             .host

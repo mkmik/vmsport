@@ -1,0 +1,23 @@
+[first value]
+%DCL-I-SUPERSEDE, previous value of VPT_ONE has been superseded
+[SECOND] 00030001
+[assigned]
+A|B|c d|2
+JOBVALUE LNM$JOB_
+|JOBVALUE
+PROCESSVALUE LNM$PROCESS_TABLE
+JOBVALUE
+[]
+%SYSTEM-F-NOLOGNAM, no logical name match
+deassign missing 000001BC
+   "VPT_ONE" = "SECOND" (LNM$PROCESS_TABLE)
+   "VPT_LIST" = "A" (LNM$PROCESS_TABLE)
+	= "B"
+	= "c d"
+%SHOW-S-NOTRAN, no translation for logical name VPT_NOSUCH
+show missing 10788019
+
+
+
+[via a logical]
+VIALOG.TXT;1
