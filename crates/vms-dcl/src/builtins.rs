@@ -248,13 +248,43 @@ impl Dcl {
                 if files.is_empty() && gone.is_empty() {
                     return Err(DclError::new("INSFPRM"));
                 }
+                // /OBJECT writes the tables for a program to link (C source
+                // here) instead of changing this process's.
+                let object = matches!(r.present("OBJECT"), status::PRESENT);
+                let mut out = vms_cld::Tables::default();
+                let first = files.first().map(|f| unquote(f)).unwrap_or_default();
                 for f in files {
                     let text = self.read_file(&unquote(&f), ".CLD")?;
                     let t = vms_cld::compile(&text).map_err(|e| {
                         self.print(&format!("%CDU-E-SYNTAX, {e}"));
                         DclError::status(Cond(0x0017_8012))
                     })?;
-                    self.tables.merge(t);
+                    if object {
+                        out.module = out.module.or(t.module.clone());
+                        out.merge(t);
+                    } else {
+                        self.tables.merge(t);
+                    }
+                }
+                if object {
+                    let stem = first
+                        .parse::<vms_filespec::FileSpec>()
+                        .map(|s| s.name)
+                        .unwrap_or_default();
+                    let name = out
+                        .module
+                        .clone()
+                        .unwrap_or(format!("{}_TABLES", stem.to_ascii_uppercase()));
+                    let spec = value(&mut r, "OBJECT")
+                        .map(|o| unquote(&o))
+                        .unwrap_or_default();
+                    let (mut f, _) = self
+                        .host
+                        .open(&spec, &format!("{stem}.C"), Mode::Write)
+                        .map_err(DclError::status)?;
+                    for line in out.to_c(&name).lines() {
+                        f.write(line).map_err(DclError::status)?;
+                    }
                 }
                 Ok(Some(NORMAL))
             }
