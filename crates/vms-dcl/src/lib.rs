@@ -10,7 +10,7 @@ pub mod lineedit;
 pub mod real;
 
 use expr::Value;
-pub use host::{Host, Mode, RecordFile, Table};
+pub use host::{Change, Child, Host, Launch, Mode, RecordFile, Table};
 use std::collections::{BTreeMap, HashMap};
 use std::rc::Rc;
 use vms_cld::Tables;
@@ -647,13 +647,116 @@ impl Dcl {
             if let Some(path) = v.trim_start().strip_prefix('$') {
                 let mut args = split_args(path);
                 let path = args.remove(0);
+                let head = args.join(" ");
                 args.extend(split_args(rest));
-                return Ok(Some(self.host.run_foreign(&path, &args)));
+                return Ok(Some(self.foreign(&path, &format!("{head}{rest}"), &args)));
             }
             let expanded = format!("{v}{rest}");
             return self.command_line(&expanded);
         }
         self.command_line(line)
+    }
+
+    /// A foreign command: Unix `args`, and `rest` (DCL-processed) for
+    /// LIB$GET_FOREIGN. A failure it didn't show, DCL shows.
+    fn foreign(&mut self, path: &str, rest: &str, args: &[String]) -> Cond {
+        let line = foreign_line(rest);
+        let out = self.outputs[self.frames.last().map_or(0, |f| f.output)].host_file();
+        let st = self.child(Child::Foreign(path), "", &line, args, out);
+        if !st.is_success() && !st.inhibit_msg() {
+            let m = self.message(st);
+            for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
+                self.print(&l);
+            }
+            self.just_shown = true;
+        }
+        st
+    }
+
+    /// Runs an image or foreign command with DCL's context and applies the
+    /// symbols and process logical names it changed.
+    fn child(
+        &mut self,
+        what: Child,
+        tables: &str,
+        line: &str,
+        args: &[String],
+        out: Option<std::fs::File>,
+    ) -> Cond {
+        let symbols = self.visible_symbols();
+        let launch = Launch {
+            symbols: &symbols,
+            tables,
+            line,
+            args,
+            stdout: out.map(std::process::Stdio::from),
+            ..Default::default()
+        };
+        match self.host.start(what, launch) {
+            Ok(c) => {
+                let outcome = c.wait();
+                self.apply(&outcome.changes);
+                outcome.status
+            }
+            Err(st) => st,
+        }
+    }
+
+    /// What a child changed: symbols here, process logical names by the host.
+    fn apply(&mut self, changes: &[Change]) {
+        for c in changes {
+            match c {
+                Change::Set(sym) => {
+                    let v = match &sym.value {
+                        libvms::image::Value::Int(n) => Value::Int(*n),
+                        libvms::image::Value::Str(s) => Value::Str(s.clone()),
+                    };
+                    if sym.global {
+                        self.globals.set(&sym.name, v);
+                    } else {
+                        self.top().locals.set(&sym.name, v);
+                    }
+                }
+                Change::Delete { name, global } => {
+                    if *global {
+                        self.globals.delete(name);
+                    } else {
+                        self.top().locals.delete(name);
+                    }
+                }
+                _ => {}
+            }
+        }
+        self.host.apply(changes);
+    }
+
+    /// The symbols a child sees: locals of every level (inner ones win),
+    /// and globals.
+    pub fn visible_symbols(&self) -> Vec<libvms::image::Symbol> {
+        let conv = |v: &Value| match v {
+            Value::Int(n) => libvms::image::Value::Int(*n),
+            Value::Str(s) => libvms::image::Value::Str(s.clone()),
+        };
+        let mut locals: BTreeMap<String, Value> = BTreeMap::new();
+        for f in &self.frames {
+            for (k, v) in f.locals.iter() {
+                locals.insert(k.clone(), v.clone());
+            }
+        }
+        let mut out: Vec<libvms::image::Symbol> = locals
+            .iter()
+            .map(|(k, v)| libvms::image::Symbol {
+                name: k.clone(),
+                global: false,
+                value: conv(v),
+            })
+            .collect();
+        out.extend(self.globals.iter().map(|(k, v)| libvms::image::Symbol {
+            name: k.clone(),
+            global: true,
+            value: conv(v),
+        }));
+        out
     }
 
     /// Whether `word` names one of DCL's own verbs exactly (a symbol of the
@@ -663,7 +766,25 @@ impl Dcl {
     }
 
     fn command_line(&mut self, line: &str) -> Result<Option<Cond>, DclError> {
-        let r = vms_cld::parse(&self.tables, line)?;
+        let r = match vms_cld::parse(&self.tables, line) {
+            Ok(r) => r,
+            // Not a verb: DCL$PATH may have a procedure or program for it.
+            Err(e) if e.ident == "IVVERB" => {
+                let word: String = line
+                    .chars()
+                    .take_while(|c| c.is_alphanumeric() || *c == '$' || *c == '_' || *c == '-')
+                    .collect();
+                let rest = &line[word.len()..];
+                match self.host.dcl_path(&word.to_ascii_lowercase()) {
+                    Some((spec, true)) => return self.at(&format!("{spec}{rest}")).map(|_| None),
+                    Some((path, false)) => {
+                        return Ok(Some(self.foreign(&path, rest, &split_args(rest))));
+                    }
+                    None => return Err(e.into()),
+                }
+            }
+            Err(e) => return Err(e.into()),
+        };
         match (r.routine.clone(), r.image.clone()) {
             (Some(routine), _) => self.routine(&routine, r),
             (None, Some(image)) => {
@@ -671,7 +792,7 @@ impl Dcl {
                 let out = self.outputs[self.frames.last().map_or(0, |f| f.output)].host_file();
                 // The image parses the command itself: the line as typed, since
                 // $LINE has lost the quotes around untyped values.
-                let st = self.host.run_image(&image, &cld, line, out);
+                let st = self.child(Child::Image(&image), &cld, line, &[], out);
                 // A failure the image didn't show itself, DCL shows.
                 if !st.is_success() && !st.inhibit_msg() {
                     let m = self.message(st);
@@ -956,6 +1077,26 @@ fn strip_comment(s: &str) -> String {
         }
     }
     s.trim_end().to_string()
+}
+
+/// A foreign command's parameters as LIB$GET_FOREIGN returns them: upcased
+/// and squeezed outside quotes, quotes kept.
+fn foreign_line(s: &str) -> String {
+    let mut out = String::new();
+    let mut quoted = false;
+    for c in s.trim().chars() {
+        if c == '"' {
+            quoted = !quoted;
+        }
+        if !quoted && c.is_whitespace() {
+            if !out.ends_with(' ') {
+                out.push(' ');
+            }
+        } else {
+            out.push(if quoted { c } else { c.to_ascii_uppercase() });
+        }
+    }
+    out
 }
 
 /// `:=` text: upcased and squeezed outside quotes, quotes removed.

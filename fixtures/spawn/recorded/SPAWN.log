@@ -1,0 +1,70 @@
+@@ spawn write
+%DCL-S-SPAWNED, process SYSTEM_38089 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_38089
+in subprocess
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+status 00010001
+@@ spawn symbols
+%DCL-S-SPAWNED, process SYSTEM_26303 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_26303
+  X = 1   Hex = 00000001  Octal = 00000000001
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+%DCL-S-SPAWNED, process SYSTEM_5485 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_5485
+  G == "global"
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+@@ spawn changes don't come back
+%DCL-S-SPAWNED, process SYSTEM_32864 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_32864
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+  X = 1   Hex = 00000001  Octal = 00000000001
+@@ spawn logical
+%DCL-S-SPAWNED, process SYSTEM_47173 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_47173
+a logical
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+@@ spawn exit status
+%DCL-S-SPAWNED, process SYSTEM_2878 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_2878
+%SYSTEM-F-ABORT, abort
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+%SYSTEM-F-ABORT, abort
+status 0000002C
+%DCL-S-SPAWNED, process SYSTEM_42451 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_42451
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+status 10000002
+@@ spawn bad verb
+%DCL-S-SPAWNED, process SYSTEM_53866 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_53866
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+ \NOSUCHVERB\
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+status 00038090
+@@ spawn nosymbol
+%DCL-S-SPAWNED, process SYSTEM_32017 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_32017
+%DCL-W-UNDSYM, undefined symbol - check validity and spelling
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+%DCL-W-UNDSYM, undefined symbol - check validity and spelling
+@@ spawn nolog
+%DCL-S-SPAWNED, process SYSTEM_65259 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_65259
+[]
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+@@ spawn default
+%DCL-S-SPAWNED, process SYSTEM_60514 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_60514
+DKA200:[T.SPAWN]
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+@@ spawn output
+%DCL-S-SPAWNED, process SYSTEM_6227 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_6227
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL
+to a file
+@@ spawn depth
+%DCL-S-SPAWNED, process SYSTEM_46890 spawned
+%DCL-S-ATTACHED, terminal now attached to process SYSTEM_46890
+0 INTERACTIVE
+%DCL-S-RETURNED, control returned to process SA_STARTUP_DCL

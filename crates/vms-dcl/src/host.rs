@@ -3,6 +3,18 @@
 
 use vms_cond::Cond;
 
+pub use libvms::image::{Change, Launch};
+
+/// What to start.
+pub enum Child<'a> {
+    /// An image named by a VMS file spec (a verb's IMAGE).
+    Image(&'a str),
+    /// A foreign command: a VMS file spec or a host path.
+    Foreign(&'a str),
+    /// DCL itself, as a subprocess (SPAWN, PIPE).
+    Dcl,
+}
+
 /// An open record file: OPEN/READ/WRITE, procedure input and /OUTPUT.
 pub trait RecordFile {
     /// The next record, `None` at end of file.
@@ -92,15 +104,14 @@ pub trait Host {
     /// Runs an image for a command: `tables` is the CLD the image parses
     /// `line` with; `out` is SYS$OUTPUT if that is a file. Returns the
     /// image's status.
-    fn run_image(
-        &mut self,
-        image: &str,
-        tables: &str,
-        line: &str,
-        out: Option<std::fs::File>,
-    ) -> Cond;
-    /// A foreign command (`X :== $path`): runs `path` with Unix argv.
-    fn run_foreign(&mut self, path: &str, args: &[String]) -> Cond;
+    /// Starts a child: an image, a foreign command or a DCL subprocess,
+    /// with `launch`'s context (its default directory and process logical
+    /// names are filled in here).
+    fn start(&mut self, what: Child, launch: Launch) -> Result<libvms::image::Child, Cond>;
+    /// Applies the process logical names a child changed.
+    fn apply(&mut self, changes: &[Change]);
+    /// DCL$PATH: where an unknown verb might be, a procedure or a program.
+    fn dcl_path(&mut self, verb: &str) -> Option<(String, bool)>;
 
     /// Local time, VMS format (100 ns since 17-NOV-1858).
     fn now(&mut self) -> i64;

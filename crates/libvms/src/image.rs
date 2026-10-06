@@ -1,7 +1,8 @@
-//! Running images: DCL hands an image its context (default directory,
-//! process logical names, command tables and command line) on an inherited
-//! socket, `VMSPORT_CONTEXT=<fd>`, and gets its 32-bit status back the
-//! same way. See docs/design/m1.md.
+//! Running images and subprocesses: DCL hands a child its context (default
+//! directory, process logical names, symbols, command tables, command line)
+//! on an inherited socket, `VMSPORT_CONTEXT=<fd>`. An image sends back the
+//! symbols and process logical names it changed, then its 32-bit status;
+//! a subprocess (SPAWN, PIPE) just its status. See docs/design/m1.md.
 
 use crate::{Session, status};
 use std::io::{BufRead, BufReader, Read, Write};
@@ -13,39 +14,134 @@ use std::process::{Command, Stdio};
 use vms_cond::Cond;
 use vms_lnm::Logical;
 
-/// What an image gets from DCL.
-pub struct Context {
-    pub default: String,
-    pub process: Vec<Logical>,
-    /// CLD text: the verb, its syntaxes and types.
-    pub tables: String,
-    pub line: String,
-    stream: UnixStream,
+/// A DCL symbol's value.
+#[derive(Debug, Clone, PartialEq)]
+pub enum Value {
+    Int(i32),
+    Str(String),
+}
+
+/// A symbol as it travels: name, global, value.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Symbol {
+    pub name: String,
+    pub global: bool,
+    pub value: Value,
+}
+
+/// What an image changed in DCL's process, in order.
+#[derive(Debug, Clone, PartialEq)]
+pub enum Change {
+    Set(Symbol),
+    Delete { name: String, global: bool },
+    Define(Logical),
+    Deassign(String),
+}
+
+/// What DCL gives a child.
+#[derive(Default)]
+pub struct Launch<'a> {
+    pub default: &'a str,
+    pub process: &'a [Logical],
+    pub symbols: &'a [Symbol],
+    /// CLD text for an image; empty for a DCL subprocess.
+    pub tables: &'a str,
+    pub line: &'a str,
+    /// `spawn`: the child is DCL; `line` is its command (empty: it reads
+    /// commands from its input).
+    pub spawn: bool,
+    pub stdin: Option<Stdio>,
+    pub stdout: Option<Stdio>,
+    pub stderr: Option<Stdio>,
+    pub args: &'a [String],
+    /// SPAWN/NOLOGICAL_NAMES: no process logical names.
+    pub no_logicals: bool,
+}
+
+/// How a child ended.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Outcome {
+    pub status: Cond,
+    pub changes: Vec<Change>,
+}
+
+/// A child that is running.
+pub struct Child {
+    child: std::process::Child,
+    ours: UnixStream,
+    writer: std::thread::JoinHandle<()>,
 }
 
 /// Without a status line, a Unix exit code n stands for this plus n*8: an
 /// error in the C run-time's facility, already shown.
 const C_EXIT: u32 = 0x1035_A002;
 
-/// Runs `program` as an image with `ctx`'s context and returns its status.
-/// `stdout`, if given, is where its output goes (SYS$OUTPUT redirected).
-pub fn run(
-    program: &Path,
-    default: &str,
-    process: &[Logical],
-    tables: &str,
-    line: &str,
-    stdout: Option<std::fs::File>,
-) -> Cond {
-    let Ok((ours, theirs)) = UnixStream::pair() else {
-        return Cond(0x2C);
+fn escape(s: &str) -> String {
+    s.replace('\\', "\\\\")
+        .replace('\t', "\\t")
+        .replace('\n', "\\n")
+}
+
+fn unescape(s: &str) -> String {
+    let mut out = String::new();
+    let mut cs = s.chars();
+    while let Some(c) = cs.next() {
+        if c != '\\' {
+            out.push(c);
+            continue;
+        }
+        match cs.next() {
+            Some('t') => out.push('\t'),
+            Some('n') => out.push('\n'),
+            Some(c) => out.push(c),
+            None => {}
+        }
+    }
+    out
+}
+
+fn scope(global: bool) -> &'static str {
+    if global { "G" } else { "L" }
+}
+
+/// `L|G  I|S  name  value`
+fn encode_symbol(s: &Symbol) -> String {
+    let (t, v) = match &s.value {
+        Value::Int(n) => ("I", n.to_string()),
+        Value::Str(v) => ("S", escape(v)),
     };
+    format!("{}\t{t}\t{}\t{v}", scope(s.global), escape(&s.name))
+}
+
+fn decode_symbol(f: &[&str]) -> Option<Symbol> {
+    let [g, t, name, v] = f else { return None };
+    Some(Symbol {
+        name: unescape(name),
+        global: *g == "G",
+        value: if *t == "I" {
+            Value::Int(v.parse().ok()?)
+        } else {
+            Value::Str(unescape(v))
+        },
+    })
+}
+
+/// Starts `program` with `l`'s context.
+pub fn start(program: &Path, l: Launch) -> Result<Child, Cond> {
+    let (ours, theirs) = UnixStream::pair().map_err(|_| Cond(0x2C))?;
     let fd = theirs.as_raw_fd();
     let mut cmd = Command::new(program);
-    cmd.env("VMSPORT_CONTEXT", fd.to_string())
+    cmd.args(l.args)
+        .env("VMSPORT_CONTEXT", fd.to_string())
         .env("VMSPORT_JOB", format!("{:X}", crate::job_id()));
-    if let Some(out) = stdout {
-        cmd.stdout(Stdio::from(out));
+    if let Some(s) = l.stdin {
+        cmd.stdin(s);
+    }
+    if let Some(s) = l.stdout {
+        cmd.stdout(s);
+    }
+    if let Some(s) = l.stderr {
+        cmd.stderr(s);
     }
     // SAFETY: only fcntl between fork and exec.
     unsafe {
@@ -56,34 +152,102 @@ pub fn run(
             Ok(())
         });
     }
-    let mut child = match cmd.spawn() {
-        Ok(c) => c,
-        Err(_) => return status::FNF,
-    };
+    let child = cmd.spawn().map_err(|_| status::FNF)?;
     drop(theirs);
-    let mut msg = format!("vmsport-context\t1\ndefault\t{default}\n");
-    for l in process {
-        msg += &format!("lnm\t{}\n", vmsportd::encode(l));
+    let mut msg = format!("vmsport-context\t1\ndefault\t{}\n", l.default);
+    for lg in l.process {
+        msg += &format!("lnm\t{}\n", vmsportd::encode(lg));
     }
-    msg += &format!("tables\t{}\n{tables}line\t{line}\n\n", tables.len());
-    let mut writer = ours.try_clone().expect("socket");
-    // A writer thread, so an image that never reads can't block us.
-    let w = std::thread::spawn(move || {
-        let _ = writer.write_all(msg.as_bytes());
+    for s in l.symbols {
+        msg += &format!("symbol\t{}\n", encode_symbol(s));
+    }
+    if l.spawn {
+        msg += "spawn\t1\n";
+    }
+    msg += &format!(
+        "tables\t{}\n{}line\t{}\n\n",
+        l.tables.len(),
+        l.tables,
+        escape(l.line)
+    );
+    let mut w = ours.try_clone().map_err(|_| Cond(0x2C))?;
+    // A writer thread, so a child that never reads can't block us.
+    let writer = std::thread::spawn(move || {
+        let _ = w.write_all(msg.as_bytes());
     });
-    let exit = child.wait();
-    let _ = w.join();
-    let _ = ours.shutdown(std::net::Shutdown::Write);
-    let mut reply = String::new();
-    let _ = BufReader::new(&ours).read_to_string(&mut reply);
-    if let Some(st) = reply.lines().find_map(|l| l.strip_prefix("status\t")) {
-        return Cond(u32::from_str_radix(st.trim_start_matches("%X"), 16).unwrap_or(0x2C));
+    Ok(Child {
+        child,
+        ours,
+        writer,
+    })
+}
+
+impl Child {
+    /// Waits for the child: its status and the changes it sent.
+    pub fn wait(mut self) -> Outcome {
+        let exit = self.child.wait();
+        let _ = self.writer.join();
+        let _ = self.ours.shutdown(std::net::Shutdown::Write);
+        let mut reply = String::new();
+        let _ = BufReader::new(&self.ours).read_to_string(&mut reply);
+        let mut out = Outcome {
+            status: status::NORMAL,
+            changes: Vec::new(),
+        };
+        let mut st = None;
+        for line in reply.lines() {
+            let f: Vec<&str> = line.split('\t').collect();
+            match f[..] {
+                ["status", v] => {
+                    st = u32::from_str_radix(v.trim_start_matches("%X"), 16)
+                        .ok()
+                        .map(Cond)
+                }
+                ["symbol", "set", ref rest @ ..] => {
+                    out.changes.extend(decode_symbol(rest).map(Change::Set))
+                }
+                ["symbol", "del", g, name] => out.changes.push(Change::Delete {
+                    name: unescape(name),
+                    global: g == "G",
+                }),
+                ["lnm", "set", ref rest @ ..] => out
+                    .changes
+                    .extend(vmsportd::decode(rest).map(Change::Define)),
+                ["lnm", "del", name] => out.changes.push(Change::Deassign(unescape(name))),
+                _ => {}
+            }
+        }
+        out.status = st.unwrap_or_else(|| match exit.ok().and_then(|e| e.code()) {
+            Some(0) => status::NORMAL,
+            Some(n) => Cond(C_EXIT + (n as u32) * 8),
+            None => Cond(0x2C), // killed: SS$_ABORT
+        });
+        out
     }
-    match exit.ok().and_then(|e| e.code()) {
-        Some(0) => status::NORMAL,
-        Some(n) => Cond(C_EXIT + (n as u32) * 8),
-        None => Cond(0x2C), // killed: SS$_ABORT
+}
+
+/// Runs `program` with `l`'s context and waits for it.
+pub fn run(program: &Path, l: Launch) -> Outcome {
+    match start(program, l) {
+        Ok(c) => c.wait(),
+        Err(st) => Outcome {
+            status: st,
+            changes: Vec::new(),
+        },
     }
+}
+
+/// What a child gets from DCL.
+pub struct Context {
+    pub default: String,
+    pub process: Vec<Logical>,
+    pub symbols: Vec<Symbol>,
+    pub tables: String,
+    pub line: String,
+    /// A DCL subprocess (SPAWN, PIPE), not an image.
+    pub spawn: bool,
+    changes: Vec<Change>,
+    stream: UnixStream,
 }
 
 impl Context {
@@ -97,8 +261,11 @@ impl Context {
         let mut ctx = Context {
             default: String::new(),
             process: Vec::new(),
+            symbols: Vec::new(),
             tables: String::new(),
             line: String::new(),
+            spawn: false,
+            changes: Vec::new(),
             stream,
         };
         let mut line = String::new();
@@ -111,27 +278,81 @@ impl Context {
             if l.is_empty() {
                 break;
             }
-            let (k, v) = l.split_once('\t').unwrap_or((l, ""));
-            match k {
-                "default" => ctx.default = v.to_string(),
-                "lnm" => ctx
-                    .process
-                    .extend(vmsportd::decode(&v.split('\t').collect::<Vec<_>>())),
-                "tables" => {
-                    let mut buf = vec![0; v.parse().ok()?];
+            let f: Vec<&str> = l.split('\t').collect();
+            match f[..] {
+                ["default", v] => ctx.default = v.to_string(),
+                ["lnm", ref rest @ ..] => ctx.process.extend(vmsportd::decode(rest)),
+                ["symbol", ref rest @ ..] => ctx.symbols.extend(decode_symbol(rest)),
+                ["spawn", _] => ctx.spawn = true,
+                ["tables", n] => {
+                    let mut buf = vec![0; n.parse().ok()?];
                     r.read_exact(&mut buf).ok()?;
                     ctx.tables = String::from_utf8(buf).ok()?;
                 }
-                "line" => ctx.line = v.to_string(),
+                ["line", v] => ctx.line = unescape(v),
                 _ => {}
             }
         }
         Some(ctx)
     }
 
-    /// Tells DCL the image's status.
+    /// LIB$GET_SYMBOL: a local symbol, else a global one.
+    pub fn get_symbol(&self, name: &str) -> Option<&Symbol> {
+        let name = name.to_ascii_uppercase();
+        let find = |global| {
+            self.symbols
+                .iter()
+                .find(|s| s.name == name && s.global == global)
+        };
+        find(false).or_else(|| find(true))
+    }
+
+    /// LIB$SET_SYMBOL: sets it here and in DCL when the image ends.
+    pub fn set_symbol(&mut self, name: &str, value: Value, global: bool) {
+        let s = Symbol {
+            name: name.to_ascii_uppercase(),
+            global,
+            value,
+        };
+        self.symbols
+            .retain(|x| !(x.name == s.name && x.global == global));
+        self.symbols.push(s.clone());
+        self.changes.push(Change::Set(s));
+    }
+
+    /// LIB$DELETE_SYMBOL. False if there was no such symbol.
+    pub fn delete_symbol(&mut self, name: &str, global: bool) -> bool {
+        let name = name.to_ascii_uppercase();
+        let before = self.symbols.len();
+        self.symbols
+            .retain(|x| !(x.name == name && x.global == global));
+        let found = self.symbols.len() != before;
+        if found {
+            self.changes.push(Change::Delete { name, global });
+        }
+        found
+    }
+
+    /// Records a process logical name change for DCL.
+    pub fn changed_logical(&mut self, c: Change) {
+        self.changes.push(c);
+    }
+
+    /// Tells DCL what changed and the status.
     pub fn finish(mut self, st: Cond) {
-        let _ = writeln!(self.stream, "status\t%X{:08X}", st.0);
+        let mut msg = String::new();
+        for c in &self.changes {
+            msg += &match c {
+                Change::Set(s) => format!("symbol\tset\t{}\n", encode_symbol(s)),
+                Change::Delete { name, global } => {
+                    format!("symbol\tdel\t{}\t{}\n", scope(*global), escape(name))
+                }
+                Change::Define(l) => format!("lnm\tset\t{}\n", vmsportd::encode(l)),
+                Change::Deassign(n) => format!("lnm\tdel\t{}\n", escape(n)),
+            };
+        }
+        msg += &format!("status\t%X{:08X}\n", st.0);
+        let _ = self.stream.write_all(msg.as_bytes());
     }
 }
 

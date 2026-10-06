@@ -1,6 +1,6 @@
 //! DCL's host: libvms.
 
-use crate::host::{Host, Mode, RecordFile, Table};
+use crate::host::{Change, Child, Host, Launch, Mode, RecordFile, Table};
 use libvms::Session;
 use libvms::files::{Reader, Writer};
 use std::io::{BufRead, Write};
@@ -249,38 +249,80 @@ impl Host for RealHost {
         Ok(out)
     }
 
-    fn run_image(
-        &mut self,
-        image: &str,
-        tables: &str,
-        line: &str,
-        out: Option<std::fs::File>,
-    ) -> Cond {
-        let Some(path) = image_path(&self.session, image) else {
-            return libvms::status::FNF;
+    fn start(&mut self, what: Child, launch: Launch) -> Result<libvms::image::Child, Cond> {
+        let program = match what {
+            Child::Image(spec) => image_path(&self.session, spec).ok_or(libvms::status::FNF)?,
+            // A foreign command names a host program by path, or by VMS spec.
+            Child::Foreign(p) if p.starts_with('/') => std::path::PathBuf::from(p),
+            Child::Foreign(spec) => image_path(&self.session, spec)
+                .or_else(|| {
+                    let p = std::path::PathBuf::from(spec);
+                    p.exists().then_some(p)
+                })
+                .ok_or(libvms::status::FNF)?,
+            Child::Dcl => std::env::current_exe().map_err(|_| libvms::status::FNF)?,
         };
+        let default = self.session.default_directory();
         let process: Vec<Logical> = self
             .session
             .names
             .get(vms_lnm::PROCESS_TABLE)
             .map(|t| t.logicals.clone())
             .unwrap_or_default();
-        libvms::image::run(
-            &path,
-            &self.session.default_directory(),
-            &process,
-            tables,
-            line,
-            out,
-        )
+        // /NOLOGICAL_NAMES passes an empty table: keep it empty.
+        let process: &[Logical] = if launch.no_logicals { &[] } else { &process };
+        let launch = Launch {
+            default: &default,
+            process,
+            ..launch
+        };
+        libvms::image::start(&program, launch)
     }
 
-    fn run_foreign(&mut self, path: &str, args: &[String]) -> Cond {
-        match std::process::Command::new(path).args(args).status() {
-            Ok(s) if s.success() => Cond(1),
-            Ok(s) => Cond(0x1035_A002 + (s.code().unwrap_or(1) as u32) * 8),
-            Err(_) => libvms::status::FNF,
+    fn apply(&mut self, changes: &[Change]) {
+        for c in changes {
+            match c {
+                Change::Define(l) => {
+                    let _ = self.session.define(vms_lnm::PROCESS_TABLE, l.clone());
+                }
+                Change::Deassign(n) => {
+                    let _ = self.session.deassign(vms_lnm::PROCESS_TABLE, n);
+                }
+                _ => {}
+            }
         }
+    }
+
+    fn dcl_path(&mut self, verb: &str) -> Option<(String, bool)> {
+        let found =
+            self.session
+                .names
+                .translate("DCL$PATH", "LNM$FILE_DEV", vms_lnm::Mode::User, false)?;
+        // Each value is a place to look: a procedure first, then a program.
+        for e in &found.logical.equivs {
+            for (typ, procedure) in [("COM", true), ("EXE", false), ("", false)] {
+                let spec = format!("{}{verb}.{typ}", e.text);
+                let Ok(parsed) = self.session.parse(&spec, "", "") else {
+                    continue;
+                };
+                if let Ok((path, shown)) = self.session.find(&parsed) {
+                    let runnable = procedure
+                        || std::fs::metadata(&path).is_ok_and(|m| {
+                            use std::os::unix::fs::PermissionsExt;
+                            m.is_file() && m.permissions().mode() & 0o111 != 0
+                        });
+                    if runnable {
+                        let what = if procedure {
+                            shown.expanded()
+                        } else {
+                            path.display().to_string()
+                        };
+                        return Some((what, procedure));
+                    }
+                }
+            }
+        }
+        None
     }
 
     fn now(&mut self) -> i64 {
