@@ -206,3 +206,30 @@ fn dcl_shows_exit_status() {
     (fl.text, fl.severity) = (false, true);
     assert_eq!(tail[3], cat.get_msg(abort, fl));
 }
+
+#[test]
+fn system_message_file() {
+    let p = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../sys/SYSMSG/SYSMSG.MSG");
+    let mut cat = Catalog::default();
+    cat.add_system(compile(&std::fs::read_to_string(p).unwrap()).unwrap());
+    // The scan's texts come back, whatever severity the code has.
+    for line in fixture("recorded/sysmsg.log").lines() {
+        let (code, text) = line.split_once(' ').unwrap();
+        assert_eq!(cat.get_msg(hex(code), Flags::ALL), text);
+    }
+    // A shared message named after the code's own facility (DELETE is 147).
+    let code = (147 << 16) | (cat_msgno(&cat, "FILDEL") << 3) | 3;
+    assert_eq!(
+        cat.get_msg(Cond(code), Flags::ALL),
+        "%DELETE-I-FILDEL, !AS deleted (!UL block!%S)"
+    );
+}
+
+fn cat_msgno(cat: &Catalog, ident: &str) -> u32 {
+    (1..4096)
+        .find(|n| {
+            cat.lookup(Cond(n << 3 | 1))
+                .is_some_and(|(_, m)| m.ident == ident)
+        })
+        .unwrap()
+}

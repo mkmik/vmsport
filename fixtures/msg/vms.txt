@@ -2,9 +2,12 @@ in TESTMSG.MSG
 in msg.com
 in EXITWITH.COM
 in SYSMSG.COM
+in SYSFAC.COM
 run @MSG.COM/OUTPUT=MSG.LOG
 run @SYSMSG.COM/OUTPUT=SYSMSG.LOG
+run @SYSFAC.COM/OUTPUT=SYSFAC.LOG
 text MSG.LOG recorded/msg.log
 text SYSMSG.LOG recorded/sysmsg.log
 text TESTMSG.SDL recorded/TESTMSG.SDL
 text TESTMSG.LIS recorded/TESTMSG.LIS
+text SYSFAC.LOG recorded/sysfac.log

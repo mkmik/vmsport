@@ -300,9 +300,7 @@ fn statement(
                 if !rest.is_empty() {
                     return Err("invalid .FACILITY".into());
                 }
-                let number = number(num)
-                    .filter(|n| (0..=2047).contains(n))
-                    .ok_or("illegal qualifier value")? as u16;
+                let number = number(num).ok_or("illegal qualifier value")?;
                 let mut system = false;
                 let mut prefix = format!("{}$_", name.to_ascii_uppercase());
                 for (q, v) in quals {
@@ -315,7 +313,12 @@ fn statement(
                         _ => return Err(format!("unknown qualifier /{q}")),
                     }
                 }
-                let number = if system { number } else { number | 0x800 };
+                // Customer facilities get bit 11; VMS's own use all 12 bits.
+                let max = if system { 4095 } else { 2047 };
+                if !(0..=max).contains(&number) {
+                    return Err("illegal qualifier value".into());
+                }
+                let number = if system { number } else { number | 0x800 } as u16;
                 f.facilities.push(Facility {
                     name: name.to_ascii_uppercase(),
                     number,
