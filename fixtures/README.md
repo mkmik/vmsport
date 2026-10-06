@@ -10,6 +10,7 @@ The vmsport crates are tested against these. The inputs were written for vmsport
 | `fao/` | `cases.txt` (`gen.py` makes `fao.com`) | `F$FAO` results |
 | `cld/` | `VPTEST.CLD`, `cases.txt` (`gen.py` makes `cld.com`), `CLIDUMP.MAR` | what `CLI$PRESENT`/`CLI$GET_VALUE` return per command line, or DCL's error |
 | `rms/` | `*.FDL`, `rms.com` | one RMS file per organization and record format (`.DAT`, raw blocks), `ANALYZE/RMS_FILE` output, record attributes in `ods-manifest.json` |
+| `rmsblk/` | `*.FDL`, `rmsblk.com` | sequential files whose records meet block boundaries (`BLOCK_SPAN no`, records longer than a block) and a FORTRAN carriage-control file |
 | `dcl/` | `*.COM` | the procedures' output |
 
 Each area's `vms.txt` says what goes to VMS, what runs there and what comes

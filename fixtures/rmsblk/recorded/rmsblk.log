@@ -1,0 +1,340 @@
+single
+double
+page
+over
+prompt
+other
+
+
+Directory DKA200:[T.RMSBLK]
+
+FIXBLK.DAT;1                  File ID:  (22,1,0)              
+Size:            3/16         Owner:    [1,4]
+Created:     7-OCT-2026 00:50:13.65
+Modified:    7-OCT-2026 00:50:13.67 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 00:50:13.65
+Attr Mod:    7-OCT-2026 00:50:13.67
+Data Mod:    7-OCT-2026 00:50:13.65
+Linkcount:  1
+File organization:  Sequential
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Global buffer count: 0, No version limit
+Record format:      Fixed length 101 byte records
+Record attributes:  Carriage return carriage control, Non-spanned
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+FTN.DAT;1                     File ID:  (25,1,0)              
+Size:            1/16         Owner:    [1,4]
+Created:     7-OCT-2026 00:50:13.77
+Modified:    7-OCT-2026 00:50:13.78 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 00:50:13.77
+Attr Mod:    7-OCT-2026 00:50:13.78
+Data Mod:    7-OCT-2026 00:50:13.77
+Linkcount:  1
+File organization:  Sequential
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 0 bytes, longest 7 bytes
+Record attributes:  Fortran carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+VARBLK.DAT;1                  File ID:  (21,1,0)              
+Size:            6/16         Owner:    [1,4]
+Created:     7-OCT-2026 00:50:13.59
+Modified:    7-OCT-2026 00:50:13.62 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 00:50:13.59
+Attr Mod:    7-OCT-2026 00:50:13.62
+Data Mod:    7-OCT-2026 00:50:13.59
+Linkcount:  1
+File organization:  Sequential
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 0 bytes, longest 510 bytes
+Record attributes:  Carriage return carriage control, Non-spanned
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+VARLONG.DAT;1                 File ID:  (24,1,0)              
+Size:            5/16         Owner:    [1,4]
+Created:     7-OCT-2026 00:50:13.74
+Modified:    7-OCT-2026 00:50:13.75 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 00:50:13.74
+Attr Mod:    7-OCT-2026 00:50:13.75
+Data Mod:    7-OCT-2026 00:50:13.74
+Linkcount:  1
+File organization:  Sequential
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 0 bytes, longest 1100 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+VFCBLK.DAT;1                  File ID:  (23,1,0)              
+Size:            3/16         Owner:    [1,4]
+Created:     7-OCT-2026 00:50:13.69
+Modified:    7-OCT-2026 00:50:13.71 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 00:50:13.69
+Attr Mod:    7-OCT-2026 00:50:13.71
+Data Mod:    7-OCT-2026 00:50:13.69
+Linkcount:  1
+File organization:  Sequential
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Global buffer count: 0, No version limit
+Record format:      VFC, 2 byte header, maximum 0 bytes, longest 61 bytes
+Record attributes:  Print file carriage control, Non-spanned
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 5 files, 18/80 blocks.
+
+Check RMS File Integrity                      7-OCT-2026 00:50:13.93   Page 1
+DKA200:[T.RMSBLK]VARBLK.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.RMSBLK]VARBLK.DAT;1
+	File ID: (21,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 00:50:13.59
+	Revision Date:    7-OCT-2026 00:50:13.62, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: sequential
+	Record Format: variable
+	Record Attributes: no-span carriage-return 
+	Maximum Record Size: 0
+	Longest Record: 510
+	Blocks Allocated: 16, Default Extend Size: 0
+	End-of-File VBN: 6, Offset: %X'0008'
+	File Monitoring: disabled
+	File Length Hint (Record Count):    28
+	File Length Hint (Data Byte Count): 2274
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK VARBLK.DAT
+
+Check RMS File Integrity                      7-OCT-2026 00:50:13.97   Page 1
+DKA200:[T.RMSBLK]FIXBLK.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.RMSBLK]FIXBLK.DAT;1
+	File ID: (22,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 00:50:13.65
+	Revision Date:    7-OCT-2026 00:50:13.67, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: sequential
+	Record Format: fixed
+	Record Attributes: no-span carriage-return 
+	Maximum Record Size: 101
+	Longest Record: 101
+	Blocks Allocated: 16, Default Extend Size: 0
+	End-of-File VBN: 3, Offset: %X'00CC'
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK FIXBLK.DAT
+
+Check RMS File Integrity                      7-OCT-2026 00:50:14.01   Page 1
+DKA200:[T.RMSBLK]VFCBLK.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.RMSBLK]VFCBLK.DAT;1
+	File ID: (23,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 00:50:13.69
+	Revision Date:    7-OCT-2026 00:50:13.71, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: sequential
+	Record Format: variable-with-fixed-control
+	Record Attributes: no-span print 
+	Maximum Record Size: 0
+	Longest Record: 61
+	Fixed Control Size: 2
+	Blocks Allocated: 16, Default Extend Size: 0
+	End-of-File VBN: 3, Offset: %X'018C'
+	File Monitoring: disabled
+	File Length Hint (Record Count):    20
+	File Length Hint (Data Byte Count): 1220
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK VFCBLK.DAT
+
+Check RMS File Integrity                      7-OCT-2026 00:50:14.05   Page 1
+DKA200:[T.RMSBLK]VARLONG.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.RMSBLK]VARLONG.DAT;1
+	File ID: (24,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 00:50:13.74
+	Revision Date:    7-OCT-2026 00:50:13.75, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: sequential
+	Record Format: variable
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 0
+	Longest Record: 1100
+	Blocks Allocated: 16, Default Extend Size: 0
+	End-of-File VBN: 5, Offset: %X'0040'
+	File Monitoring: disabled
+	File Length Hint (Record Count):    4
+	File Length Hint (Data Byte Count): 2103
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK VARLONG.DAT
+
+Check RMS File Integrity                      7-OCT-2026 00:50:14.08   Page 1
+DKA200:[T.RMSBLK]FTN.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.RMSBLK]FTN.DAT;1
+	File ID: (25,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 00:50:13.77
+	Revision Date:    7-OCT-2026 00:50:13.78, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: sequential
+	Record Format: variable
+	Record Attributes:  fortran 
+	Maximum Record Size: 0
+	Longest Record: 7
+	Blocks Allocated: 16, Default Extend Size: 0
+	End-of-File VBN: 1, Offset: %X'0038'
+	File Monitoring: disabled
+	File Length Hint (Record Count):    7
+	File Length Hint (Data Byte Count): 37
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK FTN.DAT
