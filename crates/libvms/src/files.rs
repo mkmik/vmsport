@@ -95,3 +95,34 @@ pub fn io_status(e: std::io::Error) -> Cond {
         _ => status::RER,
     }
 }
+
+/// What DIRECTORY shows about a file.
+pub struct Info {
+    /// Blocks up to the end of file.
+    pub used: u64,
+    /// Blocks the host gave it (at least `used`).
+    pub allocated: u64,
+    /// VMS times.
+    pub created: i64,
+    pub revised: i64,
+    pub fab: Fab,
+}
+
+pub fn info(path: &Path) -> Result<Info, Cond> {
+    use std::os::unix::fs::MetadataExt;
+    let m = std::fs::metadata(path).map_err(io_status)?;
+    let used = m.len().div_ceil(512);
+    let revised = m.modified().map(sys::vms_time).unwrap_or(0);
+    Ok(Info {
+        used,
+        allocated: (m.blocks() * 512 / 512).max(used),
+        created: m.created().map(sys::vms_time).unwrap_or(revised),
+        revised,
+        fab: fab(path),
+    })
+}
+
+/// Deletes one file (one version).
+pub fn delete(path: &Path) -> Result<(), Cond> {
+    std::fs::remove_file(path).map_err(io_status)
+}

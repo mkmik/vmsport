@@ -91,6 +91,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "vms-utils"
+version = "0.1.0"
+dependencies = [
+ "libvms",
+ "vms-cld",
+ "vms-cond",
+ "vms-fao",
+ "vms-filespec",
+ "vms-msg",
+ "vms-rms",
+ "vms-time",
+ "vmsportd",
+]
+
+[[package]]
 name = "vmsport"
 version = "0.1.0"
 dependencies = [

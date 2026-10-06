@@ -1,0 +1,5 @@
+! DIRECTORY's own messages (numbers are vmsport's).
+	.TITLE		DIRECT	DIRECTORY messages
+	.FACILITY	DIRECT,121 /SYSTEM
+	.SEVERITY	WARNING
+NOFILES		<no files found>

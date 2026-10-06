@@ -1,0 +1,5 @@
+# The cases run in [.W], so the procedure and its log aren't in the listings.
+in UTILS.COM
+run CREATE/DIRECTORY [.W]
+run @UTILS.COM/OUTPUT=UTILS.LOG
+text UTILS.LOG recorded/utils.log

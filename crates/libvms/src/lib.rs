@@ -33,6 +33,25 @@ pub mod status {
     pub const WER: Cond = Cond(0x1C112);
 }
 
+/// The `.MSG` source of the system messages: every file in
+/// `$VMSPORT/sys/SYSMSG`, SYSMSG.MSG first.
+pub fn system_messages() -> String {
+    let dir = vmsport().join("sys/SYSMSG");
+    let mut files: Vec<PathBuf> = std::fs::read_dir(dir)
+        .into_iter()
+        .flatten()
+        .flatten()
+        .map(|e| e.path())
+        .filter(|p| p.extension().is_some_and(|e| e.eq_ignore_ascii_case("msg")))
+        .collect();
+    files.sort_by_key(|p| (!p.ends_with("SYSMSG.MSG"), p.clone()));
+    files
+        .iter()
+        .filter_map(|p| std::fs::read_to_string(p).ok())
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
 /// The physical device that is the host's `/`.
 pub const HOST_DEVICE: &str = "HOST";
 
@@ -272,15 +291,23 @@ impl Session {
                         std::cmp::Reverse(b.2),
                     ))
             });
+            // Position of each entry among its name's versions, newest first.
             let mut last: Option<(String, String)> = None;
+            let mut nth = 0;
             for (n, t, v, host) in files {
                 let key = (n.to_uppercase(), t.to_uppercase());
+                nth = if last.as_ref() == Some(&key) {
+                    nth + 1
+                } else {
+                    0
+                };
+                last = Some(key);
                 let keep = match spec.version {
                     Some(Version::Wildcard) => true,
                     Some(Version::Number(x)) if x > 0 => v == x as u32,
-                    _ => last.as_ref() != Some(&key),
+                    Some(Version::Number(x)) if x < 0 => nth == (-x) as usize,
+                    _ => nth == 0,
                 };
-                last = Some(key);
                 if keep {
                     let mut shown = display.clone();
                     (shown.name, shown.typ, shown.version) =
@@ -313,14 +340,10 @@ impl Session {
         self.searches.get_mut(&stream)?.1.pop()
     }
 
-    /// The system messages: SYS$MESSAGE:SYSMSG.MSG.
+    /// The system messages: every .MSG file in SYS$MESSAGE.
     pub fn catalog(&self) -> vms_msg::Catalog {
         let mut c = vms_msg::Catalog::default();
-        let p = vmsport().join("sys/SYSMSG/SYSMSG.MSG");
-        if let Ok(m) = std::fs::read_to_string(p)
-            .map_err(|_| ())
-            .and_then(|t| vms_msg::compile(&t).map_err(|_| ()))
-        {
+        if let Ok(m) = vms_msg::compile(&system_messages()) {
             c.add_system(m);
         }
         c

@@ -272,6 +272,8 @@ pub struct Dcl {
     exiting: Option<(Cond, usize)>,
     /// $STATUS's message was shown already (by DCL or an image).
     shown: bool,
+    /// The command just run showed its status itself.
+    just_shown: bool,
 }
 
 impl Dcl {
@@ -301,6 +303,7 @@ impl Dcl {
             files: HashMap::new(),
             exiting: None,
             shown: false,
+            just_shown: false,
         }
     }
 
@@ -437,7 +440,7 @@ impl Dcl {
         let result = self.substitute(line).and_then(|l| self.dispatch(&l));
         match result {
             Ok(Some(st)) => {
-                self.shown = st.inhibit_msg();
+                self.shown = st.inhibit_msg() || std::mem::take(&mut self.just_shown);
                 self.after(st);
             }
             Ok(None) => {}
@@ -642,13 +645,16 @@ impl Dcl {
             (None, Some(image)) => {
                 let cld = self.verb_tables(&r.verb);
                 let out = self.outputs[self.frames.last().map_or(0, |f| f.output)].host_file();
-                let st = self.host.run_image(&image, &cld, &r.line, out);
+                // The image parses the command itself: the line as typed, since
+                // $LINE has lost the quotes around untyped values.
+                let st = self.host.run_image(&image, &cld, line, out);
+                // A failure the image didn't show itself, DCL shows.
                 if !st.is_success() && !st.inhibit_msg() {
                     let m = self.message(st);
                     for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
                         self.print(&l);
                     }
-                    return Ok(Some(Cond(st.0 | 0x1000_0000)));
+                    self.just_shown = true;
                 }
                 Ok(Some(st))
             }
