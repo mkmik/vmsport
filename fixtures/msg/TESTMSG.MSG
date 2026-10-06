@@ -1,0 +1,37 @@
+! Test messages for vmsport, compiled by the VMS MESSAGE utility to record
+! the codes, symbols and texts that vms-msg must reproduce.
+	.TITLE		VPTMSG	vmsport test messages
+	.IDENT		'V1.0'
+
+	.FACILITY	VPT,1234 /PREFIX=VPT__
+	.SEVERITY	SUCCESS
+NORMAL		<normal successful completion>
+	.SEVERITY	INFORMATIONAL
+CREATED		<!AS created> /FAO_COUNT=1
+	.SEVERITY	WARNING
+NOFILES		<no files found matching !AS> /FAO=1
+	.SEVERITY	ERROR
+BADVAL		<bad value !UL, expected !UL to !UL> /FAO_COUNT=3
+	.BASE		100
+OPENIN		<error opening !AS as input>/FAO=1
+	.SEVERITY	FATAL
+BUGCHECK	"internal consistency failure" /IDENTIFICATION=BUG
+	.SEVERITY	WARNING
+QUOTED		<text with "quotes" and 'apostrophes'>
+EXPLICIT	<explicit severity> /ERROR
+INFO2		<explicit info> /INFORMATIONAL
+SEVERE2		<explicit severe> /SEVERE
+EMPTY		<>
+	.LITERAL	VPT__MAXLEN=255
+	.LITERAL	VPT__TWICE=VPT__MAXLEN*2
+
+	.FACILITY	OTHER,77 /SYSTEM
+	.SEVERITY	ERROR
+SYSMSG		<system-style message, no facility-specific bit>
+	.BASE		5
+FIVE		<base five>
+
+	.FACILITY	THIRD,2047
+	.SEVERITY	SUCCESS
+FIRST		<first in a facility without a prefix>
+	.END

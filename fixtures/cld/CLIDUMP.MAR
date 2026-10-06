@@ -1,0 +1,191 @@
+	.TITLE	CLIDUMP	Print what CLI$PRESENT and CLI$GET_VALUE return
+	.IDENT	/V1.0/
+;
+; For every entity in NAMES: first CLI$PRESENT for all of them, then
+; CLI$GET_VALUE until it fails. After each value of a parameter, CLI$PRESENT
+; for the qualifiers in LOCALS shows local and positional placement.
+; Statuses print in hex. DOPRES and DOGETV establish LIB$SIG_TO_RET, so a
+; signal (an entity this syntax doesn't define) returns from them as a status.
+
+	.PSECT	$DATA,WRT,NOEXE,LONG
+
+; Entries: flag byte (1 = parameter), .ASCIC name. Ends with flag 255.
+NAMES:	.BYTE	0
+	.ASCIC	/$VERB/
+	.BYTE	0
+	.ASCIC	/$LINE/
+	.BYTE	1
+	.ASCIC	/INPUT/
+	.BYTE	1
+	.ASCIC	/OUTPUT/
+	.BYTE	1
+	.ASCIC	/TARGET/
+	.BYTE	1
+	.ASCIC	/TEXT/
+	.BYTE	1
+	.ASCIC	/FILES/
+	.BYTE	1
+	.ASCIC	/TITLE/
+	.BYTE	0
+	.ASCIC	/LOG/
+	.BYTE	0
+	.ASCIC	/CONFIRM/
+	.BYTE	0
+	.ASCIC	/COUNT/
+	.BYTE	0
+	.ASCIC	/NAME/
+	.BYTE	0
+	.ASCIC	/LIST/
+	.BYTE	0
+	.ASCIC	/STYLE/
+	.BYTE	0
+	.ASCIC	/STYLE.BRIEF/
+	.BYTE	0
+	.ASCIC	/STYLE.FULL/
+	.BYTE	0
+	.ASCIC	/STYLE.COLUMNS/
+	.BYTE	0
+	.ASCIC	/STYLE.HEADER/
+	.BYTE	0
+	.ASCIC	/OUT/
+	.BYTE	0
+	.ASCIC	/SINCE/
+	.BYTE	0
+	.ASCIC	/BEFORE/
+	.BYTE	0
+	.ASCIC	/EXCLUDE/
+	.BYTE	0
+	.ASCIC	/BINARY/
+	.BYTE	0
+	.ASCIC	/DELETE/
+	.BYTE	0
+	.ASCIC	/ALL/
+	.BYTE	0
+	.ASCIC	/WIDTH/
+	.BYTE	0
+	.ASCIC	/PAGE/
+	.BYTE	0
+	.ASCIC	/PAGE.NONE/
+	.BYTE	0
+	.ASCIC	/PAGE.SIZE/
+	.BYTE	255
+
+; Qualifiers checked after each parameter value. Ends with a zero byte.
+LOCALS:	.ASCIC	/EXCLUDE/
+	.ASCIC	/BINARY/
+	.ASCIC	/LOG/
+	.BYTE	0
+
+NAMDSC:	.WORD	0
+	.BYTE	14, 1			; DSC$K_DTYPE_T, DSC$K_CLASS_S
+	.LONG	0
+LOCDSC:	.WORD	0
+	.BYTE	14, 1
+	.LONG	0
+VALBUF:	.BLKB	256
+VALDSC:	.WORD	256
+	.BYTE	14, 1
+	.ADDRESS VALBUF
+VALLEN:	.WORD	0
+OUTBUF:	.BLKB	512
+OUTDSC:	.WORD	512
+	.BYTE	14, 1
+	.ADDRESS OUTBUF
+OUTLEN:	.WORD	0
+	.WORD	0
+PRTDSC:	.WORD	0
+	.BYTE	14, 1
+	.ADDRESS OUTBUF
+
+CTLPRE:	.ASCID	/!AS present=!XL/
+CTLVAL:	.ASCID	/!AS value="!AD" status=!XL/
+CTLEND:	.ASCID	/!AS end=!XL/
+CTLLOC:	.ASCID	/!AS   local !AS=!XL/
+
+; PRINT ctl, p1, p2, p3, p4: $FAO into OUTBUF and write it to SYS$OUTPUT.
+	.MACRO	PRINT	CTL, A1=#0, A2=#0, A3=#0, A4=#0
+	$FAO_S	CTRSTR=CTL, OUTLEN=OUTLEN, OUTBUF=OUTDSC, -
+		P1=A1, P2=A2, P3=A3, P4=A4
+	MOVW	OUTLEN, PRTDSC
+	PUSHAQ	PRTDSC
+	CALLS	#1, G^LIB$PUT_OUTPUT
+	.ENDM	PRINT
+
+	.PSECT	$CODE,EXE,NOWRT,LONG
+
+	.ENTRY	START, ^M<R2,R3,R4,R5,R6,R7,R8,R9>
+
+; Pass 1: CLI$PRESENT for every name.
+	MOVAB	NAMES, R6
+10$:	CMPB	(R6)+, #255
+	BEQL	20$
+	MOVZBW	(R6), NAMDSC
+	MOVAB	1(R6), NAMDSC+4
+	MOVZBL	(R6), R0
+	ADDL2	R0, R6
+	INCL	R6
+	PUSHAQ	NAMDSC
+	CALLS	#1, DOPRES
+	MOVL	R0, R8
+	PRINT	CTLPRE, A1=#NAMDSC, A2=R8
+	BRW	10$
+
+; Pass 2: CLI$GET_VALUE until it fails, at most 16 times.
+20$:	MOVAB	NAMES, R6
+30$:	MOVZBL	(R6)+, R9		; R9 = parameter flag
+	CMPL	R9, #255
+	BNEQ	31$
+	MOVL	#1, R0
+	RET
+31$:	MOVZBW	(R6), NAMDSC
+	MOVAB	1(R6), NAMDSC+4
+	MOVZBL	(R6), R0
+	ADDL2	R0, R6
+	INCL	R6
+	MOVL	#16, R7
+40$:	PUSHAW	VALLEN
+	PUSHAQ	VALDSC
+	PUSHAQ	NAMDSC
+	CALLS	#3, DOGETV
+	BLBC	R0, 60$
+	MOVL	R0, R8
+	MOVZWL	VALLEN, R2
+	PRINT	CTLVAL, A1=#NAMDSC, A2=R2, A3=#VALBUF, A4=R8
+	BLBC	R9, 50$
+; Local qualifiers after a parameter value.
+	MOVAB	LOCALS, R5
+45$:	TSTB	(R5)
+	BEQL	50$
+	MOVZBW	(R5), LOCDSC
+	MOVAB	1(R5), LOCDSC+4
+	MOVZBL	(R5), R0
+	ADDL2	R0, R5
+	INCL	R5
+	PUSHAQ	LOCDSC
+	CALLS	#1, DOPRES
+	MOVL	R0, R8
+	PRINT	CTLLOC, A1=#NAMDSC, A2=#LOCDSC, A3=R8
+	BRB	45$
+50$:	SOBGTR	R7, 40$
+	BRW	30$
+60$:	MOVL	R0, R8
+	PRINT	CTLEND, A1=#NAMDSC, A2=R8
+	BRW	30$
+
+; DOPRES name: CLI$PRESENT, a signal returned as the status.
+	.ENTRY	DOPRES, ^M<>
+	MOVAB	G^LIB$SIG_TO_RET, (FP)
+	PUSHL	4(AP)
+	CALLS	#1, G^CLI$PRESENT
+	RET
+
+; DOGETV name, buffer, length: CLI$GET_VALUE, a signal returned as the status.
+	.ENTRY	DOGETV, ^M<>
+	MOVAB	G^LIB$SIG_TO_RET, (FP)
+	PUSHL	12(AP)
+	PUSHL	8(AP)
+	PUSHL	4(AP)
+	CALLS	#3, G^CLI$GET_VALUE
+	RET
+
+	.END	START

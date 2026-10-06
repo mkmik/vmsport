@@ -1,0 +1,4 @@
+[package]
+name = "vms-fao"
+edition.workspace = true
+version.workspace = true

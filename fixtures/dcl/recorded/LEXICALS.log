@@ -1,0 +1,31 @@
+[Hello,  World!]
+[ Hello, World! ]
+[HELLO,WORLD!]
+[a]
+[mixed]
+18 10 18
+[Hello] [!  ]
+[]
+ac,
+12 31 1
+0 -5 x
+%DCL-W-SYMDEL, invalid symbol or value delimiter - check command syntax
+65 -1
+list has 3 items
+X .Y ;3 [A.B]
+DKA100:[C]X.TXT;
+A^.B .C
+DKA200:[T]A^.B^.C.D;
+NODE::
+[X]
+[T.X]
+|
+2000-01-01 10:20:30.40
+Saturday
+29-FEB-2000
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-2000 10:20 +2-03:00\
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \1-JAN-2000\
+%RMS-E-FNF, file not found
+%SYSTEM-W-BADPARAM, bad parameter value

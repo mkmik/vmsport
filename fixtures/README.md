@@ -1,0 +1,24 @@
+# Fixtures recorded on real OpenVMS
+
+What VMS does, recorded on OpenVMS Alpha V8.4-2L1 in the AXPbox emulator.
+The vmsport crates are tested against these. The inputs were written for vmsport;
+`recorded/` holds what VMS made of them.
+
+| Dir | Input | Recorded |
+| --- | --- | --- |
+| `msg/` | `TESTMSG.MSG`, `msg.com` | MESSAGE's listing and SDL, `F$MESSAGE` for every code, how DCL shows exit statuses |
+| `fao/` | `cases.txt` (`gen.py` makes `fao.com`) | `F$FAO` results |
+| `cld/` | `VPTEST.CLD`, `cases.txt` (`gen.py` makes `cld.com`), `CLIDUMP.MAR` | what `CLI$PRESENT`/`CLI$GET_VALUE` return per command line, or DCL's error |
+| `rms/` | `*.FDL`, `rms.com` | one RMS file per organization and record format (`.DAT`, raw blocks), `ANALYZE/RMS_FILE` output, record attributes in `ods-manifest.json` |
+| `dcl/` | `*.COM` | the procedures' output |
+
+To record again (about 5 minutes; needs vaxpunk at `$VAXPUNK`, default `~/p/vaxpunk`,
+and its `ods` tool):
+
+```sh
+ODS=path/to/ods fixtures/vms/record.py
+```
+
+Statuses in `cld/recorded/cld.log`: 3FD19 PRESENT, 3FD21 DEFAULTED, 3FD29 CONCAT,
+3FD31 LOCPRES, 3FD39 COMMA, 381F0 ABSENT, 381F8 NEGATED, 38230 LOCNEG, and 310FC for
+an entity that the current syntax doesn't define.

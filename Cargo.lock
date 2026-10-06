@@ -3,9 +3,21 @@
 version = 4
 
 [[package]]
+name = "vms-cld"
+version = "0.1.0"
+
+[[package]]
 name = "vms-cond"
 version = "0.1.0"
 
 [[package]]
+name = "vms-fao"
+version = "0.1.0"
+
+[[package]]
 name = "vms-filespec"
+version = "0.1.0"
+
+[[package]]
+name = "vms-msg"
 version = "0.1.0"
