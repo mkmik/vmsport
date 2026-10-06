@@ -258,7 +258,7 @@ impl Session {
     pub fn search_all(&self, spec: &FileSpec) -> Result<Vec<(PathBuf, FileSpec)>, Cond> {
         let mut out = Vec::new();
         let mut any_dir = false;
-        for (display, dir) in self.locate(spec)? {
+        for (display, dir) in self.wild_dirs(spec)? {
             let Ok(entries) = std::fs::read_dir(&dir) else {
                 continue;
             };
@@ -321,6 +321,31 @@ impl Session {
         }
         if !any_dir {
             return Err(status::DNF);
+        }
+        Ok(out)
+    }
+
+    /// The directories a spec with directory wildcards names (`[...]`,
+    /// `[*]`, `[A%.B...]`): the directory itself, then those below, depth
+    /// first, sorted.
+    fn wild_dirs(&self, spec: &FileSpec) -> Result<Vec<(FileSpec, PathBuf)>, Cond> {
+        let Some(d) = &spec.directory else {
+            return self.locate(spec);
+        };
+        let Some(i) = d
+            .parts
+            .iter()
+            .position(|p| p == "..." || p.contains(['*', '%']))
+        else {
+            return self.locate(spec);
+        };
+        let mut base = spec.clone();
+        if let Some(bd) = base.directory.as_mut() {
+            bd.parts.truncate(i);
+        }
+        let mut out = Vec::new();
+        for (display, path) in self.locate(&base)? {
+            expand_dirs(&display, &path, &d.parts[i..], &mut out);
         }
         Ok(out)
     }
@@ -394,6 +419,58 @@ fn case_blind(dir: PathBuf, name: &str) -> PathBuf {
         .flatten()
         .find(|e| e.file_name().to_string_lossy().eq_ignore_ascii_case(name));
     found.map_or(exact, |e| e.path())
+}
+
+/// The subdirectories of `path` matching `pat` (directory components,
+/// `...` for any depth), appended to `out` with their specs.
+fn expand_dirs(
+    display: &FileSpec,
+    path: &Path,
+    pat: &[String],
+    out: &mut Vec<(FileSpec, PathBuf)>,
+) {
+    let Some((head, rest)) = pat.split_first() else {
+        out.push((display.clone(), path.to_path_buf()));
+        return;
+    };
+    let below = |name: &str| {
+        let mut d = display.clone();
+        if let Some(dir) = d.directory.as_mut() {
+            dir.parts.push(name.to_string());
+        }
+        d
+    };
+    let mut subdirs: Vec<(String, PathBuf)> = std::fs::read_dir(path)
+        .into_iter()
+        .flatten()
+        .flatten()
+        .filter(|e| e.file_type().is_ok_and(|t| t.is_dir()))
+        .map(|e| {
+            (
+                vms_filespec::escape(&e.file_name().to_string_lossy()),
+                e.path(),
+            )
+        })
+        .collect();
+    subdirs.sort_by_key(|s| s.0.to_uppercase());
+    if head == "..." {
+        expand_dirs(display, path, rest, out);
+        for (name, p) in subdirs {
+            expand_dirs(&below(&name), &p, pat, out);
+        }
+    } else if head.contains(['*', '%']) {
+        for (name, p) in subdirs
+            .into_iter()
+            .filter(|(n, _)| wild(&n.to_uppercase(), &head.to_uppercase()))
+        {
+            expand_dirs(&below(&name), &p, rest, out);
+        }
+    } else if let Ok(host) = vms_filespec::unescape(head) {
+        let p = case_blind(path.to_path_buf(), &host);
+        if p.is_dir() {
+            expand_dirs(&below(head), &p, rest, out);
+        }
+    }
 }
 
 /// A host file name as name, type and version: `notes.txt;3`, or
