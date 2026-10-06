@@ -1,7 +1,11 @@
-//! VMS file specifications: `NODE::DEV:[DIR.SUB]NAME.TYP;VER`.
+//! VMS file specifications: `NODE::DEV:[DIR.SUB]NAME.TYP;VER`, with ODS-5
+//! extended names (`^` escapes, multiple dots, 8-bit and Unicode characters).
 //!
-//! Pure parsing and formatting, no host I/O. Case is preserved; comparing
-//! case-insensitively is the caller's job.
+//! Pure parsing and formatting, no host I/O. Name components are kept in
+//! canonical VMS syntax (`a^.b^_c`), so `*` and `%` stay wildcards and a
+//! literal `%` is `^%`. [`unescape`] and [`escape`] convert a component to and
+//! from the host string. Case is preserved; comparing case-insensitively is
+//! the caller's job.
 
 use std::fmt;
 
@@ -21,7 +25,7 @@ pub struct FileSpec {
 pub struct Directory {
     /// Rooted-directory prefix, `[ROOT.]` in `[ROOT.][SUB]`. Empty if not rooted.
     pub root: Vec<String>,
-    /// `[.A]`, `[-]`, `[]`.
+    /// `[.A]`, `[-]`, `[]`, `[...]`.
     pub relative: bool,
     /// Number of leading `-` (parent) steps.
     pub up: usize,
@@ -48,68 +52,201 @@ impl fmt::Display for Error {
 
 impl std::error::Error for Error {}
 
-// ponytail: ODS-2 charset plus wildcards, case preserved. ODS-5 `^` escapes
-// (spaces, extra dots, unicode) are not parsed yet; add when host names need them.
-fn is_name_char(c: char) -> bool {
-    c.is_ascii_alphanumeric() || matches!(c, '$' | '_' | '-' | '*' | '%')
+/// One input character; `esc` is true if it came from a `^` escape.
+#[derive(Clone, Copy, PartialEq)]
+struct Tok {
+    c: char,
+    esc: bool,
 }
 
-fn check_name(s: &str, what: &'static str) -> Result<(), Error> {
-    if s.chars().all(is_name_char) {
-        Ok(())
-    } else {
-        Err(Error(what))
+impl Tok {
+    fn is(self, c: char) -> bool {
+        !self.esc && self.c == c
     }
+}
+
+fn hex(s: &[char]) -> Option<u32> {
+    let s: String = s.iter().collect();
+    if s.chars().all(|c| c.is_ascii_hexdigit()) {
+        u32::from_str_radix(&s, 16).ok()
+    } else {
+        None
+    }
+}
+
+/// Decodes `^` escapes: `^_` space, `^XX` hex byte (Latin-1), `^Uxxxx`
+/// UCS-2, `^c` any ASCII punctuation.
+fn tokenize(s: &str) -> Result<Vec<Tok>, Error> {
+    let cs: Vec<char> = s.chars().collect();
+    let mut out = Vec::with_capacity(cs.len());
+    let mut i = 0;
+    while i < cs.len() {
+        if cs[i] != '^' {
+            out.push(Tok {
+                c: cs[i],
+                esc: false,
+            });
+            i += 1;
+            continue;
+        }
+        let rest = &cs[i + 1..];
+        let (c, n) = if rest.len() >= 5 && rest[0] == 'U' && hex(&rest[1..5]).is_some() {
+            let c = char::from_u32(hex(&rest[1..5]).unwrap()).ok_or(Error("invalid ^U escape"))?;
+            (c, 5)
+        } else if let Some(b) = rest.get(..2).and_then(hex) {
+            (char::from(b as u8), 2)
+        } else {
+            match rest.first() {
+                Some('_' | ' ') => (' ', 1),
+                Some(&c) if c.is_ascii_punctuation() => (c, 1),
+                _ => return Err(Error("invalid ^ escape")),
+            }
+        };
+        out.push(Tok { c, esc: true });
+        i += 1 + n;
+    }
+    Ok(out)
+}
+
+/// Characters that appear in names without an escape. `*` and `%` are wildcards.
+fn is_plain(c: char) -> bool {
+    c.is_ascii_alphanumeric() || matches!(c, '$' | '_' | '-' | '~') || c as u32 > 0x9f
+}
+
+fn push_escaped(out: &mut String, c: char) {
+    use std::fmt::Write;
+    match c {
+        _ if is_plain(c) => out.push(c),
+        ' ' => out.push_str("^_"),
+        '!' | '#' | '&' | '\'' | '(' | ')' | '+' | ',' | '.' | ';' | '=' | '@' | '[' | ']'
+        | '^' | '`' | '{' | '}' | '%' => {
+            out.push('^');
+            out.push(c);
+        }
+        _ => write!(out, "^{:02X}", c as u32).unwrap(),
+    }
+}
+
+/// Canonical VMS syntax for a component given as tokens.
+fn canon(toks: &[Tok], what: &'static str) -> Result<String, Error> {
+    let mut s = String::new();
+    for t in toks {
+        if t.esc {
+            push_escaped(&mut s, t.c);
+        } else if is_plain(t.c) || t.c == '*' || t.c == '%' {
+            s.push(t.c);
+        } else {
+            return Err(Error(what));
+        }
+    }
+    Ok(s)
+}
+
+/// Host string to canonical VMS syntax, escaping everything special,
+/// including `*` and `%`.
+pub fn escape(host: &str) -> String {
+    let mut s = String::new();
+    for c in host.chars() {
+        push_escaped(&mut s, c);
+    }
+    s
+}
+
+/// Canonical (or any valid) VMS syntax to the host string. Wildcards are
+/// returned as-is.
+pub fn unescape(vms: &str) -> Result<String, Error> {
+    Ok(tokenize(vms)?.into_iter().map(|t| t.c).collect())
+}
+
+fn plain(toks: &[Tok], what: &'static str) -> Result<String, Error> {
+    if toks.iter().any(|t| t.esc) {
+        return Err(Error(what));
+    }
+    Ok(toks.iter().map(|t| t.c).collect())
+}
+
+fn find(toks: &[Tok], pred: impl Fn(char) -> bool) -> Option<usize> {
+    toks.iter().position(|t| !t.esc && pred(t.c))
+}
+
+fn is_version(toks: &[Tok]) -> bool {
+    let s: String = toks
+        .iter()
+        .map(|t| if t.esc { '\0' } else { t.c })
+        .collect();
+    s == "*"
+        || (!s.is_empty()
+            && s.trim_start_matches('-')
+                .chars()
+                .all(|c| c.is_ascii_digit()))
 }
 
 impl std::str::FromStr for FileSpec {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Error> {
+        let all = tokenize(s.trim())?;
+        let mut rest = &all[..];
         let mut spec = FileSpec::default();
-        let mut rest = s.trim();
-        // Node and device only count if they come before the directory.
-        let dir_start = rest.find(['[', '<']).unwrap_or(rest.len());
+        let open = |c| c == '[' || c == '<';
 
-        if let Some(i) = rest[..dir_start].find("::") {
-            check_name(&rest[..i], "invalid node name")?;
-            spec.node = Some(rest[..i].to_string());
+        // Node and device only count if they come before the directory.
+        let dir_start = find(rest, open).unwrap_or(rest.len());
+        if let Some(i) = rest[..dir_start]
+            .windows(2)
+            .position(|w| w[0].is(':') && w[1].is(':'))
+        {
+            spec.node = Some(device_name(&rest[..i], "invalid node name")?);
             rest = &rest[i + 2..];
         }
-        let dir_start = rest.find(['[', '<']).unwrap_or(rest.len());
-        if let Some(i) = rest[..dir_start].find(':') {
-            if i == 0 {
-                return Err(Error("empty device name"));
-            }
-            check_name(&rest[..i], "invalid device name")?;
-            spec.device = Some(rest[..i].to_string());
+        let dir_start = find(rest, open).unwrap_or(rest.len());
+        if let Some(i) = find(&rest[..dir_start], |c| c == ':') {
+            spec.device = Some(device_name(&rest[..i], "invalid device name")?);
             rest = &rest[i + 1..];
         }
-        if rest.starts_with(['[', '<']) {
+        if rest.first().is_some_and(|t| !t.esc && open(t.c)) {
             let (dir, after) = parse_directory(rest)?;
             spec.directory = Some(dir);
             rest = after;
         }
 
-        let (body, ver) = match rest.split_once(';') {
-            Some((b, v)) => (b, Some(v)),
+        let (body, ver) = match find(rest, |c| c == ';') {
+            Some(i) => (&rest[..i], Some(&rest[i + 1..])),
             None => (rest, None),
         };
-        let mut dots = body.splitn(3, '.');
-        spec.name = dots.next().unwrap_or("").to_string();
-        check_name(&spec.name, "invalid file name")?;
-        if let Some(t) = dots.next() {
-            check_name(t, "invalid file type")?;
-            spec.typ = Some(t.to_string());
-        }
-        let ver = match (dots.next(), ver) {
-            (Some(_), Some(_)) => return Err(Error("two versions")),
-            (Some(v), None) | (None, Some(v)) => Some(v),
-            (None, None) => None,
+        let dots: Vec<usize> = (0..body.len()).filter(|&i| body[i].is('.')).collect();
+        let (body, ver) = match (ver, dots.as_slice()) {
+            // Old-style NAME.TYP.VER.
+            (None, [_, .., v]) if is_version(&body[v + 1..]) => (&body[..*v], Some(&body[v + 1..])),
+            _ => (body, ver),
         };
-        spec.version = ver.map(parse_version).transpose()?;
+        let mut body = body.to_vec();
+        // ODS-5: the last dot starts the type; earlier dots belong to the name.
+        let typ_dot = (0..body.len()).rev().find(|&i| body[i].is('.'));
+        if let Some(t) = typ_dot {
+            for tok in &mut body[..t] {
+                tok.esc |= tok.c == '.';
+            }
+            spec.typ = Some(canon(&body[t + 1..], "invalid file type")?);
+        }
+        spec.name = canon(&body[..typ_dot.unwrap_or(body.len())], "invalid file name")?;
+        spec.version = ver
+            .map(|v| parse_version(&plain(v, "invalid version")?))
+            .transpose()?;
         Ok(spec)
     }
+}
+
+fn device_name(toks: &[Tok], what: &'static str) -> Result<String, Error> {
+    let s = plain(toks, what)?;
+    if s.is_empty()
+        || !s
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || c == '$' || c == '_')
+    {
+        return Err(Error(what));
+    }
+    Ok(s)
 }
 
 fn parse_version(v: &str) -> Result<Version, Error> {
@@ -130,9 +267,11 @@ fn parse_version(v: &str) -> Result<Version, Error> {
 
 /// Parses `[...]` (or `<...>`), plus a following group when the first is a
 /// root (`[A.][B]`). Returns the rest of the input.
-fn parse_directory(s: &str) -> Result<(Directory, &str), Error> {
+fn parse_directory(s: &[Tok]) -> Result<(Directory, &[Tok]), Error> {
     let (first, rest) = bracket(s)?;
-    if first.ends_with('.') && rest.starts_with(['[', '<']) {
+    if first.last().is_some_and(|t| t.is('.'))
+        && rest.first().is_some_and(|t| t.is('[') || t.is('<'))
+    {
         let (second, rest) = bracket(rest)?;
         let root = parse_dir_body(&first[..first.len() - 1])?;
         if root.relative || root.up > 0 {
@@ -145,64 +284,59 @@ fn parse_directory(s: &str) -> Result<(Directory, &str), Error> {
     Ok((parse_dir_body(first)?, rest))
 }
 
-fn bracket(s: &str) -> Result<(&str, &str), Error> {
-    let close = if s.starts_with('[') { ']' } else { '>' };
-    let end = s.find(close).ok_or(Error("unterminated directory"))?;
+fn bracket(s: &[Tok]) -> Result<(&[Tok], &[Tok]), Error> {
+    let close = if s[0].is('[') { ']' } else { '>' };
+    let end = find(s, |c| c == close).ok_or(Error("unterminated directory"))?;
     Ok((&s[1..end], &s[end + 1..]))
 }
 
-fn parse_dir_body(body: &str) -> Result<Directory, Error> {
+fn parse_dir_body(body: &[Tok]) -> Result<Directory, Error> {
     let mut dir = Directory::default();
-    // Split on '.', keeping "..." as a component.
-    let mut parts = Vec::new();
-    let mut cur = String::new();
-    let mut chars = body.chars().peekable();
+    // Split on unescaped '.', keeping "..." as a component.
+    let mut parts: Vec<Option<&[Tok]>> = Vec::new(); // None is "..."
     let mut leading_dot = false;
-    while let Some(c) = chars.next() {
-        if c != '.' {
-            cur.push(c);
+    let (mut i, mut start) = (0, 0);
+    while i < body.len() {
+        if !body[i].is('.') {
+            i += 1;
             continue;
         }
-        let mut n = 1;
-        while chars.peek() == Some(&'.') {
-            chars.next();
-            n += 1;
-        }
+        let n = body[i..].iter().take_while(|t| t.is('.')).count();
+        let cur = &body[start..i];
         match n {
             1 if parts.is_empty() && cur.is_empty() => leading_dot = true,
-            1 if !cur.is_empty() => parts.push(std::mem::take(&mut cur)),
+            1 if !cur.is_empty() => parts.push(Some(cur)),
             3 => {
                 if !cur.is_empty() {
-                    parts.push(std::mem::take(&mut cur));
+                    parts.push(Some(cur));
                 }
-                parts.push("...".to_string());
+                parts.push(None);
             }
             _ => return Err(Error("invalid directory")),
         }
+        i += n;
+        start = i;
     }
-    if !cur.is_empty() {
-        parts.push(cur);
-    } else if body.ends_with('.') && !body.ends_with("...") {
+    if start < body.len() {
+        parts.push(Some(&body[start..]));
+    } else if body.last().is_some_and(|t| t.is('.')) && parts.last() != Some(&None) {
         return Err(Error("invalid directory"));
     }
 
     // Leading "-" / "--" / "-.-" steps up.
-    let ups = parts
-        .iter()
-        .take_while(|p| p.chars().all(|c| c == '-'))
-        .count();
+    let is_up = |p: &Option<&[Tok]>| p.is_some_and(|p| p.iter().all(|t| t.is('-')));
+    let ups = parts.iter().take_while(|p| is_up(p)).count();
     if leading_dot && ups > 0 {
         return Err(Error("invalid directory"));
     }
-    dir.up = parts[..ups].iter().map(String::len).sum();
-    parts.drain(..ups);
-    for p in &parts {
-        if p != "..." {
-            check_name(p, "invalid directory name")?;
-        }
+    dir.up = parts[..ups].iter().map(|p| p.unwrap().len()).sum();
+    dir.relative = leading_dot || dir.up > 0 || body.is_empty() || parts.first() == Some(&None);
+    for p in &parts[ups..] {
+        dir.parts.push(match p {
+            Some(p) => canon(p, "invalid directory name")?,
+            None => "...".to_string(),
+        });
     }
-    dir.relative = leading_dot || dir.up > 0 || (parts.is_empty() && body.is_empty());
-    dir.parts = parts;
     Ok(dir)
 }
 
@@ -292,11 +426,11 @@ mod tests {
         assert_eq!(p("A.B;").version, Some(Version::Number(0)));
         assert_eq!(p("A.B;*").version, Some(Version::Wildcard));
         assert_eq!(p("A.B.7").version, Some(Version::Number(7)));
+        assert_eq!(p("*.*.*").version, Some(Version::Wildcard));
         assert_eq!(p("A.B").version, None);
-        assert!("A.B;x".parse::<FileSpec>().is_err());
-        assert!("A.B;+1".parse::<FileSpec>().is_err());
-        assert!("A.B;40000".parse::<FileSpec>().is_err());
-        assert!("A.B.1;2".parse::<FileSpec>().is_err());
+        for s in ["A.B;x", "A.B;+1", "A.B;40000", "A.B;^31"] {
+            assert!(s.parse::<FileSpec>().is_err(), "{s} should fail");
+        }
     }
 
     #[test]
@@ -320,6 +454,7 @@ mod tests {
         );
         assert_eq!(p("[--]").directory.unwrap().up, 2);
         assert!(p("[]").directory.unwrap().relative);
+        assert!(p("[...]").directory.unwrap().relative);
         assert!(!p("[000000]").directory.unwrap().relative);
     }
 
@@ -346,6 +481,51 @@ mod tests {
     }
 
     #[test]
+    fn ods5_names() {
+        // Extra dots belong to the name; the last one starts the type.
+        let s = p("archive.tar.gz");
+        assert_eq!(
+            (s.name.as_str(), s.typ.as_deref()),
+            ("archive^.tar", Some("gz"))
+        );
+        assert_eq!(unescape(&s.name).unwrap(), "archive.tar");
+        assert_eq!(p("a.b.c;2").name, "a^.b");
+        // Escapes, normalized to canonical form.
+        let s = p("[my^ dir]My^_File^20x^,1^%.txt");
+        assert_eq!(s.directory.as_ref().unwrap().parts, ["my^_dir"]);
+        assert_eq!(s.name, "My^_File^_x^,1^%");
+        assert_eq!(unescape(&s.name).unwrap(), "My File x,1%");
+        // A literal ^. in a directory name is not a separator.
+        assert_eq!(p("[a^.b.c]").directory.unwrap().parts, ["a^.b", "c"]);
+        // Brackets inside names.
+        assert_eq!(p("[d]x^[1^].y").name, "x^[1^]");
+        // Unicode: ^U escape and raw.
+        assert_eq!(unescape(&p("caf^U00E9.txt").name).unwrap(), "café");
+        assert_eq!(p("café.txt").name, "café");
+        assert_eq!(p("caf^E9.txt").name, "café");
+        assert_eq!(p(".bashrc").typ.as_deref(), Some("bashrc"));
+    }
+
+    #[test]
+    fn escape_round_trip() {
+        for host in [
+            "a b.c",
+            "50%",
+            "x*y",
+            "we:ird?",
+            "tab\there",
+            "^caret",
+            "ok-name_1$",
+        ] {
+            let e = escape(host);
+            assert_eq!(unescape(&e).unwrap(), host, "{e}");
+            assert!(!e.contains('*') && !e.contains(' '), "{e}");
+        }
+        assert_eq!(escape("a b.c"), "a^_b^.c");
+        assert_eq!(escape("x*y"), "x^2Ay");
+    }
+
+    #[test]
     fn round_trip() {
         for s in [
             "NODE::DKA0:[DIR.SUB]NAME.TYP;3",
@@ -359,6 +539,7 @@ mod tests {
             "[000000]",
             "DKA0:[ROOT.][SUB.DIR]",
             "report.txt;3",
+            "[a^.b]x^_y^.z.tar;1",
         ] {
             assert_eq!(p(s).to_string(), s);
         }
@@ -366,7 +547,9 @@ mod tests {
 
     #[test]
     fn errors() {
-        for s in ["[A", "[A..B]", "[A.]", "[.-]", "A B", ":X", "[A]B.C.D.E"] {
+        for s in [
+            "[A", "[A..B]", "[A.]", "[.-]", "A B", ":X", "a^", "a^G", "a^U12", "A,B", "x\"y",
+        ] {
             assert!(s.parse::<FileSpec>().is_err(), "{s} should fail");
         }
     }
