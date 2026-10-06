@@ -350,7 +350,12 @@ impl Directory {
         let mut parts = base.parts.clone();
         parts.truncate(parts.len().saturating_sub(self.up));
         parts.extend(self.parts.iter().cloned());
-        Directory { root: base.root.clone(), relative: false, up: 0, parts }
+        Directory {
+            root: base.root.clone(),
+            relative: false,
+            up: 0,
+            parts,
+        }
     }
 }
 
@@ -363,7 +368,9 @@ impl FileSpec {
         let pick = |f: &dyn Fn(&FileSpec) -> bool| defaults.iter().find(|d| f(d));
         let mut out = self.clone();
         if out.device.is_none() {
-            out.device = pick(&|d| d.device.is_some()).and_then(|d| d.device.clone()).or(current.device.clone());
+            out.device = pick(&|d| d.device.is_some())
+                .and_then(|d| d.device.clone())
+                .or(current.device.clone());
         }
         if out.directory.is_none() {
             out.directory = pick(&|d| d.directory.is_some()).and_then(|d| d.directory.clone());
@@ -371,7 +378,9 @@ impl FileSpec {
         let base = current.directory.clone().unwrap_or_default();
         out.directory = Some(out.directory.map_or(base.clone(), |d| d.resolve(&base)));
         if out.name.is_empty() {
-            out.name = pick(&|d| !d.name.is_empty()).map(|d| d.name.clone()).unwrap_or_default();
+            out.name = pick(&|d| !d.name.is_empty())
+                .map(|d| d.name.clone())
+                .unwrap_or_default();
         }
         if out.typ.is_none() {
             out.typ = pick(&|d| d.typ.is_some()).and_then(|d| d.typ.clone());
@@ -395,7 +404,11 @@ impl FileSpec {
         if let Some(d) = &self.directory {
             s.push_str(&d.to_string());
         }
-        s.push_str(&format!("{}.{};", self.name, self.typ.as_deref().unwrap_or("")));
+        s.push_str(&format!(
+            "{}.{};",
+            self.name,
+            self.typ.as_deref().unwrap_or("")
+        ));
         if let Some(v) = self.version {
             s.push_str(&v.to_string());
         }

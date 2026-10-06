@@ -238,9 +238,7 @@ pub fn parse(tables: &Tables, line: &str) -> Result<ParseResult, Error> {
         match Parser::new(tables, verb, &syntax, &name)?.run(&mut c, &typed_verb, skip)? {
             Run::Done(r) => return Ok(*r),
             Run::Switch(to, at) => {
-                let s = tables
-                    .syntax(&to)
-                    .expect("syntax checked at compile time");
+                let s = tables.syntax(&to).expect("syntax checked at compile time");
                 syntax = effective(verb, s);
                 name = to;
                 skip = at;
@@ -553,7 +551,11 @@ impl Parser {
                 if !self.param_kws[param].is_empty() {
                     let defs = &self.param_kws[param];
                     let (ki, negated) = resolve(defs, &plain).map_err(|e| {
-                        if e.ident == "IVQUAL" { err("IVKEYW", e.token) } else { e }
+                        if e.ident == "IVQUAL" {
+                            err("IVKEYW", e.token)
+                        } else {
+                            e
+                        }
                     })?;
                     if negated && defs[ki].negatable != Some(true) {
                         return Err(err("NOTNEG", Some(plain)));

@@ -99,7 +99,8 @@ fn mode(n: &str) -> Mode {
         [n.parse::<usize>().unwrap_or(2).min(3)]
 }
 
-fn encode(l: &Logical) -> String {
+/// A logical name as one tab-separated line (the protocol's form).
+pub fn encode(l: &Logical) -> String {
     let flags: String = [(l.no_alias, 'a'), (l.confine, 'c'), (l.table, 't')]
         .iter()
         .filter(|f| f.0)
@@ -117,7 +118,8 @@ fn encode(l: &Logical) -> String {
     s
 }
 
-fn decode(fields: &[&str]) -> Option<Logical> {
+/// [`encode`]'s fields back to a logical name.
+pub fn decode(fields: &[&str]) -> Option<Logical> {
     let [name, m, flags, equivs @ ..] = fields else {
         return None;
     };

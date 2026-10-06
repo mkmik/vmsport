@@ -3,6 +3,28 @@
 version = 4
 
 [[package]]
+name = "libc"
+version = "0.2.190"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce5d3ddc6d3fa000eb1536d85e147bfe31aacaba692ed6a876f95cb7c855be78"
+
+[[package]]
+name = "libvms"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "vms-cld",
+ "vms-cond",
+ "vms-fao",
+ "vms-filespec",
+ "vms-lnm",
+ "vms-msg",
+ "vms-rms",
+ "vms-time",
+ "vmsportd",
+]
+
+[[package]]
 name = "vms-cld"
 version = "0.1.0"
 dependencies = [
@@ -17,12 +39,16 @@ version = "0.1.0"
 name = "vms-dcl"
 version = "0.1.0"
 dependencies = [
+ "libvms",
  "vms-cld",
  "vms-cond",
  "vms-fao",
  "vms-filespec",
+ "vms-lnm",
  "vms-msg",
+ "vms-rms",
  "vms-time",
+ "vmsportd",
 ]
 
 [[package]]

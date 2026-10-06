@@ -1,0 +1,16 @@
+[package]
+name = "libvms"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+libc = "0.2"
+vms-cond = { path = "../vms-cond" }
+vms-filespec = { path = "../vms-filespec" }
+vms-lnm = { path = "../vms-lnm" }
+vms-rms = { path = "../vms-rms" }
+vms-msg = { path = "../vms-msg" }
+vms-cld = { path = "../vms-cld" }
+vms-time = { path = "../vms-time" }
+vmsportd = { path = "../vmsportd" }
+vms-fao = { path = "../vms-fao" }
