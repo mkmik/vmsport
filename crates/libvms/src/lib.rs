@@ -526,3 +526,44 @@ pub fn directory_of(path: &Path) -> Directory {
     let s: FileSpec = vmsportd::host_dir(path, false).parse().unwrap_or_default();
     s.directory.unwrap_or_default()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn host_names() {
+        assert_eq!(split_host("NOTES.TXT;3"), ("NOTES".into(), "TXT".into(), 3));
+        assert_eq!(
+            split_host("archive.tar.gz"),
+            ("archive.tar".into(), "gz".into(), 1)
+        );
+        assert_eq!(split_host("Makefile"), ("Makefile".into(), "".into(), 1));
+        assert_eq!(split_host("odd;name"), ("odd;name".into(), "".into(), 1));
+        assert!(wild("NOTES", "N%TE*") && !wild("NOTES", "N%T"));
+    }
+
+    #[test]
+    fn directory_wildcards() {
+        let root = std::env::temp_dir().join(format!("vpt-wild-{}", std::process::id()));
+        for d in ["A/X", "A/Y/Z", "B"] {
+            std::fs::create_dir_all(root.join(d)).unwrap();
+        }
+        let shown = |pat: &[&str]| {
+            let mut out = Vec::new();
+            let pat: Vec<String> = pat.iter().map(|s| s.to_string()).collect();
+            let top: FileSpec = "HOST:[T]".parse().unwrap();
+            expand_dirs(&top, &root, &pat, &mut out);
+            out.iter()
+                .map(|(d, _)| d.directory.clone().unwrap().to_string())
+                .collect::<Vec<_>>()
+        };
+        assert_eq!(
+            shown(&["..."]),
+            ["[T]", "[T.A]", "[T.A.X]", "[T.A.Y]", "[T.A.Y.Z]", "[T.B]"]
+        );
+        assert_eq!(shown(&["A", "*"]), ["[T.A.X]", "[T.A.Y]"]);
+        assert_eq!(shown(&["%"]), ["[T.A]", "[T.B]"]);
+        std::fs::remove_dir_all(root).unwrap();
+    }
+}
