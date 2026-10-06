@@ -600,7 +600,17 @@ impl Dcl {
             (None, Some(image)) => {
                 let cld = self.verb_tables(&r.verb);
                 let out = self.outputs[self.frames.last().map_or(0, |f| f.output)].host_file();
-                Ok(Some(self.host.run_image(&image, &cld, &r.line, out)))
+                // The image parses the command itself: the line as typed, since
+                // $LINE has lost the quotes around untyped values.
+                let st = self.host.run_image(&image, &cld, line, out);
+                // A failure the image didn't show itself, DCL shows.
+                if !st.is_success() && !st.inhibit_msg() {
+                    let m = self.message(st);
+                    for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
+                        self.print(&l);
+                    }
+                }
+                Ok(Some(st))
             }
             _ => Err(DclError::with("IVVERB", &r.verb)),
         }

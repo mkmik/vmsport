@@ -105,7 +105,7 @@ impl Host for RealHost {
     }
 
     fn system_messages(&mut self) -> String {
-        std::fs::read_to_string(libvms::vmsport().join("sys/SYSMSG/SYSMSG.MSG")).unwrap_or_default()
+        libvms::system_messages()
     }
 
     fn open(

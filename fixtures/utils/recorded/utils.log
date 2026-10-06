@@ -1,0 +1,631 @@
+@@ DIRECTORY
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             B.DAT;1            
+C.LIS;1             EMPTY.TXT;1         LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+
+Total of 7 files.
+status 00000001
+@@ DIRECTORY *.TXT
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             EMPTY.TXT;1        
+
+Total of 4 files.
+status 00000001
+@@ DIRECTORY A.TXT
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             
+
+Total of 3 files.
+status 00000001
+@@ DIRECTORY A.TXT;2
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;2             
+
+Total of 1 file.
+status 00000001
+@@ DIRECTORY A.TXT;-1
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;2             
+
+Total of 1 file.
+status 00000001
+@@ DIRECTORY A.TXT;0
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             
+
+Total of 1 file.
+status 00000001
+@@ DIRECTORY/VERSIONS=1
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             B.DAT;1             C.LIS;1             EMPTY.TXT;1        
+LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1     
+
+Total of 5 files.
+status 00000001
+@@ DIRECTORY/VERSIONS=2 A.TXT
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             
+
+Total of 2 files.
+status 00000001
+@@ DIRECTORY/SIZE
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3                       1
+A.TXT;2                       1
+A.TXT;1                       1
+B.DAT;1                       2
+C.LIS;1                       1
+EMPTY.TXT;1                   0
+LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+                              1
+
+Total of 7 files, 7 blocks.
+status 00000001
+@@ DIRECTORY/SIZE/TOTAL
+
+Directory DKA200:[T.UTILS.W]
+
+Total of 7 files, 7 blocks.
+status 00000001
+@@ DIRECTORY/TOTAL
+
+Directory DKA200:[T.UTILS.W]
+
+Total of 7 files.
+status 00000001
+@@ DIRECTORY/BRIEF
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             B.DAT;1            
+C.LIS;1             EMPTY.TXT;1         LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+
+Total of 7 files.
+status 00000001
+@@ DIRECTORY/COLUMNS=1
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3            
+A.TXT;2            
+A.TXT;1            
+B.DAT;1            
+C.LIS;1            
+EMPTY.TXT;1        
+LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+
+Total of 7 files.
+status 00000001
+@@ DIRECTORY/COLUMNS=2
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2            
+A.TXT;1             B.DAT;1            
+C.LIS;1             EMPTY.TXT;1        
+LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+
+Total of 7 files.
+status 00000001
+@@ DIRECTORY/COLUMNS=3/SIZE
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3                       1       A.TXT;2                       1       A.TXT;1                       1
+B.DAT;1                       2       C.LIS;1                       1       EMPTY.TXT;1                   0
+LONGER_FILE_NAME_F|           1       
+
+Total of 7 files, 7 blocks.
+status 00000001
+@@ DIRECTORY/DATE
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3               7-OCT-2026 01:07:02.41
+A.TXT;2               7-OCT-2026 01:07:02.40
+A.TXT;1               7-OCT-2026 01:07:02.40
+B.DAT;1               7-OCT-2026 01:07:02.41
+C.LIS;1               7-OCT-2026 01:07:02.45
+EMPTY.TXT;1           7-OCT-2026 01:07:02.46
+LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+                      7-OCT-2026 01:07:02.45
+
+Total of 7 files.
+status 00000001
+@@ DIRECTORY/SIZE/DATE A.TXT
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3                       1   7-OCT-2026 01:07:02.41
+A.TXT;2                       1   7-OCT-2026 01:07:02.40
+A.TXT;1                       1   7-OCT-2026 01:07:02.40
+
+Total of 3 files, 3 blocks.
+status 00000001
+@@ DIRECTORY/NOHEADING
+DKA200:[T.UTILS.W]A.TXT;3
+DKA200:[T.UTILS.W]A.TXT;2
+DKA200:[T.UTILS.W]A.TXT;1
+DKA200:[T.UTILS.W]B.DAT;1
+DKA200:[T.UTILS.W]C.LIS;1
+DKA200:[T.UTILS.W]EMPTY.TXT;1
+DKA200:[T.UTILS.W]LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+
+Total of 7 files.
+status 00000001
+@@ DIRECTORY/NOTRAILING
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             B.DAT;1            
+C.LIS;1             EMPTY.TXT;1         LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+status 00000001
+@@ DIRECTORY/NOHEADING/NOTRAILING/SIZE
+DKA200:[T.UTILS.W]A.TXT;3
+                              1
+DKA200:[T.UTILS.W]A.TXT;2
+                              1
+DKA200:[T.UTILS.W]A.TXT;1
+                              1
+DKA200:[T.UTILS.W]B.DAT;1
+                              2
+DKA200:[T.UTILS.W]C.LIS;1
+                              1
+DKA200:[T.UTILS.W]EMPTY.TXT;1
+                              0
+DKA200:[T.UTILS.W]LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+                              1
+status 00000001
+@@ DIRECTORY/GRAND_TOTAL
+
+Grand total of 1 directory, 7 files.
+status 00000001
+@@ DIRECTORY NOSUCH.*
+%DIRECT-W-NOFILES, no files found
+status 10018290
+@@ DIRECTORY [.NOSUCH]
+%DIRECT-E-OPENIN, error opening DKA200:[T.UTILS.W.NOSUCH]*.*;* as input
+-RMS-E-DNF, directory not found
+-SYSTEM-W-NOSUCHFILE, no such file
+status 1001C04A
+@@ DIRECTORY [-]
+
+Directory DKA200:[T.UTILS]
+
+UTILS.COM;1         UTILS.LOG;1         W.DIR;1             
+
+Total of 3 files.
+status 00000001
+@@ DIRECTORY *.TXT,*.DAT
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             EMPTY.TXT;1        
+B.DAT;1             
+
+Total of 5 files.
+status 00000001
+@@ DIRECTORY [-],[]
+
+Directory DKA200:[T.UTILS]
+
+UTILS.COM;1         UTILS.LOG;1         W.DIR;1             
+
+Total of 3 files.
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             B.DAT;1            
+C.LIS;1             EMPTY.TXT;1         LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+
+Total of 7 files.
+
+Grand total of 2 directories, 10 files.
+status 00000001
+@@ DIRECTORY [-]*.DIR,[]A.TXT
+
+Directory DKA200:[T.UTILS]
+
+W.DIR;1             
+
+Total of 1 file.
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             A.TXT;1             
+
+Total of 3 files.
+
+Grand total of 2 directories, 4 files.
+status 00000001
+@@ DIRECTORY/SIZE/GRAND_TOTAL [-],[]
+
+Grand total of 2 directories, 10 files, 41 blocks.
+status 00000001
+@@ DIRECTORY/FULL B.DAT
+
+Directory DKA200:[T.UTILS.W]
+
+B.DAT;1                       File ID:  (20,1,0)              
+Size:            2/16         Owner:    [1,4]
+Created:     7-OCT-2026 01:07:02.41
+Modified:    7-OCT-2026 01:07:02.44 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 01:07:02.41
+Attr Mod:    7-OCT-2026 01:07:02.44
+Data Mod:    7-OCT-2026 01:07:02.41
+Linkcount:  1
+File organization:  Sequential
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Global buffer count: 0, No version limit
+Record format:      VFC, 2 byte header, maximum 0 bytes, longest 30 bytes
+Record attributes:  Print file carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 2/16 blocks.
+status 00000001
+@@ TYPE A.TXT
+Alpha Three
+delta
+ALPHA beta
+status 10000001
+@@ TYPE A.TXT;1
+alpha one
+beta two
+status 10000001
+@@ TYPE A.TXT;1,B.DAT
+alpha one
+beta two
+ 
+DKA200:[T.UTILS.W]B.DAT;1
+ 
+line 01 ----------------------
+line 02 ----------------------
+line 03 ----------------------
+line 04 ----------------------
+line 05 needle ---------------
+line 06 ----------------------
+line 07 ----------------------
+line 08 ----------------------
+line 09 ----------------------
+line 10 ----------------------
+line 11 ----------------------
+line 12 needle ---------------
+line 13 ----------------------
+line 14 ----------------------
+line 15 ----------------------
+line 16 ----------------------
+line 17 ----------------------
+line 18 ----------------------
+line 19 ----------------------
+line 20 ----------------------
+status 10000001
+@@ TYPE *.TXT
+ 
+DKA200:[T.UTILS.W]A.TXT;3
+ 
+Alpha Three
+delta
+ALPHA beta
+ 
+DKA200:[T.UTILS.W]EMPTY.TXT;1
+ 
+status 10000001
+@@ TYPE C.*
+ 
+DKA200:[T.UTILS.W]C.LIS;1
+ 
+see alpha in C
+status 10000001
+@@ TYPE NOSUCH.TXT
+%TYPE-W-SEARCHFAIL, error searching for DKA200:[T.UTILS.W]NOSUCH.TXT;
+-RMS-E-FNF, file not found
+status 10951238
+@@ TYPE EMPTY.TXT
+status 10000001
+@@ COPY A.TXT A.BAK
+status 00000001
+@@ COPY/LOG A.TXT;1 X.TXT
+%COPY-S-COPIED, DKA200:[T.UTILS.W]A.TXT;1 copied to DKA200:[T.UTILS.W]X.TXT;1 (1 block)
+status 00000001
+@@ COPY/LOG *.TXT *.CPY
+%COPY-S-COPIED, DKA200:[T.UTILS.W]A.TXT;3 copied to DKA200:[T.UTILS.W]A.CPY;1 (1 block)
+%COPY-S-COPIED, DKA200:[T.UTILS.W]EMPTY.TXT;1 copied to DKA200:[T.UTILS.W]EMPTY.CPY;1 (0 records)
+%COPY-S-COPIED, DKA200:[T.UTILS.W]X.TXT;1 copied to DKA200:[T.UTILS.W]X.CPY;1 (1 block)
+%COPY-S-NEWFILES, 3 files created
+status 00000001
+@@ COPY/LOG B.DAT,C.LIS ALL.CAT
+%COPY-S-COPIED, DKA200:[T.UTILS.W]B.DAT;1 copied to DKA200:[T.UTILS.W]ALL.CAT;1 (2 blocks)
+%COPY-S-APPENDED, DKA200:[T.UTILS.W]C.LIS;1 appended to DKA200:[T.UTILS.W]ALL.CAT;1 (1 record)
+status 00000001
+@@ COPY/LOG A.TXT;1+C.LIS AB.TXT
+%COPY-S-COPIED, DKA200:[T.UTILS.W]A.TXT;1 copied to DKA200:[T.UTILS.W]AB.TXT;1 (1 block)
+%COPY-S-APPENDED, DKA200:[T.UTILS.W]C.LIS;1 appended to DKA200:[T.UTILS.W]AB.TXT;1 (1 record)
+status 00000001
+@@ COPY NOSUCH.TXT Y.TXT
+%COPY-E-OPENIN, error opening DKA200:[T.UTILS.W]NOSUCH.TXT; as input
+-RMS-E-FNF, file not found
+status 1067109A
+@@ COPY/LOG C.LIS [.NOSUCH]
+status 00000001
+@@ COPY/LOG C.LIS .NEW
+%COPY-S-COPIED, DKA200:[T.UTILS.W]C.LIS;1 copied to DKA200:[T.UTILS.W]C.NEW;1 (1 block)
+status 00000001
+@@ DIRECTORY/SIZE
+
+Directory DKA200:[T.UTILS.W]
+
+A.BAK;1                       1
+A.CPY;1                       1
+A.TXT;3                       1
+A.TXT;2                       1
+A.TXT;1                       1
+AB.TXT;1                      1
+ALL.CAT;1                     2
+B.DAT;1                       2
+C.LIS;1                       1
+C.NEW;1                       1
+EMPTY.CPY;1                   0
+EMPTY.TXT;1                   0
+LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+                              1
+X.CPY;1                       1
+X.TXT;1                       1
+
+Total of 15 files, 15 blocks.
+status 00000001
+@@ TYPE AB.TXT
+alpha one
+beta two
+see alpha in C
+status 10000001
+@@ TYPE ALL.CAT
+line 01 ----------------------
+line 02 ----------------------
+line 03 ----------------------
+line 04 ----------------------
+line 05 needle ---------------
+line 06 ----------------------
+line 07 ----------------------
+line 08 ----------------------
+line 09 ----------------------
+line 10 ----------------------
+line 11 ----------------------
+line 12 needle ---------------
+line 13 ----------------------
+line 14 ----------------------
+line 15 ----------------------
+line 16 ----------------------
+line 17 ----------------------
+line 18 ----------------------
+line 19 ----------------------
+line 20 ----------------------
+see alpha in C
+status 10000001
+@@ SEARCH A.TXT;3 alpha
+Alpha Three
+ALPHA beta
+status 00000001
+@@ SEARCH *.TXT alpha
+
+******************************
+DKA200:[T.UTILS.W]A.TXT;3
+
+Alpha Three
+ALPHA beta
+
+******************************
+DKA200:[T.UTILS.W]AB.TXT;1
+
+alpha one
+see alpha in C
+%SEARCH-I-NULLFILE, file DKA200:[T.UTILS.W]EMPTY.TXT;1 contains no records
+
+******************************
+DKA200:[T.UTILS.W]X.TXT;1
+
+alpha one
+status 00000001
+@@ SEARCH/EXACT *.TXT alpha
+
+******************************
+DKA200:[T.UTILS.W]A.TXT;3
+
+ALPHA beta
+%SEARCH-I-NULLFILE, file DKA200:[T.UTILS.W]EMPTY.TXT;1 contains no records
+status 00000001
+@@ SEARCH *.TXT,C.LIS alpha
+
+******************************
+DKA200:[T.UTILS.W]A.TXT;3
+
+Alpha Three
+ALPHA beta
+
+******************************
+DKA200:[T.UTILS.W]AB.TXT;1
+
+alpha one
+see alpha in C
+%SEARCH-I-NULLFILE, file DKA200:[T.UTILS.W]EMPTY.TXT;1 contains no records
+
+******************************
+DKA200:[T.UTILS.W]X.TXT;1
+
+alpha one
+
+******************************
+DKA200:[T.UTILS.W]C.LIS;1
+
+see alpha in C
+status 00000001
+@@ SEARCH/NUMBERS B.DAT needle
+     5	line 05 needle ---------------
+    12	line 12 needle ---------------
+status 00000001
+@@ SEARCH/WINDOW=1 B.DAT needle
+line 05 needle ---------------
+line 12 needle ---------------
+status 00000001
+@@ SEARCH/WINDOW=(1,2) B.DAT needle
+line 04 ----------------------
+line 05 needle ---------------
+line 06 ----------------------
+line 07 ----------------------
+***************
+line 11 ----------------------
+line 12 needle ---------------
+line 13 ----------------------
+line 14 ----------------------
+status 00000001
+@@ SEARCH/WINDOW B.DAT needle
+line 03 ----------------------
+line 04 ----------------------
+line 05 needle ---------------
+line 06 ----------------------
+line 07 ----------------------
+***************
+line 10 ----------------------
+line 11 ----------------------
+line 12 needle ---------------
+line 13 ----------------------
+line 14 ----------------------
+status 00000001
+@@ SEARCH/MATCH=AND A.TXT;3 alpha,beta
+ALPHA beta
+status 00000001
+@@ SEARCH/MATCH=OR A.TXT;3 alpha,delta
+Alpha Three
+delta
+ALPHA beta
+status 00000001
+@@ SEARCH/MATCH=NOR A.TXT;3 alpha,delta
+%SEARCH-I-NOMATCHES, no strings matched
+status 08D78053
+@@ SEARCH/MATCH=NAND A.TXT;3 alpha,beta
+Alpha Three
+delta
+status 00000001
+@@ SEARCH/NOHEADING *.TXT alpha
+Alpha Three
+ALPHA beta
+alpha one
+see alpha in C
+%SEARCH-I-NULLFILE, file DKA200:[T.UTILS.W]EMPTY.TXT;1 contains no records
+alpha one
+status 00000001
+@@ SEARCH A.TXT nosuchstring
+%SEARCH-I-NOMATCHES, no strings matched
+status 08D78053
+@@ SEARCH NOSUCH.TXT x
+%SEARCH-W-OPENIN, error opening DKA200:[T.UTILS.W]NOSUCH.TXT; as input
+-RMS-E-FNF, file not found
+%SEARCH-E-NOFILE, no file found
+status 08D7804A
+@@ SEARCH A.TXT "Alpha Three"
+Alpha Three
+status 00000001
+@@ SEARCH/LOG A.TXT;3,B.DAT alpha
+
+******************************
+DKA200:[T.UTILS.W]A.TXT;3
+
+Alpha Three
+ALPHA beta
+%SEARCH-S-MATCHED, DKA200:[T.UTILS.W]A.TXT;3 - 3 records, 2 matches
+%SEARCH-S-NOMATCH, DKA200:[T.UTILS.W]B.DAT;1 - 20 records
+status 00000001
+@@ SEARCH/NUMBERS/WINDOW=1 B.DAT needle
+     5	line 05 needle ---------------
+    12	line 12 needle ---------------
+status 00000001
+@@ PURGE/LOG/KEEP=2 A.TXT
+%PURGE-I-FILPURG, DKA200:[T.UTILS.W]A.TXT;1 deleted (16 blocks)
+status 10000001
+@@ DIRECTORY A.TXT
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             A.TXT;2             
+
+Total of 2 files.
+status 00000001
+@@ PURGE/LOG
+%PURGE-I-FILPURG, DKA200:[T.UTILS.W]A.TXT;2 deleted (16 blocks)
+status 10000001
+@@ DIRECTORY
+
+Directory DKA200:[T.UTILS.W]
+
+A.BAK;1             A.CPY;1             A.TXT;3             AB.TXT;1           
+ALL.CAT;1           B.DAT;1             C.LIS;1             C.NEW;1            
+EMPTY.CPY;1         EMPTY.TXT;1         LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1
+X.CPY;1             X.TXT;1             
+
+Total of 13 files.
+status 00000001
+@@ PURGE NOSUCH.TXT
+%PURGE-W-SEARCHFAIL, error searching for DKA200:[T.UTILS.W]NOSUCH.TXT;*
+-RMS-E-FNF, file not found
+status 10931238
+@@ DELETE A.BAK
+%DELETE-E-DELVER, explicit version number or wild card required
+status 1093120A
+@@ DELETE/LOG A.BAK;
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]A.BAK;1 deleted (16 blocks)
+status 10000001
+@@ DELETE/LOG *.CPY;*
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]A.CPY;1 deleted (16 blocks)
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]EMPTY.CPY;1 deleted (0 blocks)
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]X.CPY;1 deleted (16 blocks)
+%DELETE-I-TOTAL, 3 files deleted (32 blocks)
+status 10000001
+@@ DELETE NOSUCH.TXT;*
+%DELETE-W-SEARCHFAIL, error searching for DKA200:[T.UTILS.W]NOSUCH.TXT;*
+-RMS-E-FNF, file not found
+status 10931238
+@@ DELETE/LOG X.TXT;1,AB.TXT;*
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]X.TXT;1 deleted (16 blocks)
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]AB.TXT;1 deleted (16 blocks)
+%DELETE-I-TOTAL, 2 files deleted (32 blocks)
+status 10000001
+@@ DELETE/LOG ALL.CAT;*,C.NEW;*
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]ALL.CAT;1 deleted (16 blocks)
+%DELETE-I-FILDEL, DKA200:[T.UTILS.W]C.NEW;1 deleted (16 blocks)
+%DELETE-I-TOTAL, 2 files deleted (32 blocks)
+status 10000001
+@@ DIRECTORY
+
+Directory DKA200:[T.UTILS.W]
+
+A.TXT;3             B.DAT;1             C.LIS;1             EMPTY.TXT;1        
+LONGER_FILE_NAME_FOR_COLUMNS.TEXT;1     
+
+Total of 5 files.
+status 00000001
