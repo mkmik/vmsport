@@ -15,10 +15,10 @@ list has 3 items
 X .Y ;3 [A.B]
 DKA100:[C]X.TXT;
 A^.B .C
-DKA200:[T]A^.B^.C.D;
+DKA200:[T.DCL]A^.B^.C.D;
 NODE::
-[X]
 [T.X]
+[T.DCL.X]
 |
 2000-01-01 10:20:30.40
 Saturday

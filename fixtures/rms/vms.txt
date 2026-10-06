@@ -1,0 +1,40 @@
+in IDX.FDL
+in IDXVAR.FDL
+in REL.FDL
+in SEQCRSTM.FDL
+in SEQFIX.FDL
+in SEQLFSTM.FDL
+in SEQSTM.FDL
+in SEQVAR.FDL
+in SEQVFC.FDL
+in rms.com
+run @RMS.COM/OUTPUT=RMS.LOG
+text RMS.LOG recorded/rms.log
+blocks SEQVAR.DAT recorded/SEQVAR.DAT
+text SEQVAR.ANL recorded/SEQVAR.ANL
+text SEQVAR.CHK recorded/SEQVAR.CHK
+blocks SEQVFC.DAT recorded/SEQVFC.DAT
+text SEQVFC.ANL recorded/SEQVFC.ANL
+text SEQVFC.CHK recorded/SEQVFC.CHK
+blocks SEQSTM.DAT recorded/SEQSTM.DAT
+text SEQSTM.ANL recorded/SEQSTM.ANL
+text SEQSTM.CHK recorded/SEQSTM.CHK
+blocks SEQLFSTM.DAT recorded/SEQLFSTM.DAT
+text SEQLFSTM.ANL recorded/SEQLFSTM.ANL
+text SEQLFSTM.CHK recorded/SEQLFSTM.CHK
+blocks SEQCRSTM.DAT recorded/SEQCRSTM.DAT
+text SEQCRSTM.ANL recorded/SEQCRSTM.ANL
+text SEQCRSTM.CHK recorded/SEQCRSTM.CHK
+blocks SEQFIX.DAT recorded/SEQFIX.DAT
+text SEQFIX.ANL recorded/SEQFIX.ANL
+text SEQFIX.CHK recorded/SEQFIX.CHK
+blocks REL.DAT recorded/REL.DAT
+text REL.ANL recorded/REL.ANL
+text REL.CHK recorded/REL.CHK
+blocks IDX.DAT recorded/IDX.DAT
+text IDX.ANL recorded/IDX.ANL
+text IDX.CHK recorded/IDX.CHK
+blocks IDXVAR.DAT recorded/IDXVAR.DAT
+text IDXVAR.ANL recorded/IDXVAR.ANL
+text IDXVAR.CHK recorded/IDXVAR.CHK
+manifest *.DAT recorded/ods-manifest.json

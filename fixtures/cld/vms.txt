@@ -1,0 +1,7 @@
+in VPTEST.CLD
+in CLIDUMP.MAR
+in cld.com
+run MACRO CLIDUMP.MAR
+run LINK CLIDUMP
+run @CLD.COM/OUTPUT=CLD.LOG
+text CLD.LOG recorded/cld.log

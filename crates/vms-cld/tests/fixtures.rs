@@ -115,7 +115,7 @@ fn statuses() {
     let r = parse(&tables, "VPTEST/LOG A").unwrap();
     assert_eq!(r.present("log"), status::PRESENT);
     assert_eq!(r.verb, "VPTEST");
-    assert_eq!(r.image.as_deref(), Some("DKA200:[T]CLIDUMP.EXE"));
+    assert_eq!(r.image.as_deref(), Some("DKA200:[T.CLD]CLIDUMP.EXE"));
     let e = parse(&tables, "VPTEST").unwrap_err();
     assert_eq!((e.ident, e.prompt.as_deref()), ("INSFPRM", Some("From")));
 }

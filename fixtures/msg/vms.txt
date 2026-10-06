@@ -1,0 +1,10 @@
+in TESTMSG.MSG
+in msg.com
+in EXITWITH.COM
+in SYSMSG.COM
+run @MSG.COM/OUTPUT=MSG.LOG
+run @SYSMSG.COM/OUTPUT=SYSMSG.LOG
+text MSG.LOG recorded/msg.log
+text SYSMSG.LOG recorded/sysmsg.log
+text TESTMSG.SDL recorded/TESTMSG.SDL
+text TESTMSG.LIS recorded/TESTMSG.LIS

@@ -12,11 +12,12 @@ The vmsport crates are tested against these. The inputs were written for vmsport
 | `rms/` | `*.FDL`, `rms.com` | one RMS file per organization and record format (`.DAT`, raw blocks), `ANALYZE/RMS_FILE` output, record attributes in `ods-manifest.json` |
 | `dcl/` | `*.COM` | the procedures' output |
 
-To record again (about 5 minutes; needs vaxpunk at `$VAXPUNK`, default `~/p/vaxpunk`,
-and its `ods` tool):
+Each area's `vms.txt` says what goes to VMS, what runs there and what comes
+back. To record areas again (about 5 minutes; it borrows the real-VMS setup of
+the vaxpunk project at `$VAXPUNK`, default `~/p/vaxpunk`, and its `ods` tool):
 
 ```sh
-ODS=path/to/ods fixtures/vms/record.py
+ODS=path/to/ods fixtures/vms/record.py msg cld
 ```
 
 Statuses in `cld/recorded/cld.log`: 3FD19 PRESENT, 3FD21 DEFAULTED, 3FD29 CONCAT,
