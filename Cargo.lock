@@ -14,8 +14,22 @@ name = "vms-cond"
 version = "0.1.0"
 
 [[package]]
+name = "vms-dcl"
+version = "0.1.0"
+dependencies = [
+ "vms-cld",
+ "vms-cond",
+ "vms-fao",
+ "vms-filespec",
+ "vms-msg",
+]
+
+[[package]]
 name = "vms-fao"
 version = "0.1.0"
+dependencies = [
+ "vms-time",
+]
 
 [[package]]
 name = "vms-filespec"
@@ -32,3 +46,10 @@ dependencies = [
 [[package]]
 name = "vms-rms"
 version = "0.1.0"
+
+[[package]]
+name = "vms-time"
+version = "0.1.0"
+dependencies = [
+ "vms-cond",
+]
