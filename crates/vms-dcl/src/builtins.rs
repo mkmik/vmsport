@@ -104,9 +104,7 @@ impl Dcl {
                         let st = Cond(self.evaluate(&s)?.to_int() as u32);
                         if !st.is_success() && !st.inhibit_msg() {
                             let m = self.message(st);
-                            for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
-                                self.print(&l);
-                            }
+                            self.show(&m);
                             self.just_shown = true;
                         }
                         Ok(Some(st))
@@ -126,6 +124,12 @@ impl Dcl {
                     self.exiting = Some((st, 1));
                     Ok(None)
                 } else {
+                    // At the interactive level DCL shows a failure itself.
+                    if !self.shown && !st.is_success() && !st.inhibit_msg() {
+                        let m = self.message(st);
+                        self.show(&m);
+                        self.just_shown = true;
+                    }
                     Ok(Some(st))
                 }
             }
@@ -139,6 +143,8 @@ impl Dcl {
                 Ok(None)
             }
             "CALL" => self.call(&value(&mut r, "ARGS").unwrap_or_default()),
+            "SPAWN" => self.spawn(&mut r),
+            "PIPE" => self.pipe(&value(&mut r, "COMMAND").unwrap_or_default()),
             "SUBROUTINE" => Ok(None),
             "ENDSUBROUTINE" => {
                 if self.top().sub_end.is_some() {
@@ -196,9 +202,7 @@ impl Dcl {
                         &[(Cond(0x0003_DDEB), vec![vms_fao::Arg::Str(&name)])],
                         self.msg_flags,
                     );
-                    for l in m {
-                        self.print(&l.replacen("%CLI-", "%DCL-", 1));
-                    }
+                    self.show(&m.join("\n").replacen("%CLI-", "%DCL-", 1));
                 }
                 Ok(Some(NORMAL))
             }
@@ -450,7 +454,7 @@ impl Dcl {
         let logical = value(r, "LOGICAL").unwrap_or_default();
         let sym = value(r, "SYMBOL").unwrap_or_default();
         let rec = match logical.as_str() {
-            "SYS$INPUT" | "SYS$COMMAND" | "TT" => {
+            "SYS$INPUT" | "SYS$COMMAND" | "SYS$PIPE" | "TT" => {
                 let prompt = value(r, "PROMPT").unwrap_or_default();
                 self.host.read_terminal(&prompt)
             }
@@ -523,9 +527,14 @@ impl Dcl {
                     &[(Cond(what), vec![vms_fao::Arg::Str(&full)]), (st, vec![])],
                     self.msg_flags,
                 );
-                for l in lines {
-                    self.print(&l.replacen("%CLI-", "%DCL-", 1));
-                }
+                self.show(
+                    &lines
+                        .join(
+                            "
+",
+                        )
+                        .replacen("%CLI-", "%DCL-", 1),
+                );
                 Ok(Some(shown))
             }
         }

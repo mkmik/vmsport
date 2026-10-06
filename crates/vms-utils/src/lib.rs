@@ -89,6 +89,18 @@ impl Util {
         let mut related = String::new();
         let mut out = Vec::new();
         for text in items {
+            // SYS$INPUT and SYS$PIPE are this program's input.
+            let up = text.trim().trim_end_matches(':').to_ascii_uppercase();
+            if up == "SYS$INPUT" || up == "SYS$PIPE" {
+                let spec: FileSpec = format!("{up}:").parse().unwrap_or_default();
+                let files = Ok(vec![(PathBuf::from("/dev/stdin"), spec.clone())]);
+                out.push(Item {
+                    typed: spec.clone(),
+                    spec,
+                    files,
+                });
+                continue;
+            }
             let typed = text
                 .trim()
                 .to_uppercase()

@@ -43,6 +43,19 @@ impl RecordFile for Io {
 
 struct Terminal;
 
+struct Stderr;
+
+impl RecordFile for Stderr {
+    fn read(&mut self) -> Result<Option<String>, Cond> {
+        Ok(None)
+    }
+
+    fn write(&mut self, record: &str) -> Result<(), Cond> {
+        eprintln!("{record}");
+        Ok(())
+    }
+}
+
 impl RecordFile for Terminal {
     fn read(&mut self) -> Result<Option<String>, Cond> {
         Ok(None)
@@ -135,6 +148,25 @@ impl Host for RealHost {
 
     fn terminal_output(&mut self) -> Box<dyn RecordFile> {
         Box::new(Terminal)
+    }
+
+    fn error_output(&mut self) -> (Box<dyn RecordFile>, bool) {
+        use std::os::unix::fs::MetadataExt;
+        let id = |fd: i32| {
+            // SAFETY: borrows a descriptor we don't close.
+            let f = std::mem::ManuallyDrop::new(unsafe {
+                <std::fs::File as std::os::fd::FromRawFd>::from_raw_fd(fd)
+            });
+            f.metadata().ok().map(|m| (m.dev(), m.ino(), m.rdev()))
+        };
+        let same = id(1).is_some() && id(1) == id(2);
+        (Box::new(Stderr), same)
+    }
+
+    fn input_file(&mut self, spec: &str) -> Result<std::fs::File, Cond> {
+        let parsed = self.session.parse(spec, "", "")?;
+        let (p, _) = self.session.find(&parsed)?;
+        std::fs::File::open(p).map_err(libvms::files::io_status)
     }
 
     fn read_terminal(&mut self, prompt: &str) -> Option<String> {

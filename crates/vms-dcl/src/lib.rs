@@ -8,6 +8,7 @@ pub mod host;
 mod lexicals;
 pub mod lineedit;
 pub mod real;
+mod spawn;
 
 use expr::Value;
 pub use host::{Change, Child, Host, Launch, Mode, RecordFile, Table};
@@ -280,6 +281,12 @@ pub struct Dcl {
     shown: bool,
     /// The command just run showed its status itself.
     pub(crate) just_shown: bool,
+    /// SYS$ERROR, and whether it is the same file as SYS$OUTPUT started as.
+    errors: Box<dyn RecordFile>,
+    errors_same: bool,
+    /// This process's name, and how many subprocesses it has spawned.
+    pub process_name: String,
+    spawned: u32,
 }
 
 impl Dcl {
@@ -295,6 +302,11 @@ impl Dcl {
             Err(e) => eprintln!("%DCL-F-MESSAGES, bad system messages: {:?}", e.first()),
         }
         let terminal = host.terminal_output();
+        let (errors, errors_same) = host.error_output();
+        let process_name = std::env::var("VMSPORT_PROCESS")
+            .ok()
+            .or_else(|| host.info("USERNAME"))
+            .unwrap_or_else(|| "DCL".into());
         Dcl {
             host,
             globals: Symbols::default(),
@@ -310,6 +322,20 @@ impl Dcl {
             exiting: None,
             shown: false,
             just_shown: false,
+            errors,
+            errors_same,
+            process_name,
+            spawned: 0,
+        }
+    }
+
+    /// Defines a symbol at the current level (local) or globally, as a
+    /// subprocess gets them from its parent.
+    pub fn set_symbol(&mut self, name: &str, v: Value, global: bool) {
+        if global {
+            self.globals.set(name, v);
+        } else {
+            self.top().locals.set(name, v);
         }
     }
 
@@ -343,6 +369,20 @@ impl Dcl {
         let _ = self.outputs[i].write(line);
     }
 
+    /// Shows a message: on SYS$OUTPUT, and on SYS$ERROR too when that is
+    /// somewhere else.
+    pub fn show(&mut self, text: &str) {
+        for l in text.lines() {
+            self.print(l);
+        }
+        let redirected = self.frames.last().is_some_and(|f| f.output != 0);
+        if redirected || !self.errors_same {
+            for l in text.lines() {
+                let _ = self.errors.write(l);
+            }
+        }
+    }
+
     /// The message for `code`, as DCL shows it.
     pub fn message(&self, code: Cond) -> String {
         let m = self.catalog.get_msg(code, self.msg_flags);
@@ -358,9 +398,7 @@ impl Dcl {
         if let Some(t) = &e.token {
             m.push_str(&format!("\n \\{t}\\"));
         }
-        for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
-            self.print(&l);
-        }
+        self.show(&m);
     }
 
     /// Runs one command at the interactive level (or `dcl -c`).
@@ -426,9 +464,7 @@ impl Dcl {
         if !status.is_success() && !status.inhibit_msg() && !self.shown {
             self.shown = true;
             let m = self.message(status);
-            for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
-                self.print(&l);
-            }
+            self.show(&m);
         }
         self.after(status);
     }
@@ -459,7 +495,7 @@ impl Dcl {
             Err(e) => {
                 if e.ident.is_empty() {
                     let m = self.message(e.code);
-                    self.print(&m);
+                    self.show(&m);
                 } else {
                     self.report(&e);
                 }
@@ -665,9 +701,7 @@ impl Dcl {
         let st = self.child(Child::Foreign(path), "", &line, args, out);
         if !st.is_success() && !st.inhibit_msg() {
             let m = self.message(st);
-            for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
-                self.print(&l);
-            }
+            self.show(&m);
             self.just_shown = true;
         }
         st
@@ -796,9 +830,7 @@ impl Dcl {
                 // A failure the image didn't show itself, DCL shows.
                 if !st.is_success() && !st.inhibit_msg() {
                     let m = self.message(st);
-                    for l in m.lines().map(str::to_string).collect::<Vec<_>>() {
-                        self.print(&l);
-                    }
+                    self.show(&m);
                     self.just_shown = true;
                 }
                 Ok(Some(st))

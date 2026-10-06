@@ -63,6 +63,12 @@ pub trait Host {
     ) -> Result<(Box<dyn RecordFile>, String), Cond>;
     /// SYS$OUTPUT as DCL started with it.
     fn terminal_output(&mut self) -> Box<dyn RecordFile>;
+    /// SYS$ERROR as DCL started with it, and whether it is the same file as
+    /// SYS$OUTPUT (both the terminal, say).
+    fn error_output(&mut self) -> (Box<dyn RecordFile>, bool);
+    /// A file opened for reading as it is, for a child's input
+    /// (SPAWN/INPUT, PIPE <).
+    fn input_file(&mut self, spec: &str) -> Result<std::fs::File, Cond>;
     /// A line from the terminal (INQUIRE, READ SYS$COMMAND); `None` at end.
     fn read_terminal(&mut self, prompt: &str) -> Option<String>;
 

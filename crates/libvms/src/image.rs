@@ -56,6 +56,7 @@ pub struct Launch<'a> {
     pub args: &'a [String],
     /// SPAWN/NOLOGICAL_NAMES: no process logical names.
     pub no_logicals: bool,
+    pub env: Vec<(String, String)>,
 }
 
 /// How a child ended.
@@ -132,6 +133,7 @@ pub fn start(program: &Path, l: Launch) -> Result<Child, Cond> {
     let fd = theirs.as_raw_fd();
     let mut cmd = Command::new(program);
     cmd.args(l.args)
+        .envs(l.env.iter().map(|(k, v)| (k, v)))
         .env("VMSPORT_CONTEXT", fd.to_string())
         .env("VMSPORT_JOB", format!("{:X}", crate::job_id()));
     if let Some(s) = l.stdin {
@@ -183,6 +185,12 @@ pub fn start(program: &Path, l: Launch) -> Result<Child, Cond> {
 }
 
 impl Child {
+    /// Its output, if it was started with `Stdio::piped()`: the next
+    /// segment's input in a pipeline.
+    pub fn take_stdout(&mut self) -> Option<std::process::ChildStdout> {
+        self.child.stdout.take()
+    }
+
     /// Waits for the child: its status and the changes it sent.
     pub fn wait(mut self) -> Outcome {
         let exit = self.child.wait();
