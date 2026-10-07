@@ -2,7 +2,7 @@ $! ANALYZE/RMS_FILE/CHECK and DCL READ on files vmsport's C ABI wrote.
 $ SET NOON
 $ i = 0
 $next:
-$ f = F$ELEMENT(i, ",", "DEMO.REL,DEMO.SEQ")
+$ f = F$ELEMENT(i, ",", "DEMO.REL,DEMO.IDX,DEMO.SEQ")
 $ IF f .EQS. "," THEN EXIT 1
 $ WRITE SYS$OUTPUT "@@ check ", f
 $ ANALYZE/RMS_FILE/CHECK/OUTPUT=CHECK.TMP 'f'

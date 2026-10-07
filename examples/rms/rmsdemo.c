@@ -1,7 +1,7 @@
-/* rmsdemo: RMS from C, as on VMS. Makes a relative file and a sequential
- * one in the default directory, writes, reads them in order, by key and
- * by RFA, updates and deletes, shows their attributes through XABs, and
- * lists them with $PARSE and $SEARCH. */
+/* rmsdemo: RMS from C, as on VMS. Makes a relative, an indexed and a
+ * sequential file in the default directory, writes, reads them in order,
+ * by key and by RFA, updates and deletes, shows their attributes through
+ * XABs, and lists them with $PARSE and $SEARCH. */
 #include <stdio.h>
 #include <string.h>
 #include <rms.h>
@@ -105,6 +105,178 @@ static void relative(void) {
     check("close again", sys$close(&fab));
 }
 
+static const char *names[] = {"APPLE", "BANANA", "CHERRY", "DATE", "ELDER", "FIG", "GRAPE"};
+
+/* A 30-byte record: a 4-digit ID (key 0), a 10-character name (key 1,
+ * duplicates and changes allowed), a note. */
+static void record(char *r, int id, const char *name, const char *note) {
+    char tmp[32];
+    snprintf(tmp, sizeof tmp, "%04d%-10s%-16s", id, name, note);
+    memcpy(r, tmp, 30);
+}
+
+static void indexed(void) {
+    struct FAB fab = cc$rms_fab;
+    struct RAB rab = cc$rms_rab;
+    struct XABALL all0 = cc$rms_xaball, all1 = cc$rms_xaball;
+    struct XABKEY key0 = cc$rms_xabkey, key1 = cc$rms_xabkey;
+    struct XABSUM sum = cc$rms_xabsum;
+    char r[30], buf[64], knm[32];
+    unsigned int rfa0;
+    unsigned short rfa4;
+    int i, n;
+
+    fab.fab$l_fna = "DEMO.IDX";
+    fab.fab$b_fns = strlen(fab.fab$l_fna);
+    fab.fab$b_org = FAB$C_IDX;
+    fab.fab$b_rfm = FAB$C_FIX;
+    fab.fab$b_rat = FAB$M_CR;
+    fab.fab$w_mrs = 30;
+    fab.fab$b_fac = FAB$M_PUT | FAB$M_GET | FAB$M_UPD | FAB$M_DEL;
+    fab.fab$l_xab = &all0;
+    all0.xab$b_aid = 0;
+    all0.xab$l_alq = 12;
+    all0.xab$b_bkz = 2;
+    all0.xab$w_deq = 6;
+    all0.xab$l_nxt = &all1;
+    all1.xab$b_aid = 1;
+    all1.xab$l_alq = 4;
+    all1.xab$b_bkz = 1;
+    all1.xab$w_deq = 2;
+    all1.xab$l_nxt = &key0;
+    key0.xab$b_ref = 0;
+    key0.xab$w_pos0 = 0;
+    key0.xab$b_siz0 = 4;
+    key0.xab$b_dtp = XAB$C_STG;
+    key0.xab$l_nxt = &key1;
+    key1.xab$b_ref = 1;
+    key1.xab$w_pos0 = 4;
+    key1.xab$b_siz0 = 10;
+    key1.xab$b_dtp = XAB$C_STG;
+    key1.xab$b_flg = XAB$M_DUP | XAB$M_CHG;
+    key1.xab$b_dan = 1;
+    key1.xab$b_ian = 1;
+    key1.xab$b_lan = 1;
+    memcpy(knm, "BY_NAME                         ", 32);
+    key1.xab$l_knm = knm;
+    check("create indexed", sys$create(&fab));
+    rab.rab$l_fab = &fab;
+    check("connect", sys$connect(&rab));
+    /* A hundred records, their IDs out of order: buckets split. */
+    for (i = 1, n = 0; i <= 100; i++) {
+        record(r, i * 37 % 101, names[i % 7], "a note");
+        rab.rab$l_rbf = r;
+        rab.rab$w_rsz = 30;
+        unsigned int st = sys$put(&rab);
+        if (st != RMS$_NORMAL && st != RMS$_OK_DUP)
+            check("put", st);
+        n++;
+    }
+    printf("put %d records\n", n);
+    record(r, 37, "FIG", "same ID");
+    check("put duplicate ID", sys$put(&rab));
+    record(r, 101, "APPLE", "same name");
+    check("put duplicate name", sys$put(&rab));
+    check("close", sys$close(&fab));
+
+    fab.fab$l_xab = &sum;
+    sum.xab$l_nxt = &key1;
+    key1.xab$l_nxt = 0;
+    memset(knm, 0, sizeof knm);
+    fab.fab$b_fac = FAB$M_GET | FAB$M_UPD | FAB$M_DEL | FAB$M_PUT;
+    check("open indexed", sys$open(&fab));
+    printf("  org %02X rfm %d mrs %d bks %d nok %d noa %d pvn %d\n", fab.fab$b_org, fab.fab$b_rfm,
+           fab.fab$w_mrs, fab.fab$b_bks, sum.xab$b_nok, sum.xab$b_noa, sum.xab$w_pvn);
+    printf("  key 1 [%.7s] pos %d siz %d flg %02X dtp %d dan %d ian %d dbs %d ibs %d tks %d\n", knm,
+           key1.xab$w_pos0, key1.xab$b_siz0, key1.xab$b_flg, key1.xab$b_dtp, key1.xab$b_dan,
+           key1.xab$b_ian, key1.xab$b_dbs, key1.xab$b_ibs, key1.xab$b_tks);
+    rab = cc$rms_rab;
+    rab.rab$l_fab = &fab;
+    rab.rab$l_ubf = buf;
+    rab.rab$w_usz = sizeof buf;
+    check("connect", sys$connect(&rab));
+    for (i = 0; i < 3; i++) {
+        check("get", sys$get(&rab));
+        show(&rab);
+    }
+    for (n = 3; sys$get(&rab) & 1; n++)
+        ;
+    printf("  %d records by ID\n", n);
+    rab.rab$b_rac = RAB$C_KEY;
+    rab.rab$l_kbf = "0050";
+    rab.rab$b_ksz = 4;
+    check("get key 0050", sys$get(&rab));
+    show(&rab);
+    rfa0 = rab.rab$l_rfa0;
+    rfa4 = rab.rab$w_rfa4;
+    rab.rab$l_kbf = "0100";
+    rab.rab$l_rop = RAB$M_KGT;
+    check("get key GT 0100", sys$get(&rab));
+    rab.rab$l_rop = RAB$M_KGE;
+    check("get key GE 0100", sys$get(&rab));
+    show(&rab);
+    rab.rab$l_rop = 0;
+    rab.rab$l_kbf = "005";
+    rab.rab$b_ksz = 3;
+    check("get key 005 (generic)", sys$get(&rab));
+    show(&rab);
+    /* By name: duplicates come in the order they were put. */
+    rab.rab$b_krf = 1;
+    rab.rab$l_kbf = "CH";
+    rab.rab$b_ksz = 2;
+    check("get name CH (generic)", sys$get(&rab));
+    show(&rab);
+    rab.rab$b_rac = RAB$C_SEQ;
+    check("get next by name", sys$get(&rab));
+    show(&rab);
+    rab.rab$b_rac = RAB$C_KEY;
+    rab.rab$l_kbf = "DATE      ";
+    rab.rab$b_ksz = 10;
+    rab.rab$l_rop = RAB$M_KGT;
+    check("get name GT DATE", sys$get(&rab));
+    show(&rab);
+    rab.rab$l_rop = 0;
+    rab.rab$l_kbf = "ZEBRA";
+    rab.rab$b_ksz = 5;
+    check("get name ZEBRA", sys$get(&rab));
+    rab.rab$b_krf = 5;
+    check("get key 5", sys$get(&rab));
+    rab.rab$b_krf = 0;
+    /* By RFA, and changing the name of the record found. */
+    rab.rab$b_rac = RAB$C_RFA;
+    rab.rab$l_rfa0 = rfa0;
+    rab.rab$w_rfa4 = rfa4;
+    check("get rfa of 0050", sys$get(&rab));
+    show(&rab);
+    record(r, 50, "ZEBRA", "renamed");
+    rab.rab$l_rbf = r;
+    rab.rab$w_rsz = 30;
+    check("update name", sys$update(&rab));
+    record(r, 51, "ZEBRA", "new ID");
+    check("get rfa of 0050", sys$get(&rab));
+    rab.rab$l_rbf = r;
+    rab.rab$w_rsz = 30;
+    check("update ID", sys$update(&rab));
+    rab.rab$b_rac = RAB$C_KEY;
+    rab.rab$b_krf = 1;
+    rab.rab$l_kbf = "ZEBRA     ";
+    rab.rab$b_ksz = 10;
+    check("get name ZEBRA", sys$get(&rab));
+    show(&rab);
+    /* Deleting by ID. */
+    rab.rab$b_krf = 0;
+    rab.rab$l_kbf = "0001";
+    rab.rab$b_ksz = 4;
+    check("find 0001", sys$find(&rab));
+    check("delete", sys$delete(&rab));
+    check("get 0001", sys$get(&rab));
+    check("rewind", sys$rewind(&rab));
+    rab.rab$b_rac = RAB$C_SEQ;
+    check("get first", sys$get(&rab));
+    show(&rab);
+    check("close", sys$close(&fab));
+}
+
 static void sequential(void) {
     struct FAB fab = cc$rms_fab;
     struct RAB rab = cc$rms_rab;
@@ -186,6 +358,7 @@ int main(void) {
     bad.fab$b_bid = 0;
     check("open, bad FAB", sys$open(&bad));
     relative();
+    indexed();
     sequential();
     listing();
     return 0;

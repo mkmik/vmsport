@@ -179,6 +179,7 @@ dependencies = [
  "libvms",
  "vms-cond",
  "vms-fao",
+ "vms-rms",
  "vmsportd",
 ]
 
