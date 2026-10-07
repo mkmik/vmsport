@@ -219,3 +219,21 @@ fn sequential_and_relative_scripts() {
 fn new_file_viewed_and_left_empty() {
     replay("recorded/probe3.log", " NEW.FDL", None);
 }
+
+#[test]
+fn scripts_by_record_format() {
+    for f in [
+        "S3", "S4", "S5", "S6", "S7", "S8", "S9", "R3", "R4", "R5", "R6", "R7", "R8", "R9",
+    ] {
+        let script = if f.starts_with('S') {
+            "SEQUENTIAL"
+        } else {
+            "RELATIVE"
+        };
+        replay(
+            "recorded/seqrel2.log",
+            &format!("/SCRIPT={script} {f}.FDL"),
+            None,
+        );
+    }
+}

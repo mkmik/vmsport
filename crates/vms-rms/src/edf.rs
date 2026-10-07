@@ -232,29 +232,41 @@ pub fn depth(size: u32, entry: u32, n: u32, fill: u32, bks: u32) -> Option<u32> 
 }
 
 /// The SEQUENTIAL script's allocation and extension for `n` records of
-/// `mean` bytes in `format` (`variable`, `fixed`...).
+/// `mean` bytes in `format` (`VARIABLE`, `FIXED`...): their bytes in
+/// blocks, rounded; a tenth of that.
+/// ponytail: stream records are counted as variable ones; no recorded
+/// case tells.
 pub fn sequential_space(n: u64, format: &str, mean: u64) -> (u64, u64) {
     let bytes = mean
         + match format {
-            "variable" => 2,
-            _ => 0,
+            "FIXED" | "UNDEFINED" => 0,
+            _ => 2,
         };
     let alloc = (n * bytes + 256) / 512;
     (alloc, alloc / 10)
 }
 
 /// The RELATIVE script's bucket size, allocation and extension for `n`
-/// records of at most `max` bytes in `format`, on a disk of `cluster`
-/// blocks: a bucket of 16 cells or so, cluster-sized; the prologue block.
-pub fn relative_space(n: u64, format: &str, max: u64, cluster: u32) -> (u32, u64, u64) {
-    let cell = 1 + max + if format == "fixed" { 0 } else { 2 };
+/// records of at most `max` bytes (`fsz` of them a VFC control field) in
+/// `format` on a disk of `cluster` blocks: buckets of up to 16 cells (as
+/// many as there are records), in clusters, 63 blocks at most; at least
+/// one bucket, and the prologue's block; a quarter of that again, in
+/// buckets.
+pub fn relative_space(n: u64, format: &str, max: u64, fsz: u64, cluster: u32) -> (u32, u64, u64) {
+    let cell = 1
+        + max
+        + match format {
+            "FIXED" => 0,
+            _ => 2 + fsz,
+        };
+    let cluster = u64::from(cluster);
     let up = |x: u64, m: u64| x.div_ceil(m) * m;
-    let bks = up((16 * cell).div_ceil(512), cluster as u64).min(63) as u32;
-    let per = (u64::from(bks) * 512 / cell).max(1);
-    let buckets = n.div_ceil(per);
-    let alloc = up(buckets * u64::from(bks) + 1, cluster as u64);
-    let ext = up(buckets.div_ceil(4) * u64::from(bks), cluster as u64);
-    (bks, alloc, ext)
+    let bks = up((n.clamp(1, 16) * cell).div_ceil(512), cluster).min(63);
+    let per = (bks * 512 / cell).max(1);
+    let buckets = n.div_ceil(per).max(1);
+    let alloc = up(buckets * bks + 1, cluster);
+    let ext = up(alloc / 4, u64::from(lcm(bks as u32, cluster as u32)));
+    (bks as u32, alloc, ext)
 }
 
 #[derive(Clone, Default)]

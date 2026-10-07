@@ -18,7 +18,8 @@ while. The program is started the same way (`@@KEY EDIT/FDL X.FDL`), and
 the next plain line goes to DCL again. `@@AUTO [VALUE...]` answers the FDL
 editor's questions up to its main menu: the VALUEs (then 1000) where there
 is no default, FD where a design asks for a parameter, Return elsewhere;
-with stop=WORD it stops at the first question with WORD in it.
+with stop=WORD it stops at the first question with WORD in it. `@@END`
+types Ctrl/Z until DCL's prompt shows.
 
 The console log from the first command on goes to
 fixtures/AREA/recorded/NAME.log. run-vms.py boots a copy-on-write clone of
@@ -59,6 +60,13 @@ def drive(runvms, system, cmdfile, log):
     def key(self, line):
         if line.startswith("@@KEY "):
             return typed(self, line[6:])
+        if line == "@@END":
+            # Ctrl/Z until DCL's prompt shows.
+            for _ in range(6):
+                if self.buf.rstrip(" ").endswith("\n$"):
+                    return
+                typed(self, "^Z")
+            raise TimeoutError("the program would not end")
         if not line.startswith("@@AUTO"):
             return dcl(self, line)
         # The FDL editor's questions up to its main menu: for one with no

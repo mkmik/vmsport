@@ -120,9 +120,9 @@ impl Q {
         let mut out = String::new();
         if !again {
             out.push('\n');
-            if let Takes::Keyword { list, .. } = &self.takes {
-                out += list;
-            }
+        }
+        if let Takes::Keyword { list, .. } = &self.takes {
+            out += list;
         }
         let choices = match &self.takes {
             Takes::Number { shown, .. } => shown.clone(),
@@ -134,7 +134,13 @@ impl Q {
             let default = self.default.as_ref().map_or("null", |d| d.0.as_str());
             return out + &question_text(&self.text) + &format!("{choices}[{default}]\n\t: ");
         }
-        out + &question_text(&self.text) + &format!("{choices}[{default}]{}", self.sep)
+        // A long range and default are followed by " : ", not a tab.
+        let field = format!("{choices}[{default}]");
+        let sep = match field.len() >= 16 && !self.text.contains('\n') {
+            true => " : ",
+            false => self.sep,
+        };
+        out + &question_text(&self.text) + &field + sep
     }
 }
 
@@ -180,10 +186,11 @@ impl Editor<'_> {
             if let Some(a) = a {
                 return Some(a);
             }
-            c.say(&format!(
-                "\n\t \"{}\" is not appropriate in this context. \n",
-                t.to_ascii_uppercase()
-            ));
+            let why = match q.takes {
+                Takes::Keyword { .. } => "contains a syntax error",
+                _ => "is not appropriate in this context",
+            };
+            c.say(&format!("\n\t \"{}\" {why}. \n", t.to_ascii_uppercase()));
             c.say(q.explain);
         }
     }
@@ -313,7 +320,12 @@ impl Editor<'_> {
             let Some(answer) = c.ask(&q) else {
                 return self.exit(c);
             };
-            let word = answer.split_whitespace().next().unwrap_or("");
+            // The keyword: letters and digits up to anything else.
+            let word = answer.trim_start();
+            let end = word
+                .find(|c: char| !(c.is_ascii_alphanumeric() || c == '_' || c == '$'))
+                .unwrap_or(word.len());
+            let word = &word[..end];
             let f = if word.is_empty() {
                 Some("HELP")
             } else {
