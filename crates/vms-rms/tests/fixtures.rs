@@ -45,6 +45,7 @@ fn file(area: &str, name: &str) -> (Fab, Vec<u8>) {
         lrl: f("rsize") as u16,
         fsz: f("vfcsize") as u8,
         bks: f("bktsize") as u8,
+        deq: f("defext") as u16,
     };
     let mut bytes = std::fs::read(fixture(&format!("{area}/recorded/{name}"))).unwrap();
     bytes.truncate(f("bytes"));
