@@ -16,6 +16,7 @@ vms-help = { path = "../vms-help" }
 vms-lnm = { path = "../vms-lnm" }
 vms-eve = { path = "../vms-eve" }
 libc = "0.2"
+vms-edt = { path = "../vms-edt" }
 
 [dev-dependencies]
 vmsportd = { path = "../vmsportd" }

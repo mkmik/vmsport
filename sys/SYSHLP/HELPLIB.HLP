@@ -784,10 +784,89 @@ file-spec
 /TPU
  EVE, the default.
 /EDT
- The EDT editor; see EDIT /EDT.
+ Edits with EDT, the line and keypad editor; see EDIT /EDT.
+2 /EDT
+ EDT, the line editor with a keypad mode. It starts at its * prompt
+ with the file's first line shown; a range typed alone shows those
+ lines. CHANGE (or SET MODE CHANGE in the command file) switches a
+ terminal to keypad mode, where the numeric keypad edits (PF1 is GOLD,
+ PF2 shows the keypad) and Ctrl/Z comes back to the prompt. EXIT saves
+ the main buffer as a new version of the file and QUIT leaves without
+ saving.
+
+ Line numbers are EDT's: the file's lines are 1, 2, 3 ..., lines put in
+ between 1 and 2 are 1.1, 1.2 ... until RESEQUENCE numbers them anew.
+
+ Format
+
+   EDIT/EDT [/qualifier...] file-spec
+3 Parameters
+file-spec
+
+ The file to edit; one that doesn't exist is made on EXIT.
+3 Commands
+
+ Ranges: n, ., BEGIN, END, "string", -"string" (searching back), +n,
+ -n, r:r or r THRU r, r FOR n, BEFORE, REST, WHOLE, ALL "string",
+ =buffer, and lists r,r.
+
+ TYPE, INSERT [range][;text], REPLACE, DELETE, COPY r TO r [/DUPLICATE],
+ MOVE r TO r, SUBSTITUTE/old/new/ [r] [/NOTYPE] [/BRIEF],
+ SUBSTITUTE NEXT [/old/new/], FIND, FILL (to SET WRAP's width),
+ TAB ADJUST n, RESEQUENCE [/SEQUENCE:start:step], INCLUDE file,
+ WRITE file [r], PRINT file [r], CLEAR buffer, SET and SHOW (CASE,
+ CURSOR, ENTITY, KEYPAD, LINES, MODE, NUMBERS, QUIET, SCREEN, SEARCH,
+ TAB, TEXT, TRUNCATE, VERIFY, WORD, WRAP, and SHOW BUFFER, FILES, KEY,
+ VERSION), DEFINE KEY, DEFINE MACRO, HELP, CHANGE, EXIT [file] [/SAVE],
+ QUIT [/SAVE].
+3 Keypad
+
+ PF1 GOLD, PF2 HELP, PF3 FNDNXT (GOLD: FIND), PF4 DEL L (UND L);
+ 7 PAGE (COMMAND), 8 SECT (FILL), 9 APPEND (REPLACE), - DEL W (UND W);
+ 4 ADVANCE (BOTTOM), 5 BACKUP (TOP), 6 CUT (PASTE), , DEL C (UND C);
+ 1 WORD (CHNGCASE), 2 EOL (DEL EOL), 3 CHAR (SPECINS), ENTER (SUBS);
+ 0 LINE (OPEN LINE), . SELECT (RESET). In parentheses: after GOLD.
+ GOLD and digits repeat the next key. DELETE deletes back a character,
+ Ctrl/H goes to the start of the line, Ctrl/J deletes back a word,
+ Ctrl/U to the start of the line, Ctrl/W redraws, Ctrl/Z ends keypad
+ mode.
+3 Qualifiers
+/COMMAND
+
+    /COMMAND[=file-spec] (default)
+    /NOCOMMAND
+
+ EDT commands to run first. Without a file, EDTINI (a logical name, or
+ EDTINI.EDT in the default directory) if there is one.
+/JOURNAL
+
+    /JOURNAL[=file-spec] (default)
+    /NOJOURNAL
+
+ Keeps what is typed in a journal, the file's name with type .JOU in
+ the default directory unless named; EXIT and QUIT delete it unless
+ given /SAVE.
+/RECOVER
+ Replays the journal of a session that didn't end, then goes on.
+/OUTPUT
+
+    /OUTPUT=file-spec
+    /NOOUTPUT
+
+ Where EXIT writes; /NOOUTPUT and /READ_ONLY write nothing unless EXIT
+ names a file.
+/READ_ONLY
+ No journal, and EXIT needs a file name.
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ Edits an empty buffer when the file doesn't exist; with /NOCREATE,
+ that is an error.
 2 /HOST
- Edits a text file in the host's editor ($VISUAL, $EDITOR or vi), as
- EDIT does now, whatever EDIT's default becomes.
+ Edits a text file in the host's editor ($VISUAL, $EDITOR or vi)
+ instead of EVE.
 
  Format
 

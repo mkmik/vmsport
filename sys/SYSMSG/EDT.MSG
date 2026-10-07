@@ -1,0 +1,7 @@
+! EDT's messages. INPFILNEX has the code VMS returned (%X00858148,
+! fixtures/edt/recorded/run2.log).
+	.TITLE		EDT	EDT messages
+	.FACILITY	EDT,133 /SYSTEM
+	.SEVERITY	WARNING
+	.BASE		41
+INPFILNEX	<Input file does not exist>
