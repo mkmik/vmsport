@@ -124,3 +124,25 @@ fn diff(want: &str, got: &str) -> String {
     }
     out
 }
+
+/// DIRECTORY/FULL's dates, file IDs and owners are the run's.
+fn mask_full(s: &str) -> String {
+    s.lines()
+        .map(|l| {
+            let dated = ["Created:", "Modified:", "Accessed:", "Attr Mod:", "Data Mod:"];
+            match () {
+                _ if dated.iter().any(|d| l.starts_with(d)) => format!("{}\n", &l[..10]),
+                _ if l.contains("File ID:") => format!("{}\n", &l[..l.find("File ID:").unwrap()]),
+                _ if l.starts_with("Size:") => format!("{}\n", &l[..l.find("Owner:").unwrap_or(l.len())]),
+                _ => format!("{l}\n"),
+            }
+        })
+        .collect()
+}
+
+#[test]
+#[ignore = "needs CREATE/FDL and indexed files"]
+fn recorded_keyed_io() {
+    let failures = run_area("dclrms", &["DCLRMS"], mask_full);
+    assert!(failures.is_empty(), "{}", failures.join("\n"));
+}

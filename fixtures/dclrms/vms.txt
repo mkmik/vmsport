@@ -2,9 +2,9 @@
 # reads (/KEY, /INDEX, /MATCH), /DELETE, WRITE/UPDATE, sharing and record
 # locks between two streams, and TYPE, SEARCH, DIRECTORY/FULL and
 # F$FILE_ATTRIBUTES on them. The files' blocks show what VMS left.
-in dclrms.com
+in DCLRMS.COM
 run @DCLRMS.COM/OUTPUT=DCLRMS.LOG
-text DCLRMS.LOG recorded/dclrms.log
+text DCLRMS.LOG recorded/DCLRMS.log
 blocks KEYED.DAT recorded/KEYED.DAT
 blocks REL.DAT recorded/REL.DAT
 manifest *.DAT recorded/manifest.json
