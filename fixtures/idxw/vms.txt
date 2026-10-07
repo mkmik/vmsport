@@ -1,0 +1,114 @@
+in SP.FDL
+in SV.FDL
+in NK.FDL
+in FK.FDL
+in CR.FDL
+in SC.FDL
+in MC.FDL
+in SEQ.FDL
+in BUILD.COM
+run @BUILD.COM/OUTPUT=BUILD.LOG
+text BUILD.LOG recorded/build.log
+blocks SA0.DAT recorded/SA0.DAT
+text SA0.ANL recorded/SA0.ANL
+text SA0.CHK recorded/SA0.CHK
+blocks SA1.DAT recorded/SA1.DAT
+text SA1.ANL recorded/SA1.ANL
+text SA1.CHK recorded/SA1.CHK
+blocks SA2.DAT recorded/SA2.DAT
+text SA2.ANL recorded/SA2.ANL
+text SA2.CHK recorded/SA2.CHK
+blocks SA3.DAT recorded/SA3.DAT
+text SA3.ANL recorded/SA3.ANL
+text SA3.CHK recorded/SA3.CHK
+blocks SA4.DAT recorded/SA4.DAT
+text SA4.ANL recorded/SA4.ANL
+text SA4.CHK recorded/SA4.CHK
+blocks SA5.DAT recorded/SA5.DAT
+text SA5.ANL recorded/SA5.ANL
+text SA5.CHK recorded/SA5.CHK
+blocks SA6.DAT recorded/SA6.DAT
+text SA6.ANL recorded/SA6.ANL
+text SA6.CHK recorded/SA6.CHK
+blocks SA7.DAT recorded/SA7.DAT
+text SA7.ANL recorded/SA7.ANL
+text SA7.CHK recorded/SA7.CHK
+blocks SD0.DAT recorded/SD0.DAT
+text SD0.ANL recorded/SD0.ANL
+text SD0.CHK recorded/SD0.CHK
+blocks SD1.DAT recorded/SD1.DAT
+text SD1.ANL recorded/SD1.ANL
+text SD1.CHK recorded/SD1.CHK
+blocks SD2.DAT recorded/SD2.DAT
+text SD2.ANL recorded/SD2.ANL
+text SD2.CHK recorded/SD2.CHK
+blocks SD3.DAT recorded/SD3.DAT
+text SD3.ANL recorded/SD3.ANL
+text SD3.CHK recorded/SD3.CHK
+blocks SD4.DAT recorded/SD4.DAT
+text SD4.ANL recorded/SD4.ANL
+text SD4.CHK recorded/SD4.CHK
+blocks SD5.DAT recorded/SD5.DAT
+text SD5.ANL recorded/SD5.ANL
+text SD5.CHK recorded/SD5.CHK
+blocks SD6.DAT recorded/SD6.DAT
+text SD6.ANL recorded/SD6.ANL
+text SD6.CHK recorded/SD6.CHK
+blocks SD7.DAT recorded/SD7.DAT
+text SD7.ANL recorded/SD7.ANL
+text SD7.CHK recorded/SD7.CHK
+blocks SV1.DAT recorded/SV1.DAT
+text SV1.ANL recorded/SV1.ANL
+text SV1.CHK recorded/SV1.CHK
+blocks SV2.DAT recorded/SV2.DAT
+text SV2.ANL recorded/SV2.ANL
+text SV2.CHK recorded/SV2.CHK
+blocks CR.DAT recorded/CR.DAT
+text CR.ANL recorded/CR.ANL
+text CR.CHK recorded/CR.CHK
+blocks NK.DAT recorded/NK.DAT
+text NK.ANL recorded/NK.ANL
+text NK.CHK recorded/NK.CHK
+blocks FK.DAT recorded/FK.DAT
+text FK.ANL recorded/FK.ANL
+text FK.CHK recorded/FK.CHK
+blocks SC.DAT recorded/SC.DAT
+text SC.ANL recorded/SC.ANL
+text SC.CHK recorded/SC.CHK
+blocks DM1.DAT recorded/DM1.DAT
+text DM1.ANL recorded/DM1.ANL
+text DM1.CHK recorded/DM1.CHK
+blocks DM2.DAT recorded/DM2.DAT
+text DM2.ANL recorded/DM2.ANL
+text DM2.CHK recorded/DM2.CHK
+blocks DM3.DAT recorded/DM3.DAT
+text DM3.ANL recorded/DM3.ANL
+text DM3.CHK recorded/DM3.CHK
+blocks DM4.DAT recorded/DM4.DAT
+text DM4.ANL recorded/DM4.ANL
+text DM4.CHK recorded/DM4.CHK
+blocks DM5.DAT recorded/DM5.DAT
+text DM5.ANL recorded/DM5.ANL
+text DM5.CHK recorded/DM5.CHK
+blocks UP.DAT recorded/UP.DAT
+text UP.ANL recorded/UP.ANL
+text UP.CHK recorded/UP.CHK
+blocks MC.DAT recorded/MC.DAT
+text MC.ANL recorded/MC.ANL
+text MC.CHK recorded/MC.CHK
+blocks SC0.SEQ recorded/SC0.SEQ
+blocks SC1.SEQ recorded/SC1.SEQ
+blocks SC2.SEQ recorded/SC2.SEQ
+blocks MC0.SEQ recorded/MC0.SEQ
+blocks MC1.SEQ recorded/MC1.SEQ
+blocks NK0.SEQ recorded/NK0.SEQ
+blocks NK1.SEQ recorded/NK1.SEQ
+blocks FK0.SEQ recorded/FK0.SEQ
+blocks CR0.SEQ recorded/CR0.SEQ
+blocks UP0.SEQ recorded/UP0.SEQ
+blocks DM10.SEQ recorded/DM10.SEQ
+blocks DM20.SEQ recorded/DM20.SEQ
+blocks DM30.SEQ recorded/DM30.SEQ
+blocks DM40.SEQ recorded/DM40.SEQ
+blocks DM50.SEQ recorded/DM50.SEQ
+manifest *.DAT recorded/ods-manifest.json

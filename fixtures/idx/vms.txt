@@ -1,0 +1,93 @@
+in IDX.FDL
+in IDXVAR.FDL
+in KS.FDL
+in ML.FDL
+in NC.FDL
+in PDUP.FDL
+in SEQ.FDL
+in TY.FDL
+in BUILD.COM
+in READS.COM
+run @BUILD.COM/OUTPUT=BUILD.LOG
+run @READS.COM/OUTPUT=READS.LOG
+text BUILD.LOG recorded/build.log
+text READS.LOG recorded/reads.log
+blocks E1.DAT recorded/E1.DAT
+text E1.ANL recorded/E1.ANL
+text E1.CHK recorded/E1.CHK
+blocks E2.DAT recorded/E2.DAT
+text E2.ANL recorded/E2.ANL
+text E2.CHK recorded/E2.CHK
+blocks E3.DAT recorded/E3.DAT
+text E3.ANL recorded/E3.ANL
+text E3.CHK recorded/E3.CHK
+blocks E4.DAT recorded/E4.DAT
+text E4.ANL recorded/E4.ANL
+text E4.CHK recorded/E4.CHK
+blocks E5.DAT recorded/E5.DAT
+text E5.ANL recorded/E5.ANL
+text E5.CHK recorded/E5.CHK
+blocks E6.DAT recorded/E6.DAT
+text E6.ANL recorded/E6.ANL
+text E6.CHK recorded/E6.CHK
+blocks E7.DAT recorded/E7.DAT
+text E7.ANL recorded/E7.ANL
+text E7.CHK recorded/E7.CHK
+blocks P1.DAT recorded/P1.DAT
+text P1.ANL recorded/P1.ANL
+text P1.CHK recorded/P1.CHK
+blocks P2.DAT recorded/P2.DAT
+text P2.ANL recorded/P2.ANL
+text P2.CHK recorded/P2.CHK
+blocks RB.DAT recorded/RB.DAT
+text RB.ANL recorded/RB.ANL
+text RB.CHK recorded/RB.CHK
+blocks AS.DAT recorded/AS.DAT
+text AS.ANL recorded/AS.ANL
+text AS.CHK recorded/AS.CHK
+blocks DS.DAT recorded/DS.DAT
+text DS.ANL recorded/DS.ANL
+text DS.CHK recorded/DS.CHK
+blocks DEL.DAT recorded/DEL.DAT
+text DEL.ANL recorded/DEL.ANL
+text DEL.CHK recorded/DEL.CHK
+blocks PD.DAT recorded/PD.DAT
+text PD.ANL recorded/PD.ANL
+text PD.CHK recorded/PD.CHK
+blocks KS.DAT recorded/KS.DAT
+text KS.ANL recorded/KS.ANL
+text KS.CHK recorded/KS.CHK
+blocks NC.DAT recorded/NC.DAT
+text NC.ANL recorded/NC.ANL
+text NC.CHK recorded/NC.CHK
+blocks TY.DAT recorded/TY.DAT
+text TY.ANL recorded/TY.ANL
+text TY.CHK recorded/TY.CHK
+blocks ML.DAT recorded/ML.DAT
+text ML.ANL recorded/ML.ANL
+text ML.CHK recorded/ML.CHK
+blocks RB0.SEQ recorded/RB0.SEQ
+blocks RB1.SEQ recorded/RB1.SEQ
+blocks RB2.SEQ recorded/RB2.SEQ
+blocks RB3.SEQ recorded/RB3.SEQ
+blocks DEL0.SEQ recorded/DEL0.SEQ
+blocks DEL1.SEQ recorded/DEL1.SEQ
+blocks DEL2.SEQ recorded/DEL2.SEQ
+blocks DEL3.SEQ recorded/DEL3.SEQ
+blocks PD0.SEQ recorded/PD0.SEQ
+blocks PD1.SEQ recorded/PD1.SEQ
+blocks KS0.SEQ recorded/KS0.SEQ
+blocks KS1.SEQ recorded/KS1.SEQ
+blocks NC0.SEQ recorded/NC0.SEQ
+blocks NC1.SEQ recorded/NC1.SEQ
+blocks TY0.SEQ recorded/TY0.SEQ
+blocks TY1.SEQ recorded/TY1.SEQ
+blocks TY2.SEQ recorded/TY2.SEQ
+blocks TY3.SEQ recorded/TY3.SEQ
+blocks TY4.SEQ recorded/TY4.SEQ
+blocks TY5.SEQ recorded/TY5.SEQ
+blocks TY6.SEQ recorded/TY6.SEQ
+blocks TY7.SEQ recorded/TY7.SEQ
+blocks TY8.SEQ recorded/TY8.SEQ
+blocks ML0.SEQ recorded/ML0.SEQ
+manifest *.DAT recorded/ods-manifest.json

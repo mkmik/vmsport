@@ -1,0 +1,456 @@
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]E1.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]E2.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]E3.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]E4.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]E5.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]E6.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]E7.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]P1.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]P2.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]RB.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]AS.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]DS.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]DEL.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]PD.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]KS.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]NC.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]TY.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDX]ML.DAT;1> 0 errors
+
+Directory DKA200:[T.IDX]
+
+AS.DAT;1                      File ID:  (35,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:10.21
+Modified:    7-OCT-2026 02:40:10.30 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:10.21
+Attr Mod:    7-OCT-2026 02:40:10.30
+Data Mod:    7-OCT-2026 02:40:10.21
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 1 key
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 6, Maximum bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 200 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+DEL.DAT;1                     File ID:  (37,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:10.45
+Modified:    7-OCT-2026 02:40:10.61 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:10.45
+Attr Mod:    7-OCT-2026 02:40:10.61
+Data Mod:    7-OCT-2026 02:40:10.45
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 4 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 12, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 64 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+DS.DAT;1                      File ID:  (36,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:10.32
+Modified:    7-OCT-2026 02:40:10.42 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:10.32
+Attr Mod:    7-OCT-2026 02:40:10.42
+Data Mod:    7-OCT-2026 02:40:10.32
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 1 key
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 6, Maximum bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 200 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+E1.DAT;1                      File ID:  (25,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.05
+Modified:    7-OCT-2026 02:40:09.06 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.05
+Attr Mod:    7-OCT-2026 02:40:09.06
+Data Mod:    7-OCT-2026 02:40:09.05
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 4 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 12, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 64 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+E2.DAT;1                      File ID:  (26,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.08
+Modified:    7-OCT-2026 02:40:09.08 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.08
+Attr Mod:    7-OCT-2026 02:40:09.08
+Data Mod:    7-OCT-2026 02:40:09.08
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 1 key
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 6, Maximum bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 200 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+E3.DAT;1                      File ID:  (27,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.12
+Modified:    7-OCT-2026 02:40:09.13 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.12
+Attr Mod:    7-OCT-2026 02:40:09.13
+Data Mod:    7-OCT-2026 02:40:09.12
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 9 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 16, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 40 byte records
+Record attributes:  None
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+E4.DAT;1                      File ID:  (28,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.16
+Modified:    7-OCT-2026 02:40:09.16 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.16
+Attr Mod:    7-OCT-2026 02:40:09.16
+Data Mod:    7-OCT-2026 02:40:09.16
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+                             In 2 areas
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 8, Maximum bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 80 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+E5.DAT;1                      File ID:  (29,1,0)              
+Size:           64/64         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.18
+Modified:    7-OCT-2026 02:40:09.19 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.18
+Attr Mod:    7-OCT-2026 02:40:09.19
+Data Mod:    7-OCT-2026 02:40:09.18
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 1 key
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 64, Extend: 32, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 200 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+E6.DAT;1                      File ID:  (30,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.22
+Modified:    7-OCT-2026 02:40:09.22 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.22
+Attr Mod:    7-OCT-2026 02:40:09.22
+Data Mod:    7-OCT-2026 02:40:09.22
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 8, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 60 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+E7.DAT;1                      File ID:  (31,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.25
+Modified:    7-OCT-2026 02:40:09.25 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.25
+Attr Mod:    7-OCT-2026 02:40:09.25
+Data Mod:    7-OCT-2026 02:40:09.25
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 4, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 40 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+KS.DAT;1                      File ID:  (39,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:10.82
+Modified:    7-OCT-2026 02:40:10.95 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:10.82
+Attr Mod:    7-OCT-2026 02:40:10.95
+Data Mod:    7-OCT-2026 02:40:10.82
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+                             In 2 areas
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 8, Maximum bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 80 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+ML.DAT;1                      File ID:  (42,1,0)              
+Size:          320/320        Owner:    [1,4]
+Created:     7-OCT-2026 02:40:11.50
+Modified:    7-OCT-2026 02:40:12.40 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:11.50
+Attr Mod:    7-OCT-2026 02:40:12.40
+Data Mod:    7-OCT-2026 02:40:11.50
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 1 key
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 320, Extend: 32, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 200 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+NC.DAT;1                      File ID:  (40,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:10.98
+Modified:    7-OCT-2026 02:40:11.07 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:10.98
+Attr Mod:    7-OCT-2026 02:40:11.07
+Data Mod:    7-OCT-2026 02:40:10.98
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 8, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 60 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+P1.DAT;1                      File ID:  (32,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.28
+Modified:    7-OCT-2026 02:40:09.31 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.28
+Attr Mod:    7-OCT-2026 02:40:09.31
+Data Mod:    7-OCT-2026 02:40:09.28
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 4 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 12, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 64 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+P2.DAT;1                      File ID:  (33,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.34
+Modified:    7-OCT-2026 02:40:09.36 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.34
+Attr Mod:    7-OCT-2026 02:40:09.36
+Data Mod:    7-OCT-2026 02:40:09.34
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 4 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 12, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 64 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+PD.DAT;1                      File ID:  (38,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:10.64
+Modified:    7-OCT-2026 02:40:10.79 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:10.64
+Attr Mod:    7-OCT-2026 02:40:10.79
+Data Mod:    7-OCT-2026 02:40:10.64
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 4, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 40 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+RB.DAT;1                      File ID:  (34,1,0)              
+Size:           48/48         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:09.40
+Modified:    7-OCT-2026 02:40:10.19 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:09.40
+Attr Mod:    7-OCT-2026 02:40:10.19
+Data Mod:    7-OCT-2026 02:40:09.40
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 4 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 48, Extend: 12, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 64 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+TY.DAT;1                      File ID:  (41,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:40:11.10
+Modified:    7-OCT-2026 02:40:11.48 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:40:11.10
+Attr Mod:    7-OCT-2026 02:40:11.48
+Data Mod:    7-OCT-2026 02:40:11.10
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 9 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 16, Maximum bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 40 byte records
+Record attributes:  None
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 18 files, 784/784 blocks.

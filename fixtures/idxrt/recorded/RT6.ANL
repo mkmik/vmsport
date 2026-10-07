@@ -1,0 +1,85 @@
+IDENT	FDL_VERSION 02 " 7-OCT-2026 03:46:33   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              32
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             2
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T.IDXRT]RT6.DAT;1"
+	ORGANIZATION            indexed
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        carriage_return
+	FORMAT                  variable
+	SIZE                    80
+
+AREA 0
+	ALLOCATION              8
+	BUCKET_SIZE             1
+	EXTENSION               8
+
+AREA 1
+	ALLOCATION              8
+	BUCKET_SIZE             2
+	EXTENSION               8
+
+KEY 0
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    yes
+	DATA_RECORD_COMPRESSION yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              no
+	INDEX_AREA              1
+	INDEX_COMPRESSION       yes
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       1
+	NAME                    "SEG"
+	NULL_KEY                no
+	PROLOG                  3
+	SEG0_LENGTH             4
+	SEG0_POSITION           10
+	SEG1_LENGTH             3
+	SEG1_POSITION           2
+	TYPE                    string
+
+KEY 1
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    yes
+	DATA_AREA               1
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              1
+	INDEX_COMPRESSION       yes
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       1
+	NAME                    "CITY"
+	NULL_KEY                yes
+	NULL_VALUE              32
+	SEG0_LENGTH             6
+	SEG0_POSITION           20
+	TYPE                    dstring
+
+ANALYSIS_OF_AREA 0
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_AREA 1
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_KEY 0
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 1
+	! This index is uninitialized - there are no records.

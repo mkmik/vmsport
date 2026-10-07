@@ -1,0 +1,53 @@
+# Indexed files vmsport wrote (crates/vms-rms/tests/idx_roundtrip.rs),
+# judged by VMS: ANALYZE/RMS_FILE, every key's order, READ/KEY; then VMS
+# writes on into RT1 (RT1V).
+binary RT1.DAT org=idx rfm=fix rat=cr mrs=64 lrl=64 bks=1
+binary RT2.DAT org=idx rfm=var rat=cr mrs=80 bks=2
+binary RT3.DAT org=idx rfm=fix rat=none mrs=40 lrl=40 bks=1
+binary RT4.DAT org=idx rfm=fix rat=cr mrs=200 lrl=200 bks=1
+binary RT5.DAT org=idx rfm=var rat=cr mrs=40 bks=1
+binary RT6.DAT org=idx rfm=var rat=cr mrs=80 bks=2
+binary RT7.DAT org=idx rfm=var rat=cr mrs=200 bks=2
+in SEQ16.FDL
+in LOOK.COM
+in BUILD.COM
+run @BUILD.COM/OUTPUT=BUILD.LOG
+text BUILD.LOG recorded/build.log
+text RT1.CHK recorded/RT1.CHK
+text RT1.ANL recorded/RT1.ANL
+blocks RT10.SEQ recorded/RT10.SEQ
+blocks RT11.SEQ recorded/RT11.SEQ
+blocks RT12.SEQ recorded/RT12.SEQ
+blocks RT13.SEQ recorded/RT13.SEQ
+text RT2.CHK recorded/RT2.CHK
+text RT2.ANL recorded/RT2.ANL
+blocks RT20.SEQ recorded/RT20.SEQ
+blocks RT21.SEQ recorded/RT21.SEQ
+text RT3.CHK recorded/RT3.CHK
+text RT3.ANL recorded/RT3.ANL
+blocks RT30.SEQ recorded/RT30.SEQ
+blocks RT31.SEQ recorded/RT31.SEQ
+blocks RT32.SEQ recorded/RT32.SEQ
+blocks RT33.SEQ recorded/RT33.SEQ
+blocks RT34.SEQ recorded/RT34.SEQ
+blocks RT35.SEQ recorded/RT35.SEQ
+blocks RT36.SEQ recorded/RT36.SEQ
+blocks RT37.SEQ recorded/RT37.SEQ
+blocks RT38.SEQ recorded/RT38.SEQ
+text RT4.CHK recorded/RT4.CHK
+text RT4.ANL recorded/RT4.ANL
+blocks RT40.SEQ recorded/RT40.SEQ
+text RT5.CHK recorded/RT5.CHK
+text RT5.ANL recorded/RT5.ANL
+blocks RT50.SEQ recorded/RT50.SEQ
+blocks RT51.SEQ recorded/RT51.SEQ
+text RT6.CHK recorded/RT6.CHK
+text RT6.ANL recorded/RT6.ANL
+blocks RT60.SEQ recorded/RT60.SEQ
+blocks RT61.SEQ recorded/RT61.SEQ
+text RT7.CHK recorded/RT7.CHK
+text RT7.ANL recorded/RT7.ANL
+blocks RT70.SEQ recorded/RT70.SEQ
+blocks RT1V.DAT recorded/RT1V.DAT
+text RT1V.CHK recorded/RT1V.CHK
+manifest RT1V.DAT recorded/ods-manifest.json

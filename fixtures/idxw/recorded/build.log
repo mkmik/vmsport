@@ -1,0 +1,42 @@
+@@ short
+%RMS-F-RSZ, invalid record size
+@@ long
+%RMS-F-RSZ, invalid record size
+@@ dup
+%RMS-F-DUP, duplicate key detected (DUP not set)
+@@ chg
+%RMS-F-CHG, invalid key change in $UPDATE (CHG not set)
+@@ chg0
+%RMS-F-CHG, invalid key change in $UPDATE (CHG not set)
+@@ done
+%DCL-W-TKNOVF, command element is too long - shorten
+ \K030bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA0.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA1.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA2.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA3.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA4.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA5.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA6.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SA7.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD0.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD1.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD2.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD3.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD4.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD5.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD6.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SD7.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SV1.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SV2.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]CR.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]NK.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]FK.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]SC.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]DM1.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]DM2.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]DM3.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]DM4.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]DM5.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]UP.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.IDXW]MC.DAT;1> 0 errors

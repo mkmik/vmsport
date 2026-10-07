@@ -1,0 +1,207 @@
+IDENT	FDL_VERSION 02 " 7-OCT-2026 02:40:14   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              16
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             1
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               16
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T.IDX]E3.DAT;1"
+	ORGANIZATION            indexed
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        none
+	FORMAT                  fixed
+	SIZE                    40
+
+AREA 0
+	ALLOCATION              16
+	BUCKET_SIZE             1
+	EXTENSION               16
+
+KEY 0
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    no
+	DATA_RECORD_COMPRESSION yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              no
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    "R"
+	NULL_KEY                no
+	PROLOG                  3
+	SEG0_LENGTH             4
+	SEG0_POSITION           0
+	TYPE                    string
+
+KEY 1
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             2
+	SEG0_POSITION           4
+	TYPE                    int2
+
+KEY 2
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             4
+	SEG0_POSITION           6
+	TYPE                    int4
+
+KEY 3
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             8
+	SEG0_POSITION           10
+	TYPE                    int8
+
+KEY 4
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             2
+	SEG0_POSITION           18
+	TYPE                    bin2
+
+KEY 5
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             8
+	SEG0_POSITION           20
+	TYPE                    bin8
+
+KEY 6
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             3
+	SEG0_POSITION           28
+	TYPE                    decimal
+
+KEY 7
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             4
+	SEG0_POSITION           31
+	TYPE                    dstring
+
+KEY 8
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             4
+	SEG0_POSITION           35
+	TYPE                    dint4
+
+ANALYSIS_OF_AREA 0
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_KEY 0
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 1
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 2
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 3
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 4
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 5
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 6
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 7
+	! This index is uninitialized - there are no records.
+
+ANALYSIS_OF_KEY 8
+	! This index is uninitialized - there are no records.
