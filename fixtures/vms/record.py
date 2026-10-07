@@ -7,6 +7,8 @@ usage: record.py [--harvest] [--keep] [RUNDIR] AREA...
 Each AREA is a directory under fixtures/ with a vms.txt that says what to do:
 
     in FILE              copy fixtures/AREA/FILE in, as [T.AREA]FILE (upcased)
+    import DIR           copy the files of fixtures/AREA/DIR in as they are, with
+                         the attributes its ods-manifest.json gives them
     run DCL-LINE         a line of DCL, run in DKA200:[T.AREA]
     text NAME DEST       copy [T.AREA]NAME out as text lines to fixtures/AREA/DEST
     blocks NAME DEST     copy it out as raw blocks, up to its highwater mark
@@ -109,6 +111,8 @@ def record(run, areas):
         for verb, rest in area_steps(area):
             if verb == "in":
                 ods("copy-in", img, FIX / area / rest, f"[T.{d}]{rest.upper()}", "--mode", "lines-to-records")
+            elif verb == "import":
+                ods("import", img, FIX / area / rest, f"[T.{d}]")
             elif verb == "run":
                 com.append(rest if rest.startswith("$") else "$ " + rest)
     com.append("$ DIRECTORY/SIZE DKA200:[T...]")

@@ -30,8 +30,11 @@ pub enum Rfm {
     Stmcr,
 }
 
+pub mod analyze;
 /// Record attribute bits (`FAB$V_FTN` ...).
 mod blocks;
+pub mod fdl;
+pub mod rel;
 pub mod status;
 
 pub use blocks::{Area, Blocks, Design, KeyDesc, KeyType, Rfa, Segment};
@@ -57,6 +60,8 @@ pub struct Fab {
     pub fsz: u8,
     /// Bucket size, for relative and indexed files.
     pub bks: u8,
+    /// Default extension, in blocks (FDL FILE EXTENSION).
+    pub deq: u16,
 }
 
 /// No attribute: a plain Unix text file.
@@ -70,6 +75,7 @@ impl Default for Fab {
             lrl: 0,
             fsz: 0,
             bks: 0,
+            deq: 0,
         }
     }
 }
@@ -102,7 +108,8 @@ const RATS: [(u8, &str); 4] = [
     (rat::BLK, "blk"),
 ];
 
-/// The `vms.fab` text: `org=seq rfm=var rat=cr,blk mrs=0 lrl=21 fsz=0 bks=0`.
+/// The `vms.fab` text: `org=seq rfm=var rat=cr,blk mrs=0 lrl=21 fsz=0 bks=0`,
+/// and `deq=n` when there is a default extension.
 impl fmt::Display for Fab {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let org = ORGS.iter().find(|o| o.0 == self.org).unwrap().1;
@@ -121,7 +128,11 @@ impl fmt::Display for Fab {
             f,
             "org={org} rfm={rfm} rat={rats} mrs={} lrl={} fsz={} bks={}",
             self.mrs, self.lrl, self.fsz, self.bks
-        )
+        )?;
+        if self.deq != 0 {
+            write!(f, " deq={}", self.deq)?;
+        }
+        Ok(())
     }
 }
 
@@ -164,6 +175,7 @@ impl std::str::FromStr for Fab {
                 "lrl" => fab.lrl = num()?,
                 "fsz" => fab.fsz = num()? as u8,
                 "bks" => fab.bks = num()? as u8,
+                "deq" => fab.deq = num()?,
                 _ => {}
             }
         }

@@ -10,6 +10,8 @@ The vmsport crates are tested against these. The inputs were written for vmsport
 | `fao/` | `cases.txt` (`gen.py` makes `fao.com`) | `F$FAO` results |
 | `cld/` | `VPTEST.CLD`, `cases.txt` (`gen.py` makes `cld.com`), `CLIDUMP.MAR` | what `CLI$PRESENT`/`CLI$GET_VALUE` return per command line, or DCL's error |
 | `rms/` | `*.FDL`, `rms.com` | one RMS file per organization and record format (`.DAT`, raw blocks), `ANALYZE/RMS_FILE` output, record attributes in `ods-manifest.json` |
+| `rmsrel/` | `*.FDL`, `rmsrel.com` | relative files of several shapes (FIX, VAR, VFC; MRN set and not; bucket sizes; records deleted, updated, appended; a file that extends; an empty one), `ANALYZE/RMS_FILE` output, DCL READ results, CREATE/FDL's error for SIZE 0 |
+| `rmsback/` | `ours/` (made by `crates/vms-rms/tests/back.rs`), `rmsback.com` | what VMS makes of files vms-rms wrote: `ANALYZE/RMS_FILE` /CHECK and /FDL, DCL READ and READ/KEY, and one of them after DCL changed it |
 | `rmsblk/` | `*.FDL`, `rmsblk.com` | sequential files whose records meet block boundaries (`BLOCK_SPAN no`, records longer than a block) and a FORTRAN carriage-control file |
 | `dcl/` | `*.COM` | the procedures' output |
 | `utils/` | `setup.txt`, `cases.txt` (`gen.py` makes `UTILS.COM`) | DIRECTORY, TYPE, COPY, DELETE, PURGE and SEARCH output and `$STATUS`, case by case |

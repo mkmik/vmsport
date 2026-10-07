@@ -1,0 +1,199 @@
+@@ messages
+%RMS-E-RNF, record not found
+%RMS-E-REX, record already exists
+%RMS-F-KEY, invalid record number key or key value
+%RMS-F-MRN, invalid maximum record number or record number exceeds MRN
+%RMS-F-RSZ, invalid record size
+%RMS-E-EOF, end of file detected
+@@ rzero
+%FDL-F-CREATE, error creating DKA200:[T.RMSREL]RZERO.DAT;
+-RMS-F-MRS, invalid maximum record size
+create 7FF9DA0C
+@@ rfix
+put 26 7FF9DA14
+put 27 7FF9DA14
+put 28 7FF9DA14
+put 29 7FF9DA14
+put 30 7FF9DA14
+%RMS-F-MRN, invalid maximum record number or record number exceeds MRN
+put 31 7FF9DA14
+%RMS-F-MRN, invalid maximum record number or record number exceeds MRN
+put 32 7FF9DA14
+[fixrec 001]
+[fixrec 002]
+[updated 05]
+[fixrec 006]
+[fixrec 007]
+[fixrec 008]
+[fixrec 009]
+[fixrec 011]
+[fixrec 012]
+[fixrec 013]
+[fixrec 014]
+[fixrec 015]
+[fixrec 016]
+[fixrec 017]
+[fixrec 018]
+[fixrec 019]
+[fixrec 020]
+[fixrec 021]
+[fixrec 022]
+[fixrec 023]
+[fixrec 024]
+[fixrec 025]
+[fixrec 026]
+[fixrec 027]
+[fixrec 028]
+[fixrec 029]
+[fixrec 030]
+@@ rvfc
+[01abcdefg]
+[02abcdefghijklmn]
+[03abcdefghijklmnopqrstu]
+[05abcdef]
+[short]
+[07abcdefghijklmnopqrst]
+[08abcdefghijklmnopqrstuvwxyz0]
+[09abcde]
+[10abcdefghijkl]
+[11abcdefghijklmnopqrs]
+[appended]
+@@ rvar
+%DCL-W-TKNOVF, command element is too long - shorten
+ \09vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \10vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \11vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \12vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \13vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \14vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \15vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \16vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \17vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \18vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \19vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+%DCL-W-TKNOVF, command element is too long - shorten
+ \20vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+[01vvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+[02vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+[03vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+[04vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+[05vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+[06vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+[07vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+[08vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv]
+@@ rempty
+@@ directory
+
+Directory DKA200:[T.RMSREL]
+
+REMPTY.DAT;1                  File ID:  (24,1,0)              
+Size:           48/48         Owner:    [1,4]
+Created:     7-OCT-2026 02:33:28.73
+Modified:    7-OCT-2026 02:33:28.73 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:33:28.73
+Attr Mod:    7-OCT-2026 02:33:28.73
+Data Mod:    7-OCT-2026 02:33:28.73
+Linkcount:  1
+File organization:  Relative, maximum record number: 2147483647
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 48, Extend: 0, Bucket size: 4, Global buffer count: 0, No version limit, Contiguous best try
+Record format:      Fixed length 100 byte records
+Record attributes:  None
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+RFIX.DAT;1                    File ID:  (21,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:33:27.69
+Modified:    7-OCT-2026 02:33:27.93 (4)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:33:27.69
+Attr Mod:    7-OCT-2026 02:33:27.93
+Data Mod:    7-OCT-2026 02:33:27.69
+Linkcount:  1
+File organization:  Relative, maximum record number: 30
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Fixed length 10 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+RVAR.DAT;1                    File ID:  (23,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 02:33:28.24
+Modified:    7-OCT-2026 02:33:28.62 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:33:28.24
+Attr Mod:    7-OCT-2026 02:33:28.62
+Data Mod:    7-OCT-2026 02:33:28.24
+Linkcount:  1
+File organization:  Relative, maximum record number: 2147483647
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 5, Bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 600 bytes, longest 600 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+RVFC.DAT;1                    File ID:  (22,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:33:28.04
+Modified:    7-OCT-2026 02:33:28.17 (4)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:33:28.04
+Attr Mod:    7-OCT-2026 02:33:28.17
+Data Mod:    7-OCT-2026 02:33:28.04
+Linkcount:  1
+File organization:  Relative, maximum record number: 2147483647
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Bucket size: 3, Global buffer count: 0, No version limit
+Record format:      VFC, 2 byte header, maximum 30 bytes, longest 30 bytes
+Record attributes:  Print file carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 4 files, 112/112 blocks.
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSREL]RFIX.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSREL]RVFC.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSREL]RVAR.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSREL]REMPTY.DAT;1> 0 errors

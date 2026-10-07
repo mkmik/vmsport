@@ -1,0 +1,75 @@
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]RGAPS.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]RFIXG.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]RVFCG.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]SFTN.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]SCRBLK.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]RBADLEN.DAT;1> 1 error
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]RBADCTL.DAT;1> 3 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]SBAD.DAT;1> 0 errors
+@@ read RGAPS
+[one]
+[five]
+[thirteen]
+[forty]
+@@ read RFIXG
+[one....]
+[hundred]
+@@ read RVFCG
+[three]
+[]
+[twenty, all of it..]
+@@ read SFTN
+[ first]
+[0second]
+[+third]
+[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+[bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb]
+[cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc]
+@@ read SCRBLK
+[0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]
+[1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111]
+[2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222]
+[3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333]
+[4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444]
+[5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555]
+@@ key
+%RMS-F-MRN, invalid maximum record number or record number exceeds MRN
+RFIXG 000185CC
+%RMS-E-RNF, record not found
+RGAPS 000182B2
+%RMS-F-KSZ, invalid key size for $GET/$FIND
+RGAPS 2 000185A4
+@@ change
+%ANLRMS-I-ERRORS, <DKA200:[T.RMSBACK]RGAPS.DAT;1> 0 errors
+[one]
+[13 by VMS]
+[forty]
+[appended on VMS]
+
+Directory DKA200:[T.RMSBACK]
+
+RGAPS.DAT;1                   File ID:  (17,1,0)              
+Size:            7/16         Owner:    [1,4]
+Created:     7-OCT-2026 00:28:23.27
+Modified:    7-OCT-2026 02:46:08.82 (3)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 00:28:23.27
+Attr Mod:    7-OCT-2026 02:46:08.82
+Data Mod:    7-OCT-2026 00:28:23.27
+Linkcount:  1
+File organization:  Relative, maximum record number: 2147483647
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 4, Bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 50 bytes, longest 50 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 7/16 blocks.

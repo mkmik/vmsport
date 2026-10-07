@@ -1,0 +1,21 @@
+in RFIX.FDL
+in RVFC.FDL
+in RVAR.FDL
+in REMPTY.FDL
+in RZERO.FDL
+in rmsrel.com
+run @RMSREL.COM/OUTPUT=RMSREL.LOG
+text RMSREL.LOG recorded/rmsrel.log
+blocks RFIX.DAT recorded/RFIX.DAT
+text RFIX.ANL recorded/RFIX.ANL
+text RFIX.CHK recorded/RFIX.CHK
+blocks RVFC.DAT recorded/RVFC.DAT
+text RVFC.ANL recorded/RVFC.ANL
+text RVFC.CHK recorded/RVFC.CHK
+blocks RVAR.DAT recorded/RVAR.DAT
+text RVAR.ANL recorded/RVAR.ANL
+text RVAR.CHK recorded/RVAR.CHK
+blocks REMPTY.DAT recorded/REMPTY.DAT
+text REMPTY.ANL recorded/REMPTY.ANL
+text REMPTY.CHK recorded/REMPTY.CHK
+manifest R*.DAT recorded/ods-manifest.json
