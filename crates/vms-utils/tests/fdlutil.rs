@@ -233,8 +233,6 @@ fn fdlutil2() {
 
 /// Indexed files: CREATE/FDL makes them once vms_rms::idx can.
 const IDX: &str = "indexed files: vms_rms::idx";
-/// DCL's WRITE to a relative file: through libvms::rms, once it is there.
-const REL: &str = "DCL's WRITE to a relative file";
 
 /// Cases that can't match yet, and why.
 const SKIP: &[(&str, &str)] = &[
@@ -247,13 +245,4 @@ const SKIP: &[(&str, &str)] = &[
     ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT I.DAT", IDX),
     ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT IM.DAT", IDX),
     ("ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT IM.DAT", IDX),
-    ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT RB.DAT", REL),
-    ("DIRECTORY/FULL RB.DAT", REL),
-    ("lexicals RB.DAT", REL),
-    ("DIRECTORY/FULL RB.DAT,RC.DAT", REL),
-    ("ANALYZE/RMS_FILE S.DAT,NOSUCH.DAT,RB.DAT", REL),
-    ("TYPE Z.ANL", REL),
-    ("TYPE Y.FDL", REL),
-    ("TYPE W.ANL", REL),
-    ("TYPE RB.FDL;2", REL),
 ];
