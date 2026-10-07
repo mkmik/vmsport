@@ -79,6 +79,23 @@ fn mask(s: &str) -> String {
     s.lines().map(mask_line).collect::<Vec<_>>().join("\n")
 }
 
+/// What depends on where buckets split: extents' use, and the numbers of
+/// ANALYSIS_OF_KEY sections.
+fn mask_splits(s: &str) -> String {
+    let mut analysis = false;
+    s.lines()
+        .map(|l| {
+            analysis = analysis && !l.is_empty() || l.starts_with("ANALYSIS_OF_KEY");
+            if l.starts_with("\tCurrent Extent Start:") || analysis && l.starts_with('\t') {
+                l.replace(|c: char| c.is_ascii_digit(), "")
+            } else {
+                l.to_string()
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
 fn sections(log: &str) -> Vec<(String, String)> {
     log.split("@@ ")
         .skip(1)
@@ -91,14 +108,8 @@ fn sections(log: &str) -> Vec<(String, String)> {
 
 /// Runs AREA's procedure in DKA200:[T.AREA] (the area's `in` files and
 /// `extra` files copied there first) and compares its log with VMS's,
-/// case by case but for those `skip` says can't match, and why.
-fn run_area(
-    area: &str,
-    procedure: &str,
-    extra: &[(&str, &[u8], &str)],
-    skip: &[(&str, &str)],
-    same: &[(&str, &str)],
-) {
+/// case by case.
+fn run_area(area: &str, procedure: &str, extra: &[(&str, &[u8], &str)], same: &[(&str, &str)]) {
     for p in ["vms-dcl", "vmsportd"] {
         let st = Command::new(env!("CARGO"))
             .args(["build", "-q", "-p", p])
@@ -173,14 +184,15 @@ fn run_area(
     let got = sections(&got);
     let mut failures = Vec::new();
     for (i, (name, body)) in sections(&want).into_iter().enumerate() {
-        if skip.iter().any(|s| s.0 == name) {
-            continue;
-        }
         let mine = got
             .get(i)
             .filter(|g| g.0 == name)
             .map_or("<missing>\n".into(), |g| g.1.clone());
-        if mask(&body) != mask(&mine) {
+        let (want, mine) = match SPLITS.iter().any(|s| s.0 == name) {
+            true => (mask_splits(&body), mask_splits(&mine)),
+            false => (body.clone(), mine),
+        };
+        if mask(&want) != mask(&mine) {
             failures.push(format!("@@ {name}\n--- VMS\n{body}--- vmsport\n{mine}"));
         }
     }
@@ -204,45 +216,26 @@ fn damaged() -> (&'static str, Vec<u8>, &'static str) {
 #[test]
 fn fdlutil() {
     let (n, b, f) = damaged();
-    // The indexed files as VMS left them, for DIRECTORY/FULL and
-    // F$FILE_ATTRIBUTES while CREATE/FDL can't make them.
-    let i = std::fs::read(fixtures("fdlutil/recorded/I.DAT")).unwrap();
-    let im = std::fs::read(fixtures("fdlutil/recorded/IM.DAT")).unwrap();
-    let extra = [
-        (n, &b[..], f),
-        (
-            "I.DAT;1",
-            &i[..],
-            "org=idx rfm=fix rat=cr mrs=30 lrl=30 fsz=0 bks=2",
-        ),
-        (
-            "IM.DAT;1",
-            &im[..],
-            "org=idx rfm=var rat=cr mrs=80 lrl=0 fsz=0 bks=3",
-        ),
-    ];
     // (S.DAT's DCL WRITEs leave VMS's odd records a stray pad byte.)
     let same = [("R.DAT;1", "R.DAT"), ("A.TXT;1", "A1.TXT")];
-    run_area("fdlutil", "FDLUTIL.COM", &extra, SKIP, &same);
+    run_area("fdlutil", "FDLUTIL.COM", &[(n, &b, f)], &same);
 }
 
 #[test]
 fn fdlutil2() {
-    run_area("fdlutil2", "FDLUTIL2.COM", &[], SKIP, &[]);
+    run_area("fdlutil2", "FDLUTIL2.COM", &[], &[]);
 }
 
-/// Indexed files: CREATE/FDL makes them once vms_rms::idx can.
-const IDX: &str = "indexed files: vms_rms::idx";
-
-/// Cases that can't match yet, and why.
-const SKIP: &[(&str, &str)] = &[
-    ("CREATE/FDL=SYS$INPUT I.DAT", IDX),
-    ("CREATE/FDL=SYS$INPUT IM.DAT", IDX),
-    ("DIRECTORY/SIZE=ALL *.DAT", IDX),
-    ("fill I.DAT", IDX),
-    ("fill IM.DAT", IDX),
-    ("ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT I.DAT", IDX),
-    ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT I.DAT", IDX),
-    ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT IM.DAT", IDX),
-    ("ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT IM.DAT", IDX),
+/// Cases where vmsport's indexed file splits its buckets elsewhere than
+/// VMS's did (vms_rms::idx's choices): the reports match but for what
+/// mask_splits hides.
+const SPLITS: &[(&str, &str)] = &[
+    (
+        "ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT I.DAT",
+        "4 data buckets on VMS, 5 here",
+    ),
+    (
+        "ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT I.DAT",
+        "4 data buckets on VMS, 5 here",
+    ),
 ];

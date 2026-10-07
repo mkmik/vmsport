@@ -500,22 +500,27 @@ impl<B: Blocks> File<B> {
 /// `report` (its first page's heading already there: a form feed, the
 /// title, the file spec and two blank lines) broken into pages as
 /// ANALYZE/RMS_FILE/CHECK breaks it: 54 lines under each heading, each
-/// next page's heading saying `now` and its number.
+/// next page's heading saying `now` and its number. An area descriptor's
+/// seven lines stay on one page (fixtures/fdlutil, IM.DAT); a key's don't
+/// (fixtures/idx, E4).
 pub fn paginate(report: &str, now: &str, spec: &str) -> String {
-    let lines: Vec<&str> = report.split('\n').collect();
-    let first = lines.len().min(59);
-    let mut out: Vec<String> = lines[..first].iter().map(|s| s.to_string()).collect();
-    for (i, chunk) in lines[first..].chunks(54).enumerate() {
-        out.push("\x0c".to_string());
-        out.push(format!(
-            "{:<45}{now}   Page {}",
-            "Check RMS File Integrity",
-            i + 2
-        ));
-        out.push(spec.to_string());
-        out.push(String::new());
-        out.push(String::new());
-        out.extend(chunk.iter().map(|s| s.to_string()));
+    let mut out: Vec<String> = Vec::new();
+    let (mut page, mut room) = (1, 59);
+    for line in report.split('\n') {
+        if room == 0 || line.starts_with("AREA DESCRIPTOR") && room < 7 {
+            page += 1;
+            out.push("\x0c".to_string());
+            out.push(format!(
+                "{:<45}{now}   Page {page}",
+                "Check RMS File Integrity"
+            ));
+            out.push(spec.to_string());
+            out.push(String::new());
+            out.push(String::new());
+            room = 54;
+        }
+        out.push(line.to_string());
+        room -= 1;
     }
     out.join("\n")
 }

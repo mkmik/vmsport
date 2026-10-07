@@ -96,11 +96,12 @@ fn indexed_files_from_vms_through_an_image() {
         for f in ["ORDERS.DAT", "PARTS.DAT"] {
             let data = std::fs::read(fixtures("accept/recorded").join(f)).unwrap();
             let spec = format!("[T.ACCEPTBACK]{f};1");
+            // No size hint: allocated as VMS had it, not more.
             img.copy_in(
                 &mut &data[..],
                 &spec,
                 Conversion::Binary,
-                Some(data.len() as u64),
+                None,
                 Some(attrs(f)),
             )
             .unwrap();
@@ -169,6 +170,21 @@ fn indexed_files_from_vms_through_an_image() {
         .map(|f| blocks(&mut img, &format!("[T.ACCEPTBACK]{f}")))
         .collect();
     drop(img);
+    // Against VMS's own run of UPDATE.COM, byte for byte: for the record,
+    // not required (vms_rms::idx doesn't make every split choice VMS makes,
+    // nor leave VMS's stale bytes in free space).
+    for (f, o) in ["ORDERSU.DAT", "PARTSU.DAT"].iter().zip(&ours) {
+        let vms = std::fs::read(fixtures("accept/recorded").join(f)).unwrap();
+        let blocks = vms
+            .chunks(512)
+            .zip(o.chunks(512))
+            .filter(|(a, b)| a != b)
+            .count();
+        eprintln!(
+            "{f}: {blocks} of {} blocks differ from VMS's",
+            vms.len() / 512
+        );
+    }
     let back = fixtures("acceptback/VOLUME.IMG.gz");
     if std::env::var_os("VMSPORT_ACCEPT_WRITE").is_some() {
         let gz = Command::new("gzip")

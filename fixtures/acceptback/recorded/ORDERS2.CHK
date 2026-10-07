@@ -1,5 +1,5 @@
 
-Check RMS File Integrity                      7-OCT-2026 04:17:30.97   Page 1
+Check RMS File Integrity                      7-OCT-2026 04:23:06.54   Page 1
 DKA200:[T.ACCEPTBACK]ORDERS.DAT;1
 
 
@@ -9,8 +9,8 @@ FILE HEADER
 	File ID: (14,1,0)
 	Owner UIC: [1,4]
 	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
-	Creation Date:    7-OCT-2026 02:15:44.76
-	Revision Date:    7-OCT-2026 04:17:30.32, Number: 3
+	Creation Date:    7-OCT-2026 02:20:37.32
+	Revision Date:    7-OCT-2026 04:23:05.89, Number: 3
 	Expiration Date: none specified
 	Backup Date:     none posted
 	Contiguity Options:  none
@@ -25,7 +25,7 @@ RMS FILE ATTRIBUTES
 	Record Format: variable
 	Record Attributes:  carriage-return 
 	Maximum Record Size: 80
-	Blocks Allocated: 320, Default Extend Size: 8
+	Blocks Allocated: 304, Default Extend Size: 8
 	Bucket Size: 1
 	File Monitoring: disabled
 	Global Buffer Count  pre-V8.3:          0
@@ -42,9 +42,9 @@ AREA DESCRIPTOR #0 (VBN 3, offset %X'0000')
 
 	Bucket Size: 1
 	Reclaimed Bucket VBN: 0
-	Current Extent Start: 305, Blocks: 16, Used: 2, Next: 307
+	Current Extent Start: 289, Blocks: 16, Used: 11, Next: 300
 	Default Extend Quantity: 8
-	Total Allocation: 296
+	Total Allocation: 288
 
 AREA DESCRIPTOR #1 (VBN 3, offset %X'0040')
 
@@ -58,7 +58,7 @@ KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
 
 	Next Key Descriptor VBN: 2, Offset: %X'0000'
 
-Check RMS File Integrity                      7-OCT-2026 04:17:30.98   Page 2
+Check RMS File Integrity                      7-OCT-2026 04:23:06.54   Page 2
 DKA200:[T.ACCEPTBACK]ORDERS.DAT;1
 
 
@@ -117,7 +117,7 @@ KEY DESCRIPTOR #2 (VBN 2, offset %X'0066')
 		(1)  KEY$V_CHGKEYS    1
 		(2)  KEY$V_NULKEYS    0
 
-Check RMS File Integrity                      7-OCT-2026 04:17:31.03   Page 3
+Check RMS File Integrity                      7-OCT-2026 04:23:06.60   Page 3
 DKA200:[T.ACCEPTBACK]ORDERS.DAT;1
 
 
