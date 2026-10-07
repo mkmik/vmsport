@@ -53,7 +53,7 @@ pub struct Key {
 impl Key {
     /// The index levels with buckets of `b` blocks (`None`: too small).
     pub fn depth(&self, b: u32) -> Option<u32> {
-        self.levels(b).map(|l| l.0)
+        self.levels(b).filter(|_| b >= self.bmin).map(|l| l.0)
     }
 
     /// The levels and index buckets with buckets of `b` blocks.
@@ -133,14 +133,15 @@ impl Key {
     }
 
     /// The work of a search through the index with buckets of `b`
-    /// blocks: per level, the binary search of a full index bucket.
-    /// ponytail: fitted to 19 of 20 recorded figures (a 255-byte key's
-    /// 18-block one is 6, not 7).
+    /// blocks: per level, the binary search of a full index bucket, its
+    /// entries the key and 6 bytes, and 4 more for each 32 of the key.
+    /// ponytail: fitted to the 23 recorded figures, keys of 6 to 255 bytes.
     pub fn processing(&self, b: u32) -> u32 {
         let Some((levels, _)) = self.index(b) else {
             return 0;
         };
-        let per = ((512 * b).saturating_sub(INDEX_OVERHEAD) / (self.klen + 6)).max(1);
+        let entry = self.klen + 6 + 4 * (self.klen / 32);
+        let per = ((512 * b).saturating_sub(INDEX_OVERHEAD) / entry).max(1);
         levels * (per.next_power_of_two().trailing_zeros() + 1)
     }
 }
@@ -547,7 +548,8 @@ fn default(s: &mut Section, name: &str, value: &str) {
 }
 
 /// FILE's attributes in EDF's order: by name, the global buffer ones last.
-fn file_order(name: &str) -> (usize, String) {
+/// Where EDF puts a FILE attribute: by name, the global buffers last.
+pub fn file_order(name: &str) -> (usize, String) {
     let last = ["GLOBAL_BUFFER_COUNT", "GLBUFF_CNT_V83", "GLBUFF_FLAGS_V83"];
     (
         last.iter().position(|l| *l == name).map_or(0, |i| i + 1),

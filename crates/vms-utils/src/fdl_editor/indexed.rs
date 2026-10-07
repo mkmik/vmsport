@@ -119,13 +119,8 @@ impl Editor<'_> {
             }
             self.depth_message(c, &d, k)?;
         }
-        let mut f = self.design_fdl(&d, &title, &file, cc)?;
-        if let Some(Some(flags)) = buffers
-            && let Some(s) = f.sections.iter_mut().find(|s| s.name == "FILE")
-        {
-            s.set("GLBUFF_FLAGS_V83", flags);
-        }
-        Some(f)
+        let f = self.design_fdl(&d, &title, &file, cc, buffers.flatten())?;
+        Some(self.prologue_deferred(f, &d))
     }
 
     /// ADD_KEY: one more key for the indexed file.
@@ -156,9 +151,46 @@ impl Editor<'_> {
         self.load(c, &mut d)?;
         self.key_questions(c, &mut d, k)?;
         self.screen(c, &mut d, k)?;
+        if k > 0 {
+            self.finish_key(c, &mut d, k)?;
+            self.depth_message(c, &d, k)?;
+            return Some(self.key_into(&d, k));
+        }
+        // The primary key is designed as INDEXED designs it; the other
+        // keys stay.
+        let (title, file, cc) = self.file_questions(c)?;
         self.finish_key(c, &mut d, k)?;
+        let flags = self.buffers(c)?;
         self.depth_message(c, &d, k)?;
-        Some(self.key_into(&d, k))
+        let mut f = self.design_fdl(&d, &title, &file, cc, flags)?;
+        f.sections.extend(
+            self.key_sections()
+                .into_iter()
+                .filter(|s| s.value.trim() != "0")
+                .cloned(),
+        );
+        Some(self.prologue_deferred(f, &d))
+    }
+
+    /// A designed definition as the editor holds it until EXIT: AREA 0
+    /// without the prologue's blocks, which EXIT adds (VMS's VIEW after a
+    /// design shows the one, the file written the other).
+    fn prologue_deferred(&mut self, mut f: Fdl, d: &Design) -> Fdl {
+        let keys = d.keys.len() as u32;
+        let p = (2 + (keys.max(1) - 1).div_ceil(2)).div_ceil(d.cluster) * d.cluster;
+        if let Some(a) = f
+            .sections
+            .iter_mut()
+            .find(|s| s.name == "AREA" && s.value.trim() == "0")
+        {
+            let alloc: u32 = a
+                .get("ALLOCATION")
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(0);
+            a.set("ALLOCATION", alloc.saturating_sub(p));
+            self.prologue = p;
+        }
+        super::normalized(f)
     }
 
     /// OPTIMIZE: every key designed again for the data the analysis
@@ -166,8 +198,9 @@ impl Editor<'_> {
     pub(super) fn optimize(&mut self, c: &mut impl Console) -> Option<Fdl> {
         if self.analysis.is_none() {
             c.say("\n\tAn Input Analysis File is necessary for Optimizing Keys.\n\t\n");
-            let q = Q::new("Analysis File file-spec\t", Takes::Text { max: 512 })
+            let mut q = Q::new("Analysis File file-spec\t", Takes::Text { max: 512 })
                 .or("null", Answer::Text(String::new()));
+            q.lead = false;
             let Answer::Text(spec) = self.ask(c, &q)? else {
                 return None;
             };
@@ -226,7 +259,8 @@ impl Editor<'_> {
             self.finish_key(c, &mut d, k)?;
             self.depth_message(c, &d, k)?;
         }
-        self.design_fdl(&d, &title, &file, cc)
+        let f = self.design_fdl(&d, &title, &file, cc, None)?;
+        Some(self.prologue_deferred(f, &d))
     }
 
     fn design_start(&self, script: &'static str) -> Design {
@@ -759,12 +793,18 @@ impl Editor<'_> {
         (input, analysis)
     }
 
-    /// Key `k`'s figures as designed so far.
+    /// Key `k`'s figures as designed so far: no key's buckets smaller
+    /// than the records' (the optimizer lets an alternate key's be).
     fn figures(&self, d: &Design, k: usize) -> Option<edf::Key> {
         let (input, analysis) = self.design_files(d);
-        edf::keys(&input, &analysis)
-            .ok()
-            .and_then(|(_, keys)| keys.get(k).copied())
+        let (_, keys) = edf::keys(&input, &analysis).ok()?;
+        let mut key = *keys.get(k)?;
+        let var = d.format != "FIXED";
+        key.bmin = key.bmin.max(edf::min_bucket(d.mean.max(d.max) as u32, var));
+        // ADD_KEY's and TOUCHUP's key is fitted to the clusters, as the
+        // primary key is (their recorded suggestions say so).
+        key.adjust |= matches!(d.script, "ADD_KEY" | "TOUCHUP");
+        Some(key)
     }
 
     /// After FD, for the first key: the title, the data file, its
@@ -825,7 +865,10 @@ impl Editor<'_> {
             out += &format!("\t{label:<40}{v}\n");
         }
         c.say(&out);
-        let lo = (1..=63).find(|&b| f.depth(b).is_some()).unwrap_or(1);
+        // The smallest bucket holding two index entries.
+        let lo = (1..=63)
+            .find(|&b| (512 * b - 17) / (f.klen + 4) >= 2)
+            .unwrap_or(1);
         let dflt = s[if smaller { 0 } else { 1 }];
         let q = Q::number(&format!("Key {k:>2} Bucket Size"), lo.into(), 63)
             .or(&dflt.to_string(), Answer::Number(dflt.into()));
@@ -882,7 +925,14 @@ impl Editor<'_> {
     }
 
     /// The whole design: what the optimizer makes of the answers.
-    fn design_fdl(&self, d: &Design, title: &str, file: &str, cc: &str) -> Option<Fdl> {
+    fn design_fdl(
+        &self,
+        d: &Design,
+        title: &str,
+        file: &str,
+        cc: &str,
+        flags: Option<String>,
+    ) -> Option<Fdl> {
         let (mut input, analysis) = self.design_files(d);
         if d.script == "OPTIMIZE" {
             // The definition's own sections, its keys as designed.
@@ -910,6 +960,11 @@ impl Editor<'_> {
         if !title.is_empty() {
             f.sections
                 .insert(0, Section::new("TITLE", format!("\"{title}\"")));
+        }
+        if let Some(flags) = flags
+            && let Some(s) = f.sections.iter_mut().find(|s| s.name == "FILE")
+        {
+            s.set("GLBUFF_FLAGS_V83", flags);
         }
         Some(f)
     }

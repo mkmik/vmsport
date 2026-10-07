@@ -394,3 +394,40 @@ fn indexed_script() {
         );
     }
 }
+
+/// What ANALYZE/RMS_FILE/FDL said of others.dcl's IDX.DAT, as far as the
+/// designs read it (the log has its figures, not the file).
+const IDXA: &str = "FILE
+  ORGANIZATION indexed
+  CLUSTER_SIZE 16
+ANALYSIS_OF_KEY 0
+  DATA_KEY_COMPRESSION 56
+  DATA_RECORD_COMPRESSION 73
+  DATA_RECORD_COUNT 1000
+  INDEX_COMPRESSION 0
+  MEAN_DATA_LENGTH 64
+ANALYSIS_OF_KEY 1
+  DATA_KEY_COMPRESSION 56
+  DATA_RECORD_COUNT 50
+  DUPLICATES_PER_SIDR 19
+";
+
+#[test]
+fn optimize_add_key_touchup_delete_key() {
+    let log = "recorded/others.log";
+    replay_full(
+        log,
+        "/SCRIPT=OPTIMIZE/ANALYSIS=IDXA.FDL O1.FDL",
+        0,
+        Some(IDX),
+        Some(IDXA),
+        true,
+    );
+    replay(log, "/SCRIPT=DELETE_KEY D1.FDL", Some(IDX));
+    replay(log, " V1.FDL", Some(IDX));
+    // VMS leaves areas behind the files these wrote: AREA 1 of
+    // BUCKET_SIZE 12 and the like, which vmsport doesn't.
+    replay_full(log, "/SCRIPT=OPTIMIZE O2.FDL", 0, Some(IDX), None, false);
+    replay_full(log, "/SCRIPT=ADD_KEY A1.FDL", 0, Some(IDX), None, false);
+    replay_full(log, "/SCRIPT=TOUCHUP T1.FDL", 0, Some(IDX), None, false);
+}

@@ -59,6 +59,8 @@ pub struct Editor<'a> {
     pub scripting: bool,
     /// The primary attribute last named (ADD, MODIFY, DELETE's default).
     pub primary: String,
+    /// Blocks a design's AREA 0 gets on EXIT, for the prologue.
+    pub prologue: u32,
 }
 
 /// What a question takes.
@@ -366,6 +368,7 @@ pub fn session(c: &mut impl Console, help: &Help, s: Start) -> Ending {
         automatic: false,
         scripting: false,
         primary: "FILE".into(),
+        prologue: 0,
     };
     if let Some(name) = s.script {
         let script = keyword(name, &scripts::SCRIPTS).unwrap_or("");
@@ -399,7 +402,10 @@ const ORDER: [&str; 15] = [
 pub fn normalized(mut f: Fdl) -> Fdl {
     for s in &mut f.sections {
         s.attrs.retain(|(k, _)| k != "!");
-        s.attrs.sort_by(|a, b| a.0.cmp(&b.0));
+        match s.name.as_str() {
+            "FILE" => s.attrs.sort_by_key(|a| vms_rms::edf::file_order(&a.0)),
+            _ => s.attrs.sort_by(|a, b| a.0.cmp(&b.0)),
+        }
     }
     f.sections.sort_by_key(|s| {
         (
@@ -511,7 +517,16 @@ impl Editor<'_> {
             c.say("\n\t\x07Output not created - Current FDL Definition empty.\n");
             return Ending::Empty;
         }
-        Ending::Exit(self.with_ident(), self.output.clone())
+        let mut f = self.with_ident();
+        if let Some(a) = f
+            .sections
+            .iter_mut()
+            .find(|s| s.name == "AREA" && s.value.trim() == "0")
+            && let Some(alloc) = a.get("ALLOCATION").and_then(|v| v.parse::<u32>().ok())
+        {
+            a.set("ALLOCATION", alloc + self.prologue);
+        }
+        Ending::Exit(f, self.output.clone())
     }
 
     fn help(&self, c: &mut impl Console) {
