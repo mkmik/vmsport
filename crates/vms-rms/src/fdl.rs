@@ -43,6 +43,12 @@ pub struct Section {
 pub fn parse(text: &str) -> Result<Fdl, Error> {
     let mut fdl = Fdl::default();
     for line in text.lines() {
+        // A section's whole-line comment stays, as "!" (ANALYZE writes
+        // some).
+        if let (Some(c), Some(s)) = (line.trim().strip_prefix('!'), fdl.sections.last_mut()) {
+            s.attrs.push(("!".into(), c.trim().into()));
+            continue;
+        }
         // A comment starts at a ! outside quotes.
         let mut quoted = false;
         let end = line
@@ -86,7 +92,10 @@ impl fmt::Display for Fdl {
                 writeln!(f, "{}\t{}", s.name, s.value)?;
             }
             for (k, v) in &s.attrs {
-                writeln!(f, "\t{k:<23} {v}")?;
+                match k.as_str() {
+                    "!" => writeln!(f, "\t! {v}")?,
+                    _ => writeln!(f, "\t{k:<23} {v}")?,
+                }
             }
         }
         Ok(())
@@ -313,7 +322,10 @@ pub fn to_design(fdl: &Fdl) -> Result<Design, Error> {
                 length: length as u16,
             });
         }
-        let compress = typ == KeyType::String && prologue == 3;
+        // Strings shorter than 6 bytes are never compressed, whatever the
+        // FDL asks (VMS's files say so).
+        let length: u16 = segments.iter().map(|s| s.length).sum();
+        let compress = typ == KeyType::String && prologue == 3 && length >= 6;
         let data_area = k.num("DATA_AREA")?.unwrap_or(0) as u8;
         let index_area = k.num("INDEX_AREA")?.unwrap_or(0) as u8;
         keys.push(KeyDesc {
@@ -331,9 +343,9 @@ pub fn to_design(fdl: &Fdl) -> Result<Design, Error> {
             level1_index_area: k.num("LEVEL1_INDEX_AREA")?.unwrap_or(index_area as u32) as u8,
             data_fill: fill(k.num("DATA_FILL")?, data_area),
             index_fill: fill(k.num("INDEX_FILL")?, index_area),
-            data_key_compression: k.yes("DATA_KEY_COMPRESSION")?.unwrap_or(compress),
+            data_key_compression: k.yes("DATA_KEY_COMPRESSION")?.unwrap_or(true) && compress,
             data_record_compression: k.yes("DATA_RECORD_COMPRESSION")?.unwrap_or(prologue == 3),
-            index_compression: k.yes("INDEX_COMPRESSION")?.unwrap_or(compress),
+            index_compression: k.yes("INDEX_COMPRESSION")?.unwrap_or(true) && compress,
         });
     }
     Ok(Design {
@@ -560,7 +572,7 @@ pub fn check(text: &str) -> Vec<Problem> {
     for s in &fdl.sections {
         n += 1;
         let known = attributes(&s.name);
-        for (name, value) in &s.attrs {
+        for (name, value) in s.attrs.iter().filter(|(k, _)| k != "!") {
             n += 1;
             let Some(known) = known else { continue };
             let seg = s.name == "KEY"
