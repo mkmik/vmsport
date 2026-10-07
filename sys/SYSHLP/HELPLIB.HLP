@@ -41,6 +41,40 @@ p1 to p8
 2 Nesting
  Procedures may call procedures, and CALL starts a level too; vmsport,
  like VMS, stops at 32 levels with %DCL-W-STKOVF.
+1 ANALYZE
+ vmsport's ANALYZE examines RMS files only (/RMS_FILE): it checks a
+ file's structure and reports what it finds, or describes the file in
+ FDL, ready for CREATE/FDL.
+
+ Format
+
+   ANALYZE/RMS_FILE file-spec[,...]
+2 Parameters
+file-spec[,...]
+
+ The files to analyze; wildcards are allowed. /FDL describes only the
+ first.
+2 Qualifiers
+/RMS_FILE
+
+ Required: the files are RMS files.
+/CHECK
+
+    /CHECK (default)
+
+ Reports the file's header, attributes and structure, and the errors
+ found, then the command. Without /OUTPUT the reports go to SYS$OUTPUT.
+/FDL
+
+ Writes an FDL description of the file instead, to name.FDL in the
+ current directory unless /OUTPUT names another file.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Where the reports go (default type .ANL, or .FDL with /FDL). With
+ /OUTPUT, each file analyzed is also reported as %ANLRMS-I-ERRORS with
+ its count of errors.
 1 ASSIGN
  Defines a logical name, like DEFINE, with the two names the other way
  round: the equivalence first, then the logical name.
@@ -225,6 +259,38 @@ output-file-spec
  2.$ COPY A.TXT,B.TXT ALL.TXT
 
    Concatenates A.TXT and B.TXT into a new ALL.TXT.
+1 CREATE
+ Makes files: a sequential file of the records typed after the command
+ (in a command procedure, its data lines), new directories
+ (/DIRECTORY), or an empty file of any organization as an FDL file
+ describes it (/FDL).
+
+ Format
+
+   CREATE file-spec[,...]
+   CREATE/DIRECTORY directory-spec[,...]
+   CREATE/FDL=fdl-file-spec [file-spec]
+2 Parameters
+file-spec[,...]
+
+ The files to create, each a new version. Only the first gets the
+ records; with /FDL the FDL's NAME is used when no file is given.
+2 Qualifiers
+/DIRECTORY
+
+ Creates the directories named, and those above them that aren't there
+ yet. One that exists already is reported as %CREATE-I-EXISTS.
+/FDL
+
+    /FDL=fdl-file-spec
+
+ Creates an empty sequential, relative or indexed file with the
+ attributes the FDL gives (default type .FDL; SYS$INPUT reads it from
+ the data lines that follow). Statements it doesn't understand are
+ reported by number, and no file is made.
+/LOG
+
+ Reports each file or directory created.
 1 DEASSIGN
  Removes a logical name.
 

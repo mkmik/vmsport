@@ -162,4 +162,6 @@ pub trait Host {
     fn now(&mut self) -> i64;
     /// F$GETJPI / F$GETSYI items, F$USER and the like.
     fn info(&mut self, item: &str) -> Option<String>;
+    /// F$FILE_ATTRIBUTES: `item` of the file `spec` names.
+    fn file_attribute(&mut self, spec: &str, item: &str) -> Result<String, Cond>;
 }

@@ -469,8 +469,12 @@ impl Dcl {
             {
                 let e = DclError::new("SKPDAT");
                 self.report(&e);
-                self.shown = true;
-                self.after(e.code);
+                // It is the status only of a command that worked
+                // (fixtures/help, fixtures/fdlutil).
+                if self.status.is_success() {
+                    self.shown = true;
+                    self.after(e.code);
+                }
             }
         }
         if let Some((status, _)) = self.exiting.take() {

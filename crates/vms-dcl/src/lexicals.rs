@@ -177,6 +177,26 @@ pub(crate) fn call(d: &mut Dcl, name: &str, args: &[Expr]) -> Result<Value, DclE
                     token: e.token,
                 })?
         }
+        "F$FILE_ATTRIBUTES" => {
+            arity(args, 2, 2)?;
+            let (spec, item) = (ev(0)?.to_str(), ev(1)?.to_str());
+            match d.host.file_attribute(&spec, &item) {
+                Ok(v) => s(v),
+                Err(c) => {
+                    let token = if c == libvms::fileinfo::NOSUCHFILE {
+                        spec
+                    } else {
+                        item
+                    };
+                    return Err(DclError {
+                        code: c,
+                        ident: "FILE_ATTRIBUTES",
+                        token: (c != libvms::fileinfo::ILLFILEVER)
+                            .then(|| token.to_ascii_uppercase()),
+                    });
+                }
+            }
+        }
         "F$PARSE" => {
             arity(args, 1, 5)?;
             let spec = ev(0)?.to_str();

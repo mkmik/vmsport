@@ -1,0 +1,1490 @@
+@@ CREATE A.TXT
+  $STATUS == "%X00000001"
+@@ TYPE A.TXT
+first line
+second, longer line
+@@ CREATE A.TXT
+  $STATUS == "%X00000001"
+@@ CREATE/LOG B.TXT
+%CREATE-I-CREATED, DKA200:[T.FDLUTIL]B.TXT;1 created
+  $STATUS == "%X10911073"
+@@ CREATE EMPTY.TXT
+  $STATUS == "%X00000001"
+@@ CREATE [.NOSUCH]X.TXT
+%CREATE-E-OPENOUT, error opening DKA200:[T.FDLUTIL.NOSUCH]X.TXT; as output
+-RMS-E-DNF, directory not found
+-SYSTEM-W-NOSUCHFILE, no such file
+%DCL-W-SKPDAT, image data (records not beginning with "$") ignored
+  $STATUS == "%X109110A2"
+@@ DIRECTORY/SIZE=ALL *.TXT;*
+
+Directory DKA200:[T.FDLUTIL]
+
+A.TXT;2                       1/16        
+A.TXT;1                       1/16        
+B.TXT;1                       1/16        
+EMPTY.TXT;1                   0/0         
+
+Total of 4 files, 3/48 blocks.
+@@ CREATE/DIRECTORY [.SUB]
+  $STATUS == "%X00000001"
+@@ CREATE/DIRECTORY/LOG [.SUB2]
+%CREATE-I-CREATED, DKA200:[T.FDLUTIL.SUB2] created
+  $STATUS == "%X10911073"
+@@ CREATE/DIRECTORY/LOG [.SUB]
+%CREATE-I-EXISTS, [.SUB] already exists
+  $STATUS == "%X10911293"
+@@ CREATE/DIRECTORY [.SUB]
+%CREATE-I-EXISTS, [.SUB] already exists
+  $STATUS == "%X10911293"
+@@ CREATE/DIRECTORY/LOG [.DEEP.ER.EST]
+%CREATE-I-CREATED, DKA200:[T.FDLUTIL.DEEP.ER.EST] created
+  $STATUS == "%X10911073"
+@@ CREATE/DIRECTORY/LOG [.L1],[.L2]
+%CREATE-I-CREATED, DKA200:[T.FDLUTIL.L1] created
+%CREATE-I-CREATED, DKA200:[T.FDLUTIL.L2] created
+  $STATUS == "%X10911073"
+@@ CREATE/DIRECTORY/LOG [.SUB]X.DIR
+%CREATE-E-DIRNOTCRE, [.SUB]X.DIR directory file not created
+-LIB-F-INVFILSPE, invalid file specification
+  $STATUS == "%X109112C2"
+@@ CREATE/DIRECTORY NOSUCHDEV:[X]
+%CREATE-E-DIRNOTCRE, NOSUCHDEV:[X] directory file not created
+-RMS-F-DEV, error in device name or inappropriate device type for operation
+  $STATUS == "%X109112C2"
+@@ DIRECTORY *.DIR
+
+Directory DKA200:[T.FDLUTIL]
+
+DEEP.DIR;1          L1.DIR;1            L2.DIR;1            SUB.DIR;1          
+SUB2.DIR;1          
+
+Total of 5 files.
+@@ CREATE/FDL=SYS$INPUT R.DAT
+  $STATUS == "%X00010001"
+@@ CREATE/FDL=SEQ.FDL S.DAT
+  $STATUS == "%X00010001"
+@@ CREATE/FDL=SEQ S2.DAT
+  $STATUS == "%X00010001"
+@@ CREATE/FDL=SEQ.FDL/LOG S3.DAT
+%FDL-I-CREATED, DKA200:[T.FDLUTIL]S3.DAT;1 created
+  $STATUS == "%X00010001"
+@@ CREATE/FDL=SEQ.FDL S3.DAT
+  $STATUS == "%X00010001"
+@@ CREATE/FDL=SYS$INPUT R2.DAT
+%FDL-F-CREATE, error creating DKA200:[T.FDLUTIL]R2.DAT;
+-RMS-F-MRS, invalid maximum record size
+  $STATUS == "%X10B4806C"
+@@ CREATE/FDL=NOSUCH.FDL X.DAT
+%FDL-F-OPENFDL, error opening DKA200:[T.FDLUTIL]NOSUCH.FDL;
+-RMS-E-FNF, file not found
+  $STATUS == "%X10B4808C"
+@@ CREATE/FDL=SYS$INPUT BAD1.DAT
+%FDL-W-UNQUAKW, unrecognized qualifier keyword in statement 2 
+ \SIDEWAYS\
+%FDL-F-CREATE, error creating BAD1.DAT
+-FDL-W-WARNING, parsed with warnings
+  $STATUS == "%X10B4806C"
+@@ CREATE/FDL=SYS$INPUT BAD2.DAT
+%FDL-E-UNPRIKW, unrecognized primary keyword in statement 2 
+ \FORMATT\
+%FDL-F-CREATE, error creating BAD2.DAT
+-FDL-E-FDLERROR, error parsing FDL file
+  $STATUS == "%X10B4806C"
+@@ CREATE/FDL=SYS$INPUT BAD3.DAT
+%FDL-W-UNQUAKW, unrecognized qualifier keyword in statement 2 
+ \ABC\
+%FDL-F-CREATE, error creating BAD3.DAT
+-FDL-W-WARNING, parsed with warnings
+  $STATUS == "%X10B4806C"
+@@ CREATE/FDL=SYS$INPUT RB.DAT
+@@ CREATE/FDL=SYS$INPUT RV.DAT
+@@ CREATE/FDL=SYS$INPUT I.DAT
+  $STATUS == "%X00010001"
+@@ CREATE/FDL=SYS$INPUT IM.DAT
+  $STATUS == "%X00010001"
+@@ DIRECTORY/SIZE=ALL *.DAT
+
+Directory DKA200:[T.FDLUTIL]
+
+I.DAT;1                      16/16        
+IM.DAT;1                     48/48        
+R.DAT;1                      16/16        
+RB.DAT;1                     16/16        
+RBADCTL.DAT;1                 2/16        
+RV.DAT;1                     16/16        
+S.DAT;1                       0/0         
+S2.DAT;1                      0/0         
+S3.DAT;2                      0/0         
+S3.DAT;1                      0/0         
+
+Total of 10 files, 114/128 blocks.
+@@ fill S.DAT
+@@ fill RB.DAT
+@@ fill I.DAT
+@@ fill IM.DAT
+@@ ANALYZE/RMS_FILE S.DAT
+
+Check RMS File Integrity                      7-OCT-2026 03:19:10.68   Page 1
+DKA200:[T.FDLUTIL]S.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.FDLUTIL]S.DAT;1
+	File ID: (33,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 03:19:09.88
+	Revision Date:    7-OCT-2026 03:19:10.32, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: sequential
+	Record Format: variable
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 0
+	Longest Record: 28
+	Blocks Allocated: 16, Default Extend Size: 0
+	End-of-File VBN: 4, Offset: %X'006C'
+	File Monitoring: disabled
+	File Length Hint (Record Count):    60
+	File Length Hint (Data Byte Count): 1498
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE S.DAT
+  $STATUS == "%X103B8009"
+@@ ANALYZE/RMS_FILE/FDL S.DAT
+  $STATUS == "%X103B8009"
+@@ DIRECTORY S.*
+
+Directory DKA200:[T.FDLUTIL]
+
+S.DAT;1             S.FDL;1             
+
+Total of 2 files.
+@@ TYPE S.FDL
+IDENT	FDL_VERSION 02 " 7-OCT-2026 03:19:10   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              16
+	BEST_TRY_CONTIGUOUS     no
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T.FDLUTIL]S.DAT;1"
+	ORGANIZATION            sequential
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        carriage_return
+	FORMAT                  variable
+	SIZE                    0
+@@ ANALYZE/RMS_FILE/CHECK/OUTPUT R.DAT
+
+Check RMS File Integrity                      7-OCT-2026 03:19:10.82   Page 1
+DKA200:[T.FDLUTIL]R.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.FDLUTIL]R.DAT;1
+	File ID: (32,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 03:19:09.86
+	Revision Date:    7-OCT-2026 03:19:09.86, Number: 1
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: relative
+	Record Format: fixed
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 10
+	Longest Record: 10
+	Blocks Allocated: 16, Default Extend Size: 0
+	Bucket Size: 1
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Prolog Flags:
+		(0)  PLG$V_NOEXTEND   0
+	First Data Bucket VBN: 2
+	Maximum Record Number: 2147483647
+	End-of-File VBN: 17
+	Prolog Version: 1
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK/OUTPUT R.DAT
+  $STATUS == "%X103B8009"
+@@ DIRECTORY R.*
+
+Directory DKA200:[T.FDLUTIL]
+
+R.DAT;1             
+
+Total of 1 file.
+@@ TYPE R.ANL
+%TYPE-W-SEARCHFAIL, error searching for DKA200:[T.FDLUTIL]R.ANL;
+-RMS-E-FNF, file not found
+@@ ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT RB.DAT
+IDENT	FDL_VERSION 02 " 7-OCT-2026 03:19:10   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              16
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             1
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	MAX_RECORD_NUMBER       500
+	NAME                    "DKA200:[T.FDLUTIL]RB.DAT;1"
+	ORGANIZATION            relative
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        carriage_return
+	FORMAT                  fixed
+	SIZE                    40
+  $STATUS == "%X103B8009"
+@@ ANALYZE/RMS_FILE/OUTPUT=RV.CHK RV.DAT
+%ANLRMS-I-ERRORS, <DKA200:[T.FDLUTIL]RV.DAT;1> 0 errors
+  $STATUS == "%X103B8103"
+@@ TYPE RV.CHK
+
+Check RMS File Integrity                      7-OCT-2026 03:19:10.97   Page 1
+DKA200:[T.FDLUTIL]RV.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.FDLUTIL]RV.DAT;1
+	File ID: (38,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 03:19:10.15
+	Revision Date:    7-OCT-2026 03:19:10.15, Number: 1
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: relative
+	Record Format: variable-with-fixed-control
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 60
+	Fixed Control Size: 3
+	Blocks Allocated: 16, Default Extend Size: 0
+	Bucket Size: 1
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Prolog Flags:
+		(0)  PLG$V_NOEXTEND   0
+	First Data Bucket VBN: 2
+	Maximum Record Number: 2147483647
+	End-of-File VBN: 17
+	Prolog Version: 1
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/OUTPUT=RV.CHK RV.DAT
+@@ ANALYZE/RMS_FILE RBADCTL.DAT
+
+Check RMS File Integrity                      7-OCT-2026 03:19:11.03   Page 1
+DKA200:[T.FDLUTIL]RBADCTL.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.FDLUTIL]RBADCTL.DAT;1
+	File ID: (14,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 00:28:23.27
+	Revision Date:    7-OCT-2026 00:28:23.27, Number: 1
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: relative
+	Record Format: variable
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 10
+	Blocks Allocated: 16, Default Extend Size: 0
+	Bucket Size: 1
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Prolog Flags:
+		(0)  PLG$V_NOEXTEND   0
+	First Data Bucket VBN: 2
+	Maximum Record Number: 2147483647
+	End-of-File VBN: 3
+	Prolog Version: 1
+***  VBN 2:  Reserved flag bit 0 is set.
+***  VBN 2:  Reserved flag bit 4 is set.
+***  VBN 2:  Reserved flag bit 6 is set.
+
+
+The analysis uncovered 3 errors.
+
+
+ANALYZE/RMS_FILE RBADCTL.DAT
+  $STATUS == "%X103B88B2"
+@@ ANALYZE/RMS_FILE NOSUCH.DAT
+%ANALYZE-E-OPENIN, error opening DKA200:[T.FDLUTIL]NOSUCH.DAT; as input
+-RMS-E-FNF, file not found
+  $STATUS == "%X10B1109A"
+@@ ANALYZE/RMS_FILE/FDL NOSUCH.DAT
+%ANALYZE-E-OPENIN, error opening DKA200:[T.FDLUTIL]NOSUCH.DAT; as input
+-RMS-E-FNF, file not found
+  $STATUS == "%X10B1109A"
+@@ ANALYZE/RMS_FILE/FDL/OUTPUT=TWO.FDL R.DAT,RB.DAT
+  $STATUS == "%X103B8009"
+@@ TYPE TWO.FDL
+IDENT	FDL_VERSION 02 " 7-OCT-2026 03:19:11   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              16
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             1
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	MAX_RECORD_NUMBER       2147483647
+	NAME                    "DKA200:[T.FDLUTIL]R.DAT;1"
+	ORGANIZATION            relative
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        carriage_return
+	FORMAT                  fixed
+	SIZE                    10
+@@ ANALYZE/RMS_FILE/OUTPUT=WILD.CHK R*.DAT
+%ANLRMS-I-ERRORS, <DKA200:[T.FDLUTIL]R.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.FDLUTIL]RB.DAT;1> 0 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.FDLUTIL]RBADCTL.DAT;1> 3 errors
+%ANLRMS-I-ERRORS, <DKA200:[T.FDLUTIL]RV.DAT;1> 0 errors
+  $STATUS == "%X103B88B2"
+@@ SEARCH WILD.CHK "File Spec","uncovered"
+	File Spec: DKA200:[T.FDLUTIL]R.DAT;1
+The analysis uncovered NO errors.
+	File Spec: DKA200:[T.FDLUTIL]RB.DAT;1
+The analysis uncovered NO errors.
+	File Spec: DKA200:[T.FDLUTIL]RBADCTL.DAT;1
+The analysis uncovered 3 errors.
+	File Spec: DKA200:[T.FDLUTIL]RV.DAT;1
+The analysis uncovered NO errors.
+@@ ANALYZE/RMS_FILE A.TXT;1
+
+Check RMS File Integrity                      7-OCT-2026 03:19:11.32   Page 1
+DKA200:[T.FDLUTIL]A.TXT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.FDLUTIL]A.TXT;1
+	File ID: (21,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 03:19:09.19
+	Revision Date:    7-OCT-2026 03:19:09.19, Number: 1
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: sequential
+	Record Format: variable
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 0
+	Longest Record: 19
+	Blocks Allocated: 16, Default Extend Size: 0
+	End-of-File VBN: 1, Offset: %X'0022'
+	File Monitoring: disabled
+	File Length Hint (Record Count):    2
+	File Length Hint (Data Byte Count): 29
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE A.TXT;1
+  $STATUS == "%X103B8009"
+@@ ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT I.DAT
+
+Check RMS File Integrity                      7-OCT-2026 03:19:11.35   Page 1
+DKA200:[T.FDLUTIL]I.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.FDLUTIL]I.DAT;1
+	File ID: (39,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 03:19:10.17
+	Revision Date:    7-OCT-2026 03:19:10.63, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: indexed
+	Record Format: fixed
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 30
+	Longest Record: 30
+	Blocks Allocated: 32, Default Extend Size: 0
+	Bucket Size: 2
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Number of Areas: 1, VBN of First Descriptor: 3
+	Prolog Version: 3
+
+AREA DESCRIPTOR #0 (VBN 3, offset %X'0000')
+
+	Bucket Size: 2
+	Reclaimed Bucket VBN: 0
+	Current Extent Start: 17, Blocks: 16, Used: 2, Next: 19
+	Default Extend Quantity: 0
+	Total Allocation: 32
+
+KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
+
+	Next Key Descriptor VBN: 2, Offset: %X'0000'
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 2, Data Bucket Size: 2
+	Root VBN: 6
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    0
+		(3)  KEY$V_IDX_COMPR  1
+
+Check RMS File Integrity                      7-OCT-2026 03:19:11.36   Page 2
+DKA200:[T.FDLUTIL]I.DAT;1
+
+
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  1
+		(7)  KEY$V_REC_COMPR  1
+	Key Segments: 1
+	Key Size: 6
+	Minimum Record Size: 6
+	Index Fill Quantity: 1024, Data Fill Quantity: 1024
+	Segment Positions:       0
+	Segment Sizes:           6
+	Data Type: string
+	Name: ""
+	First Data Bucket VBN: 4
+
+KEY DESCRIPTOR #1 (VBN 2, offset %X'0000')
+
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 2, Data Bucket Size: 2
+	Root VBN: 10
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    1
+		(1)  KEY$V_CHGKEYS    0
+		(2)  KEY$V_NULKEYS    0
+		(3)  KEY$V_IDX_COMPR  1
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  1
+	Key Segments: 1
+	Key Size: 8
+	Minimum Record Size: 14
+	Index Fill Quantity: 1024, Data Fill Quantity: 1024
+	Segment Positions:       6
+	Segment Sizes:           8
+	Data Type: string
+	Name: ""
+	First Data Bucket VBN: 8
+
+
+The analysis uncovered NO errors.
+%ANLRMS-I-ERRORS, <DKA200:[T.FDLUTIL]I.DAT;1> 0 errors
+
+
+ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT I.DAT
+  $STATUS == "%X103B8103"
+@@ ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT I.DAT
+IDENT	FDL_VERSION 02 " 7-OCT-2026 03:19:11   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              32
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             2
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T.FDLUTIL]I.DAT;1"
+	ORGANIZATION            indexed
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        carriage_return
+	FORMAT                  fixed
+	SIZE                    30
+
+AREA 0
+	ALLOCATION              32
+	BUCKET_SIZE             2
+	EXTENSION               0
+
+KEY 0
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    yes
+	DATA_RECORD_COMPRESSION yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              no
+	INDEX_AREA              0
+	INDEX_COMPRESSION       yes
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	PROLOG                  3
+	SEG0_LENGTH             6
+	SEG0_POSITION           0
+	TYPE                    string
+
+KEY 1
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       yes
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             8
+	SEG0_POSITION           6
+	TYPE                    string
+
+ANALYSIS_OF_AREA 0
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_KEY 0
+	DATA_FILL               88
+	DATA_KEY_COMPRESSION    45
+	DATA_RECORD_COMPRESSION 50
+	DATA_RECORD_COUNT       120
+	DATA_SPACE_OCCUPIED     8
+	DEPTH                   1
+	INDEX_COMPRESSION       12
+	INDEX_FILL              4
+	INDEX_SPACE_OCCUPIED    2
+	LEVEL1_RECORD_COUNT     4
+	MEAN_DATA_LENGTH        30
+	MEAN_INDEX_LENGTH       8
+	LONGEST_RECORD_LENGTH   30
+
+ANALYSIS_OF_KEY 1
+	DATA_FILL               65
+	DATA_KEY_COMPRESSION    -2
+	DATA_RECORD_COUNT       5
+	DATA_SPACE_OCCUPIED     2
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     23
+	INDEX_COMPRESSION       50
+	INDEX_FILL              2
+	INDEX_SPACE_OCCUPIED    2
+	LEVEL1_RECORD_COUNT     1
+	MEAN_DATA_LENGTH        130
+	MEAN_INDEX_LENGTH       10
+@@ ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT IM.DAT
+IDENT	FDL_VERSION 02 " 7-OCT-2026 03:19:11   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              48
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             3
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T.FDLUTIL]IM.DAT;1"
+	ORGANIZATION            indexed
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        carriage_return
+	FORMAT                  variable
+	SIZE                    80
+
+AREA 0
+	ALLOCATION              16
+	BUCKET_SIZE             3
+	EXTENSION               0
+
+AREA 1
+	ALLOCATION              16
+	BUCKET_SIZE             2
+	EXTENSION               0
+
+AREA 2
+	ALLOCATION              16
+	BUCKET_SIZE             2
+	EXTENSION               0
+
+KEY 0
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    yes
+	DATA_RECORD_COMPRESSION yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              no
+	INDEX_AREA              1
+	INDEX_COMPRESSION       yes
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       1
+	NAME                    ""
+	NULL_KEY                no
+	PROLOG                  3
+	SEG0_LENGTH             4
+	SEG0_POSITION           0
+	SEG1_LENGTH             4
+	SEG1_POSITION           10
+	TYPE                    string
+
+KEY 1
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               2
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              2
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       2
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             4
+	SEG0_POSITION           4
+	TYPE                    int4
+
+KEY 2
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               2
+	DATA_FILL               100
+	DUPLICATES              no
+	INDEX_AREA              2
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       2
+	NAME                    ""
+	NULL_KEY                yes
+	NULL_VALUE              32
+	SEG0_LENGTH             2
+	SEG0_POSITION           8
+	TYPE                    string
+
+ANALYSIS_OF_AREA 0
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_AREA 1
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_AREA 2
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_KEY 0
+	DATA_FILL               5
+	DATA_KEY_COMPRESSION    12
+	DATA_RECORD_COMPRESSION -14
+	DATA_RECORD_COUNT       2
+	DATA_SPACE_OCCUPIED     3
+	DEPTH                   1
+	INDEX_COMPRESSION       50
+	INDEX_FILL              2
+	INDEX_SPACE_OCCUPIED    2
+	LEVEL1_RECORD_COUNT     1
+	MEAN_DATA_LENGTH        22
+	MEAN_INDEX_LENGTH       10
+	LONGEST_RECORD_LENGTH   22
+
+ANALYSIS_OF_KEY 1
+	DATA_FILL               3
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       2
+	DATA_SPACE_OCCUPIED     2
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     0
+	INDEX_COMPRESSION       0
+	INDEX_FILL              2
+	INDEX_SPACE_OCCUPIED    2
+	LEVEL1_RECORD_COUNT     1
+	MEAN_DATA_LENGTH        11
+	MEAN_INDEX_LENGTH       6
+
+ANALYSIS_OF_KEY 2
+	! This index is uninitialized - there are no records.
+@@ ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT IM.DAT
+
+Check RMS File Integrity                      7-OCT-2026 03:19:11.48   Page 1
+DKA200:[T.FDLUTIL]IM.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.FDLUTIL]IM.DAT;1
+	File ID: (40,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 03:19:10.20
+	Revision Date:    7-OCT-2026 03:19:10.64, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: indexed
+	Record Format: variable
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 80
+	Blocks Allocated: 48, Default Extend Size: 0
+	Bucket Size: 3
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Number of Areas: 3, VBN of First Descriptor: 3
+	Prolog Version: 3
+
+AREA DESCRIPTOR #0 (VBN 3, offset %X'0000')
+
+	Bucket Size: 3
+	Reclaimed Bucket VBN: 0
+	Current Extent Start: 1, Blocks: 16, Used: 6, Next: 7
+	Default Extend Quantity: 0
+	Total Allocation: 16
+
+AREA DESCRIPTOR #1 (VBN 3, offset %X'0040')
+
+	Bucket Size: 2
+	Reclaimed Bucket VBN: 0
+	Current Extent Start: 17, Blocks: 16, Used: 2, Next: 19
+	Default Extend Quantity: 0
+	Total Allocation: 16
+
+
+Check RMS File Integrity                      7-OCT-2026 03:19:11.48   Page 2
+DKA200:[T.FDLUTIL]IM.DAT;1
+
+
+AREA DESCRIPTOR #2 (VBN 3, offset %X'0080')
+
+	Bucket Size: 2
+	Reclaimed Bucket VBN: 0
+	Current Extent Start: 33, Blocks: 16, Used: 4, Next: 37
+	Default Extend Quantity: 0
+	Total Allocation: 16
+
+KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
+
+	Next Key Descriptor VBN: 2, Offset: %X'0000'
+	Index Area: 1, Level 1 Index Area: 1, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 2, Data Bucket Size: 3
+	Root VBN: 17
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    0
+		(3)  KEY$V_IDX_COMPR  1
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  1
+		(7)  KEY$V_REC_COMPR  1
+	Key Segments: 2
+	Key Size: 8
+	Minimum Record Size: 14
+	Index Fill Quantity: 1024, Data Fill Quantity: 1536
+	Segment Positions:       0    10
+	Segment Sizes:           4     4
+	Data Type: string
+	Name: ""
+	First Data Bucket VBN: 4
+
+KEY DESCRIPTOR #1 (VBN 2, offset %X'0000')
+
+	Next Key Descriptor VBN: 2, Offset: %X'0066'
+	Index Area: 2, Level 1 Index Area: 2, Data Area: 2
+	Root Level: 1
+	Index Bucket Size: 2, Data Bucket Size: 2
+	Root VBN: 35
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    1
+		(1)  KEY$V_CHGKEYS    1
+		(2)  KEY$V_NULKEYS    0
+		(3)  KEY$V_IDX_COMPR  0
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  0
+	Key Segments: 1
+	Key Size: 4
+	Minimum Record Size: 8
+	Index Fill Quantity: 1024, Data Fill Quantity: 1024
+	Segment Positions:       4
+	Segment Sizes:           4
+	Data Type: signed longword
+	Name: ""
+	First Data Bucket VBN: 33
+
+Check RMS File Integrity                      7-OCT-2026 03:19:11.49   Page 3
+DKA200:[T.FDLUTIL]IM.DAT;1
+
+
+
+KEY DESCRIPTOR #2 (VBN 2, offset %X'0066')
+
+	Index Area: 2, Level 1 Index Area: 2, Data Area: 2
+	Root Level: 0
+	Index Bucket Size: 2, Data Bucket Size: 2
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    0
+		(1)  KEY$V_CHGKEYS    0
+		(2)  KEY$V_NULKEYS    1
+		(3)  KEY$V_IDX_COMPR  0
+		(4)  KEY$V_INITIDX    1
+		(6)  KEY$V_KEY_COMPR  0
+	Key Segments: 1
+	Null Character: %X'20'
+	Key Size: 2
+	Minimum Record Size: 10
+	Index Fill Quantity: 1024, Data Fill Quantity: 1024
+	Segment Positions:       8
+	Segment Sizes:           2
+	Data Type: string
+	Name: ""
+
+
+The analysis uncovered NO errors.
+%ANLRMS-I-ERRORS, <DKA200:[T.FDLUTIL]IM.DAT;1> 0 errors
+
+
+ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT IM.DAT
+@@ DIRECTORY/FULL R.DAT
+
+Directory DKA200:[T.FDLUTIL]
+
+R.DAT;1                       File ID:  (32,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 03:19:09.86
+Modified:    7-OCT-2026 03:19:09.86 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 03:19:09.86
+Attr Mod:    7-OCT-2026 03:19:09.86
+Data Mod:    7-OCT-2026 03:19:09.86
+Linkcount:  1
+File organization:  Relative, maximum record number: 2147483647
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 10 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 16/16 blocks.
+@@ DIRECTORY/FULL RB.DAT
+
+Directory DKA200:[T.FDLUTIL]
+
+RB.DAT;1                      File ID:  (37,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 03:19:10.12
+Modified:    7-OCT-2026 03:19:10.38 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 03:19:10.12
+Attr Mod:    7-OCT-2026 03:19:10.38
+Data Mod:    7-OCT-2026 03:19:10.12
+Linkcount:  1
+File organization:  Relative, maximum record number: 500
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Fixed length 40 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 16/16 blocks.
+@@ DIRECTORY/FULL RV.DAT
+
+Directory DKA200:[T.FDLUTIL]
+
+RV.DAT;1                      File ID:  (38,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 03:19:10.15
+Modified:    7-OCT-2026 03:19:10.15 (1)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 03:19:10.15
+Attr Mod:    7-OCT-2026 03:19:10.15
+Data Mod:    7-OCT-2026 03:19:10.15
+Linkcount:  1
+File organization:  Relative, maximum record number: 2147483647
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Bucket size: 1, Global buffer count: 0, No version limit
+Record format:      VFC, 3 byte header, maximum 60 bytes, longest 60 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 16/16 blocks.
+@@ DIRECTORY/FULL I.DAT
+
+Directory DKA200:[T.FDLUTIL]
+
+I.DAT;1                       File ID:  (39,1,0)              
+Size:           32/32         Owner:    [1,4]
+Created:     7-OCT-2026 03:19:10.17
+Modified:    7-OCT-2026 03:19:10.63 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 03:19:10.17
+Attr Mod:    7-OCT-2026 03:19:10.63
+Data Mod:    7-OCT-2026 03:19:10.17
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 32, Extend: 0, Maximum bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Fixed length 30 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 32/32 blocks.
+@@ DIRECTORY/FULL IM.DAT
+
+Directory DKA200:[T.FDLUTIL]
+
+IM.DAT;1                      File ID:  (40,1,0)              
+Size:           48/48         Owner:    [1,4]
+Created:     7-OCT-2026 03:19:10.20
+Modified:    7-OCT-2026 03:19:10.64 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 03:19:10.20
+Attr Mod:    7-OCT-2026 03:19:10.64
+Data Mod:    7-OCT-2026 03:19:10.20
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 3 keys
+                             In 3 areas
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 48, Extend: 0, Maximum bucket size: 3, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 80 bytes, longest 0 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 48/48 blocks.
+@@ DIRECTORY/FULL S.DAT
+
+Directory DKA200:[T.FDLUTIL]
+
+S.DAT;1                       File ID:  (33,1,0)              
+Size:            4/16         Owner:    [1,4]
+Created:     7-OCT-2026 03:19:09.88
+Modified:    7-OCT-2026 03:19:10.32 (2)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 03:19:09.88
+Attr Mod:    7-OCT-2026 03:19:10.32
+Data Mod:    7-OCT-2026 03:19:09.88
+Linkcount:  1
+File organization:  Sequential
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 0 bytes, longest 28 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 1 file, 4/16 blocks.
+@@ lexicals S.DAT
+S.DAT ALQ 16
+S.DAT BKS 0
+S.DAT BLS 512
+S.DAT CTG FALSE
+S.DAT DEQ 0
+S.DAT DIRECTORY FALSE
+S.DAT EOF 4
+S.DAT FFB 108
+S.DAT FSZ 0
+S.DAT GBC 0
+S.DAT KNOWN FALSE
+S.DAT LRL 28
+S.DAT MBM 4
+S.DAT MRN 0
+S.DAT MRS 0
+S.DAT NOA 0
+S.DAT NOK 0
+S.DAT ORG SEQ
+S.DAT PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+S.DAT PVN 0
+S.DAT RAT CR
+S.DAT RCK FALSE
+S.DAT RFM VAR
+S.DAT UIC [1,4]
+S.DAT WCK FALSE
+S.DAT ERASE FALSE
+S.DAT NOBACKUP FALSE
+S.DAT VERLIMIT 32767
+S.DAT FILE_LENGTH_HINT (60,1498)
+S.DAT GBCFLAGS NONE
+S.DAT GBC32 0
+S.DAT LOCKED FALSE
+S.DAT CBT FALSE
+S.DAT CDT  7-OCT-2026 03:19:09.88
+@@ lexicals R.DAT
+R.DAT ALQ 16
+R.DAT BKS 1
+R.DAT BLS 0
+R.DAT CTG FALSE
+R.DAT DEQ 0
+R.DAT DIRECTORY FALSE
+R.DAT EOF 16
+R.DAT FFB 0
+R.DAT FSZ 0
+R.DAT GBC 0
+R.DAT KNOWN FALSE
+R.DAT LRL 10
+R.DAT MBM 4
+R.DAT MRN 2147483647
+R.DAT MRS 10
+R.DAT NOA 0
+R.DAT NOK 0
+R.DAT ORG REL
+R.DAT PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+R.DAT PVN 0
+R.DAT RAT CR
+R.DAT RCK FALSE
+R.DAT RFM FIX
+R.DAT UIC [1,4]
+R.DAT WCK FALSE
+R.DAT ERASE FALSE
+R.DAT NOBACKUP FALSE
+R.DAT VERLIMIT 32767
+R.DAT FILE_LENGTH_HINT (-1,-1)
+R.DAT GBCFLAGS NONE
+R.DAT GBC32 0
+R.DAT LOCKED FALSE
+R.DAT CBT FALSE
+R.DAT CDT  7-OCT-2026 03:19:09.86
+@@ lexicals RB.DAT
+RB.DAT ALQ 16
+RB.DAT BKS 1
+RB.DAT BLS 0
+RB.DAT CTG FALSE
+RB.DAT DEQ 0
+RB.DAT DIRECTORY FALSE
+RB.DAT EOF 16
+RB.DAT FFB 0
+RB.DAT FSZ 0
+RB.DAT GBC 0
+RB.DAT KNOWN FALSE
+RB.DAT LRL 40
+RB.DAT MBM 4
+RB.DAT MRN 500
+RB.DAT MRS 40
+RB.DAT NOA 0
+RB.DAT NOK 0
+RB.DAT ORG REL
+RB.DAT PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+RB.DAT PVN 0
+RB.DAT RAT CR
+RB.DAT RCK FALSE
+RB.DAT RFM FIX
+RB.DAT UIC [1,4]
+RB.DAT WCK FALSE
+RB.DAT ERASE FALSE
+RB.DAT NOBACKUP FALSE
+RB.DAT VERLIMIT 32767
+RB.DAT FILE_LENGTH_HINT (-1,-1)
+RB.DAT GBCFLAGS NONE
+RB.DAT GBC32 0
+RB.DAT LOCKED FALSE
+RB.DAT CBT FALSE
+RB.DAT CDT  7-OCT-2026 03:19:10.12
+@@ lexicals RV.DAT
+RV.DAT ALQ 16
+RV.DAT BKS 1
+RV.DAT BLS 0
+RV.DAT CTG FALSE
+RV.DAT DEQ 0
+RV.DAT DIRECTORY FALSE
+RV.DAT EOF 16
+RV.DAT FFB 0
+RV.DAT FSZ 3
+RV.DAT GBC 0
+RV.DAT KNOWN FALSE
+RV.DAT LRL 60
+RV.DAT MBM 4
+RV.DAT MRN 2147483647
+RV.DAT MRS 60
+RV.DAT NOA 0
+RV.DAT NOK 0
+RV.DAT ORG REL
+RV.DAT PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+RV.DAT PVN 0
+RV.DAT RAT CR
+RV.DAT RCK FALSE
+RV.DAT RFM VFC
+RV.DAT UIC [1,4]
+RV.DAT WCK FALSE
+RV.DAT ERASE FALSE
+RV.DAT NOBACKUP FALSE
+RV.DAT VERLIMIT 32767
+RV.DAT FILE_LENGTH_HINT (-1,-1)
+RV.DAT GBCFLAGS NONE
+RV.DAT GBC32 0
+RV.DAT LOCKED FALSE
+RV.DAT CBT FALSE
+RV.DAT CDT  7-OCT-2026 03:19:10.15
+@@ lexicals I.DAT
+I.DAT ALQ 32
+I.DAT BKS 2
+I.DAT BLS 0
+I.DAT CTG FALSE
+I.DAT DEQ 0
+I.DAT DIRECTORY FALSE
+I.DAT EOF 32
+I.DAT FFB 0
+I.DAT FSZ 0
+I.DAT GBC 0
+I.DAT KNOWN FALSE
+I.DAT LRL 30
+I.DAT MBM 4
+I.DAT MRN 0
+I.DAT MRS 30
+I.DAT NOA 1
+I.DAT NOK 2
+I.DAT ORG IDX
+I.DAT PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+I.DAT PVN 3
+I.DAT RAT CR
+I.DAT RCK FALSE
+I.DAT RFM FIX
+I.DAT UIC [1,4]
+I.DAT WCK FALSE
+I.DAT ERASE FALSE
+I.DAT NOBACKUP FALSE
+I.DAT VERLIMIT 32767
+I.DAT FILE_LENGTH_HINT (-1,-1)
+I.DAT GBCFLAGS NONE
+I.DAT GBC32 0
+I.DAT LOCKED FALSE
+I.DAT CBT FALSE
+I.DAT CDT  7-OCT-2026 03:19:10.17
+@@ lexicals IM.DAT
+IM.DAT ALQ 48
+IM.DAT BKS 3
+IM.DAT BLS 0
+IM.DAT CTG FALSE
+IM.DAT DEQ 0
+IM.DAT DIRECTORY FALSE
+IM.DAT EOF 48
+IM.DAT FFB 0
+IM.DAT FSZ 0
+IM.DAT GBC 0
+IM.DAT KNOWN FALSE
+IM.DAT LRL 0
+IM.DAT MBM 4
+IM.DAT MRN 0
+IM.DAT MRS 80
+IM.DAT NOA 3
+IM.DAT NOK 3
+IM.DAT ORG IDX
+IM.DAT PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+IM.DAT PVN 3
+IM.DAT RAT CR
+IM.DAT RCK FALSE
+IM.DAT RFM VAR
+IM.DAT UIC [1,4]
+IM.DAT WCK FALSE
+IM.DAT ERASE FALSE
+IM.DAT NOBACKUP FALSE
+IM.DAT VERLIMIT 32767
+IM.DAT FILE_LENGTH_HINT (-1,-1)
+IM.DAT GBCFLAGS NONE
+IM.DAT GBC32 0
+IM.DAT LOCKED FALSE
+IM.DAT CBT FALSE
+IM.DAT CDT  7-OCT-2026 03:19:10.20
+@@ lexicals A.TXT;1
+A.TXT;1 ALQ 16
+A.TXT;1 BKS 0
+A.TXT;1 BLS 512
+A.TXT;1 CTG FALSE
+A.TXT;1 DEQ 0
+A.TXT;1 DIRECTORY FALSE
+A.TXT;1 EOF 1
+A.TXT;1 FFB 34
+A.TXT;1 FSZ 0
+A.TXT;1 GBC 0
+%DCL-E-ILLFILEVER, file version numbers not permitted
+A.TXT;1 LRL 19
+A.TXT;1 MBM 4
+A.TXT;1 MRN 0
+A.TXT;1 MRS 0
+A.TXT;1 NOA 0
+A.TXT;1 NOK 0
+A.TXT;1 ORG SEQ
+A.TXT;1 PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+A.TXT;1 PVN 0
+A.TXT;1 RAT CR
+A.TXT;1 RCK FALSE
+A.TXT;1 RFM VAR
+A.TXT;1 UIC [1,4]
+A.TXT;1 WCK FALSE
+A.TXT;1 ERASE FALSE
+A.TXT;1 NOBACKUP FALSE
+A.TXT;1 VERLIMIT 32767
+A.TXT;1 FILE_LENGTH_HINT (2,29)
+A.TXT;1 GBCFLAGS NONE
+A.TXT;1 GBC32 0
+A.TXT;1 LOCKED FALSE
+A.TXT;1 CBT FALSE
+A.TXT;1 CDT  7-OCT-2026 03:19:09.19
+@@ lexicals EMPTY.TXT
+EMPTY.TXT ALQ 0
+EMPTY.TXT BKS 0
+EMPTY.TXT BLS 512
+EMPTY.TXT CTG FALSE
+EMPTY.TXT DEQ 0
+EMPTY.TXT DIRECTORY FALSE
+EMPTY.TXT EOF 0
+EMPTY.TXT FFB 0
+EMPTY.TXT FSZ 0
+EMPTY.TXT GBC 0
+EMPTY.TXT KNOWN FALSE
+EMPTY.TXT LRL 0
+EMPTY.TXT MBM 4
+EMPTY.TXT MRN 0
+EMPTY.TXT MRS 0
+EMPTY.TXT NOA 0
+EMPTY.TXT NOK 0
+EMPTY.TXT ORG SEQ
+EMPTY.TXT PRO SYSTEM=RWED, OWNER=RWED, GROUP=RE, WORLD
+EMPTY.TXT PVN 0
+EMPTY.TXT RAT CR
+EMPTY.TXT RCK FALSE
+EMPTY.TXT RFM VAR
+EMPTY.TXT UIC [1,4]
+EMPTY.TXT WCK FALSE
+EMPTY.TXT ERASE FALSE
+EMPTY.TXT NOBACKUP FALSE
+EMPTY.TXT VERLIMIT 32767
+EMPTY.TXT FILE_LENGTH_HINT (0,0)
+EMPTY.TXT GBCFLAGS NONE
+EMPTY.TXT GBC32 0
+EMPTY.TXT LOCKED FALSE
+EMPTY.TXT CBT FALSE
+EMPTY.TXT CDT  7-OCT-2026 03:19:09.34
+@@ lexicals SUB.DIR
+SUB.DIR ALQ 16
+SUB.DIR BKS 0
+SUB.DIR BLS 512
+SUB.DIR CTG TRUE
+SUB.DIR DEQ 0
+SUB.DIR DIRECTORY TRUE
+SUB.DIR EOF 1
+SUB.DIR FFB 0
+SUB.DIR FSZ 0
+SUB.DIR GBC 0
+SUB.DIR KNOWN FALSE
+SUB.DIR LRL 512
+SUB.DIR MBM 4
+SUB.DIR MRN 0
+SUB.DIR MRS 512
+SUB.DIR NOA 0
+SUB.DIR NOK 0
+SUB.DIR ORG SEQ
+SUB.DIR PRO SYSTEM=RWE, OWNER=RWE, GROUP=RE, WORLD=E
+SUB.DIR PVN 0
+SUB.DIR RAT 
+SUB.DIR RCK FALSE
+SUB.DIR RFM VAR
+SUB.DIR UIC [1,4]
+SUB.DIR WCK FALSE
+SUB.DIR ERASE FALSE
+SUB.DIR NOBACKUP FALSE
+SUB.DIR VERLIMIT 32767
+SUB.DIR FILE_LENGTH_HINT (-1,-1)
+SUB.DIR GBCFLAGS NONE
+SUB.DIR GBC32 0
+SUB.DIR LOCKED FALSE
+SUB.DIR CBT FALSE
+SUB.DIR CDT  7-OCT-2026 03:19:09.46
+@@ lexical errors
+%SYSTEM-W-NOSUCHFILE, no such file
+ \NOSUCH.DAT\
+  $STATUS == "%X00000910"
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \NOSUCHITEM\
+  $STATUS == "%X00038060"
+@@ end

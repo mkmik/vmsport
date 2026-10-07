@@ -1,6 +1,7 @@
 //! DIRECTORY: lists files, as VMS lays the listing out (see
 //! fixtures/utils/recorded/utils.log).
 
+use libvms::fileinfo;
 use libvms::files;
 use std::path::PathBuf;
 use vms_cond::Cond;
@@ -107,7 +108,10 @@ fn main() {
         let mut row = Row::new(&o);
         for (path, spec) in list {
             let info = files::info(path).ok();
-            let (fu, fa) = info.as_ref().map_or((0, 0), |i| (i.used, i.allocated));
+            // Allocations in clusters, as on VMS (libvms::fileinfo).
+            let (fu, fa) = info
+                .as_ref()
+                .map_or((0, 0), |i| (i.used, fileinfo::allocation(path) as u64));
             gu += fu;
             ga += fa;
             if o.total || o.grand {
@@ -122,12 +126,14 @@ fn main() {
                 if !lines.is_empty() {
                     lines.push(String::new());
                 }
-                lines.extend(full(&name, path, info.as_ref()));
+                lines.extend(full(&name, path, info.as_ref(), fa));
                 continue;
             }
             let mut fields = String::new();
-            if let Some(s) = &o.size {
-                fields += &format!("{:>12}", size_text(s, fu, fa));
+            match o.size.as_deref() {
+                Some("ALL") => fields += &format!("{fu:>12}/{fa:<10}"),
+                Some(s) => fields += &format!("{:>12}", size_text(s, fu, fa)),
+                None => {}
             }
             if o.date {
                 let t = info
@@ -302,8 +308,13 @@ impl Row {
     }
 }
 
-/// DIRECTORY/FULL, as far as the host knows.
-fn full(name: &str, path: &std::path::Path, info: Option<&files::Info>) -> Vec<String> {
+/// DIRECTORY/FULL, as far as the host knows (revisions: 1).
+fn full(
+    name: &str,
+    path: &std::path::Path,
+    info: Option<&files::Info>,
+    allocated: u64,
+) -> Vec<String> {
     use std::os::unix::fs::MetadataExt;
     let Some(i) = info else {
         return vec![name.to_string()];
@@ -321,21 +332,39 @@ fn full(name: &str, path: &std::path::Path, info: Option<&files::Info>) -> Vec<S
         s
     };
     let f = &i.fab;
-    let org = match f.org {
-        vms_rms::Org::Seq => "Sequential",
-        vms_rms::Org::Rel => "Relative",
-        vms_rms::Org::Idx => "Indexed",
+    let p = fileinfo::prologue(path, f).unwrap_or_default();
+    let (org, bucket) = match f.org {
+        vms_rms::Org::Seq => ("Sequential".to_string(), String::new()),
+        vms_rms::Org::Rel => (
+            format!("Relative, maximum record number: {}", p.mrn),
+            format!("Bucket size: {}, ", f.bks),
+        ),
+        vms_rms::Org::Idx => (
+            format!(
+                "Indexed, Prolog: {}, Using {} key{}{}",
+                p.version,
+                p.keys,
+                if p.keys == 1 { "" } else { "s" },
+                if p.areas > 1 {
+                    format!("\n{:29}In {} areas", "", p.areas)
+                } else {
+                    String::new()
+                }
+            ),
+            format!("Maximum bucket size: {}, ", f.bks),
+        ),
     };
+    let lrl = fileinfo::fab(path).lrl;
     let rfm = match f.rfm {
         vms_rms::Rfm::Udf => "Undefined".to_string(),
         vms_rms::Rfm::Fix => format!("Fixed length {} byte records", f.mrs),
         vms_rms::Rfm::Var => format!(
             "Variable length, maximum {} bytes, longest {} bytes",
-            f.mrs, f.lrl
+            f.mrs, lrl
         ),
         vms_rms::Rfm::Vfc => format!(
             "VFC, {} byte header, maximum {} bytes, longest {} bytes",
-            f.fsz, f.mrs, f.lrl
+            f.fsz, f.mrs, lrl
         ),
         vms_rms::Rfm::Stm => format!("Stream, maximum {} bytes, longest {} bytes", f.mrs, f.lrl),
         vms_rms::Rfm::Stmlf => format!(
@@ -357,10 +386,21 @@ fn full(name: &str, path: &std::path::Path, info: Option<&files::Info>) -> Vec<S
         "None"
     };
     vec![
-        format!("{:<30}File ID:  ({},1,0)", if name.len() < 30 { name.to_string() } else { format!("{name}\n") }, ino),
-        format!("{:<30}Owner:    [{gid:o},{uid:o}]", format!("Size:      {:>10}", format!("{}/{}", i.used, i.allocated))),
+        format!(
+            "{:<30}File ID:  {:<22}",
+            if name.len() < 30 {
+                name.to_string()
+            } else {
+                format!("{name}\n")
+            },
+            format!("({ino},1,0)")
+        ),
+        format!(
+            "{:<30}Owner:    [{gid:o},{uid:o}]",
+            format!("Size:      {:>10}", format!("{}/{allocated}", i.used))
+        ),
         format!("Created:    {}", t(i.created)),
-        format!("Modified:   {}", t(i.revised)),
+        format!("Modified:   {} (1)", t(i.revised)),
         "Expires:    <None specified>".into(),
         "Backup:     <No backup recorded>".into(),
         "Effective:  <None specified>".into(),
@@ -372,7 +412,10 @@ fn full(name: &str, path: &std::path::Path, info: Option<&files::Info>) -> Vec<S
         format!("File organization:  {org}"),
         "Shelved state:      Online ".into(),
         "Caching attribute:  Writethrough".into(),
-        format!("File attributes:    Allocation: {}, Extend: 0, Global buffer count: 0, No version limit", i.allocated),
+        format!(
+            "File attributes:    Allocation: {allocated}, Extend: {}, {bucket}Global buffer count: 0, No version limit",
+            f.deq
+        ),
         format!("Record format:      {rfm}"),
         format!("Record attributes:  {rat}"),
         "RMS attributes:     None".into(),

@@ -6,6 +6,7 @@
 //! See docs/design/m1.md.
 
 pub mod cli;
+pub mod fileinfo;
 pub mod files;
 pub mod help;
 pub mod image;
