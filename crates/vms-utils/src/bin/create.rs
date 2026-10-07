@@ -23,7 +23,7 @@ const OPENFDL: Cond = Cond(0x00B4_808C);
 const FDL_CREATED: Cond = Cond(0x00B4_8323);
 const UNQUAKW: Cond = Cond(0x00B4_8328);
 const WARNING: Cond = Cond(0x00B4_8330);
-const UNPRIKW: Cond = Cond(0x00B4_833A);
+const UNPRIKW: Cond = Cond(0x00B4_80A2);
 const FDLERROR: Cond = Cond(0x00B4_8342);
 /// LIB-F-INVFILSPE (sys/SYSMSG/LIB.MSG).
 const INVFILSPE: Cond = Cond(0x0015_9F44);
