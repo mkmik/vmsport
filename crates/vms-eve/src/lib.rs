@@ -880,11 +880,12 @@ impl Editor {
         }
     }
 
-    /// The EDT keypad (SET KEYPAD EDT): GOLD is PF1.
+    /// The EDT keypad (SET KEYPAD EDT): GOLD is PF1, and F16 (ESC [29~) for
+    /// keyboards without PF1 (KP7 is Do here).
     fn edt_key(&mut self, k: &Key) -> bool {
         let gold = std::mem::take(&mut self.gold);
         let c = match (k, gold) {
-            (Key::Pf(1), _) => {
+            (Key::Pf(1) | Key::F(16), _) => {
                 self.gold = true;
                 return true;
             }

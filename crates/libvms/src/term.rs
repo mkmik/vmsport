@@ -172,11 +172,13 @@ pub struct Raw(libc::termios, bool);
 
 impl Raw {
     pub fn new() -> std::io::Result<Raw> {
-        let raw = Raw::plain()?;
+        // Moved, not copied: a dropped Raw puts the terminal back.
+        let mut raw = Raw::plain()?;
         // Application keypad and cursor keys.
         print!("\x1b=\x1b[?1h");
         let _ = std::io::stdout().flush();
-        Ok(Raw(raw.0, true))
+        raw.1 = true;
+        Ok(raw)
     }
 
     /// Raw mode, the keypad left as it is: for a program that reads lines

@@ -148,7 +148,9 @@ impl Keypad {
             self.goal = None;
         }
         match (gold, &k) {
-            (_, Key::Pf(1)) => {
+            // GOLD: PF1, and F16 (ESC [29~), which EDT leaves free, for
+            // keyboards without PF1.
+            (_, Key::Pf(1) | Key::F(16)) => {
                 self.gold = true;
                 return After::Stay;
             }

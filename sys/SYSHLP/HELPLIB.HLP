@@ -826,7 +826,8 @@ file-spec
  4 ADVANCE (BOTTOM), 5 BACKUP (TOP), 6 CUT (PASTE), , DEL C (UND C);
  1 WORD (CHNGCASE), 2 EOL (DEL EOL), 3 CHAR (SPECINS), ENTER (SUBS);
  0 LINE (OPEN LINE), . SELECT (RESET). In parentheses: after GOLD.
- GOLD and digits repeat the next key. DELETE deletes back a character,
+ F16 (ESC [29~) is GOLD too, for keyboards without PF1 (F1 sends PF1 on
+ most). GOLD and digits repeat the next key. DELETE deletes back a character,
  Ctrl/H goes to the start of the line, Ctrl/J deletes back a word,
  Ctrl/U to the start of the line, Ctrl/W redraws, Ctrl/Z ends keypad
  mode.
