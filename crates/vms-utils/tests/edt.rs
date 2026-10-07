@@ -28,7 +28,14 @@ fn files_of(dcl: &str) -> (Vec<(String, String)>, String) {
             .filter(|n| !n.starts_with('/'))
         {
             let end = lines[i..].iter().position(|l| *l == "@@CTRLZ").unwrap() + i;
-            let mut text = lines[i + 1..end].join("\n");
+            // vmsport has no DUMP: the PRINT files it showed are checked
+            // in crates/vms-edt's tests.
+            let body: Vec<&str> = lines[i + 1..end]
+                .iter()
+                .copied()
+                .filter(|l| !l.starts_with("$ DUMP"))
+                .collect();
+            let mut text = body.join("\n");
             text.push('\n');
             out.push((name.to_string(), text));
             i = end;
@@ -88,12 +95,18 @@ fn squeeze(lines: Vec<String>) -> Vec<String> {
     out
 }
 
-/// What VMS printed from `$ @T` on; its version banner masked.
+/// What VMS printed from `$ @T` on: its version banner masked, its
+/// DUMPs left out.
 fn recorded(log: &str) -> Vec<String> {
+    let mut dump = false;
     let lines: Vec<String> = log
         .lines()
         .skip_while(|l| *l != "$ @T")
         .skip(1)
+        .filter(|l| {
+            dump = (dump || l.starts_with("Dump of file")) && !l.starts_with("@@ ");
+            !dump
+        })
         .map(|l| version(l.to_string()))
         .collect();
     squeeze(lines)

@@ -23,6 +23,9 @@ pub struct Buffer {
     pub lines: Vec<Line>,
     pub cur: usize,
     pub col: usize,
+    /// The file's last lines EDT hasn't read yet: it reads its input as
+    /// far as commands look, and a line beyond (SHOW BUFFER's `1*`).
+    pub unread: usize,
 }
 
 impl Buffer {
@@ -35,7 +38,9 @@ impl Buffer {
 
     /// The buffer of `text`, numbered from 1.
     pub fn of(name: &str, text: Vec<String>) -> Buffer {
+        let unread = text.len().saturating_sub(2);
         Buffer {
+            unread,
             lines: text
                 .into_iter()
                 .zip(1..)
@@ -45,20 +50,28 @@ impl Buffer {
         }
     }
 
+    /// Line `i` was looked at: the file is read that far, and a line on.
+    fn touch(&mut self, i: usize) {
+        self.unread = self.unread.min(self.lines.len().saturating_sub(i + 2));
+    }
+
     pub fn texts(&self) -> Vec<String> {
         self.lines.iter().map(|l| l.text.clone()).collect()
     }
 
-    /// The numbers for `k` lines inserted before line `at`: the largest of
-    /// 1, 0.1, 0.01 ... steps that fits before the next line.
+    /// The numbers for `k` lines inserted before line `at`: steps of the
+    /// largest of 1, 0.1, 0.01 ... that leaves room for one more line
+    /// before the next (fixtures/edt: 1.4 after 0.4 before 3, 1.2 after
+    /// 1.1 before 3).
     fn numbers(&self, at: usize, k: usize) -> Vec<u64> {
         let p = if at == 0 { 0 } else { self.lines[at - 1].num };
         let n = self.lines.get(at).map(|l| l.num);
+        let room = |inc: u64| n.is_none_or(|n| p + (k as u64 + 1) * inc <= n);
         let mut inc = ONE;
-        while inc > 1 && n.is_some_and(|n| p + k as u64 * inc >= n) {
+        while inc > 1 && !room(inc) {
             inc /= 10;
         }
-        if n.is_some_and(|n| p + k as u64 * inc >= n) {
+        if !room(inc) && n.is_some_and(|n| p + k as u64 * inc >= n) {
             // ponytail: no room even in 0.00001 steps; EDT asks for
             // RESEQUENCE, this renumbers what follows.
             return (1..=k as u64).map(|i| p + i).collect();
@@ -125,6 +138,10 @@ pub struct Settings {
     pub search_end: bool,
     pub bounded: bool,
     pub tab: Option<u16>,
+    /// The structured tab level (Ctrl/A, Ctrl/D, Ctrl/E in keypad mode).
+    pub tab_level: usize,
+    /// SET ENTITY's delimiters: WORD, SENTENCE, PARAGRAPH, PAGE.
+    pub entities: [String; 4],
     pub truncate: bool,
     pub verify: bool,
     pub wrap: Option<u16>,
@@ -148,6 +165,13 @@ impl Default for Settings {
             search_end: false,
             bounded: false,
             tab: None,
+            tab_level: 1,
+            entities: [
+                " \t\n\x0b\x0c\r".into(),
+                ".!?".into(),
+                String::new(),
+                "\x0c".into(),
+            ],
             truncate: true,
             verify: false,
             wrap: None,
@@ -421,14 +445,17 @@ impl Edt {
                 let buf = &self.buffers[b];
                 let lines: Vec<&Line> = idx.iter().filter_map(|i| buf.lines.get(*i)).collect();
                 if cmd == "PRINT" {
-                    let mut text: Vec<String> = lines
-                        .iter()
-                        .map(|l| format!("{:<9}   {}", number(l.num), l.text))
+                    // A form feed and two empty records, then the lines as
+                    // TYPE shows them (fixtures/edt run3's DUMP).
+                    // ponytail: one page however long.
+                    let text: Vec<String> = ["\x0c".to_string(), String::new(), String::new()]
+                        .into_iter()
+                        .chain(
+                            lines
+                                .iter()
+                                .map(|l| format!("{:<9}   {}", number(l.num), l.text)),
+                        )
                         .collect();
-                    // ponytail: one page; a form feed starts it.
-                    if let Some(first) = text.first_mut() {
-                        first.insert(0, '\x0c');
-                    }
                     files
                         .write(&spec, &text)
                         .map_err(|m| Err { at: None, msg: m })?;
@@ -437,10 +464,7 @@ impl Edt {
                     let shown = files
                         .write(&spec, &text)
                         .map_err(|m| Err { at: None, msg: m })?;
-                    self.say(format!(
-                        "{shown} {}",
-                        count(text.len(), "line", "").trim_end()
-                    ));
+                    self.say(format!("{shown} {}", lines_said(text.len())));
                 }
                 Ok(Flow::Go)
             }
@@ -502,12 +526,7 @@ impl Edt {
                 let shown = files
                     .write(&spec, &text)
                     .map_err(|m| Err { at: None, msg: m })?;
-                let n = match text.len() {
-                    0 => "No lines".to_string(),
-                    1 => "1 line".to_string(),
-                    n => format!("{n} lines"),
-                };
-                self.print(format!("{shown} {n}"));
+                self.print(format!("{shown} {}", lines_said(text.len())));
                 Ok(Flow::Exit { save })
             }
             "SET" => self.set_cmd(&mut c),
@@ -515,7 +534,10 @@ impl Edt {
             "FILL" => {
                 let (b, idx) = self.range(&mut c, Dflt::Dot)?;
                 c.end()?;
-                let width = self.set.wrap.unwrap_or(self.set.screen) as usize;
+                let width = self
+                    .set
+                    .wrap
+                    .map_or(self.set.screen as usize - 1, |w| w as usize);
                 fill(&mut self.buffers[b], &idx, width);
                 Ok(Flow::Go)
             }
@@ -575,9 +597,8 @@ impl Edt {
     }
 
     fn type_cmd(&mut self, c: &mut Cursor) -> Result<Flow, Err> {
-        let (b, idx) = self.range(c, Dflt::Dot)?;
+        let (b, idx) = self.range(c, Dflt::Type)?;
         c.end()?;
-        self.cur = b;
         for i in &idx {
             let s = self.shown(b, *i);
             self.print(s);
@@ -668,10 +689,29 @@ impl Edt {
             return Err(err(at, "TO expected"));
         }
         let (to, dest) = self.range(c, Dflt::Dot)?;
+        let mut times = 1;
+        loop {
+            c.ws();
+            if !c.eat('/') {
+                break;
+            }
+            let qa = c.i;
+            match c.word().as_str() {
+                "DUPLICATE" | "DUP" if !mv => {
+                    times = match c.eat(':') {
+                        true => c.number().ok_or(err(c.i, "Numeric value required"))? as usize,
+                        false => 1,
+                    };
+                }
+                "QUERY" | "QUE" => {}
+                _ => return Err(err(qa, "Unrecognized command option")),
+            }
+        }
         c.end()?;
         let fb = &self.buffers[from];
         let src: Vec<usize> = idx.into_iter().filter(|i| *i < fb.lines.len()).collect();
-        let texts: Vec<String> = src.iter().map(|i| fb.lines[*i].text.clone()).collect();
+        let one: Vec<String> = src.iter().map(|i| fb.lines[*i].text.clone()).collect();
+        let texts: Vec<String> = (0..times).flat_map(|_| one.clone()).collect();
         let mut at = dest.first().copied().unwrap_or(self.buffers[to].cur);
         if mv {
             let fb = &mut self.buffers[from];
@@ -685,14 +725,19 @@ impl Edt {
                 }
             }
         }
-        let n = texts.len();
+        let (n, total) = (one.len(), texts.len());
         let tb = &mut self.buffers[to];
         tb.insert(at, texts);
-        tb.cur = at + n;
+        tb.cur = at + total;
+        // The destination becomes the current buffer, but for PASTE.
+        if to != 1 {
+            self.cur = to;
+        }
         let verb = if mv { "moved" } else { "copied" };
-        self.say(match n {
-            0 => format!("No lines {verb}"),
-            _ => count(n, "line", verb),
+        self.say(match (n, times) {
+            (0, _) => format!("No lines {verb}"),
+            (_, 1) => count(n, "line", verb),
+            _ => format!("{} {times} times", count(n, "line", verb)),
         });
         Ok(Flow::Go)
     }
@@ -712,6 +757,9 @@ impl Edt {
         }
         c.i = save;
         let (old, new) = c.strings().map_err(|_| err(at, "Unrecognized command"))?;
+        // Without a range, the first occurrence in the current line; with
+        // one, all of them in each line (fixtures/edt run3).
+        let first_only = self.at_range_end(c);
         let (b, idx) = self.range(c, Dflt::Dot)?;
         let (mut brief, mut notype) = (false, false);
         loop {
@@ -735,17 +783,17 @@ impl Edt {
         let _ = brief;
         c.end()?;
         self.subs = Some((old.clone(), new.clone()));
-        self.cur = b;
         let mut total = 0;
         for i in idx {
             let Some(l) = self.buffers[b].lines.get_mut(i) else {
                 continue;
             };
-            let (text, n) = replace_all(&l.text, &old, &new, self.set.exact);
+            let (text, n, end) = replace(&l.text, &old, &new, self.set.exact, !first_only);
             if n > 0 {
                 l.text = text;
                 total += n;
                 self.buffers[b].cur = i;
+                self.buffers[b].col = end;
                 if !notype {
                     let s = self.shown(b, i);
                     self.print(s);
@@ -776,11 +824,9 @@ impl Edt {
                 break;
             }
         }
+        // Not found, nothing is said (fixtures/edt run3).
         let Some((i, p)) = found else {
-            return Err(Err {
-                at: None,
-                msg: NOT_FOUND.into(),
-            });
+            return Ok(Flow::Go);
         };
         let b = self.buf_mut();
         b.lines[i].text.replace_range(p..p + old.len(), &new);
@@ -876,16 +922,8 @@ impl Edt {
                 _ => return Err(err(wa, "Invalid parameter for SET or SHOW")),
             }
         } else if is("ENTITY", 2) {
-            c.ws();
-            let ea = c.i;
-            if !matches!(
-                c.word().as_str(),
-                "WORD" | "SENTENCE" | "PARAGRAPH" | "PAGE"
-            ) {
-                return Err(err(ea, "Entity must be WORD, SENTENCE, PARAGRAPH or PAGE"));
-            }
-            // ponytail: the delimiters are taken, not used.
-            c.string().ok_or(err(c.i, "Quoted string required"))?;
+            let k = entity(c)?;
+            s.entities[k] = c.string().ok_or(err(c.i, "Quoted string required"))?;
         } else if is("WORD", 1) {
             c.ws();
             let wa = c.i;
@@ -933,8 +971,8 @@ impl Edt {
         } else if is("CURSOR", 2) {
             vec![format!("{}:{}", s.cursor.0, s.cursor.1)]
         } else if is("ENTITY", 2) {
-            c.ws();
-            return Err(err(c.i, "Entity must be WORD, SENTENCE, PARAGRAPH or PAGE"));
+            let k = entity(c)?;
+            vec![shown_controls(&s.entities[k])]
         } else if is("LINES", 1) {
             vec![s.lines.to_string()]
         } else if is("MODE", 1) {
@@ -953,7 +991,9 @@ impl Edt {
                 if s.bounded { "bounded" } else { "unbounded" }
             )]
         } else if is("TAB", 2) {
-            vec![s.tab.map_or("notab".into(), |t| format!("tab {t}"))]
+            vec![s.tab.map_or("notab".into(), |t| {
+                format!("tab size {t}; tab level {}", s.tab_level)
+            })]
         } else if is("TRUNCATE", 2) {
             vec![yes(s.truncate, "truncate")]
         } else if is("VERIFY", 1) {
@@ -986,7 +1026,7 @@ impl Edt {
             let ka = c.i;
             let key = keypad::Defined::parse(c).ok_or(err(ka, "That key is not definable"))?;
             let def = self.keys.iter().find(|(k, _)| *k == key);
-            vec![def.map_or("Key is not defined".into(), |d| d.1.clone())]
+            vec![def.map_or("No definition".into(), |d| d.1.clone())]
         } else if is("BUFFER", 1) {
             // The newest buffer first, MAIN and PASTE last.
             let order = (2..self.buffers.len()).rev().chain([0, 1]);
@@ -994,8 +1034,9 @@ impl Edt {
                 .map(|i| (i, &self.buffers[i]))
                 .map(|(i, b)| {
                     let mark = if i == self.cur { '=' } else { ' ' };
-                    let n = match b.lines.len() {
-                        0 => "No".into(),
+                    let n = match b.lines.len() - b.unread {
+                        0 if b.unread == 0 => "No".into(),
+                        n if b.unread > 0 => format!("{n}*"),
                         n => n.to_string(),
                     };
                     format!("{mark}{}\t{n}\tlines", b.name)
@@ -1050,6 +1091,7 @@ impl Edt {
     fn range(&mut self, c: &mut Cursor, dflt: Dflt) -> Result<(usize, Vec<usize>), Err> {
         c.ws();
         let mut b = self.cur;
+        let mut dflt = dflt;
         if c.peek() == Some('=') {
             let at = c.i;
             c.i += 1;
@@ -1059,6 +1101,9 @@ impl Edt {
             }
             b = self.buffer(&name);
             c.ws();
+            if dflt == Dflt::Type {
+                dflt = Dflt::Whole;
+            }
         }
         let mut all = Vec::new();
         loop {
@@ -1068,6 +1113,9 @@ impl Edt {
             if !c.eat(',') {
                 break;
             }
+        }
+        if let Some(m) = all.iter().max() {
+            self.buffers[b].touch(*m);
         }
         Ok((b, all))
     }
@@ -1090,7 +1138,7 @@ impl Edt {
                 c.i = save;
                 if self.at_range_end(c) {
                     match dflt {
-                        Dflt::Dot => vec![cur],
+                        Dflt::Dot | Dflt::Type => vec![cur],
                         Dflt::Whole => (0..=n).collect(),
                     }
                 } else {
@@ -1130,10 +1178,7 @@ impl Edt {
                     .is_some_and(|l| find_from(&l.text, &s, 0, exact).is_some())
             });
             if idx.is_empty() {
-                return Err(Err {
-                    at: None,
-                    msg: NOT_FOUND.into(),
-                });
+                idx.push(buf.lines.len());
             }
         } else {
             c.i = s3;
@@ -1171,7 +1216,7 @@ impl Edt {
             Some('-') if matches!(c.peek_at(1), Some('"' | '\'')) => {
                 c.i += 1;
                 let s = c.string().ok_or(err(at, "Quoted string required"))?;
-                (0..=cur.min(n.saturating_sub(1)))
+                (0..cur.min(n))
                     .rev()
                     .find(|i| find_from(&buf.lines[*i].text, &s, 0, exact).is_some())
                     .ok_or(Err {
@@ -1216,10 +1261,12 @@ impl Edt {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 enum Dflt {
     Dot,
     Whole,
+    /// The current line, or the whole of a buffer named alone.
+    Type,
 }
 
 /// Commands and the shortest abbreviation EDT takes.
@@ -1261,6 +1308,39 @@ SUBSTITUTE/old/new/ [r], SUBSTITUTE NEXT, FIND, FILL, TAB ADJUST n,
 RESEQUENCE, INCLUDE file, WRITE file, PRINT file, CLEAR buffer, SET, SHOW,
 DEFINE KEY, CHANGE (keypad mode), EXIT [file] [/SAVE], QUIT [/SAVE].";
 
+/// SET and SHOW ENTITY's entity: WORD, SENTENCE, PARAGRAPH or PAGE.
+fn entity(c: &mut Cursor) -> Result<usize, Err> {
+    c.ws();
+    let at = c.i;
+    let w = c.word();
+    ["WORD", "SENTENCE", "PARAGRAPH", "PAGE"]
+        .iter()
+        .position(|e| *e == w)
+        .ok_or(err(at, "Entity must be WORD, SENTENCE, PARAGRAPH or PAGE"))
+}
+
+/// Delimiters as SHOW ENTITY shows them: <LF>, <VT>, <FF>, <CR> for those.
+fn shown_controls(s: &str) -> String {
+    s.chars()
+        .map(|c| match c {
+            '\n' => "<LF>".into(),
+            '\x0b' => "<VT>".into(),
+            '\x0c' => "<FF>".into(),
+            '\r' => "<CR>".into(),
+            c => c.to_string(),
+        })
+        .collect()
+}
+
+/// "No lines", "1 line", "3 lines".
+fn lines_said(n: usize) -> String {
+    match n {
+        0 => "No lines".into(),
+        1 => "1 line".into(),
+        n => format!("{n} lines"),
+    }
+}
+
 /// "1 line deleted", "3 lines resequenced".
 fn count(n: usize, what: &str, verb: &str) -> String {
     let s = if n == 1 { "" } else { "s" };
@@ -1286,17 +1366,23 @@ pub fn find_from(s: &str, pat: &str, from: usize, exact: bool) -> Option<usize> 
     hs.get(from..)?.find(&hp).map(|p| p + from)
 }
 
-fn replace_all(s: &str, old: &str, new: &str, exact: bool) -> (String, usize) {
+/// `s` with `old` replaced (all of them, or the first), how many, and
+/// where the last replacement ends.
+fn replace(s: &str, old: &str, new: &str, exact: bool, all: bool) -> (String, usize, usize) {
     let mut out = String::new();
-    let (mut i, mut n) = (0, 0);
+    let (mut i, mut n, mut end) = (0, 0, 0);
     while let Some(p) = find_from(s, old, i, exact) {
         out.push_str(&s[i..p]);
         out.push_str(new);
+        end = out.len();
         i = p + old.len();
         n += 1;
+        if !all {
+            break;
+        }
     }
     out.push_str(&s[i..]);
-    (out, n)
+    (out, n, end)
 }
 
 /// RESEQUENCE's /SEQUENCE[:init[:incr]].
@@ -1323,69 +1409,69 @@ fn sequence_values(c: &mut Cursor) -> Result<(u64, u64), Err> {
     Ok(v)
 }
 
-/// FILL: the range's words in lines of at most `width` columns, each new
-/// line put in before the first old line still there, an old line
-/// deleted once its last word is out (how EDT numbers them: 0.1 ... 1.4).
-fn fill(b: &mut Buffer, idx: &[usize], width: usize) {
-    let lines: Vec<usize> = idx.iter().copied().filter(|i| *i < b.lines.len()).collect();
-    if lines.is_empty() {
-        return;
+/// FILL: each paragraph (lines between blank ones) of the range in
+/// lines of at most `width` columns. As EDT does it, for its numbering
+/// (fixtures/edt): an old line goes when a word is taken from a later
+/// one (all of them at the paragraph's end), and each new line, once
+/// full, is put in before the first old line still there. The last
+/// line keeps the space after its last word, if it fits.
+pub(crate) fn fill(b: &mut Buffer, idx: &[usize], width: usize) {
+    let mut paras: Vec<Vec<u64>> = vec![Vec::new()];
+    for i in idx.iter().filter(|i| **i < b.lines.len()) {
+        let l = &b.lines[*i];
+        match l.text.trim().is_empty() {
+            true => paras.push(Vec::new()),
+            false => paras.last_mut().unwrap().push(l.num),
+        }
     }
-    // Words, each with the old line it is in (its index in `lines`); an
-    // old line is done with the last of its words (a blank one, with the
-    // word before it).
-    let mut words: Vec<(String, usize)> = Vec::new();
-    let mut done_at: Vec<usize> = Vec::new();
-    for (k, i) in lines.iter().enumerate() {
-        for w in b.lines[*i].text.split_whitespace() {
-            words.push((w.to_string(), k));
-        }
-        done_at.push(words.len());
-    }
-    // The text ends with the space after its last line.
-    // Each new line, with how many words are out after it.
-    let mut out: Vec<(String, usize)> = Vec::new();
-    let mut cur = String::new();
-    for (n, (w, _)) in words.iter().enumerate() {
-        if !cur.is_empty() && cur.len() + 1 + w.len() > width {
-            out.push((cur, n));
-            cur = String::new();
-        }
-        if !cur.is_empty() {
-            cur.push(' ');
-        }
-        cur.push_str(w);
-    }
-    if !cur.is_empty() {
-        if cur.len() < width {
-            cur.push(' ');
-        }
-        out.push((cur, words.len()));
-    }
-    // Old lines by identity: indices move as lines come and go.
-    let ids: Vec<u64> = lines.iter().map(|i| b.lines[*i].num).collect();
-    let mut gone = 0;
-    for (text, out_words) in out {
-        let at = b
-            .lines
-            .iter()
-            .position(|l| ids[gone..].contains(&l.num))
-            .unwrap_or_else(|| {
-                let after = ids.last().copied().unwrap_or(0);
-                b.lines
-                    .iter()
-                    .position(|l| l.num > after)
-                    .unwrap_or(b.lines.len())
-            });
-        b.insert(at, vec![text]);
-        while gone < ids.len() && done_at[gone] <= out_words {
-            if let Some(p) = b.lines.iter().position(|l| l.num == ids[gone]) {
-                b.lines.remove(p);
-            }
-            gone += 1;
-        }
+    for p in paras.into_iter().filter(|p| !p.is_empty()) {
+        fill_paragraph(b, &p, width);
     }
     b.cur = b.cur.min(b.lines.len());
+}
+
+fn fill_paragraph(b: &mut Buffer, ids: &[u64], width: usize) {
+    let pos = |b: &Buffer, id: u64| b.lines.iter().position(|l| l.num == id);
+    let last = pos(b, *ids.last().unwrap()).unwrap();
+    let after = b.lines.get(last + 1).map(|l| l.num);
+    let mut words: Vec<(String, usize)> = Vec::new();
+    for (k, id) in ids.iter().enumerate() {
+        let text = b.lines[pos(b, *id).unwrap()].text.clone();
+        words.extend(text.split_whitespace().map(|w| (w.to_string(), k)));
+    }
+    let mut gone = 0;
+    let drop_to = |b: &mut Buffer, gone: &mut usize, k: usize| {
+        while *gone < k {
+            if let Some(p) = pos(b, ids[*gone]) {
+                b.lines.remove(p);
+            }
+            *gone += 1;
+        }
+    };
+    let put = |b: &mut Buffer, gone: usize, text: String| {
+        let at = match ids.get(gone) {
+            Some(id) => pos(b, *id),
+            None => after.and_then(|a| pos(b, a)),
+        }
+        .unwrap_or(b.lines.len());
+        b.insert(at, vec![text]);
+    };
+    let mut line = String::new();
+    for (w, k) in words {
+        drop_to(b, &mut gone, k);
+        if !line.is_empty() && line.len() + 1 + w.len() > width {
+            put(b, gone, std::mem::take(&mut line));
+        }
+        if !line.is_empty() {
+            line.push(' ');
+        }
+        line.push_str(&w);
+    }
+    drop_to(b, &mut gone, ids.len());
+    if line.len() < width {
+        line.push(' ');
+    }
+    put(b, gone, line);
 }
 
 /// `s` with its indentation moved by `cols` columns, in tabs and spaces.

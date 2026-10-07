@@ -112,7 +112,6 @@ pub struct Keypad {
     /// The display column up and down arrows keep to.
     goal: Option<usize>,
     help: bool,
-    tab_level: usize,
 }
 
 const SECT: usize = 16;
@@ -204,7 +203,7 @@ impl Keypad {
                 if let Some((s, _)) = self.range(e) {
                     let (from, to) = (s.0, pos(e).0.max(s.0));
                     let idx: Vec<usize> = (from.min(to)..=from.max(to)).collect();
-                    let width = e.set.wrap.unwrap_or(e.set.screen) as usize;
+                    let width = e.set.wrap.map_or(e.set.screen as usize - 1, |w| w as usize);
                     crate::fill(e.buf_mut(), &idx, width);
                     self.select = None;
                 }
@@ -302,9 +301,9 @@ impl Keypad {
             (_, Key::KpEnter) => {}
             (_, Key::Up | Key::Down) => {
                 let (l, c) = pos(e);
-                let goal = *self.goal.get_or_insert_with(|| {
-                    col_of(e.buf().lines.get(l).map_or("", |x| &x.text), c)
-                });
+                let goal = *self
+                    .goal
+                    .get_or_insert_with(|| col_of(e.buf().lines.get(l).map_or("", |x| &x.text), c));
                 let n = e.buf().lines.len();
                 let to = if *k == Key::Up {
                     l.saturating_sub(1)
@@ -329,7 +328,7 @@ impl Keypad {
             (_, Key::Return) => insert_text(e, "\n"),
             (_, Key::Tab) => match e.set.tab {
                 Some(t) if pos(e).1 == 0 => {
-                    let s = crate::indent("", (self.tab_level * t as usize) as i64);
+                    let s = crate::indent("", (e.set.tab_level * t as usize) as i64);
                     insert_text(e, &s);
                 }
                 _ => insert_text(e, "\t"),
@@ -355,8 +354,8 @@ impl Keypad {
             (_, Key::Ctrl('L')) => insert_text(e, "\x0c"),
             (_, Key::Ctrl('W') | Key::Ctrl('R')) => {}
             (_, Key::Ctrl('Z')) => return After::LineMode,
-            (_, Key::Ctrl('D')) => self.tab_level = self.tab_level.saturating_sub(1),
-            (_, Key::Ctrl('E')) => self.tab_level += 1,
+            (_, Key::Ctrl('D')) => e.set.tab_level = e.set.tab_level.saturating_sub(1),
+            (_, Key::Ctrl('E')) => e.set.tab_level += 1,
             (_, Key::Ctrl('A')) => {
                 let (l, _) = pos(e);
                 let text = e
@@ -365,7 +364,7 @@ impl Keypad {
                     .get(l)
                     .map_or(String::new(), |x| x.text.clone());
                 let lead = col_of(&text, text.len() - text.trim_start().len());
-                self.tab_level = lead / e.set.tab.unwrap_or(8).max(1) as usize;
+                e.set.tab_level = lead / e.set.tab.unwrap_or(8).max(1) as usize;
             }
             (_, Key::Ctrl('T')) => {
                 if let Some((s, t)) = self.range(e) {
