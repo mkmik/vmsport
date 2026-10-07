@@ -50,7 +50,7 @@ IMAGE`). MOUNT on VMS needs `/NOASSIST`, or it waits for an operator.
 
 What the install CD can't run (EDIT/FDL) is recorded on an installed VMS
 system instead, booted from a copy-on-write clone of its disk image by
-vaxpunk's `run-vms.py --system` (`$RUNVMS`, `$VMS_SYSTEM`), whose console it
+vaxpunk's `run-vms.py --system` (`$VAXPUNK`, `$RUNVMS`, `$VMS_SYSTEM`), whose console it
 types the area's `NAME.dcl` into; the log goes to `recorded/NAME.log`:
 
 ```sh
