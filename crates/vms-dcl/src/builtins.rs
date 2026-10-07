@@ -1,7 +1,10 @@
 //! The verbs DCL does itself (ROUTINE in DCL.CLD).
 
 use crate::expr::{self, Value};
-use crate::{Dcl, DclError, Frame, If, Mode, NORMAL, Table, split_args, split_then, unquote};
+use crate::{
+    Dcl, DclError, Frame, Get, If, Match, Mode, NORMAL, Share, Table, split_args, split_then,
+    unquote,
+};
 use vms_cld::{ParseResult, status};
 use vms_cond::Cond;
 
@@ -280,7 +283,7 @@ impl Dcl {
                         .unwrap_or_default();
                     let (mut f, _) = self
                         .host
-                        .open(&spec, &format!("{stem}.C"), Mode::Write)
+                        .open(&spec, &format!("{stem}.C"), Mode::Write, Share::None)
                         .map_err(DclError::status)?;
                     for line in out.to_c(&name).lines() {
                         f.write(line).map_err(DclError::status)?;
@@ -478,17 +481,36 @@ impl Dcl {
         for i in &items {
             line.push_str(&expr::eval(i, self)?.to_str());
         }
-        match logical.as_str() {
-            "SYS$OUTPUT" | "SYS$ERROR" | "TT" => self.print(&line),
-            _ => {
-                let f = self
-                    .files
-                    .get_mut(&logical)
-                    .ok_or_else(|| DclError::new("UNDFIL"))?;
-                f.write(&line).map_err(DclError::status)?;
-            }
+        if matches!(logical.as_str(), "SYS$OUTPUT" | "SYS$ERROR" | "TT") {
+            self.print(&line);
+            return Ok(Some(RMS_NORMAL));
         }
-        Ok(Some(RMS_NORMAL))
+        let f = self
+            .files
+            .get_mut(&logical)
+            .ok_or_else(|| DclError::new("UNDFIL"))?;
+        let st = match present(r, "UPDATE") {
+            true => f.update(&line),
+            false => f.put(&line),
+        };
+        match st {
+            Ok(st) => Ok(Some(st)),
+            Err(e) => self.error_label(r, e),
+        }
+    }
+
+    /// A failed READ or WRITE: to its /ERROR label, $STATUS the error;
+    /// without one, the error shown.
+    fn error_label(&mut self, r: &mut ParseResult, e: Cond) -> R {
+        let Some(label) = value(r, "ERROR") else {
+            return Err(DclError::status(e));
+        };
+        let pc = self
+            .label(&label)
+            .ok_or_else(|| DclError::with("USGOTO", &label))?;
+        self.top().pc = pc;
+        self.status = e;
+        Ok(None)
     }
 
     fn read(&mut self, r: &mut ParseResult) -> R {
@@ -502,17 +524,43 @@ impl Dcl {
                 self.host.read_terminal(&prompt)
             }
             _ => {
+                let how = Get {
+                    key: match value(r, "KEY") {
+                        Some(k) => Some((
+                            unquote(&k).into_bytes(),
+                            match value(r, "MATCH").as_deref() {
+                                Some("GE") => Match::Ge,
+                                Some("GT") => Match::Gt,
+                                Some("LE") => Match::Le,
+                                Some("LT") => Match::Lt,
+                                _ => Match::Eq,
+                            },
+                            value(r, "INDEX").and_then(|i| i.parse().ok()).unwrap_or(0),
+                        )),
+                        None => None,
+                    },
+                    delete: present(r, "DELETE"),
+                    nolock: present(r, "NOLOCK"),
+                };
                 let f = self
                     .files
                     .get_mut(&logical)
                     .ok_or_else(|| DclError::new("UNDFIL"))?;
-                f.read().map_err(DclError::status)?
+                match f.get(&how) {
+                    Ok(rec) => rec,
+                    Err(e) => return self.error_label(r, e),
+                }
             }
         };
         match rec {
             Some(rec) => {
                 self.top().locals.set(&sym, Value::Str(rec));
-                Ok(Some(RMS_NORMAL))
+                // As VMS leaves it: READ/DELETE has $DELETE's status.
+                Ok(Some(if present(r, "DELETE") {
+                    RMS_NORMAL
+                } else {
+                    NORMAL
+                }))
             }
             None => match value(r, "END_OF_FILE") {
                 Some(label) => {
@@ -523,7 +571,7 @@ impl Dcl {
                     self.status = RMS_EOF;
                     Ok(None)
                 }
-                None => Err(DclError::status(RMS_EOF)),
+                None => self.error_label(r, RMS_EOF),
             },
         }
     }
@@ -542,10 +590,15 @@ impl Dcl {
             (false, true, _) => Mode::Write,
             _ => Mode::Read,
         };
-        match self.host.open(&spec, "", mode) {
+        let share = match (present(r, "SHARE"), value(r, "SHARE").as_deref()) {
+            (false, _) => Share::None,
+            (true, Some("READ")) => Share::Read,
+            (true, _) => Share::Write,
+        };
+        match self.host.open(&spec, "", mode, share) {
             Ok((f, _)) => {
                 self.files.insert(logical, f);
-                Ok(Some(NORMAL))
+                Ok(Some(Cond(1)))
             }
             Err(st) => {
                 // The RMS status, marked shown, whether DCL shows it or takes
@@ -586,7 +639,7 @@ impl Dcl {
     pub(crate) fn read_file(&mut self, spec: &str, default: &str) -> Result<String, DclError> {
         let (mut f, _) = self
             .host
-            .open(spec, default, Mode::Read)
+            .open(spec, default, Mode::Read, Share::None)
             .map_err(DclError::status)?;
         let mut text = String::new();
         while let Some(rec) = f.read().map_err(DclError::status)? {

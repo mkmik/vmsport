@@ -180,7 +180,7 @@ impl Dcl {
     ) -> Result<Stdio, DclError> {
         let (f, _) = self
             .host
-            .open(spec, "", Mode::Write)
+            .open(spec, "", Mode::Write, crate::Share::None)
             .map_err(DclError::status)?;
         let file = f
             .host_file()

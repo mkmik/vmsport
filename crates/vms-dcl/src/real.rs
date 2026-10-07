@@ -1,11 +1,13 @@
 //! DCL's host: libvms.
 
-use crate::host::{Change, Child, Host, Launch, Mode, RecordFile, Table};
+use crate::host::{Change, Child, Get, Host, Launch, Mode, RecordFile, Share, Table};
 use libvms::Session;
 use libvms::files::{Reader, Writer};
+use libvms::rms::{At, Rop};
 use std::io::Write;
 use vms_cond::Cond;
 use vms_lnm::{Equiv, Logical};
+use vms_rms::Record;
 
 pub struct RealHost {
     pub session: Session,
@@ -38,6 +40,48 @@ impl RecordFile for Io {
             Io::Write(w) => w.file().try_clone().ok(),
             Io::Read(_) => None,
         }
+    }
+}
+
+/// A file of any organization, through RMS.
+struct Rms(libvms::rms::File);
+
+impl RecordFile for Rms {
+    fn read(&mut self) -> Result<Option<String>, Cond> {
+        self.get(&Get::default())
+    }
+
+    fn write(&mut self, record: &str) -> Result<(), Cond> {
+        self.put(record).map(drop)
+    }
+
+    fn get(&mut self, how: &Get) -> Result<Option<String>, Cond> {
+        let at = match &how.key {
+            Some((k, m, index)) => At::Key(*index, k, *m),
+            None => At::Next,
+        };
+        let rop = Rop {
+            nolock: how.nolock,
+            ..Rop::default()
+        };
+        match self.0.get(at, rop) {
+            Ok(r) => {
+                if how.delete {
+                    self.0.delete()?;
+                }
+                Ok(Some(String::from_utf8_lossy(&r.data).into_owned()))
+            }
+            Err(c) if c == vms_rms::status::EOF => Ok(None),
+            Err(c) => Err(c),
+        }
+    }
+
+    fn put(&mut self, record: &str) -> Result<Cond, Cond> {
+        self.0.put(&Record::new(record.as_bytes().to_vec()), None)
+    }
+
+    fn update(&mut self, record: &str) -> Result<Cond, Cond> {
+        self.0.update(&Record::new(record.as_bytes().to_vec()))
     }
 }
 
@@ -141,24 +185,39 @@ impl Host for RealHost {
         spec: &str,
         default: &str,
         mode: Mode,
+        share: Share,
     ) -> Result<(Box<dyn RecordFile>, String), Cond> {
+        use libvms::rms::fab::*;
         let s = &self.session;
         let parsed = s.parse(spec, default, "")?;
-        let (io, shown) = match mode {
-            Mode::Read | Mode::ReadWrite => {
-                let (p, shown) = s.find(&parsed)?;
-                (Io::Read(Reader::open(&p)?), shown)
-            }
-            Mode::Write => {
-                let (p, shown) = s.new_version(&parsed)?;
-                (Io::Write(Writer::create(&p, Default::default())?), shown)
-            }
-            Mode::Append => {
-                let (p, shown) = s.find(&parsed)?;
-                (Io::Write(Writer::append(&p)?), shown)
-            }
+        if mode == Mode::Write {
+            let (p, shown) = s.new_version(&parsed)?;
+            let w = Io::Write(Writer::create(&p, Default::default())?);
+            return Ok((Box::new(w), shown.expanded()));
+        }
+        let (p, shown) = s.find(&parsed)?;
+        // A sequential file read alone needs no record stream.
+        if mode == Mode::Read
+            && share == Share::None
+            && libvms::files::fab(&p).org == vms_rms::Org::Seq
+        {
+            return Ok((Box::new(Io::Read(Reader::open(&p)?)), shown.expanded()));
+        }
+        let fac = match mode {
+            Mode::Read => GET,
+            Mode::Append => PUT,
+            _ => GET | PUT | UPD | DEL,
         };
-        Ok((Box::new(io), shown.expanded()))
+        let shr = match share {
+            Share::None => 0,
+            Share::Read => GET,
+            Share::Write => GET | PUT | UPD | DEL,
+        };
+        let mut f = libvms::rms::File::open(&p, fac, shr)?;
+        if mode == Mode::Append {
+            f.to_end()?;
+        }
+        Ok((Box::new(Rms(f)), shown.expanded()))
     }
 
     fn terminal_output(&mut self) -> Box<dyn RecordFile> {

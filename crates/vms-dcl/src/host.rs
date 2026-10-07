@@ -15,16 +15,52 @@ pub enum Child<'a> {
     Dcl,
 }
 
+pub use libvms::rms::Match;
+
+/// What READ asks beyond the next record.
+#[derive(Debug, Default)]
+pub struct Get {
+    /// /KEY, /MATCH and /INDEX: the key value, how it matches, the key.
+    pub key: Option<(Vec<u8>, Match, u8)>,
+    /// /DELETE: the record goes once read.
+    pub delete: bool,
+    /// /NOLOCK
+    pub nolock: bool,
+}
+
 /// An open record file: OPEN/READ/WRITE, procedure input and /OUTPUT.
 pub trait RecordFile {
     /// The next record, `None` at end of file.
     fn read(&mut self) -> Result<Option<String>, Cond>;
     fn write(&mut self, record: &str) -> Result<(), Cond>;
+    /// READ with its qualifiers; a plain file takes none of them.
+    fn get(&mut self, how: &Get) -> Result<Option<String>, Cond> {
+        match how.key {
+            Some(_) => Err(vms_rms::status::RAC),
+            None => self.read(),
+        }
+    }
+    /// WRITE: RMS's status (OK_DUP when an alternate key repeats).
+    fn put(&mut self, record: &str) -> Result<Cond, Cond> {
+        self.write(record).map(|()| vms_rms::status::NORMAL)
+    }
+    /// WRITE/UPDATE: the record READ last.
+    fn update(&mut self, _record: &str) -> Result<Cond, Cond> {
+        Err(vms_rms::status::IOP)
+    }
     /// The host file under it, for an image's stdout when SYS$OUTPUT is
     /// this file.
     fn host_file(&self) -> Option<std::fs::File> {
         None
     }
+}
+
+/// OPEN/SHARE: what others may do with the file.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Share {
+    None,
+    Read,
+    Write,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -60,6 +96,7 @@ pub trait Host {
         spec: &str,
         default: &str,
         mode: Mode,
+        share: Share,
     ) -> Result<(Box<dyn RecordFile>, String), Cond>;
     /// SYS$OUTPUT as DCL started with it.
     fn terminal_output(&mut self) -> Box<dyn RecordFile>;

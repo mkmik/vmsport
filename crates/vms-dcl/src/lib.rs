@@ -11,7 +11,7 @@ pub mod real;
 mod spawn;
 
 use expr::Value;
-pub use host::{Change, Child, Host, Launch, Mode, RecordFile, Table};
+pub use host::{Change, Child, Get, Host, Launch, Match, Mode, RecordFile, Share, Table};
 use std::collections::{BTreeMap, HashMap};
 use std::rc::Rc;
 use vms_cld::Tables;
@@ -1075,7 +1075,7 @@ impl Dcl {
         }
         let (mut file, full) = self
             .host
-            .open(&spec, ".COM", Mode::Read)
+            .open(&spec, ".COM", Mode::Read, Share::None)
             .map_err(DclError::status)?;
         let mut records = Vec::new();
         while let Some(r) = file.read().map_err(DclError::status)? {
@@ -1085,7 +1085,7 @@ impl Dcl {
             Some(o) => {
                 let (f, _) = self
                     .host
-                    .open(&o, ".LIS", Mode::Write)
+                    .open(&o, ".LIS", Mode::Write, Share::None)
                     .map_err(DclError::status)?;
                 self.outputs.push(f);
                 self.outputs.len() - 1

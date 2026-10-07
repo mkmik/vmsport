@@ -144,6 +144,30 @@ enum Kind {
     },
 }
 
+/// Where the next sequential record is, kept to go back to.
+#[derive(Clone)]
+enum Mark {
+    Seq(usize),
+    Rel(u32),
+}
+
+impl Kind {
+    fn mark(&self) -> Mark {
+        match self {
+            Kind::Seq { next, .. } => Mark::Seq(*next),
+            Kind::Rel { next, .. } => Mark::Rel(*next),
+        }
+    }
+
+    fn reset(&mut self, m: Mark) {
+        match (self, m) {
+            (Kind::Seq { next, .. }, Mark::Seq(n)) => *next = n,
+            (Kind::Rel { next, .. }, Mark::Rel(n)) => *next = n,
+            _ => {}
+        }
+    }
+}
+
 /// This open's connection to the lock manager: its locks go when the file
 /// closes, or the process ends.
 struct Locks {
@@ -297,12 +321,17 @@ impl File {
         // A stream's next operation frees the record it locked.
         self.unlock();
         self.current = None;
+        let mark = self.kind.mark();
         let (rfa, rec) = self.op(|k| locate(k, at))?;
         if !self.locks.shared || rop.nolock {
             self.current = Some(rfa);
             return Ok((rfa, rec));
         }
-        self.lock(rfa, rop)?;
+        // A record another stream holds isn't passed by.
+        if let Err(e) = self.lock(rfa, rop) {
+            self.kind.reset(mark);
+            return Err(e);
+        }
         // It may have changed before the lock was ours.
         let rec = self.op(|k| locate(k, At::Rfa(rfa)).map(|r| r.1))?;
         self.current = Some(rfa);
