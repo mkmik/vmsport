@@ -1,0 +1,188 @@
+@@ init_exit
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I0.EVE;1
+You are already at the top of the buffer.
+
+2 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;2
+ 
+line one
+line the third line
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;1
+ 
+line one
+line two
+the third line
+@@ init_end
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I1.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+LINE two
+the third line
+@@ output
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I2.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]O.TXT;1
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]O.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+Line one
+line two
+the third line
+@@ read_only
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I3.EVE;1
+Attempt to change unmodifiable buffer: T.TXT
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;1
+ 
+line one
+line two
+the third line
+@@ errors
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I4.EVE;1
+Buffer has only 3 lines.  (Now going to End of Buffer).
+Don't understand initialization file command: frobnicate
+Did not finish executing initialization file: SYS$SYSDEVICE:[EVE]I4.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+one
+line two
+the third line
+@@ include_fill
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I5.EVE;1
+5 lines read from file SYS$SYSDEVICE:[EVE]P.TXT;1
+5 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+This is a paragraph
+of short lines that
+FILL should join.
+
+Second paragraph here. line one line two the third line
+@@ replace
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I6.EVE;1
+Feature requires a terminal
+Feature requires a terminal
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+line two
+the third line
+@@ ambiguous
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I7.EVE;1
+Ambiguous initialization file command: e
+Did not finish executing initialization file: SYS$SYSDEVICE:[EVE]I7.EVE;1
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+line two
+the third line
+@@ eve_init
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I8.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+LINE two
+the third line
+@@ no_init
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+No initialization file matching: NOSUCH.EVE
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;1
+ 
+line one
+line two
+the third line
+@@ nocreate
+Editing new file.  Could not find: SYS$SYSDEVICE:[EVE]NOPE.TXT;
+Input file or files do not exist: NOPE.TXT
+  $STATUS == "%X13F2AF01"
+@@ new_file
+Editing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW.TXT;
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I11.EVE;1
+Subprocess activated
+You are already in buffer: NEW.TXT
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+3 lines written to file SYS$SYSDEVICE:[EVE]NEW.TXT;1
+Subprocess terminated
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]NEW.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]NEW.TXT;1
+ 
+line one
+line two
+the third line
+@@ command
+%TPU-E-OPENIN, error opening SYS$SYSDEVICE:[EVE]NOSUCH.TPU; as input
+-RMS-E-FNF, file not found
+  $STATUS == "%X13F2ED7C"

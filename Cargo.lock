@@ -173,6 +173,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "vms-eve"
+version = "0.1.0"
+dependencies = [
+ "libvms",
+]
+
+[[package]]
 name = "vms-examples"
 version = "0.1.0"
 dependencies = [
@@ -232,10 +239,12 @@ dependencies = [
 name = "vms-utils"
 version = "0.1.0"
 dependencies = [
+ "libc",
  "libvms",
  "ods-image",
  "vms-cld",
  "vms-cond",
+ "vms-eve",
  "vms-fao",
  "vms-filespec",
  "vms-help",

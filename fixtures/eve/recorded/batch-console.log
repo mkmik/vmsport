@@ -1,0 +1,662 @@
+This is serial port #0 on AXPbox Alpha Emulator
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU0: unexpected exception/interrupt through vector 440
+process idle, pcb = 001AAD60
+
+ pc: 00000000 001A7C98  ps: 00000000 00000000
+ r2: 00000000 001A168C  r5: 00000000 00000000
+ r3: 00000000 0002A350  r6: 00000000 00000003
+ r4: 00000000 00000000  r7: 00000000 00000000
+
+exception context saved starting at 001ABCC0
+
+GPRs:
+  0: 00000000 00000000  16: FFFFFFFF FFFFFFFE
+  1: 00000000 00000000  17: 00000000 00000000
+  2: 00000000 00162448  18: 00000000 00000000
+  3: 00000000 00000000  19: 00000016 BCC35B40
+  4: 00000000 0003CA00  20: 00000000 00000000
+  5: 00000000 0003CA00  21: 00000000 0000000D
+  6: 00000000 00000003  22: 00000000 001ABE08
+  7: 00000000 00000000  23: 00000000 00000000
+  8: 00000000 001ABE1C  24: 00000000 00000001
+  9: CCCCCCCC CCCCCCCD  25: 00000000 00000003
+ 10: 00000000 00000001  26: 00000000 00068C10
+ 11: 00000000 0003C338  27: 00000000 001A84F0
+ 12: 00000000 0003C338  28: FFFFFFFF FFFFFE00
+ 13: 00000000 001AAD60  29: 00000000 001ABE00
+ 14: 00000000 001898B0  30: 00000000 001ABE00
+ 15: 00000000 0003C448
+
+dump of active call frames:
+
+PC  =  001A7C94
+PD  =  00162448
+FP  =  001ABE00
+SP  =  001ABE00
+
+R2 R3 R4 R5 R6 R7 R8 R9 R29 saved starting at 001ABE28
+
+R2  =  0015FF60
+R3  =  001AAE80
+R4  =  0003C338
+R5  =  001A0A78
+R6  =  0003C8F0
+R7  =  00000001
+R8  =  0003C300
+R9  =  00189888
+R29 =  001ABEC0
+
+PC  =  0005BCD4
+PD  =  0015FF60
+FP  =  001ABEC0
+SP  =  001ABE80
+
+R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15 R29 saved starting at 001ABEC8
+
+R2  =  00001000
+R3  =  001A1D20
+R4  =  001ABF50
+R5  =  001AF520
+R6  =  000001F0
+R7  =  00000000
+R8  =  00000000
+R9  =  001ABF50
+R10 =  00000000
+R11 =  00000000
+R12 =  00000000
+R13 =  00000000
+R14 =  00000000
+R15 =  00000000
+R29 =  00000000
+
+breakpoint at PC 1a0cb0 desired, XDELTA not loaded
+Initializing...
+
+
+OpenVMS PALcode V1.98-104, Tru64 UNIX PALcode V1.92-105
+
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU 0 speed is 800 MHz
+create dead_eater
+create poll
+create timer
+create powerup
+access NVRAM
+Memory size 512 MB
+testing memory
+..
+probe I/O subsystem
+probing hose 1, PCI
+probing hose 0, PCI
+probing PCI-to-ISA bridge, bus 1
+bus 0, slot 3 -- pka -- NCR 53C810
+bus 0, slot 15 -- dqa -- Acer Labs M1543C IDE
+bus 0, slot 15 -- dqb -- Acer Labs M1543C IDE
+starting drivers
+entering idle loop
+*** system serial number not set. use set sys_serial_num command.
+Partition 0, Memory base: 000000000, size: 020000000
+initializing GCT/FRU at 1c8000
+Initializing pka dqa dqb 
+Memory Testing and Configuration Status
+  Array       Size       Base Address    Intlv Mode
+---------  ----------  ----------------  ----------
+    0        512Mb     0000000000000000    4-Way
+
+     512 MB of System Memory
+Testing the System
+Testing the Disks (read only)
+AlphaServer ES40 Console V7.3-1, built on Feb 27 2007 at 12:57:47
+P00>>>show device
+dka0.0.0.3.0               DKA0                           RZ58  2000
+dva0.0.0.1000.0            DVA0                               
+pka0.7.0.3.0               PKA0                  SCSI Bus ID 7
+P00>>>boot dka0
+(boot dka0.0.0.3.0 -flags 0)
+block 0 of dka0.0.0.3.0 is a valid boot block
+reading 1230 blocks from dka0.0.0.3.0
+bootstrap code read in
+base = 200000, image_start = 0, image_bytes = 99c00(629760)
+initializing HWRPB at 2000
+initializing page table at 1ff56000
+initializing machine state
+setting affinity to the primary CPU
+jumping to bootstrap code
+
+
+    OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+                    Copyright 2016 VMS Software, Inc.
+
+%DECnet-I-LOADED, network base image loaded, version = 05.17.02
+
+%DECnet-W-NOOPEN, could not open SYS$SYSROOT:[SYSEXE]NET$CONFIG.DAT
+
+%STDRV-I-STARTUP, OpenVMS startup begun at  7-OCT-2026 18:31:04.20
+%RUN-S-PROC_ID, identification of created process is 00000204
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:08.99  %%%%%%%%%%%
+Operator _PUNK$OPA0: has been enabled, username SYSTEM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:09.00  %%%%%%%%%%%
+Operator status for operator _PUNK$OPA0:
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:09.01  %%%%%%%%%%%
+Logfile has been initialized by operator _PUNK$OPA0:
+Logfile is PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:09.02  %%%%%%%%%%%
+Operator status for operator PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%SET-I-NEWAUDSRV, identification of new audit server process is 0000020A
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:09.20  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%JBC-E-OPENERR, error opening SYS$COMMON:[SYSEXE]QMAN$MASTER.DAT;
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:09.20  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+-RMS-E-FNF, file not found
+
+%RUN-S-PROC_ID, identification of created process is 0000020D
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:11.39  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:11.39  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:11.40  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIACRECLUDB, security server created cluster intrusion database
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:11.41  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-SERVERSTARTINGU, security server starting up
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:11.41  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIASTARTINGUP, breakin detection and evasion processing now starting u
+p
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:12.44  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%ACME-I-SERVERSTART, ACME_SERVER starting
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:18.61  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+TDF-I-SETTDF TDF set new timezone differential
+
+Copyright 2015 VMS Software, Inc.
+%NET$STARTUP-W-NONETCONFIG, this node has not been configured to run DECnet-Plus
+ for OpenVMS
+        use SYS$MANAGER:NET$CONFIGURE.COM if you wish to configure DECnet
+%NET$STARTUP-I-OPERSTATUS, DECnet-Plus for OpenVMS operational status is OFF
+%DECdtm-F-NODECnet, the TP_SERVER process was not started because either:
+
+o  DECnet-Plus is not started or is not configured, or
+
+o  The SYS$NODE_FULLNAME logical name is not defined
+
+   This could be because when you installed DECnet-Plus and were prompted 
+   for the system's full name, you specified a local name instead of a 
+   DECdns or Domain name.
+
+If you want to use DECdtm services, make sure that DECnet-Plus is started and 
+configured and that SYS$NODE_FULLNAME is defined, then use the following 
+command to start the TP_SERVER process:
+
+    $ @SYS$STARTUP:DECDTM$STARTUP.COM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:19.69  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+
+
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+Startup processing continuing...
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:19.88  %%%%%%%%%%%
+Message from user AUDIT$SERVER on PUNK
+Security alarm (SECURITY) and security audit (SECURITY) on PUNK, system id: 42
+Auditable event:          Audit server starting up
+Event time:                7-OCT-2026 18:31:19.85
+PID:                      00000203        
+Username:                 SYSTEM          
+
+%STARTUP-I-AUDITCONTINUE, audit server initialization complete
+
+The OpenVMS system is now executing the site-specific startup commands.
+
+%MOUNT-F-NOSUCHDEV, no such device available
+%SET-I-INTSET, login interactive limit = 64, current interactive value = 0
+%RUN-S-PROC_ID, identification of created process is 00000217
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:31:21.35  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SMHANDLER-S-STARTUP, server management event handler startup
+
+  SYSTEM       job terminated at  7-OCT-2026 18:31:27.51
+
+  Accounting information:
+  Buffered I/O count:               3925      Peak working set size:       6736
+  Direct I/O count:                 1673      Peak virtual size:         186640
+  Page faults:                      4875      Mounted volumes:                0
+  Charged CPU time:        0 00:00:06.63      Elapsed time:       0 00:00:23.38
+
+ Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+
+Username: SYSTEM
+Password: 
+%LICENSE-I-NOLICENSE, no license is active for this software product
+%LOGIN-S-LOGOPRCON, login allowed from OPA0:
+   Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+    Last interactive login on Tuesday, 29-SEP-2026 17:13:08.23[c\Z[0c
+%SET-W-NOTSET, error modifying OPA0:
+-SET-I-UNKTERM, unknown terminal type7[999;999H[6n8
+$ SET TERMINAL/EIGHTBIT/WIDTH=132
+$ SET DEFAULT SYS$SYSDEVICE:[000000]
+$ CREATE/DIRECTORY [EVE]
+$ SET DEFAULT SYS$SYSDEVICE:[EVE]
+$ CREATE P.ORI
+This is a paragraph
+of short lines that
+FILL should join.
+
+Second paragraph here.
+*EXIT*
+$ CREATE T.ORI
+line one
+line two
+the third line
+*EXIT*
+$ CREATE W.ORI
+short
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyzzzzzzzzzzzzzzzzzzzz
+a       b       c
+*EXIT*
+$ CREATE WD.ORI
+alpha beta  gamma, delta.epsilon
+  indented words here
+last
+*EXIT*
+$ CREATE I0.EVE
+top
+find "two"
+erase line
+write file
+exit
+*EXIT*
+$ CREATE I1.EVE
+bottom
+line 2
+uppercase word
+move right
+*EXIT*
+$ CREATE I2.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I3.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I4.EVE
+line 99
+top
+erase word
+show buffers
+frobnicate
+bottom
+*EXIT*
+$ CREATE I5.EVE
+include file P.TXT
+bottom
+center line
+fill
+*EXIT*
+$ CREATE I6.EVE
+replace line row all
+replace "line" "row"
+*EXIT*
+$ CREATE I7.EVE
+e
+bottom
+*EXIT*
+$ CREATE I8.EVE
+line 2
+uppercase word
+*EXIT*
+$ CREATE I11.EVE
+dcl show default
+buffer new.txt
+include file T.TXT
+*EXIT*
+$ CREATE MKL.COM
+$ OPEN/WRITE f L.ORI
+$ n = 1
+$ l:
+$ WRITE f "line ", n
+$ n = n + 1
+$ IF n .LE. 60 THEN GOTO l
+$ CLOSE f
+*EXIT*
+$ @MKL
+$ CREATE B.COM
+$ SET NOON
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ init_exit"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I0.EVE T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;*
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ init_end"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I1.EVE T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;0
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ output"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I2.EVE/OUTPUT=O.TXT T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE O.TXT;0
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ read_only"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I3.EVE/READ_ONLY T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;*
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ errors"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I4.EVE T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;0
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ include_fill"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I5.EVE T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;0
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ replace"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I6.EVE T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;0
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ ambiguous"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I7.EVE T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;0
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ eve_init"
+$ DEFINE EVE$INIT I8.EVE
+$ EDIT/TPU/NODISPLAY T.TXT
+$ SHOW SYMBOL $STATUS
+$ DEASSIGN EVE$INIT
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;0
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ no_init"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=NOSUCH.EVE T.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE T.TXT;*
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ nocreate"
+$ EDIT/TPU/NODISPLAY/NOCREATE NOPE.TXT
+$ SHOW SYMBOL $STATUS
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ new_file"
+$ EDIT/TPU/NODISPLAY/INITIALIZATION=I11.EVE NEW.TXT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY/NOHEADING/NOTRAILING *.TXT;*
+$ TYPE NEW.TXT;*
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ command"
+$ EDIT/TPU/NODISPLAY/COMMAND=NOSUCH.TPU T.TXT
+$ SHOW SYMBOL $STATUS
+$ WRITE SYS$OUTPUT "@@ end"
+*EXIT*
+$ @B
+%DELETE-W-SEARCHFAIL, error searching for SYS$SYSDEVICE:[EVE]*.TXT;*
+-RMS-E-FNF, file not found
+@@ init_exit
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I0.EVE;1
+You are already at the top of the buffer.
+
+2 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;2
+ 
+line one
+line the third line
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;1
+ 
+line one
+line two
+the third line
+@@ init_end
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I1.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+LINE two
+the third line
+@@ output
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I2.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]O.TXT;1
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]O.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+Line one
+line two
+the third line
+@@ read_only
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I3.EVE;1
+Attempt to change unmodifiable buffer: T.TXT
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;1
+ 
+line one
+line two
+the third line
+@@ errors
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I4.EVE;1
+Buffer has only 3 lines.  (Now going to End of Buffer).
+Don't understand initialization file command: frobnicate
+Did not finish executing initialization file: SYS$SYSDEVICE:[EVE]I4.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+one
+line two
+the third line
+@@ include_fill
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I5.EVE;1
+5 lines read from file SYS$SYSDEVICE:[EVE]P.TXT;1
+5 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+This is a paragraph
+of short lines that
+FILL should join.
+
+Second paragraph here. line one line two the third line
+@@ replace
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I6.EVE;1
+Feature requires a terminal
+Feature requires a terminal
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+line two
+the third line
+@@ ambiguous
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I7.EVE;1
+Ambiguous initialization file command: e
+Did not finish executing initialization file: SYS$SYSDEVICE:[EVE]I7.EVE;1
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+line two
+the third line
+@@ eve_init
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I8.EVE;1
+3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;2
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+line one
+LINE two
+the third line
+@@ no_init
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+No initialization file matching: NOSUCH.EVE
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]T.TXT;1
+ 
+line one
+line two
+the third line
+@@ nocreate
+Editing new file.  Could not find: SYS$SYSDEVICE:[EVE]NOPE.TXT;
+Input file or files do not exist: NOPE.TXT
+  $STATUS == "%X13F2AF01"
+@@ new_file
+Editing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW.TXT;
+Executing commands in initialization file: SYS$SYSDEVICE:[EVE]I11.EVE;1
+Subprocess activated
+You are already in buffer: NEW.TXT
+3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+3 lines written to file SYS$SYSDEVICE:[EVE]NEW.TXT;1
+Subprocess terminated
+  $STATUS == "%X13F2AF01"
+SYS$SYSDEVICE:[EVE]L.TXT;1
+SYS$SYSDEVICE:[EVE]NEW.TXT;1
+SYS$SYSDEVICE:[EVE]P.TXT;1
+SYS$SYSDEVICE:[EVE]T.TXT;1
+SYS$SYSDEVICE:[EVE]W.TXT;1
+SYS$SYSDEVICE:[EVE]WD.TXT;1
+ 
+SYS$SYSDEVICE:[EVE]NEW.TXT;1
+ 
+line one
+line two
+the third line
+@@ command
+%TPU-E-OPENIN, error opening SYS$SYSDEVICE:[EVE]NOSUCH.TPU; as input
+-RMS-E-FNF, file not found
+  $STATUS == "%X13F2ED7C"
+@@ end
+$ 

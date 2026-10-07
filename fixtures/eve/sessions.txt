@@ -1,0 +1,80 @@
+# EVE sessions recorded on OpenVMS 8.4 (record.py): name, the EDIT command,
+# the keys typed after it (Python escapes: \x1b[29~ is Do, \x1a Ctrl/Z).
+# Every session starts from files/ as version 1.
+open_exit	EDIT/TPU T.TXT	\x1a
+new_file	EDIT/TPU NEW.TXT	abc\rdef\x1a
+type_down	EDIT/TPU T.TXT	Hello\x1bOBWorld\x1a
+overstrike	EDIT/TPU T.TXT	\x01XY\x1a
+overstrike_f14	EDIT/TPU T.TXT	\x1bOC\x1b[26~XY\x1b[26~Z\x1a
+return_split	EDIT/TPU WD.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\r\x05\r\x01\rX\x1a
+delete_key	EDIT/TPU WD.TXT	\x1bOB\x7f\x7f\x1bOC\x1bOC\x1bOC\x7f\x1a
+past_eol	EDIT/TPU W.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOCX\x1a
+down_to_short	EDIT/TPU W.TXT	\x1bOB\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOAX\x1a
+left_at_start	EDIT/TPU T.TXT	\x1bOB\x1bODX\x1a
+up_at_top	EDIT/TPU T.TXT	\x1bOAX\x1a
+down_at_end	EDIT/TPU T.TXT	\x1bOB\x1bOB\x1bOB\x1bOB\x1bOBX\x1a
+erase_word	EDIT/TPU WD.TXT	\x1b[29~erase word\r\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1b[29~erase word\r\x1bOC\x1bOC\x1bOC\x1b[29~erase word\r\x1bOB\x1b[29~erase word\r\x1a
+ctrl_j	EDIT/TPU WD.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x0a\x1bOC\x1bOC\x1bOC\x1bOC\x0a\x1bOB\x0a\x05\x0a\x1a
+erase_char_line	EDIT/TPU WD.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1b[29~erase character\r\x1bOC\x1bOC\x1bOC\x15\x1b[29~erase line\r\x1b[29~erase start of line\r\x1a
+erase_prev_word	EDIT/TPU WD.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1b[29~erase previous word\r\x1a
+restore	EDIT/TPU WD.TXT	\x1b[29~erase word\r\x1bOB\x1b[29~restore\r\x1a
+f11_f12_f14	EDIT/TPU WD.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1b[23~X\x1b[24~Y\x1b[24~Z\x1b[26~W\x1a
+f12_forward	EDIT/TPU WD.TXT	\x1bOC\x1bOC\x1b[24~X\x1b[24~Y\x1a
+ctrl_e_h	EDIT/TPU T.TXT	\x05E\x1bOB\x08H\x17\x1a
+find_far	EDIT/TPU L.TXT	\x1b[1~line 55\rX\x1a
+find_next	EDIT/TPU T.TXT	\x1b[1~line\r\x1b[1~\rX\x1a
+find_none	EDIT/TPU T.TXT	\x1b[1~zzz\r\x1a
+find_nothing	EDIT/TPU T.TXT	\x1b[1~\r\x1a
+find_case	EDIT/TPU T.TXT	\x1b[1~LINE\r\x1b[1~Line\r\x1a
+find_reverse	EDIT/TPU T.TXT	\x1b[29~bottom\r\x1b[23~\x1b[1~line\rX\x1a
+wildcard	EDIT/TPU T.TXT	\x1b[29~wildcard find t*d\rX\x1a
+replace_yna	EDIT/TPU T.TXT	\x1b[29~replace line row\ry\rn\ra\r\r\x1a
+replace_all	EDIT/TPU T.TXT	\x1b[29~replace line row\ra\r\x1a
+replace_quit	EDIT/TPU T.TXT	\x1b[29~replace line row\rq\r\x1a
+replace_last	EDIT/TPU T.TXT	\x1b[29~replace line row\rn\rl\r\r\x1a
+replace_prompts	EDIT/TPU T.TXT	\x1b[29~replace\rline\rrow\ra\r\x1a
+select_remove	EDIT/TPU T.TXT	\x1b[4~\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1b[3~\x1bOB\x1b[2~\x1a
+select_store	EDIT/TPU T.TXT	\x1b[4~\x1bOC\x1bOC\x1bOC\x1bOC\x1b[29~store text\r\x1bOB\x1b[2~\x1a
+select_cancel	EDIT/TPU T.TXT	\x1b[4~\x1bOC\x1b[4~\x1a
+remove_none	EDIT/TPU T.TXT	\x1b[3~\x1a
+select_shown	EDIT/TPU T.TXT	\x1b[4~\x1bOC\x1bOC\x1bOB\x1a
+case_words	EDIT/TPU T.TXT	\x1b[29~uppercase word\r\x1bOB\x1b[29~capitalize word\r\x1bOB\x1bOC\x1bOC\x1b[29~lowercase word\r\x1a
+center	EDIT/TPU T.TXT	\x1bOB\x1bOB\x1b[29~center line\r\x1a
+fill	EDIT/TPU P.TXT	\x1b[29~fill\r\x1a
+fill_range	EDIT/TPU P.TXT	\x1bOB\x1b[4~\x1bOB\x1bOB\x1bOB\x1b[29~fill range\r\x1a
+wrap	EDIT/TPU NEW2.TXT	\x1b[29~set right margin 20\r\x1b[29~set wrap\raaa bbb ccc ddd eee fff ggg hhh iii\x1a
+left_margin	EDIT/TPU T.TXT	\x1b[29~set left margin 5\r\x05\rnew\r\x1a
+tab_in	EDIT/TPU W.TXT	\x1bOB\x1bOB\x1bOC\x1bOC\x1bOCX\x1a
+set_tabs	EDIT/TPU T.TXT	\x1b[29~set tabs every 4\r\tx\x1a
+scroll_down	EDIT/TPU L.TXT	\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOB\x1bOBX\x1a
+line_far	EDIT/TPU L.TXT	\x1b[29~line 40\rX\x1a
+line_near	EDIT/TPU L.TXT	\x1b[29~line 15\rX\x1a
+screens	EDIT/TPU L.TXT	\x1b[6~\x1b[6~\x1b[5~X\x1a
+next_screen_end	EDIT/TPU L.TXT	\x1b[6~\x1b[6~\x1b[6~\x1b[6~X\x1a
+bottom_up	EDIT/TPU L.TXT	\x1b[29~bottom\r\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOA\x1bOAX\x1a
+long_line	EDIT/TPU W.TXT	\x1bOB\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOCX\x1a
+top_bottom	EDIT/TPU T.TXT	\x1b[29~top\r\x1b[29~bottom\r\x1b[29~bottom\r\x1a
+line_past_end	EDIT/TPU T.TXT	\x1b[29~line 99\rX\x1a
+what_line	EDIT/TPU L.TXT	\x1bOB\x1bOB\x1b[29~what line\r\x1a
+mark_goto	EDIT/TPU L.TXT	\x1bOB\x1bOB\x1bOB\x1b[29~mark here\r\x1b[29~bottom\r\x1b[29~go to here\rX\x1a
+two_windows	EDIT/TPU L.TXT	\x1b[29~two windows\r\x1b[29~other window\r\x1b[29~bottom\rX\x1a
+split_one	EDIT/TPU L.TXT	\x1b[29~split window 3\rA\x1b[29~next window\rB\x1b[29~delete window\rC\x1b[29~one window\rD\x1a
+buffers	EDIT/TPU T.TXT	\x1b[29~buffer foo\rxyz\x1b[29~buffer t.txt\r\x1b[29~show buffers\r\x1a
+get_file	EDIT/TPU T.TXT	\x1b[29~get file P.TXT\r\x1b[29~get file T.TXT\r\x1a
+include_file	EDIT/TPU T.TXT	\x1bOB\x1bOC\x1bOC\x1b[29~include file P.TXT\r\x1a
+write_save	EDIT/TPU T.TXT	X\x1b[29~write file W2.TXT\rY\x1b[29~save file\r\x1a
+dcl	EDIT/TPU T.TXT	\x1b[29~dcl show default\r\x1a
+quit_plain	EDIT/TPU T.TXT	\x1b[29~quit\r
+quit_yes	EDIT/TPU T.TXT	X\x1b[29~quit\ry\r
+quit_no	EDIT/TPU T.TXT	X\x1b[29~quit\rn\r\x1a
+exit_unnamed	EDIT/TPU T.TXT	\x1b[29~buffer foo\rabc\x1aFOO.TXT\r
+read_only	EDIT/TPU/READ_ONLY T.TXT	X\x1a
+start_position	EDIT/TPU/START_POSITION=(2,3) T.TXT	X\x1a
+learn	EDIT/TPU T.TXT	\x1b[29~learn\rab\x12\x1b[32~\x1b[32~\x1a
+define_key	EDIT/TPU T.TXT	\x1b[29~define key\rbottom\r\x1b[31~\x1b[31~X\x1a
+repeat	EDIT/TPU T.TXT	\x1b[29~repeat 3\rab\x1b[29~repeat 2\r\x1bOBX\x1a
+ambiguous	EDIT/TPU T.TXT	\x1b[29~q\r\x1a
+ambiguous_then	EDIT/TPU T.TXT	\x1b[29~mo\r\x1b[29~bottom\r\x1a
+unknown	EDIT/TPU T.TXT	\x1b[29~frob\rX\r\x1b[29~top\rY\x1a
+keypad_edt	EDIT/TPU T.TXT	\x1b[29~set keypad edt\r\x1bOq\x1bOS\x1a
+ctrl_l	EDIT/TPU T.TXT	\x0c\x1a
