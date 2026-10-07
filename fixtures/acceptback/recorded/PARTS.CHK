@@ -1,5 +1,5 @@
 
-Check RMS File Integrity                      7-OCT-2026 04:17:23.42   Page 1
+Check RMS File Integrity                      7-OCT-2026 04:22:58.59   Page 1
 DKA100:[T.ACCEPTBACK]PARTS.DAT;1
 
 
@@ -9,8 +9,8 @@ FILE HEADER
 	File ID: (13,2,0)
 	Owner UIC: [1,4]
 	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
-	Creation Date:    7-OCT-2026 02:15:44.77
-	Revision Date:    7-OCT-2026 02:15:47.15, Number: 2
+	Creation Date:    7-OCT-2026 02:20:37.32
+	Revision Date:    7-OCT-2026 02:20:40.56, Number: 2
 	Expiration Date: none specified
 	Backup Date:     none posted
 	Contiguity Options:  none
@@ -43,7 +43,7 @@ AREA DESCRIPTOR #0 (VBN 3, offset %X'0000')
 
 	Bucket Size: 2
 	Reclaimed Bucket VBN: 0
-	Current Extent Start: 85, Blocks: 12, Used: 10, Next: 95
+	Current Extent Start: 81, Blocks: 16, Used: 16, Next: 97
 	Default Extend Quantity: 12
 	Total Allocation: 96
 
@@ -58,7 +58,7 @@ KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
 		(0)  KEY$V_DUPKEYS    0
 		(3)  KEY$V_IDX_COMPR  0
 
-Check RMS File Integrity                      7-OCT-2026 04:17:23.43   Page 2
+Check RMS File Integrity                      7-OCT-2026 04:22:58.61   Page 2
 DKA100:[T.ACCEPTBACK]PARTS.DAT;1
 
 

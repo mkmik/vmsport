@@ -263,15 +263,17 @@ impl File {
                 b: HostBlocks::new(host_file(path, fac & WRITES != 0, false)?)?,
                 next: 1,
             },
-            Org::Idx => Kind::Idx {
-                f: idx::File::new(
-                    HostBlocks::new(host_file(path, fac & WRITES != 0, false)?)?,
-                    fab.rfm == Rfm::Fix,
-                    fab.mrs,
-                ),
-                key: 0,
-                next: None,
-            },
+            Org::Idx => {
+                let b = HostBlocks::new(host_file(path, fac & WRITES != 0, false)?)?;
+                let mut f = idx::File::new(b, fab.rfm == Rfm::Fix, fab.mrs);
+                // Extensions come in clusters, as on a VMS disk.
+                f.cluster = CLUSTER;
+                Kind::Idx {
+                    f,
+                    key: 0,
+                    next: None,
+                }
+            }
         };
         Ok(File {
             path: path.to_path_buf(),
