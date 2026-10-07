@@ -23,24 +23,72 @@ pub fn title(script: &str) -> String {
         .join("_")
 }
 
+/// A key's data types, and how the questions list them.
+pub const TYPES: [&str; 18] = [
+    "BIN2",
+    "BIN4",
+    "BIN8",
+    "INT2",
+    "INT4",
+    "INT8",
+    "DECIMAL",
+    "STRING",
+    "COLLATED",
+    "DBIN2",
+    "DBIN4",
+    "DBIN8",
+    "DINT2",
+    "DINT4",
+    "DINT8",
+    "DDECIMAL",
+    "DSTRING",
+    "DCOLLATED",
+];
+pub const TYPE_LIST: &str = "\t(Bin2  Bin4  Bin8  Int2  Int4  Int8  Decimal  String  Collated\n\t Dbin2 Dbin4 Dbin8 Dint2 Dint4 Dint8 Ddecimal Dstring Dcollated)\n";
+
 const RETURN: &str = "\t Press RETURN to continue (^Z for Main Menu)    ";
 
 impl Editor<'_> {
     /// INVOKE: which script, then it.
     pub(super) fn invoke(&mut self, c: &mut impl Console) {
+        let mut table = String::from("\t\t\t Script Title Selection \n\n");
+        for (name, what) in [
+            (
+                "Add_Key",
+                "modeling and addition of a new index's parameters",
+            ),
+            ("Delete_Key", "removal of the highest index's parameters"),
+            (
+                "Indexed",
+                "modeling of parameters for an entire Indexed file",
+            ),
+            (
+                "Optimize",
+                "tuning of all indices' parameters using file statistics",
+            ),
+            ("Relative", "selection of parameters for a Relative file"),
+            (
+                "Sequential",
+                "selection of parameters for a Sequential file",
+            ),
+            ("Touchup", "remodeling of parameters for a particular index"),
+        ] {
+            table += &format!("\t{name:<16}{what}\n");
+        }
         let q = Q::new(
             "Editing Script Title",
             Takes::Keyword {
                 words: &SCRIPTS,
                 list: "\t(Add_Key Delete_Key Indexed Optimize\n\t Relative Sequential Touchup)\n",
             },
-        );
+        )
+        .tabled(table + "\n");
         let Some(Answer::Word(script)) = self.ask(c, &q) else {
             return;
         };
         let replaces = matches!(script, "SEQUENTIAL" | "RELATIVE" | "INDEXED");
         if replaces && !self.empty() {
-            c.say("\n\t The Current Definition will be replaced. \n\n\n");
+            c.say("\n\t The Current Definition will be replaced. \n\n");
             if self.press_return(c, RETURN).is_none() {
                 return;
             }
@@ -50,11 +98,13 @@ impl Editor<'_> {
 
     /// Runs `script`; what it asked so far goes if it is left with Ctrl/Z.
     pub(super) fn script(&mut self, c: &mut impl Console, script: &str) {
+        self.scripting = true;
         let designed = match script {
             "SEQUENTIAL" => self.sequential(c),
             "RELATIVE" => self.relative(c),
             _ => None,
         };
+        self.scripting = false;
         if let Some(f) = designed {
             self.fdl = f;
             c.say("\n");

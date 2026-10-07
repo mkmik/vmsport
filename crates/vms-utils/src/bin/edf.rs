@@ -104,7 +104,7 @@ fn interactive(mut u: Util) -> ! {
     };
     let now = vms_time::asctim(libvms::sys::now(), false);
     let ending = vms_utils::fdl_editor::session(
-        &mut Tty,
+        &mut Tty(&u),
         &help,
         vms_utils::fdl_editor::Start {
             text: text.as_deref(),
@@ -114,9 +114,9 @@ fn interactive(mut u: Util) -> ! {
             now: &now[..now.len().min(20)],
         },
     );
-    if let vms_utils::fdl_editor::Ending::Exit(f) = ending {
+    if let vms_utils::fdl_editor::Ending::Exit(f, set) = ending {
         let text = edf::text(&f);
-        match write(&u, &output.unwrap_or(input_spec), &text) {
+        match write(&u, &set.or(output).unwrap_or(input_spec), &text) {
             Ok(written) => println!("\n{written}  {} lines", text.lines().count()),
             Err(st) => u.exit(st),
         }
@@ -126,9 +126,13 @@ fn interactive(mut u: Util) -> ! {
 
 /// The terminal: answers read raw, so that Ctrl/Z ends one as on VMS
 /// (echoed `*EXIT*`) rather than stopping the program.
-struct Tty;
+struct Tty<'a>(&'a Util);
 
-impl vms_utils::fdl_editor::Console for Tty {
+impl vms_utils::fdl_editor::Console for Tty<'_> {
+    fn read(&mut self, spec: &str) -> Option<String> {
+        read(self.0, spec).ok()
+    }
+
     fn say(&mut self, text: &str) {
         print!("{text}");
         let _ = std::io::stdout().flush();

@@ -412,8 +412,8 @@ pub fn text(fdl: &Fdl) -> String {
         if i > 0 {
             out.push('\n');
         }
-        if s.name == "IDENT" {
-            out += &format!("IDENT\t{}\n", s.value);
+        if s.name == "IDENT" || s.name == "TITLE" {
+            out += &format!("{}\t{}\n", s.name, s.value);
             continue;
         }
         out += &if s.value.is_empty() {

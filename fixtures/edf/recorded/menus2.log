@@ -1,0 +1,857 @@
+$ SET DEFAULT SYS$LOGIN
+$ CREATE/DIRECTORY [.EDM2]
+$ SET DEFAULT [.EDM2]
+$ CREATE IDX.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+*EXIT*
+$ CREATE SMALL.FDL
+FILE
+  ORGANIZATION sequential
+*EXIT*
+$ COPY IDX.FDL M5.FDL
+$ COPY IDX.FDL M6.FDL
+$ COPY IDX.FDL M7.FDL
+$ COPY SMALL.FDL M8.FDL
+$ EDIT/FDL M5.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : ?
+
+                         Legal Primary Attributes 
+
+        ACCESS  attributes set the run-time access mode of the file
+        AREA x  attributes define the characteristics of file area x
+        CONNECT attributes set various RMS run-time options
+        DATE    attributes set the date parameters of the file
+        FILE    attributes affect the entire RMS data file
+        KEY y   attributes define the characteristics of key y
+        NETWORK attributes set-run time network access parameters
+        RECORD  attributes set the non-key aspects of each record
+        SHARING attributes set the run-time sharing mode of the file
+        SYSTEM  attributes document operating system-specific items
+        TITLE   is the header line for the FDL file
+
+        Enter Desired Primary           (Keyword)[FILE] : FILE
+
+        (Type "?" for list of Keywords)
+        Enter FILE Attribute            (Keyword)[-]    : ?
+
+                         Legal FILE Secondary Attributes 
+        ASYNCHRONOUS            yes/no  MT_OPEN_REWIND          yes/no
+        ALLOCATION              number  MT_PROTECTION           char/num
+        BEST_TRY_CONTIGUOUS     yes/no  NAME                    string
+        BUCKET_SIZE             number  NON_FILE_STRUCTURED     yes/no
+        CLUSTER_SIZE            number  ORGANIZATION            keyword
+        CONTEXT                 number  OUTPUT_FILE_PARSE       yes/no
+        CONTIGUOUS              yes/no  OWNER                   uic
+        CREATE_IF               yes/no  PRINT_ON_CLOSE          yes/no
+        DEFAULT_NAME            string  PROTECTION              yes/no
+        DEFERRED_WRITE          yes/no  READ_CHECK              yes/no
+        DELETE_ON_CLOSE         yes/no  REVISION                number
+        DIRECTORY_ENTRY         yes/no  SEQUENTIAL_ONLY         yes/no
+        EXTENSION               number  STORED_SEMANTICS        string
+        FILE_MONITORING         yes/no  SUBMIT_ON_CLOSE         yes/no
+        MAX_RECORD_NUMBER       number  SYNCSTS                 yes/no
+        MAXIMIZE_VERSION        yes/no  TRUNCATE_ON_CLOSE       yes/no
+        MT_BLOCK_SIZE           number  USER_FILE_OPEN          yes/no
+        MT_CLOSE_REWIND         yes/no  WINDOW_SIZE             number
+        MT_CURRENT_POSITION     yes/no  WRITE_CHECK             yes/no
+        MT_NOT_EOF              yes/no  TEMPORARY               yes/no
+        SUPERSEDE               yes/no  GLOBAL_BUFFER_COUNT     number
+        GLBUFF_CNT_V83          number  GLBUFF_FLAGS_V83        keyword 
+        Enter FILE Attribute            (Keyword)[-]    : EXTENSION
+
+        FILE
+                EXTENSION       
+
+        Enter value for this Secondary  (0-65535)[-]    :  30
+
+                         Resulting Primary Section 
+
+        FILE
+                EXTENSION               30
+                ORGANIZATION            indexed
+
+
+         Press RETURN or ^Z for Main Menu         ALLOCATION
+
+         "ALLOCATION" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         60
+
+         "60" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : RECORD
+
+        (Type "?" for list of Keywords)
+        Enter RECORD Attribute          (Keyword)[-]    : ?
+
+                         Legal RECORD Secondary Attributes 
+
+        BLOCK_SPAN              yes/no
+        MSB_RECORD_LENGTH       yes/no
+        CARRIAGE_CONTROL        keyword
+        CONTROL_FIELD_SIZE      number
+        FORMAT                  keyword
+        SIZE                    number
+
+        Enter RECORD Attribute          (Keyword)[-]    : FORMAT
+
+        RECORD
+                FORMAT          
+        Replace this existing secondary (Yes/No)[No]    : YES
+
+
+        (Fixed Stream Stream_CR Stream_LF
+         Undefined Variable VFC)
+        Enter value for this Secondary  (Keyword)[-]    : ?
+
+        The value entered will be put into the Definition.
+
+        (Fixed Stream Stream_CR Stream_LF
+         Undefined Variable VFC)
+        Enter value for this Secondary  (Keyword)[-]    : VARIABLE
+
+                         Resulting Primary Section 
+
+        RECORD
+                FORMAT                  variable
+                SIZE                    64
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[RECORD] : KEY 0
+
+        (Type "?" for list of Keywords)
+        Enter KEY  0 Attribute          (Keyword)[-]    : ?
+
+                         Legal KEY  0 Secondary Attributes 
+
+        CHANGES                 yes/no  LEVEL1_INDEX_AREA       number
+        DATA_AREA               number  NAME                    string
+        DATA_FILL               number  NULL_KEY                yes/no
+        DATA_KEY_COMPRESSION    yes/no  NULL_VALUE              char/num
+        DATA_RECORD_COMPRESSION yes/no  POSITION                number
+        DUPLICATES              yes/no  PROLOG                  number
+        INDEX_AREA              number  TYPE                    keyword
+        INDEX_COMPRESSION       yes/no  SEGn_LENGTH             number
+        INDEX_FILL              number  SEGn_POSITION           number
+        LENGTH                  number  COLLATING_SEQUENCE      string
+
+        Enter KEY  0 Attribute          (Keyword)[-]    : INDEX_FILL
+
+        KEY 0
+                INDEX_FILL      
+
+        Enter value for this Secondary  (0-100)[-]      :  80
+
+                         Resulting Primary Section 
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                INDEX_FILL              80
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[KEY 0] : AREA 0
+
+        (Type "?" for list of Keywords)
+        Enter AREA 0 Attribute          (Keyword)[-]    : ?
+
+                         Legal AREA 0 Secondary Attributes 
+
+        ALLOCATION              number
+        BEST_TRY_CONTIGUOUS     yes/no
+        BUCKET_SIZE             number
+        CONTIGUOUS              yes/no
+        EXACT_POSITIONING       yes/no
+        EXTENSION               number
+        POSITION    qualifier   number
+        VOLUME                  number
+
+        Enter AREA 0 Attribute          (Keyword)[-]    : BUCKET_SIZE
+
+        AREA 0
+                BUCKET_SIZE     
+
+        Enter value for this Secondary  (0-63)[-]       :  6
+
+                         Resulting Primary Section 
+
+        AREA 0
+                BUCKET_SIZE             6
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[AREA 0] : DATE
+
+        (Type "?" for list of Keywords)
+        Enter DATE Attribute            (Keyword)[-]    : ?
+
+                         Legal DATE Secondary Attributes 
+
+        BACKUP                  string
+        CREATION                string
+        EXPIRATION              string
+        REVISION                string
+
+        Enter DATE Attribute            (Keyword)[-]    : CREATION
+
+        DATE
+                CREATION        
+
+        (dd-mmm-yyyy hh:mm:ss.cc)
+        Enter value for this Secondary  (Date-str)[-]   : ?
+
+         "?" contains a syntax error. 
+        The value entered will be put into the Definition.
+
+        (dd-mmm-yyyy hh:mm:ss.cc)
+        Enter value for this Secondary  (Date-str)[-]   : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[DATE] : SYSTEM
+
+        (Type "?" for list of Keywords)
+        Enter SYSTEM Attribute          (Keyword)[-]    : ?
+
+                         Legal SYSTEM Secondary Attributes 
+
+        DEVICE                  string
+        SOURCE                  string
+        TARGET                  string
+
+        Enter SYSTEM Attribute          (Keyword)[-]    : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[SYSTEM] : ACCESS
+
+        (Type "?" for list of Keywords)
+        Enter ACCESS Attribute          (Keyword)[-]    : ?
+
+                         Legal ACCESS Secondary Attributes 
+
+        BLOCK_IO                yes/no
+        DELETE                  yes/no
+        GET                     yes/no
+        PUT                     yes/no
+        RECORD_IO               yes/no
+        TRUNCATE                yes/no
+        UPDATE                  yes/no
+
+        Enter ACCESS Attribute          (Keyword)[-]    : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[ACCESS] : CONNECT
+
+        (Type "?" for list of Keywords)
+        Enter CONNECT Attribute         (Keyword)[-]    : ?
+
+                         Legal CONNECT Secondary Attributes 
+
+        ASYNCHRONOUS            yes/no  NOLOCK                  yes/no
+        ACCESS_SEMANTICS        string  NONEXISTENT_RECORD      yes/no
+        BLOCK_IO                yes/no  READ_AHEAD              yes/no
+        BUCKET_CODE             number  READ_REGARDLESS         yes/no
+        CONTEXT                 number  SYNCSTS                 yes/no
+        END_OF_FILE             yes/no  TIMEOUT_ENABLE          yes/no
+        FAST_DELETE             yes/no  TIMEOUT_PERIOD          number
+        FILL_BUCKETS            yes/no  TRUNCATE_ON_PUT         yes/no
+        KEY_GREATER_EQUAL       yes/no  TT_CANCEL_CONTROL_O     yes/no
+        KEY_GREATER_THAN        yes/no  TT_PROMPT               yes/no
+        KEY_LIMIT               yes/no  TT_PURGE_TYPE_AHEAD     yes/no
+        KEY_OF_REFERENCE        number  TT_READ_NOECHO          yes/no
+        LOCATE_MODE             yes/no  TT_READ_NOFILTER        yes/no
+        LOCK_ON_READ            yes/no  TT_UPCASE_INPUT         yes/no
+        LOCK_ON_WRITE           yes/no  UPDATE_IF               yes/no
+        MANUAL_UNLOCKING        yes/no  WAIT_FOR_RECORD         yes/no
+        MULTIBLOCK_COUNT        number  WRITE_BEHIND            yes/no
+        MULTIBUFFER_COUNT       number
+
+        Enter CONNECT Attribute         (Keyword)[-]    : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[CONNECT] : SHARING
+
+        (Type "?" for list of Keywords)
+        Enter SHARING Attribute         (Keyword)[-]    : ?
+
+                         Legal SHARING Secondary Attributes 
+
+        DELETE                  yes/no
+        GET                     yes/no
+        MULTISTREAM             yes/no
+        PROHIBIT                yes/no
+        PUT                     yes/no
+        UPDATE                  yes/no
+        USER_INTERLOCK          yes/no
+
+        Enter SHARING Attribute         (Keyword)[-]    : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[SHARING] : NETWORK
+
+        (Type "?" for list of Keywords)
+        Enter NETWORK Attribute         (Keyword)[-]    : ?
+
+                         Legal NETWORK Secondary Attributes 
+
+        BLOCK_COUNT             number
+        LINK_CACHE_ENABLE       yes/no
+        LINK_TIMEOUT            number
+        NETWORK_DATA_CHECKING   yes/no
+
+        Enter NETWORK Attribute         (Keyword)[-]    : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:16:16  OpenVMS FDL Editor"
+
+        FILE
+                EXTENSION               30
+                ORGANIZATION            indexed
+
+        RECORD
+                FORMAT                  variable
+                SIZE                    64
+
+        AREA 0
+                BUCKET_SIZE             6
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                INDEX_FILL              80
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM2]M5.FDL;2  25 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M6.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : DELETE
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : RECORD
+
+        (Type "?" for list of Keywords)
+        Enter RECORD Attribute          (Keyword)[-]    : FORMAT
+
+        RECORD
+                FORMAT                  fixed
+
+
+         Press RETURN to continue (^Z for Main Menu)    
+
+                         Resulting Primary Section 
+
+        RECORD
+                SIZE                    64
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : DELETE
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[RECORD] : RECORD
+
+        (Type "?" for list of Keywords)
+        Enter RECORD Attribute          (Keyword)[-]    : SIZE
+
+        RECORD
+                SIZE                    64
+
+
+         Press RETURN to continue (^Z for Main Menu)    
+
+
+         No more Secondaries with this Primary, deleting Primary. 
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : 
+
+
+  Information available:
+
+  Abstract   ADD        DELETE     EXIT       HELP       INVOKE     MODIFY     Operation  QUIT       SET        VIEW
+
+Topic? DELETE
+
+DELETE
+
+     This command allows you to delete one or more lines from the FDL
+     file. If the line is the only remaining secondary attribute in a
+     primary section, the primary attribute is also removed. After you
+     remove a line, you can optionally continue to delete lines under
+     the affected primary section.
+
+     Format
+
+       DELETE
+   
+
+
+
+  Additional information available:
+
+  Example
+
+DELETE Subtopic? KEY 1
+
+DELETE
+  Sorry, no documentation on DELETE KEY 1
+
+
+  Additional information available:
+
+  Example
+
+DELETE Subtopic? CHANGES
+
+DELETE
+  Sorry, no documentation on DELETE CHANGES
+
+
+  Additional information available:
+
+  Example
+
+DELETE Subtopic? 
+Topic? 
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : DELETE
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:18:18  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            indexed
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM2]M6.FDL;2  16 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M7.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : FILE
+
+        (Type "?" for list of Keywords)
+        Enter FILE Attribute            (Keyword)[-]    : ORGANIZATION
+
+        FILE
+                ORGANIZATION            indexed
+
+
+        (Indexed Relative Sequential)
+        Enter value for this Secondary  (Keyword)[-]    : ?
+
+        The value entered will be put into the Definition.
+
+        (Indexed Relative Sequential)
+        Enter value for this Secondary  (Keyword)[-]    : relative
+
+                         Resulting Primary Section 
+
+        FILE
+                ORGANIZATION            relative
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : RECORD
+
+        (Type "?" for list of Keywords)
+        Enter RECORD Attribute          (Keyword)[-]    : FORMAT
+
+        RECORD
+                FORMAT                  fixed
+
+
+        (Fixed Stream Stream_CR Stream_LF
+         Undefined Variable VFC)
+        Enter value for this Secondary  (Keyword)[-]    : variable
+
+                         Resulting Primary Section 
+
+        RECORD
+                FORMAT                  variable
+                SIZE                    64
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[RECORD] : KEY 0
+
+        (Type "?" for list of Keywords)
+        Enter KEY  0 Attribute          (Keyword)[-]    : DUPLICATES
+
+        KEY 0
+                DUPLICATES              no
+
+
+        Enter value for this Secondary  (Yes/No)[-]     : ?
+
+        The value entered will be put into the Definition.
+
+        Enter value for this Secondary  (Yes/No)[-]     : yes
+
+                         Resulting Primary Section 
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              yes
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[KEY 0] : KEY 0
+
+        (Type "?" for list of Keywords)
+        Enter KEY  0 Attribute          (Keyword)[-]    : SEG0_LENGTH
+
+        KEY 0
+                SEG0_LENGTH             8
+
+
+        Enter value for this Secondary  (0-255)[-]      :  300
+
+         "300" is not appropriate in this context. 
+        The value entered will be put into the Definition.
+
+        Enter value for this Secondary  (0-255)[-]      :  12
+
+                         Resulting Primary Section 
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              yes
+                SEG0_LENGTH             12
+                SEG0_POSITION           0
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:19:09  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            relative
+
+        RECORD
+                FORMAT                  variable
+                SIZE                    64
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              yes
+                SEG0_LENGTH             12
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM2]M7.FDL;2  20 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M8.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW X
+
+         "" contains a syntax error. 
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : TITLE
+
+        TITLE   ""
+
+
+        Enter value for this Secondary  (1-126 chars)[null]
+        : Hello there
+
+                         Resulting Primary Section 
+
+        TITLE   "Hello there"
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[TITLE] : FILE
+
+        (Type "?" for list of Keywords)
+        Enter FILE Attribute            (Keyword)[-]    : NAME
+
+        FILE
+                NAME            
+
+        Enter value for this Secondary  (1-126 chars)[null]
+        : DATA.DAT
+
+                         Resulting Primary Section 
+
+        FILE
+                NAME                    "DATA.DAT"
+                ORGANIZATION            sequential
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : FILE
+
+        (Type "?" for list of Keywords)
+        Enter FILE Attribute            (Keyword)[-]    : ORGANIZATION
+
+        FILE
+                ORGANIZATION    
+        Replace this existing secondary (Yes/No)[No]    : 
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        TITLE   "Hello there"
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:20:05  OpenVMS FDL Editor"
+
+        FILE
+                NAME                    "DATA.DAT"
+                ORGANIZATION            sequential
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : EXIT
+
+
+SYS$SYSROOT:[SYSMGR.EDM2]M8.FDL;2  7 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ TYPE M5.FDL;0
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:16:16  OpenVMS FDL Editor"
+
+FILE
+        EXTENSION               30
+        ORGANIZATION            indexed
+
+RECORD
+        FORMAT                  variable
+        SIZE                    64
+
+AREA 0
+        BUCKET_SIZE             6
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              no
+        INDEX_FILL              80
+        SEG0_LENGTH             8
+        SEG0_POSITION           0
+
+KEY 1
+        CHANGES                 yes
+        DUPLICATES              yes
+        SEG0_LENGTH             10
+        SEG0_POSITION           8
+$ TYPE M6.FDL;0
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:18:18  OpenVMS FDL Editor"
+
+FILE
+        ORGANIZATION            indexed
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              no
+        SEG0_LENGTH             8
+        SEG0_POSITION           0
+
+KEY 1
+        CHANGES                 yes
+        DUPLICATES              yes
+        SEG0_LENGTH             10
+        SEG0_POSITION           8
+$ TYPE M7.FDL;0
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:19:09  OpenVMS FDL Editor"
+
+FILE
+        ORGANIZATION            relative
+
+RECORD
+        FORMAT                  variable
+        SIZE                    64
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              yes
+        SEG0_LENGTH             12
+        SEG0_POSITION           0
+
+KEY 1
+        CHANGES                 yes
+        DUPLICATES              yes
+        SEG0_LENGTH             10
+        SEG0_POSITION           8
+$ TYPE M8.FDL;0
+TITLE   "Hello there"
+
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:20:05  OpenVMS FDL Editor"
+
+FILE
+        NAME                    "DATA.DAT"
+        ORGANIZATION            sequential
+$ 

@@ -6,6 +6,7 @@
 //! sessions replay in tests. The image (bin/edf.rs) reads and writes the
 //! files.
 
+mod functions;
 mod scripts;
 
 use vms_help::Help;
@@ -17,13 +18,18 @@ pub trait Console {
     fn ask(&mut self, prompt: &str) -> Option<String>;
     /// Writes `text` as it is.
     fn say(&mut self, text: &str);
+    /// The text of file `spec` (SET ANALYSIS): `None` if it can't be read.
+    fn read(&mut self, _spec: &str) -> Option<String> {
+        None
+    }
 }
 
 /// How a session ended.
 #[derive(Debug, PartialEq, Eq)]
 pub enum Ending {
-    /// EXIT (or Ctrl/Z at the main menu): write this.
-    Exit(Fdl),
+    /// EXIT (or Ctrl/Z at the main menu): write this, to SET OUTPUT's
+    /// file if it was given.
+    Exit(Fdl, Option<String>),
     /// EXIT with nothing defined: nothing written.
     Empty,
     Quit,
@@ -38,6 +44,20 @@ pub struct Editor<'a> {
     pub ident: String,
     /// /ANALYSIS, read.
     pub analysis: Option<Fdl>,
+    /// SET OUTPUT.
+    pub output: Option<String>,
+    /// SET PROMPTING FULL: menus as tables.
+    pub full: bool,
+    /// SET DISPLAY, EMPHASIS, GRANULARITY, NUMBER_KEYS, RESPONSES.
+    pub graph: &'static str,
+    pub emphasis: &'static str,
+    pub granularity: &'static str,
+    pub keys: u64,
+    pub automatic: bool,
+    /// In a script, where automatic responses apply.
+    pub scripting: bool,
+    /// The primary attribute last named (ADD, MODIFY, DELETE's default).
+    pub primary: String,
 }
 
 /// What a question takes.
@@ -59,6 +79,13 @@ pub enum Takes {
     Text {
         max: usize,
     },
+    /// A date and time: `?` is no help here.
+    Date,
+    /// What the asker parses: shown as `shown` (`(Keyword)`), `list` above.
+    Other {
+        shown: &'static str,
+        list: &'static str,
+    },
 }
 
 /// An answer.
@@ -71,16 +98,40 @@ pub enum Answer {
 }
 
 /// A question: its text (its last line beside what it takes), what it
-/// takes, the default (shown, and what it is), and the lines that explain
-/// it when an answer isn't taken.
+/// takes, the default (shown, and what it is), the lines that explain it
+/// when an answer isn't taken (or `?` is typed), and for a menu the table
+/// shown instead of them (and of the list, with full prompting).
 #[derive(Clone)]
 pub struct Q {
     pub text: String,
     pub takes: Takes,
     pub default: Option<(String, Answer)>,
-    pub explain: &'static str,
-    /// What follows the default: `\t: ` mostly.
-    pub sep: &'static str,
+    pub explain: String,
+    pub table: Option<String>,
+    /// What follows the default when it isn't `\t: ` (or ` : ` after a
+    /// long one).
+    pub sep: Option<&'static str>,
+    /// Whether a blank line comes first.
+    pub lead: bool,
+}
+
+/// What VMS says of an answer left out.
+const MUST: &str = "\n\t You must provide an answer here (or ^Z for Main Menu).\n";
+
+/// What VMS says of `word` where it can't be parsed.
+pub fn syntax(word: &str) -> String {
+    format!(
+        "\n\t \"{}\" contains a syntax error. \n",
+        word.to_ascii_uppercase()
+    )
+}
+
+/// What VMS says of `word` where it parses but doesn't fit.
+pub fn inappropriate(word: &str) -> String {
+    format!(
+        "\n\t \"{}\" is not appropriate in this context. \n",
+        word.to_ascii_uppercase()
+    )
 }
 
 impl Q {
@@ -89,8 +140,10 @@ impl Q {
             text: text.into(),
             takes,
             default: None,
-            explain: "",
-            sep: "\t: ",
+            explain: String::new(),
+            table: None,
+            sep: None,
+            lead: true,
         }
     }
 
@@ -109,24 +162,39 @@ impl Q {
         self
     }
 
-    pub fn explained(mut self, lines: &'static str) -> Q {
-        self.explain = lines;
+    pub fn explained(mut self, lines: &str) -> Q {
+        self.explain = lines.into();
         self
     }
 
-    /// The prompt: the keyword list, the text, what it takes, the default.
-    fn prompt(&self, again: bool) -> String {
+    pub fn tabled(mut self, table: String) -> Q {
+        self.table = Some(table);
+        self
+    }
+
+    /// The prompt: the list (or table), the text, what it takes, the
+    /// default; `again` after an answer that wasn't taken.
+    fn prompt(&self, again: bool, full: bool) -> String {
         let default = self.default.as_ref().map_or("-", |d| d.0.as_str());
         let mut out = String::new();
-        if !again {
+        if self.lead && !again {
             out.push('\n');
         }
-        if let Takes::Keyword { list, .. } = &self.takes {
-            out += list;
+        let list = match &self.takes {
+            Takes::Keyword { list, .. } | Takes::Other { list, .. } => list,
+            Takes::Date => "\t(dd-mmm-yyyy hh:mm:ss.cc)\n",
+            _ => "",
+        };
+        match (&self.table, again) {
+            (Some(table), false) if full => out += table,
+            (Some(_), true) => {}
+            _ => out += list,
         }
         let choices = match &self.takes {
             Takes::Number { shown, .. } => shown.clone(),
             Takes::Keyword { .. } => "(Keyword)".into(),
+            Takes::Other { shown, .. } => shown.to_string(),
+            Takes::Date => "(Date-str)".into(),
             Takes::YesNo => "(Yes/No)".into(),
             Takes::Text { max } => format!("(1-{max} chars)"),
         };
@@ -136,10 +204,9 @@ impl Q {
         }
         // A long range and default are followed by " : ", not a tab.
         let field = format!("{choices}[{default}]");
-        let sep = match field.len() >= 16 && !self.text.contains('\n') {
-            true => " : ",
-            false => self.sep,
-        };
+        let sep = self
+            .sep
+            .unwrap_or(if field.len() >= 16 { " : " } else { "\t: " });
         out + &question_text(&self.text) + &field + sep
     }
 }
@@ -152,7 +219,7 @@ fn question_text(text: &str) -> String {
     let mut out: String = lines.iter().map(|l| format!("\t{l}\n")).collect();
     out += &format!("\t{last}");
     if !last.ends_with('\t') {
-        out += &"\t".repeat((40 - (8 + last.len()).min(39)).div_ceil(8));
+        out += &"\t".repeat(40usize.saturating_sub(8 + last.len()).div_ceil(8));
     }
     out
 }
@@ -160,19 +227,10 @@ fn question_text(text: &str) -> String {
 impl Editor<'_> {
     /// Asks `q` until it is answered as it takes; `None` for Ctrl/Z.
     pub fn ask(&self, c: &mut impl Console, q: &Q) -> Option<Answer> {
-        let mut again = false;
-        loop {
-            let typed = c.ask(&q.prompt(again))?;
-            let t = typed.trim();
-            again = true;
-            if t.is_empty() {
-                if let Some((_, a)) = &q.default {
-                    return Some(a.clone());
-                }
-                c.say("\n\t You must provide an answer here (or ^Z for Main Menu).\n");
-                c.say(q.explain);
-                continue;
-            }
+        self.ask_as(c, q, |t| {
+            let Some(t) = t else {
+                return Ok(q.default.as_ref().unwrap().1.clone());
+            };
             let a = match &q.takes {
                 Takes::Number { lo, hi, .. } => t
                     .parse::<u64>()
@@ -182,22 +240,81 @@ impl Editor<'_> {
                 Takes::Keyword { words, .. } => keyword(t, words).map(Answer::Word),
                 Takes::YesNo => keyword(t, &["YES", "NO"]).map(|w| Answer::Yes(w == "YES")),
                 Takes::Text { max } => (t.len() <= *max).then(|| Answer::Text(t.to_string())),
+                Takes::Date => vms_time::bintim(t, 0)
+                    .ok()
+                    .map(|_| Answer::Text(t.to_string())),
+                Takes::Other { .. } => None,
             };
-            if let Some(a) = a {
+            a.ok_or_else(|| match q.takes {
+                Takes::Keyword { .. } | Takes::YesNo => syntax(token(t)),
+                Takes::Date => syntax(t),
+                _ => inappropriate(t),
+            })
+        })
+    }
+
+    /// Asks `q` until `parse` takes the answer (`None`: the default) or
+    /// says what is wrong with it; `None` for Ctrl/Z.
+    pub fn ask_as<A>(
+        &self,
+        c: &mut impl Console,
+        q: &Q,
+        parse: impl Fn(Option<&str>) -> Result<A, String>,
+    ) -> Option<A> {
+        let mut again = false;
+        loop {
+            if let Ok(a) = self.ask_once(c, q, again, &parse)? {
                 return Some(a);
             }
-            let why = match q.takes {
-                Takes::Keyword { .. } => "contains a syntax error",
-                _ => "is not appropriate in this context",
-            };
-            c.say(&format!("\n\t \"{}\" {why}. \n", t.to_ascii_uppercase()));
-            c.say(q.explain);
+            again = true;
         }
     }
 
-    /// Waits for Return; `None` for Ctrl/Z.
+    /// Asks `q` once: `Err` when the answer isn't taken (what is wrong
+    /// with it said); `None` for Ctrl/Z. With automatic responses a
+    /// question with a default isn't asked.
+    pub fn ask_once<A>(
+        &self,
+        c: &mut impl Console,
+        q: &Q,
+        again: bool,
+        parse: &impl Fn(Option<&str>) -> Result<A, String>,
+    ) -> Option<Result<A, ()>> {
+        if self.automatic
+            && self.scripting
+            && q.default.is_some()
+            && let Ok(a) = parse(None)
+        {
+            return Some(Ok(a));
+        }
+        let typed = c.ask(&q.prompt(again, self.full))?;
+        let t = typed.trim();
+        let wrong = match t {
+            "" if q.default.is_none() => MUST.to_string(),
+            "" => match parse(None) {
+                Ok(a) => return Some(Ok(a)),
+                Err(e) => e,
+            },
+            "?" if !matches!(q.takes, Takes::Text { .. } | Takes::Date) => "\n".to_string(),
+            t => match parse(Some(t)) {
+                Ok(a) => return Some(Ok(a)),
+                Err(e) => e,
+            },
+        };
+        c.say(&wrong);
+        c.say(q.table.as_deref().unwrap_or(&q.explain));
+        Some(Err(()))
+    }
+
+    /// Waits for Return (anything else is an error); `None` for Ctrl/Z.
     pub fn press_return(&self, c: &mut impl Console, prompt: &str) -> Option<()> {
-        c.ask(prompt).map(drop)
+        loop {
+            let typed = c.ask(&format!("\n{prompt}"))?;
+            match typed.trim() {
+                "" => return Some(()),
+                t => c.say(&syntax(token(t))),
+            }
+        }
     }
 }
 
@@ -235,6 +352,15 @@ pub fn session(c: &mut impl Console, help: &Help, s: Start) -> Ending {
         help,
         ident: format!("FDL_VERSION 02\t\"{}  OpenVMS FDL Editor\"", s.now),
         analysis: s.analysis,
+        output: None,
+        full: false,
+        graph: "LINE",
+        emphasis: "FLATTER_FILES",
+        granularity: "THREE",
+        keys: 1,
+        automatic: false,
+        scripting: false,
+        primary: "FILE".into(),
     };
     if let Some(name) = s.script {
         let script = keyword(name, &scripts::SCRIPTS).unwrap_or("");
@@ -287,10 +413,13 @@ const FUNCTIONS: [&str; 9] = [
     "ADD", "DELETE", "EXIT", "HELP", "INVOKE", "MODIFY", "QUIT", "SET", "VIEW",
 ];
 
-/// A question at column 8 with its choices at 40, as EDF lays them out:
-/// `\tMain Editor Function\t\t(Keyword)[Help]\t: `.
-pub fn question(text: &str, choices: &str, default: &str) -> String {
-    question_text(text) + &format!("{choices}[{default}]\t: ")
+/// What an answer starts with: letters, digits, `_` and `$`.
+pub fn token(t: &str) -> &str {
+    let t = t.trim_start();
+    let end = t
+        .find(|c: char| !(c.is_ascii_alphanumeric() || c == '_' || c == '$'))
+        .unwrap_or(t.len());
+    &t[..end]
 }
 
 /// A keyword typed for one of `words`: unique abbreviations allowed.
@@ -309,75 +438,82 @@ pub fn keyword<'w>(typed: &str, words: &[&'w str]) -> Option<&'w str> {
 impl Editor<'_> {
     /// The main menu, until EXIT, QUIT or Ctrl/Z.
     pub fn run(&mut self, c: &mut impl Console) -> Ending {
-        let menu = "\t(Add Delete Exit Help Invoke Modify Quit Set View)\n";
-        let mut show_menu = true;
+        let mut q = Q::new(
+            "Main Editor Function",
+            Takes::Other {
+                shown: "(Keyword)",
+                list: "\t(Add Delete Exit Help Invoke Modify Quit Set View)\n",
+            },
+        )
+        .or("Help", Answer::Word("HELP"))
+        .tabled(menu_table());
+        q.lead = false;
         loop {
-            if show_menu {
-                c.say(menu);
-            }
-            show_menu = true;
-            let q = question("Main Editor Function", "(Keyword)", "Help");
-            let Some(answer) = c.ask(&q) else {
-                return self.exit(c);
-            };
-            // The keyword: letters and digits up to anything else.
-            let word = answer.trim_start();
-            let end = word
-                .find(|c: char| !(c.is_ascii_alphanumeric() || c == '_' || c == '$'))
-                .unwrap_or(word.len());
-            let word = &word[..end];
-            let f = if word.is_empty() {
-                Some("HELP")
-            } else {
-                keyword(word, &FUNCTIONS)
-            };
+            let f = self.ask_as(c, &q, |t| {
+                let Some(t) = t else { return Ok("HELP") };
+                // A function and nothing after it.
+                let word = token(t);
+                match keyword(word, &FUNCTIONS) {
+                    Some(_) if !t[word.len()..].trim().is_empty() => Err(syntax("")),
+                    Some(f) => Ok(f),
+                    None => Err(syntax(word)),
+                }
+            });
             match f {
+                None => return self.exit(c),
                 Some("VIEW") => self.view(c),
                 Some("HELP") => self.help(c),
-                Some("EXIT") => return self.exit(c),
-                Some("QUIT") => return Ending::Quit,
-                Some("INVOKE") => self.invoke(c),
-                _ => {
-                    self.syntax_error(c, word);
-                    show_menu = false;
+                Some("EXIT") => {
+                    c.say("\n");
+                    return self.exit(c);
                 }
+                Some("QUIT") => {
+                    c.say("\n");
+                    return Ending::Quit;
+                }
+                Some("INVOKE") => self.invoke(c),
+                Some("SET") => self.set(c),
+                Some("ADD") => self.add(c),
+                Some("MODIFY") => self.modify(c),
+                Some(_) => self.delete(c),
             }
         }
     }
 
-    /// The definition, indented a tab, as EXIT would write it.
+    /// The definition, indented a tab, as EXIT would write it; a blank
+    /// line after it when that leaves room for the menu on the screen.
+    /// ponytail: a 24-line screen assumed, as the recordings had.
     fn view(&self, c: &mut impl Console) {
+        let text = vms_rms::edf::text(&self.with_ident());
         c.say("\n");
-        for l in vms_rms::edf::text(&self.with_ident()).lines() {
-            c.say(&if l.is_empty() {
-                "\n".to_string()
-            } else {
-                format!("\t{l}\n")
-            });
+        c.say(&indented(&text));
+        if (text.lines().count() + 1) % 24 <= 21 {
+            c.say("\n");
         }
-        c.say("\n");
     }
 
     /// The definition with the session's IDENT first.
     pub fn with_ident(&self) -> Fdl {
         let mut f = self.fdl.clone();
         f.sections.retain(|s| s.name != "IDENT");
-        f.sections.insert(0, Section::new("IDENT", &self.ident));
+        let at = f.sections.iter().take_while(|s| s.name == "TITLE").count();
+        f.sections.insert(at, Section::new("IDENT", &self.ident));
         f
     }
 
     fn exit(&self, c: &mut impl Console) -> Ending {
         if self.fdl.sections.iter().all(|s| s.name == "IDENT") {
-            c.say("\n\n\t\x07Output not created - Current FDL Definition empty.\n");
+            c.say("\n\t\x07Output not created - Current FDL Definition empty.\n");
             return Ending::Empty;
         }
-        Ending::Exit(self.with_ident())
+        Ending::Exit(self.with_ident(), self.output.clone())
     }
 
     fn help(&self, c: &mut impl Console) {
         let mut out = vms_help::Out::default();
         out.lines.push(String::new());
         self.help.session(&mut out, &[], true, &mut |q, out| {
+            out.flush();
             for l in out.take() {
                 c.say(&format!("{l}\n"));
             }
@@ -387,31 +523,38 @@ impl Editor<'_> {
             c.say(&format!("{l}\n"));
         }
     }
+}
 
-    fn syntax_error(&self, c: &mut impl Console, word: &str) {
-        c.say(&format!(
-            "\n\t \"{}\" contains a syntax error. \n",
-            word.to_ascii_uppercase()
-        ));
-        c.say("\t\t\t OpenVMS FDL Editor\n\n");
-        for (f, what) in [
-            ("Add", "to insert one line into the FDL definition"),
-            ("Delete", "to remove one line from the FDL definition"),
-            (
-                "Exit",
-                "to leave the FDL Editor after creating the FDL file",
-            ),
-            ("Help", "to obtain information about the FDL Editor"),
-            ("Invoke", "to initiate a script of related questions"),
-            ("Modify", "to change an existing line in the FDL definition"),
-            ("Quit", "to abort the FDL Editor with no FDL file creation"),
-            ("Set", "to specify FDL Editor characteristics"),
-            ("View", "to display the current FDL Definition"),
-        ] {
-            c.say(&format!("\t{f:<8}{what}\n"));
-        }
-        c.say("\n");
+/// FDL text as the editor shows it, each line a tab in.
+pub fn indented(text: &str) -> String {
+    text.lines()
+        .map(|l| match l {
+            "" => "\n".to_string(),
+            l => format!("\t{l}\n"),
+        })
+        .collect()
+}
+
+/// The main menu as a table: what each function does.
+fn menu_table() -> String {
+    let mut out = String::from("\t\t\t OpenVMS FDL Editor\n\n");
+    for (f, what) in [
+        ("Add", "to insert one line into the FDL definition"),
+        ("Delete", "to remove one line from the FDL definition"),
+        (
+            "Exit",
+            "to leave the FDL Editor after creating the FDL file",
+        ),
+        ("Help", "to obtain information about the FDL Editor"),
+        ("Invoke", "to initiate a script of related questions"),
+        ("Modify", "to change an existing line in the FDL definition"),
+        ("Quit", "to abort the FDL Editor with no FDL file creation"),
+        ("Set", "to specify FDL Editor characteristics"),
+        ("View", "to display the current FDL Definition"),
+    ] {
+        out += &format!("\t{f:<8}{what}\n");
     }
+    out + "\n"
 }
 
 /// The plot a design shows: index depth (rows 9 down to 1, `*` above) at
