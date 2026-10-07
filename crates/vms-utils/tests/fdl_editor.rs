@@ -234,6 +234,8 @@ fn replay_full(
             script,
             analysis: analysis.map(|a| vms_rms::fdl::parse(a).unwrap()),
             now: &now,
+            emphasis: None,
+            granularity: None,
         },
     );
     if let Some(why) = &r.wrong {

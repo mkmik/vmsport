@@ -337,6 +337,9 @@ pub struct Start<'a> {
     pub analysis: Option<Fdl>,
     /// The time IDENT gives: ` 7-OCT-2026 17:52:37`.
     pub now: &'a str,
+    /// /EMPHASIS and /GRANULARITY (1 to 4), if given.
+    pub emphasis: Option<&'a str>,
+    pub granularity: Option<&'a str>,
 }
 
 /// A session: the definition read (or a new one), /SCRIPT's script, then
@@ -362,8 +365,19 @@ pub fn session(c: &mut impl Console, help: &Help, s: Start) -> Ending {
         output: None,
         full: false,
         graph: "LINE",
-        emphasis: "FLATTER_FILES",
-        granularity: "THREE",
+        emphasis: match s
+            .emphasis
+            .and_then(|e| keyword(e, &["FLATTER_FILES", "SMALLER_BUFFERS"]))
+        {
+            Some(e) => e,
+            None => "FLATTER_FILES",
+        },
+        granularity: match s.granularity {
+            Some("1") => "ONE",
+            Some("2") => "TWO",
+            Some("4") => "FOUR",
+            _ => "THREE",
+        },
         keys: 1,
         automatic: false,
         scripting: false,

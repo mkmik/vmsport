@@ -103,6 +103,8 @@ fn interactive(mut u: Util) -> ! {
         instructions: false,
     };
     let now = vms_time::asctim(libvms::sys::now(), false);
+    let emphasis = u.value("EMPHASIS");
+    let granularity = u.value("GRANULARITY");
     let ending = vms_utils::fdl_editor::session(
         &mut Tty(&u),
         &help,
@@ -112,6 +114,8 @@ fn interactive(mut u: Util) -> ! {
             script: script.as_deref(),
             analysis,
             now: &now[..now.len().min(20)],
+            emphasis: emphasis.as_deref(),
+            granularity: granularity.as_deref(),
         },
     );
     if let vms_utils::fdl_editor::Ending::Exit(f, set) = ending {
