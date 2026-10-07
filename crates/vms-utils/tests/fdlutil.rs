@@ -204,9 +204,26 @@ fn damaged() -> (&'static str, Vec<u8>, &'static str) {
 #[test]
 fn fdlutil() {
     let (n, b, f) = damaged();
+    // The indexed files as VMS left them, for DIRECTORY/FULL and
+    // F$FILE_ATTRIBUTES while CREATE/FDL can't make them.
+    let i = std::fs::read(fixtures("fdlutil/recorded/I.DAT")).unwrap();
+    let im = std::fs::read(fixtures("fdlutil/recorded/IM.DAT")).unwrap();
+    let extra = [
+        (n, &b[..], f),
+        (
+            "I.DAT;1",
+            &i[..],
+            "org=idx rfm=fix rat=cr mrs=30 lrl=30 fsz=0 bks=2",
+        ),
+        (
+            "IM.DAT;1",
+            &im[..],
+            "org=idx rfm=var rat=cr mrs=80 lrl=0 fsz=0 bks=3",
+        ),
+    ];
     // (S.DAT's DCL WRITEs leave VMS's odd records a stray pad byte.)
     let same = [("R.DAT;1", "R.DAT"), ("A.TXT;1", "A1.TXT")];
-    run_area("fdlutil", "FDLUTIL.COM", &[(n, &b, f)], SKIP, &same);
+    run_area("fdlutil", "FDLUTIL.COM", &extra, SKIP, &same);
 }
 
 #[test]
@@ -230,10 +247,6 @@ const SKIP: &[(&str, &str)] = &[
     ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT I.DAT", IDX),
     ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT IM.DAT", IDX),
     ("ANALYZE/RMS_FILE/OUTPUT=SYS$OUTPUT IM.DAT", IDX),
-    ("DIRECTORY/FULL I.DAT", IDX),
-    ("DIRECTORY/FULL IM.DAT", IDX),
-    ("lexicals I.DAT", IDX),
-    ("lexicals IM.DAT", IDX),
     ("ANALYZE/RMS_FILE/FDL/OUTPUT=SYS$OUTPUT RB.DAT", REL),
     ("DIRECTORY/FULL RB.DAT", REL),
     ("lexicals RB.DAT", REL),
