@@ -1,0 +1,16 @@
+# M3's acceptance, part two: the image vmsport wrote back after running
+# fixtures/accept/UPDATE.COM on VMS's files (crates/vms-utils/tests/accept.rs,
+# VMSPORT_ACCEPT_WRITE=1) is VMS's input volume, DKA100. VMS checks the
+# files on it and reads them, then puts and deletes on its BACKUP copies
+# and checks those again.
+volume VOLUME.IMG.gz
+in READS.COM
+in CHECK.COM
+run @CHECK.COM/OUTPUT=CHECK.LOG
+text CHECK.LOG recorded/check.log
+text ORDERS.CHK recorded/ORDERS.CHK
+text PARTS.CHK recorded/PARTS.CHK
+text ORDERS.ANL recorded/ORDERS.ANL
+text PARTS.ANL recorded/PARTS.ANL
+text ORDERS2.CHK recorded/ORDERS2.CHK
+text PARTS2.CHK recorded/PARTS2.CHK

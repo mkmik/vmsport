@@ -1,0 +1,27 @@
+# M3's acceptance, part one: indexed files VMS makes (ORDERS: variable
+# records, three keys, two areas, compression; PARTS: fixed records, a
+# segmented key), and the same files after UPDATE.COM's puts (splits),
+# updates and deletes on VMS. vmsport runs UPDATE.COM on the first through
+# a mounted image (crates/vms-utils/tests/accept.rs); fixtures/acceptback
+# sends that image back to VMS.
+in ORDERS.FDL
+in PARTS.FDL
+in RECORDS.COM
+in UPDATE.COM
+in READS.COM
+in MAKE.COM
+run @MAKE.COM/OUTPUT=MAKE.LOG
+text MAKE.LOG recorded/make.log
+blocks ORDERS.DAT recorded/ORDERS.DAT
+blocks PARTS.DAT recorded/PARTS.DAT
+blocks ORDERSU.DAT recorded/ORDERSU.DAT
+blocks PARTSU.DAT recorded/PARTSU.DAT
+text ORDERS.CHK recorded/ORDERS.CHK
+text ORDERS.ANL recorded/ORDERS.ANL
+text PARTS.CHK recorded/PARTS.CHK
+text PARTS.ANL recorded/PARTS.ANL
+text ORDERSU.CHK recorded/ORDERSU.CHK
+text ORDERSU.ANL recorded/ORDERSU.ANL
+text PARTSU.CHK recorded/PARTSU.CHK
+text PARTSU.ANL recorded/PARTSU.ANL
+manifest *.DAT recorded/ods-manifest.json
