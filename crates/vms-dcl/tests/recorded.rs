@@ -129,11 +129,19 @@ fn diff(want: &str, got: &str) -> String {
 fn mask_full(s: &str) -> String {
     s.lines()
         .map(|l| {
-            let dated = ["Created:", "Modified:", "Accessed:", "Attr Mod:", "Data Mod:"];
+            let dated = [
+                "Created:",
+                "Modified:",
+                "Accessed:",
+                "Attr Mod:",
+                "Data Mod:",
+            ];
             match () {
                 _ if dated.iter().any(|d| l.starts_with(d)) => format!("{}\n", &l[..10]),
                 _ if l.contains("File ID:") => format!("{}\n", &l[..l.find("File ID:").unwrap()]),
-                _ if l.starts_with("Size:") => format!("{}\n", &l[..l.find("Owner:").unwrap_or(l.len())]),
+                _ if l.starts_with("Size:") => {
+                    format!("{}\n", &l[..l.find("Owner:").unwrap_or(l.len())])
+                }
                 _ => format!("{l}\n"),
             }
         })

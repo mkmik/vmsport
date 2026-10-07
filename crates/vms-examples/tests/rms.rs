@@ -94,8 +94,88 @@ fn rms_from_c() {
     let run = PathBuf::from(format!("/tmp/vpt-rd{}", std::process::id()));
     let got = run_example("rmsdemo", &dir, &run);
     stop(&run);
-    let _ = std::fs::remove_dir_all(&dir);
     assert_eq!(got, RMSDEMO);
+    let files: Vec<(&str, Vec<u8>, String)> =
+        [("DEMO.REL", "DEMO.REL;1"), ("DEMO.SEQ", "DEMO.SEQ;1")]
+            .iter()
+            .map(|(name, host)| {
+                let p = dir.join(host);
+                (*name, std::fs::read(&p).unwrap(), entry(name, &p))
+            })
+            .collect();
+    let _ = std::fs::remove_dir_all(&dir);
+    let manifest = format!(
+        "{{\"volume\": \"VPTIN\", \"structure_level\": 5, \"root\": \"[T]\", \"entries\": [\n{}\n]}}\n",
+        files
+            .iter()
+            .map(|f| f.2.clone())
+            .collect::<Vec<_>>()
+            .join(",\n")
+    );
+    let ours = root().join("fixtures/cabiback/ours");
+    if std::env::var_os("VMSPORT_WRITE_FIXTURES").is_some() {
+        std::fs::create_dir_all(&ours).unwrap();
+        for (name, b, _) in &files {
+            std::fs::write(ours.join(name), b).unwrap();
+        }
+        std::fs::write(ours.join("ods-manifest.json"), manifest).unwrap();
+        return;
+    }
+    // What we wrote is what VMS checked and read.
+    assert_eq!(
+        std::fs::read_to_string(ours.join("ods-manifest.json")).unwrap(),
+        manifest
+    );
+    for (name, b, _) in &files {
+        assert!(std::fs::read(ours.join(name)).unwrap() == *b, "{name}");
+    }
+    let log =
+        std::fs::read_to_string(root().join("fixtures/cabiback/recorded/CABIBACK.log")).unwrap();
+    for name in ["DEMO.REL", "DEMO.SEQ"] {
+        let check = log
+            .split("@@ ")
+            .find(|b| b.starts_with(&format!("check {name}")))
+            .unwrap();
+        assert!(
+            check.contains("The analysis uncovered NO errors."),
+            "{check}"
+        );
+    }
+    let read = |name: &str| -> Vec<String> {
+        let b = log
+            .split("@@ ")
+            .find(|b| b.starts_with(&format!("read {name}")))
+            .unwrap();
+        b.lines()
+            .filter_map(|l| Some(l.strip_prefix('[')?.strip_suffix(']')?.to_string()))
+            .collect()
+    };
+    assert_eq!(read("DEMO.REL"), ["first", "SECOND", "third"]);
+    assert_eq!(read("DEMO.SEQ"), ["one line", "and another"]);
+}
+
+/// A file's ods-manifest.json entry: its record attributes from vms.fab,
+/// fixed dates and owner, for `ods import`.
+fn entry(name: &str, path: &Path) -> String {
+    let f = libvms::files::fab(path);
+    // 7-OCT-2026 00:28:23.27, as in fixtures/rmsback.
+    let t = 52980497032782765u64;
+    format!(
+        "  {{\"path\": \"{name}\", \"directory\": false, \"name\": \"{name}\", \"version\": 1, \
+         \"bytes\": {}, \"rtype\": {}, \"rattrib\": {}, \"rsize\": {}, \"bktsize\": {}, \
+         \"vfcsize\": {}, \"maxrec\": {}, \"defext\": {}, \"gbc\": 0, \
+         \"reserved\": [0, 0, 0, 0, 0, 0, 0, 0], \"version_limit\": 0, \"filechar\": 0, \
+         \"owner\": 65540, \"protection\": 64000, \"revision\": 1, \"created\": {t}, \
+         \"revised\": {t}, \"expires\": 0, \"backup\": 0, \"accessed\": {t}, \"attr_changed\": {t}}}",
+        std::fs::metadata(path).unwrap().len(),
+        (f.org as u8) << 4 | f.rfm as u8,
+        f.rat,
+        f.lrl,
+        f.bks,
+        f.fsz,
+        f.mrs,
+        f.deq
+    )
 }
 
 /// What rmsdemo says.
