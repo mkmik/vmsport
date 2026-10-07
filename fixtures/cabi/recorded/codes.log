@@ -133,6 +133,9 @@
 #define SS$_IVSTSFLG 380
 #define SS$_NOLOGNAM 444
 #define SS$_TIMEOUT 556
+#define SS$_IVBUFLEN 844
+#define SS$_IVLOCKID 8484
+#define SS$_CVTUNGRANT 8508
 #define SS$_BUFFEROVF 1537
 #define SS$_CONTROLY 1553
 #define SS$_CREATED 1561
@@ -140,11 +143,16 @@
 #define SS$_NOTRAN 1577
 #define SS$_SUPERSEDE 1585
 #define SS$_CONTROLC 1617
+#define SS$_SYNCH 1673
 #define SS$_ENDOFFILE 2160
 #define SS$_NOSUCHDEV 2312
 #define SS$_NOSUCHFILE 2320
 #define SS$_RESIGNAL 2328
 #define SS$_UNWIND 2336
+#define SS$_NOTQUEUED 2488
+#define SS$_VALNOTVALID 2544
+#define SS$_DEADLOCK 3594
+#define SS$_EXENQLM 10820
 #define CLI$_FACILITY 3
 #define CLI$_ABVERB 229384
 #define CLI$_ABKEYW 229392
@@ -391,3 +399,74 @@
 #define DSC$K_DTYPE_T 14                /* Character-coded text. A single 8-bit character  */
 #define DSC$K_CLASS_S 1                 /* Scalar, String Descriptor        */
 #define DSC$K_CLASS_D 2                 /* Dynamic String Descriptor        */
+#define LCK$M_VALBLK 0x1
+#define LCK$M_CONVERT 0x2
+#define LCK$M_NOQUEUE 0x4
+#define LCK$M_SYNCSTS 0x8
+#define LCK$M_SYSTEM 0x10
+#define LCK$M_NOQUOTA 0x20
+#define LCK$M_CVTSYS 0x40
+#define LCK$M_RECOVER 0x80
+#define LCK$M_PROTECT 0x100
+#define LCK$M_NODLCKWT 0x200
+#define LCK$M_NODLCKBLK 0x400
+#define LCK$M_EXPEDITE 0x800
+#define LCK$M_QUECVT 0x1000
+#define LCK$M_BYPASS 0x2000
+#define LCK$M_NOIOLOCK8 0x4000
+#define LCK$M_NOFORK 0x8000
+#define LCK$M_XVALBLK 0x10000
+#define LCK$M_DEQALL 0x1
+#define LCK$M_CANCEL 0x2
+#define LCK$M_INVVALBLK 0x4
+#define LCK$M_RESV_NOIOLOCK8 0x4000
+#define LCK$M_RESV_NOFORK 0x8000
+#define LCK$M_RESV_XVALBLK 0x10000
+#define LCK$K_NLMODE 0                  /* NULL                             */
+#define LCK$K_CRMODE 1                  /* CONCURRENT READ                  */
+#define LCK$K_CWMODE 2                  /* CONCURRENT WRITE                 */
+#define LCK$K_PRMODE 3                  /* PROTECTED READ                   */
+#define LCK$K_PWMODE 4                  /* PROTECTED WRITE                  */
+#define LCK$K_EXMODE 5                  /* EXCLUSIVE                        */
+#define lck$v_valblk lck$r_lckdef_bits0.lck$v_valblk
+#define lck$v_convert lck$r_lckdef_bits0.lck$v_convert
+#define lck$v_noqueue lck$r_lckdef_bits0.lck$v_noqueue
+#define lck$v_syncsts lck$r_lckdef_bits0.lck$v_syncsts
+#define lck$v_system lck$r_lckdef_bits0.lck$v_system
+#define lck$v_noquota lck$r_lckdef_bits0.lck$v_noquota
+#define lck$v_cvtsys lck$r_lckdef_bits0.lck$v_cvtsys
+#define lck$v_recover lck$r_lckdef_bits0.lck$v_recover
+#define lck$v_protect lck$r_lckdef_bits0.lck$v_protect
+#define lck$v_nodlckwt lck$r_lckdef_bits0.lck$v_nodlckwt
+#define lck$v_nodlckblk lck$r_lckdef_bits0.lck$v_nodlckblk
+#define lck$v_expedite lck$r_lckdef_bits0.lck$v_expedite
+#define lck$v_quecvt lck$r_lckdef_bits0.lck$v_quecvt
+#define lck$v_bypass lck$r_lckdef_bits0.lck$v_bypass
+#define lck$v_noiolock8 lck$r_lckdef_bits0.lck$v_noiolock8
+#define lck$v_nofork lck$r_lckdef_bits0.lck$v_nofork
+#define lck$v_xvalblk lck$r_lckdef_bits0.lck$v_xvalblk
+#define lck$v_deqall lck$r_lckdef_bits1.lck$v_deqall
+#define lck$v_cancel lck$r_lckdef_bits1.lck$v_cancel
+#define lck$v_invvalblk lck$r_lckdef_bits1.lck$v_invvalblk
+#define lck$v_valblk lck$r_lckdef_bits0.lck$v_valblk
+#define lck$v_convert lck$r_lckdef_bits0.lck$v_convert
+#define lck$v_noqueue lck$r_lckdef_bits0.lck$v_noqueue
+#define lck$v_syncsts lck$r_lckdef_bits0.lck$v_syncsts
+#define lck$v_system lck$r_lckdef_bits0.lck$v_system
+#define lck$v_noquota lck$r_lckdef_bits0.lck$v_noquota
+#define lck$v_cvtsys lck$r_lckdef_bits0.lck$v_cvtsys
+#define lck$v_recover lck$r_lckdef_bits0.lck$v_recover
+#define lck$v_protect lck$r_lckdef_bits0.lck$v_protect
+#define lck$v_nodlckwt lck$r_lckdef_bits0.lck$v_nodlckwt
+#define lck$v_nodlckblk lck$r_lckdef_bits0.lck$v_nodlckblk
+#define lck$v_expedite lck$r_lckdef_bits0.lck$v_expedite
+#define lck$v_quecvt lck$r_lckdef_bits0.lck$v_quecvt
+#define lck$v_bypass lck$r_lckdef_bits0.lck$v_bypass
+#define lck$v_noiolock8 lck$r_lckdef_bits0.lck$v_noiolock8
+#define lck$v_nofork lck$r_lckdef_bits0.lck$v_nofork
+#define lck$v_xvalblk lck$r_lckdef_bits0.lck$v_xvalblk
+#define lck$v_deqall lck$r_lckdef_bits1.lck$v_deqall
+#define lck$v_cancel lck$r_lckdef_bits1.lck$v_cancel
+#define lck$v_invvalblk lck$r_lckdef_bits1.lck$v_invvalblk
+#define LKSB$K_LENGTH 24                /* Length of LKSB                   */
+#define LKSB$C_LENGTH 24                /* Length of LKSB                   */
