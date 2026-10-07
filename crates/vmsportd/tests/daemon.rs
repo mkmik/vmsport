@@ -121,4 +121,5 @@ fn locks_between_processes() {
     assert_eq!(b.deq(rb), Ok(locks::NORMAL));
     assert_eq!(b.deq(rb), Err(locks::IVLOCKID));
     b.stop().unwrap();
+    let _ = std::fs::remove_dir_all(&d);
 }
