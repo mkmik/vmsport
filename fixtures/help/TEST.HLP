@@ -1,3 +1,8 @@
+1 HELP
+ HELP is how you read this library. The text of a library's HELP topic
+ is what HELP shows when it is given no topic.
+2 Sub
+ A subtopic of HELP.
 1 ALPHA
  The ALPHA topic, written for vmsport to record how HELP lays out
  text, subtopics and prompts. It has subtopics.
@@ -10,6 +15,7 @@
 
  The file ALPHA works on.
 2 Qualifiers
+ Text of the Qualifiers subtopic itself.
 /LOG
 
     /LOG
@@ -39,7 +45,7 @@
  The BETA topic has no subtopics.
 1 BETTER
  BETTER starts like BETA.
-1 GAMMA_WITH_A_LONGER_NAME
+1 GAMMA_LONGNAME
  A topic with a long name, to see the columns.
 1 DELTA
  Delta text.
@@ -75,3 +81,8 @@
  Pi text.
 1 RHO
  Rho text.
+1 NOTEXT
+2 FIRST
+ First of a topic without text.
+2 SECOND
+ Second.
