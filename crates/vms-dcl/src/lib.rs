@@ -52,6 +52,7 @@ const CLI: &[(&str, u32)] = &[
     ("USGOSUB", 0x382E0),
     ("IVVALU", 0x38088),
     ("STKOVF", 0x38128),
+    ("SKPDAT", 0x38120),
 ];
 
 /// A failed command: a status, and the element DCL shows as ` \TOKEN\`.
@@ -149,6 +150,9 @@ struct Proc {
     lines: Vec<String>,
     /// Each command's lines as they are in the file (for SET VERIFY).
     records: Vec<Vec<String>>,
+    /// The data lines (not starting with `$`) after each command: its
+    /// image's SYS$INPUT.
+    data: Vec<Vec<String>>,
     labels: HashMap<String, usize>,
 }
 
@@ -157,6 +161,7 @@ impl Proc {
         // Join continuations (a trailing `-`), keep lines that start a command.
         let mut lines: Vec<String> = Vec::new();
         let mut raw: Vec<Vec<String>> = Vec::new();
+        let mut data: Vec<Vec<String>> = Vec::new();
         let mut cont = false;
         for r in records {
             let text = if cont {
@@ -164,7 +169,12 @@ impl Proc {
             } else {
                 match r.trim_start().strip_prefix('$') {
                     Some(t) => t.to_string(),
-                    None => continue, // data lines: ignored
+                    None => {
+                        if let Some(d) = data.last_mut() {
+                            d.push(r);
+                        }
+                        continue;
+                    }
                 }
             };
             let t = text.trim_end();
@@ -178,6 +188,7 @@ impl Proc {
             } else {
                 lines.push(body);
                 raw.push(vec![r.trim_start().to_string()]);
+                data.push(Vec::new());
             }
             cont = more;
         }
@@ -191,6 +202,7 @@ impl Proc {
             spec,
             lines,
             records: raw,
+            data,
             labels,
         }
     }
@@ -235,6 +247,8 @@ struct Frame {
     sub_end: Option<usize>,
     /// Index into `Dcl::outputs`.
     output: usize,
+    /// The data lines after the command running now, not yet read.
+    pending: std::collections::VecDeque<String>,
 }
 
 impl Frame {
@@ -250,6 +264,7 @@ impl Frame {
             ifs: Vec::new(),
             sub_end: None,
             output,
+            pending: Default::default(),
         }
     }
 
@@ -435,7 +450,9 @@ impl Dcl {
             }
             let line = p.lines[f.pc].clone();
             let records = p.records[f.pc].clone();
+            f.pending = p.data[f.pc].iter().cloned().collect();
             f.pc += 1;
+            let level = self.frames.len();
             // Verify shows the lines as in the file, after apostrophe
             // substitution, if it was on when they were read.
             if self.verify && self.top().active() {
@@ -445,6 +462,16 @@ impl Dcl {
                 }
             }
             self.step(&line);
+            // Data lines nobody read.
+            if let Some(f) = self.frames.get_mut(level - 1)
+                && !std::mem::take(&mut f.pending).is_empty()
+                && self.exiting.is_none()
+            {
+                let e = DclError::new("SKPDAT");
+                self.report(&e);
+                self.shown = true;
+                self.after(e.code);
+            }
         }
         if let Some((status, _)) = self.exiting.take() {
             self.status = status;
@@ -718,22 +745,48 @@ impl Dcl {
         out: Option<std::fs::File>,
     ) -> Cond {
         let symbols = self.visible_symbols();
+        // The procedure's data lines after the command are the image's
+        // SYS$INPUT, through a pipe we keep one end of to see what is left.
+        let data: Vec<String> = self.top().pending.iter().cloned().collect();
+        let mut feed = None;
+        let mut stdin = None;
+        if !data.is_empty()
+            && let Ok((r, mut w)) = std::io::pipe()
+            && let Ok(check) = r.try_clone()
+        {
+            stdin = Some(std::process::Stdio::from(r));
+            let text: String = data.iter().map(|l| format!("{l}\n")).collect();
+            let writer = std::thread::spawn(move || {
+                use std::io::Write;
+                let _ = w.write_all(text.as_bytes());
+            });
+            feed = Some((check, writer));
+        }
         let launch = Launch {
             symbols: &symbols,
             tables,
             line,
             args,
+            stdin,
             stdout: out.map(std::process::Stdio::from),
             ..Default::default()
         };
-        match self.host.start(what, launch) {
+        let st = match self.host.start(what, launch) {
             Ok(c) => {
                 let outcome = c.wait();
                 self.apply(&outcome.changes);
                 outcome.status
             }
             Err(st) => st,
+        };
+        if let Some((check, writer)) = feed {
+            if unread(&check) == 0 {
+                self.top().pending.clear();
+            }
+            drop(check);
+            let _ = writer.join();
         }
+        st
     }
 
     /// What a child changed: symbols here, process logical names by the host.
@@ -1114,6 +1167,15 @@ fn strip_comment(s: &str) -> String {
         }
     }
     s.trim_end().to_string()
+}
+
+/// Bytes waiting in a pipe.
+fn unread(r: &std::io::PipeReader) -> usize {
+    use std::os::fd::AsRawFd;
+    let mut n: libc::c_int = 0;
+    // SAFETY: FIONREAD writes an int.
+    let rc = unsafe { libc::ioctl(r.as_raw_fd(), libc::FIONREAD, &mut n) };
+    if rc < 0 { 0 } else { n as usize }
 }
 
 /// A foreign command's parameters as LIB$GET_FOREIGN returns them: upcased

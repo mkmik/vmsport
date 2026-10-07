@@ -495,6 +495,8 @@ impl Dcl {
         let logical = value(r, "LOGICAL").unwrap_or_default();
         let sym = value(r, "SYMBOL").unwrap_or_default();
         let rec = match logical.as_str() {
+            // In a procedure SYS$INPUT is the data lines after the command.
+            "SYS$INPUT" if self.depth() > 0 => self.top().pending.pop_front(),
             "SYS$INPUT" | "SYS$COMMAND" | "SYS$PIPE" | "TT" => {
                 let prompt = value(r, "PROMPT").unwrap_or_default();
                 self.host.read_terminal(&prompt)
