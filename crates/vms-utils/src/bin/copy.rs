@@ -2,6 +2,7 @@
 //! inputs to one output that has no wildcard are concatenated, as with `+`.
 
 use libvms::files::{Reader, Writer};
+use std::os::unix::fs::FileExt;
 use vms_cond::Cond;
 use vms_fao::Arg;
 use vms_filespec::FileSpec;
@@ -85,6 +86,16 @@ fn main() {
         }
         let (w, shown) = current.as_mut().unwrap();
         let mut records = 0;
+        // A relative or indexed file is copied as it is, block for block.
+        if !appending && r.fab.org != vms_rms::Org::Seq {
+            let copied = std::fs::read(path)
+                .and_then(|b| w.file().write_all_at(&b, 0))
+                .map_err(libvms::files::io_status);
+            if let Err(e) = copied {
+                status = e;
+            }
+            while r.get().is_some() {}
+        }
         while let Some(rec) = r.get() {
             if let Err(e) = w.put(&rec) {
                 status = e;

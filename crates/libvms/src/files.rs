@@ -22,8 +22,23 @@ pub struct Reader {
 }
 
 impl Reader {
+    /// A file's records: a relative or indexed file's in order (by its
+    /// primary key), shared with writers.
     pub fn open(path: &Path) -> Result<Reader, Cond> {
         let fab = fab(path);
+        if fab.org != vms_rms::Org::Seq {
+            use crate::rms::{At, File, Rop, fab::*};
+            let mut f = File::open(path, GET, GET | PUT | UPD | DEL)?;
+            let rop = Rop {
+                nolock: true,
+                ..Rop::default()
+            };
+            let records: Vec<Record> = std::iter::from_fn(|| f.get(At::Next, rop).ok()).collect();
+            return Ok(Reader {
+                fab,
+                records: records.into_iter(),
+            });
+        }
         let bytes = std::fs::read(path).map_err(io_status)?;
         let records = vms_rms::decode(&fab, &bytes).map_err(|_| status::RER)?;
         Ok(Reader {
