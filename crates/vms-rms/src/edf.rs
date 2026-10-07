@@ -33,16 +33,111 @@ const MAX_BUCKET: u32 = 63;
 /// GRANULARITY (1 to 4) groups it into areas; `now` dates it
 /// (` 7-OCT-2026 03:59:08`).
 pub fn optimize(input: &Fdl, analysis: &Fdl, granularity: u8, now: &str) -> Outcome {
+    optimize_with(input, analysis, granularity, now, &[])
+}
+
+/// One key as EDF designs it: the bytes of its entries (data records or
+/// SIDRs) and of its index entries, how many entries, how full buckets
+/// are loaded, the smallest bucket, and whether the bucket size is fitted
+/// to the disk's clusters.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Key {
+    pub klen: u32,
+    pub entry: u32,
+    pub n: u32,
+    pub fill: u32,
+    pub bmin: u32,
+    pub adjust: bool,
+}
+
+impl Key {
+    /// The index levels with buckets of `b` blocks (`None`: too small).
+    pub fn depth(&self, b: u32) -> Option<u32> {
+        self.levels(b).map(|l| l.0)
+    }
+
+    /// The levels and index buckets with buckets of `b` blocks.
+    pub fn index(&self, b: u32) -> Option<(u32, u32)> {
+        self.levels(b).map(|(l, p)| (l, p.index / b))
+    }
+
+    fn levels(&self, b: u32) -> Option<(u32, Plan)> {
+        levels(self.entry, self.klen + 4, self.n, self.fill, b)
+    }
+
+    /// The bucket size for the flattest index (FLATTER_FILES).
+    pub fn flatter(&self, cluster: u32) -> u32 {
+        self.plan(cluster).bks
+    }
+
+    fn plan(&self, cluster: u32) -> Plan {
+        plan(
+            self.entry,
+            self.klen + 4,
+            self.n,
+            self.fill,
+            self.bmin,
+            cluster,
+            self.adjust,
+        )
+    }
+
+    /// Where the index first gets shallower than at `from` blocks, if
+    /// it does by 63.
+    fn shallower(&self, from: u32) -> Option<u32> {
+        let d = self.depth(from)?;
+        (from + 1..=MAX_BUCKET).find(|&b| self.depth(b).is_some_and(|e| e < d))
+    }
+
+    /// The three bucket sizes EDF suggests: the first that makes the
+    /// index shallower (SMALLER_BUFFERS), the flattest, and the next
+    /// shallower still (or 9 blocks more); each fitted to the clusters.
+    /// The plots mark the raw second and third.
+    pub fn suggestions(&self, cluster: u32) -> [u32; 3] {
+        let fit = |b: u32| match self.adjust && 3 * b > cluster {
+            true => (b..=(b * 3 / 2).min(MAX_BUCKET))
+                .min_by_key(|&b| (lcm(b, cluster), b))
+                .unwrap(),
+            false => b,
+        };
+        let first = self.shallower(self.bmin.max(1)).unwrap_or(self.bmin.max(1));
+        [fit(first), self.flatter(cluster), fit(self.marks().1)]
+    }
+
+    /// The raw flattest bucket size and the third suggestion, as the
+    /// surface plots mark them.
+    pub fn marks(&self) -> (u32, u32) {
+        let raw = self.plan(1).bks;
+        let third = self.shallower(raw).unwrap_or((raw + 9).min(MAX_BUCKET));
+        (raw, third)
+    }
+
+    /// The work of a search through the index with buckets of `b`
+    /// blocks: per level, the binary search of a full index bucket.
+    /// ponytail: fitted to 19 of 20 recorded figures (a 255-byte key's
+    /// 18-block one is 6, not 7).
+    pub fn processing(&self, b: u32) -> u32 {
+        let Some((levels, _)) = self.index(b) else {
+            return 0;
+        };
+        let per = ((512 * b).saturating_sub(INDEX_OVERHEAD) / (self.klen + 6)).max(1);
+        levels * (per.next_power_of_two().trailing_zeros() + 1)
+    }
+}
+
+/// The keys of `input` as `analysis` describes their data, and the
+/// disk's cluster; or what EDF makes of files it can't optimize.
+pub fn keys(input: &Fdl, analysis: &Fdl) -> Result<(u32, Vec<Key>), Outcome> {
     let org = |f: &Fdl| {
         f.section("FILE", "")
             .and_then(|s| s.get("ORGANIZATION"))
             .map(str::to_ascii_lowercase)
     };
     if org(analysis).is_some_and(|o| o != "indexed") {
-        return Outcome::Nothing;
+        return Err(Outcome::Nothing);
     }
     if org(input).as_deref() != Some("indexed") {
-        return Outcome::NotIndexed;
+        return Err(Outcome::NotIndexed);
     }
     // An analysis that doesn't say has the default cluster of 3.
     let cluster = num(analysis.section("FILE", ""), "CLUSTER_SIZE")
@@ -50,7 +145,7 @@ pub fn optimize(input: &Fdl, analysis: &Fdl, granularity: u8, now: &str) -> Outc
         .max(1);
     let keys: Vec<&Section> = input.sections.iter().filter(|s| s.name == "KEY").collect();
     if keys.is_empty() {
-        return Outcome::Nothing;
+        return Err(Outcome::Nothing);
     }
     let record = input.section("RECORD", "");
     let var = record
@@ -58,10 +153,10 @@ pub fn optimize(input: &Fdl, analysis: &Fdl, granularity: u8, now: &str) -> Outc
         .is_none_or(|f| f.eq_ignore_ascii_case("variable"));
     let size = num(record, "SIZE").unwrap_or(0);
 
-    let mut parts = Vec::new();
+    let mut out = Vec::new();
     for (k, key) in keys.iter().enumerate() {
         let Some(stats) = analysis.section("ANALYSIS_OF_KEY", &k.to_string()) else {
-            return Outcome::Nothing;
+            return Err(Outcome::Nothing);
         };
         let n = num(Some(stats), "DATA_RECORD_COUNT").unwrap_or(0).max(1);
         let klen = key_length(key);
@@ -96,9 +191,44 @@ pub fn optimize(input: &Fdl, analysis: &Fdl, granularity: u8, now: &str) -> Outc
             };
             (sidr_size(keypart, dps), 1, false)
         };
-        let plan = plan(entry, klen + 4, n, fill, bmin, cluster, adjust);
-        parts.push((plan, fill));
+        out.push(Key {
+            klen,
+            entry,
+            n,
+            fill,
+            bmin,
+            adjust,
+        });
     }
+    Ok((cluster, out))
+}
+
+/// [`optimize`], with the bucket sizes `buckets` gives for the first keys
+/// rather than the flattest.
+pub fn optimize_with(
+    input: &Fdl,
+    analysis: &Fdl,
+    granularity: u8,
+    now: &str,
+    buckets: &[u32],
+) -> Outcome {
+    let (cluster, figures) = match keys(input, analysis) {
+        Ok(k) => k,
+        Err(o) => return o,
+    };
+    let keys: Vec<&Section> = input.sections.iter().filter(|s| s.name == "KEY").collect();
+    let record = input.section("RECORD", "");
+    let parts: Vec<(Plan, u32)> = figures
+        .iter()
+        .enumerate()
+        .map(|(k, f)| {
+            let plan = buckets
+                .get(k)
+                .and_then(|&b| f.levels(b))
+                .map_or_else(|| f.plan(cluster), |l| l.1);
+            (plan, f.fill)
+        })
+        .collect();
 
     // Areas: which parts (key, data or index) each holds.
     let area_of = |k: usize, index: bool| -> u32 {
@@ -428,4 +558,47 @@ pub fn text(fdl: &Fdl) -> String {
         }
     }
     out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// fixtures/edf/recorded/indexed.log: the INDEXED script's summaries.
+    #[test]
+    fn suggests_as_vms_does() {
+        // 1000 variable records of 64 bytes, an 8-byte key; 50000 fixed
+        // ones of 100, a 10-byte key and its alternate.
+        let i1 = Key {
+            klen: 8,
+            entry: record_size(8, 64, Some(0), Some(0), true),
+            n: 1000,
+            fill: 100,
+            bmin: 1,
+            adjust: true,
+        };
+        assert_eq!(i1.suggestions(3), [3, 3, 12]);
+        assert_eq!([3, 12].map(|b| i1.processing(b)), [8, 10]);
+        let i2 = Key {
+            klen: 10,
+            entry: record_size(10, 100, Some(0), Some(0), false),
+            n: 50000,
+            fill: 100,
+            bmin: 1,
+            adjust: true,
+        };
+        assert_eq!(i2.suggestions(3), [3, 18, 27]);
+        assert_eq!(i2.index(3), Some((2, 37)));
+        assert_eq!([3, 18, 27].map(|b| i2.processing(b)), [16, 11, 11]);
+        let sidr = Key {
+            klen: 10,
+            entry: sidr_size(10, 0),
+            n: 50000,
+            fill: 100,
+            bmin: 1,
+            adjust: false,
+        };
+        assert_eq!(sidr.suggestions(3), [2, 8, 17]);
+        assert_eq!([2, 8, 17].map(|b| sidr.processing(b)), [14, 9, 11]);
+    }
 }
