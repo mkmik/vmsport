@@ -830,38 +830,51 @@ file-spec
 /READ_ONLY
  Shows the file in the editor and saves nothing.
 2 /FDL
- Optimizes an indexed file's design for the data an analysis describes.
- A sequential or relative design is left alone and nothing is written;
- an analysis of an indexed file with a design that isn't indexed says
- so.
+ Runs the FDL editor, which writes FDL files: the file designs that
+ CREATE/FDL and CONVERT/FDL make files from. At a terminal it asks. You
+ can change the design a line at a time (ADD, MODIFY, DELETE), or run a
+ script (INVOKE) that asks about the file and how it will be used and
+ works the design out: a sequential, relative or indexed file, a key
+ added, reworked or removed, or every key of an indexed file reworked
+ for the data ANALYZE/RMS_FILE/FDL found in it. For an indexed file's
+ keys it plots how deep the index gets at each bucket size, and lets
+ you change what it was told until the design suits you. EXIT writes the
+ design, QUIT leaves without writing; HELP inside the editor tells more.
 
- For each key it estimates the size of a record (or of an alternate
- key's entry) from the analysis's compression figures, takes the bucket
- size that gives the shallowest index, and sizes the data and the index;
- areas group them as /GRANULARITY says.
+ With /NOINTERACTIVE it asks nothing: it optimizes an indexed design for
+ the data an analysis describes. For each key it estimates the size of a
+ record (or of an alternate key's entry) from the analysis's compression
+ figures, takes the bucket size that gives the shallowest index, and
+ sizes the data and the index; areas group them as /GRANULARITY says. A
+ sequential or relative design is left alone and nothing is written; an
+ analysis of an indexed file with a design that isn't indexed says so.
 
  Format
 
-   EDIT/FDL/NOINTERACTIVE/ANALYSIS=analysis-fdl [/OUTPUT=fdl] input-fdl
+   EDIT/FDL [/qualifiers] fdl-file
 3 Parameters
-input-fdl
+fdl-file
 
- The design, default type .FDL. Its attributes are kept, except those
- the optimizing sets (areas, bucket sizes, the keys' areas and fill).
+ The design, default type .FDL. If it doesn't exist the editor starts a
+ new one. With /NOINTERACTIVE its attributes are kept, except those the
+ optimizing sets (areas, bucket sizes, the keys' areas and fill).
 3 Qualifiers
 /ANALYSIS
 
     /ANALYSIS=analysis-fdl
 
- The analysis to optimize for: ANALYZE/RMS_FILE/FDL's output for a file
- holding the data, default type .FDL. Required.
+ ANALYZE/RMS_FILE/FDL's output for a file holding the data, default type
+ .FDL: what the OPTIMIZE script designs for. Required with
+ /NOINTERACTIVE; at the terminal OPTIMIZE asks for one if it isn't given.
 /EMPHASIS
 
-    /EMPHASIS=FLATTER_FILES
+    /EMPHASIS=FLATTER_FILES (default)
     /EMPHASIS=SMALLER_BUFFERS
 
- Accepted; without a terminal VMS's FDL editor designs the same either
- way, and so does vmsport.
+ Which bucket size the scripts offer first: the one giving the
+ shallowest index, or the smallest one that makes it a level shallower.
+ Without a terminal VMS's FDL editor designs the same either way, and so
+ does vmsport.
 /GRANULARITY
 
     /GRANULARITY=n
@@ -876,19 +889,20 @@ input-fdl
     /INTERACTIVE (default)
     /NOINTERACTIVE
 
- There is no interactive FDL editor: give /NOINTERACTIVE.
+ Whether the editor asks. Asking needs a terminal: when SYS$INPUT is
+ anything else the editor stops with EDF-F-DEVCLASS.
 /OUTPUT
 
     /OUTPUT[=fdl]
 
- Where the new design goes, default type .FDL; by default a new version
- of the input.
+ Where the design goes, default type .FDL; by default a new version of
+ the input.
 /SCRIPT
 
     /SCRIPT=script-name
 
- A script for the interactive editor; with /NOINTERACTIVE, DCL refuses
- it, as on VMS.
+ Runs a script first: ADD_KEY, DELETE_KEY, INDEXED, OPTIMIZE, RELATIVE,
+ SEQUENTIAL or TOUCHUP. With /NOINTERACTIVE, DCL refuses it.
 1 ELSE
  Starts the part of an IF block that runs when the condition is false.
  See IF.

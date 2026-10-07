@@ -143,7 +143,10 @@
 
      Sets the editor's characteristics, those the command line's
      qualifiers set too: the analysis file, the emphasis, the
-     granularity, the output file, the number of keys, the plot.
+     granularity, the output file; and the number of keys INDEXED
+     designs, the plot it starts with, whether menus are listed in full
+     (PROMPTING) and whether scripts take their defaults without asking
+     (RESPONSES).
 
      Format
 

@@ -33,7 +33,7 @@ The vmsport crates are tested against these. The inputs were written for vmsport
 | `mount/` | `mount.com` | MOUNT and DISMOUNT: messages, statuses, the DISK$label logical name |
 | `accept/` | `ORDERS.FDL`, `PARTS.FDL`, `MAKE.COM`, `UPDATE.COM` | M3's acceptance, part one: indexed files VMS makes, and the same files after UPDATE.COM's puts, updates and deletes on VMS |
 | `acceptback/` | `VOLUME.IMG.gz` (written by `crates/vms-utils/tests/accept.rs`) | part two: the image vmsport wrote back after UPDATE.COM, as VMS's input volume: ANALYZE/RMS_FILE/CHECK, every key's order, then VMS's own puts and deletes checked again |
-| `edf/` | `run*.dcl` (`gen.py` makes all but `run1.dcl`) | EDIT/FDL/NOINTERACTIVE/ANALYSIS on an installed system (below): `run1` analyzes real files of each organization and gives the statuses and errors; the others sweep synthetic analyses (record counts, compression, key and record sizes, fills, clusters, duplicates, three and four keys, granularity), each case's analysis and the FDL the editor wrote |
+| `edf/` | `run*.dcl` (`gen.py` makes all but `run1.dcl`); `probe3`, `seqrel`, `seqrel2`, `menus`, `menus2`, `indexed`, `others`.dcl typed at the console | EDIT/FDL/NOINTERACTIVE/ANALYSIS on an installed system (below): `run1` analyzes real files of each organization and gives the statuses and errors; the others sweep synthetic analyses (record counts, compression, key and record sizes, fills, clusters, duplicates, three and four keys, granularity), each case's analysis and the FDL the editor wrote. The typed ones are the editor at its terminal: the main menu's functions and their tables, SET, every script with its questions, plots, mnemonics and summaries, and what each wrote (crates/vms-utils/tests/fdl_editor.rs replays them) |
 
 Each area's `vms.txt` says what goes to VMS, what runs there and what comes
 back. To record areas again (about 5 minutes; it borrows the real-VMS setup of
@@ -56,6 +56,10 @@ types the area's `NAME.dcl` into; the log goes to `recorded/NAME.log`:
 ```sh
 fixtures/vms/system.py edf run1
 ```
+
+A program that wants a terminal (the FDL editor's dialogue) is typed at
+the console with `@@KEY` lines, its questions answered with `@@AUTO`
+(see system.py).
 
 Statuses in `cld/recorded/cld.log`: 3FD19 PRESENT, 3FD21 DEFAULTED, 3FD29 CONCAT,
 3FD31 LOCPRES, 3FD39 COMMA, 381F0 ABSENT, 381F8 NEGATED, 38230 LOCNEG, and 310FC for
