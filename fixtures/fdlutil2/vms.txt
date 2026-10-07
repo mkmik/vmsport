@@ -1,0 +1,6 @@
+# More CREATE and ANALYZE/RMS_FILE: a relative file with a maximum record
+# number, ANALYZE's output choices and lists, CREATE's lists.
+in fdlutil2.com
+in RB.FDL
+run @FDLUTIL2.COM/OUTPUT=FDLUTIL2.LOG
+text FDLUTIL2.LOG recorded/fdlutil2.log

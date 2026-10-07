@@ -381,4 +381,8 @@ impl Host for RealHost {
     fn info(&mut self, item: &str) -> Option<String> {
         libvms::sys::info(item)
     }
+
+    fn file_attribute(&mut self, spec: &str, item: &str) -> Result<String, Cond> {
+        libvms::fileinfo::attribute(&self.session, spec, item)
+    }
 }

@@ -1,0 +1,15 @@
+# CREATE (plain, /DIRECTORY, /FDL), ANALYZE/RMS_FILE (/CHECK, /FDL,
+# /OUTPUT), DIRECTORY/FULL and
+# F$FILE_ATTRIBUTES on sequential, relative and indexed files.
+in fdlutil.com
+in SEQ.FDL
+import bad
+run @FDLUTIL.COM/OUTPUT=FDLUTIL.LOG
+text FDLUTIL.LOG recorded/fdlutil.log
+blocks R.DAT recorded/R.DAT
+blocks RB.DAT recorded/RB.DAT
+blocks I.DAT recorded/I.DAT
+blocks IM.DAT recorded/IM.DAT
+blocks S.DAT recorded/S.DAT
+blocks A.TXT;1 recorded/A1.TXT
+manifest *.* recorded/manifest.json

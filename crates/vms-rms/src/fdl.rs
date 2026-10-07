@@ -426,3 +426,186 @@ pub fn from_design(d: &Design) -> Fdl {
     }
     fdl
 }
+
+/// What CREATE/FDL finds wrong in FDL text, by statement (a line with
+/// something on it, from 1) and word, as VMS reports it.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Problem {
+    /// A word that is no attribute of its section: VMS calls it an
+    /// unrecognized primary keyword, and won't go on.
+    Primary(usize, String),
+    /// A value the attribute can't take: a warning, but nothing is made.
+    Value(usize, String),
+}
+
+/// What an attribute's value must be.
+#[derive(Clone, Copy)]
+enum Kind {
+    Num,
+    YesNo,
+    Any,
+    Words(&'static [&'static str]),
+}
+
+const NUM: Kind = Kind::Num;
+const YN: Kind = Kind::YesNo;
+const ANY: Kind = Kind::Any;
+
+/// The attributes of the sections CREATE/FDL reads; the others (DATE,
+/// ACCESS, ANALYSIS_OF_KEY ...) take any.
+fn attributes(section: &str) -> Option<&'static [(&'static str, Kind)]> {
+    const ORG: &[&str] = &["sequential", "relative", "indexed"];
+    const FMT: &[&str] = &[
+        "fixed",
+        "variable",
+        "vfc",
+        "stream",
+        "stream_lf",
+        "stream_cr",
+        "undefined",
+    ];
+    const CC: &[&str] = &["carriage_return", "fortran", "print", "none"];
+    Some(match section {
+        "FILE" => &[
+            ("ALLOCATION", NUM),
+            ("BEST_TRY_CONTIGUOUS", YN),
+            ("BUCKET_SIZE", NUM),
+            ("CLUSTER_SIZE", NUM),
+            ("CONTIGUOUS", YN),
+            ("DEFAULT_NAME", ANY),
+            ("DEFERRED_WRITE", YN),
+            ("DELETE_ON_CLOSE", YN),
+            ("DIRECTORY_ENTRY", YN),
+            ("ERASE_ON_DELETE", YN),
+            ("EXTENSION", NUM),
+            ("FILE_MONITORING", YN),
+            ("GLBUFF_CNT_V83", NUM),
+            ("GLBUFF_FLAGS_V83", ANY),
+            ("GLOBAL_BUFFER_COUNT", NUM),
+            ("MAX_RECORD_NUMBER", NUM),
+            ("MAXIMIZE_VERSION", YN),
+            ("NAME", ANY),
+            ("ORGANIZATION", Kind::Words(ORG)),
+            ("OUTPUT_FILE_PARSE", YN),
+            ("OWNER", ANY),
+            ("PRINT_ON_CLOSE", YN),
+            ("PROTECTION", ANY),
+            ("READ_CHECK", YN),
+            ("REVISION", NUM),
+            ("SEQUENTIAL_ONLY", YN),
+            ("SUBMIT_ON_CLOSE", YN),
+            ("SUPERSEDE", YN),
+            ("TEMPORARY", YN),
+            ("TRUNCATE_ON_CLOSE", YN),
+            ("USER_FILE_OPEN", YN),
+            ("WINDOW_SIZE", NUM),
+            ("WRITE_CHECK", YN),
+        ],
+        "RECORD" => &[
+            ("BLOCK_SPAN", YN),
+            ("CARRIAGE_CONTROL", Kind::Words(CC)),
+            ("CONTROL_FIELD_SIZE", NUM),
+            ("FORMAT", Kind::Words(FMT)),
+            ("SIZE", NUM),
+        ],
+        "AREA" => &[
+            ("ALLOCATION", NUM),
+            ("BEST_TRY_CONTIGUOUS", YN),
+            ("BUCKET_SIZE", NUM),
+            ("CONTIGUOUS", YN),
+            ("EXACT_POSITIONING", YN),
+            ("EXTENSION", NUM),
+            ("POSITION", ANY),
+            ("VOLUME", NUM),
+        ],
+        "KEY" => &[
+            ("CHANGES", YN),
+            ("DATA_AREA", NUM),
+            ("DATA_FILL", NUM),
+            ("DATA_KEY_COMPRESSION", YN),
+            ("DATA_RECORD_COMPRESSION", YN),
+            ("DUPLICATES", YN),
+            ("INDEX_AREA", NUM),
+            ("INDEX_COMPRESSION", YN),
+            ("INDEX_FILL", NUM),
+            ("LEVEL1_INDEX_AREA", NUM),
+            ("NAME", ANY),
+            ("NULL_KEY", YN),
+            ("NULL_VALUE", ANY),
+            ("PROLOG", NUM),
+            ("TYPE", ANY),
+        ],
+        "SYSTEM" => &[("SOURCE", ANY), ("TARGET", ANY)],
+        "IDENT" | "TITLE" => &[],
+        _ => return None,
+    })
+}
+
+pub fn check(text: &str) -> Vec<Problem> {
+    let Ok(fdl) = parse(text) else {
+        return vec![Problem::Primary(1, String::new())];
+    };
+    // Statements as parse saw them: each section's line, then its attributes'.
+    let mut out = Vec::new();
+    let mut n = 0;
+    for s in &fdl.sections {
+        n += 1;
+        let known = attributes(&s.name);
+        for (name, value) in &s.attrs {
+            n += 1;
+            let Some(known) = known else { continue };
+            let seg = s.name == "KEY"
+                && name
+                    .strip_prefix("SEG")
+                    .and_then(|r| r.split_once('_'))
+                    .is_some_and(|(d, f)| {
+                        d.parse::<u8>().is_ok() && (f == "LENGTH" || f == "POSITION")
+                    });
+            let kind = match known.iter().find(|(k, _)| k == name) {
+                Some((_, k)) => *k,
+                None if seg => NUM,
+                None => {
+                    out.push(Problem::Primary(n, name.clone()));
+                    return out;
+                }
+            };
+            let v = value.to_ascii_lowercase();
+            let ok = match kind {
+                Kind::Num => !v.is_empty() && v.bytes().all(|c| c.is_ascii_digit()),
+                Kind::YesNo => matches!(v.as_str(), "yes" | "no" | "true" | "false"),
+                Kind::Any => true,
+                Kind::Words(w) => w.contains(&v.as_str()),
+            };
+            if !ok {
+                out.push(Problem::Value(n, value.to_ascii_uppercase()));
+            }
+        }
+    }
+    out
+}
+
+#[cfg(test)]
+mod check_tests {
+    use super::*;
+
+    #[test]
+    fn problems() {
+        // As CREATE/FDL reported them (fixtures/fdlutil).
+        assert_eq!(
+            check("FILE\n\tORGANIZATION\tsideways\n"),
+            [Problem::Value(2, "SIDEWAYS".into())]
+        );
+        assert_eq!(
+            check("RECORD\n\tFORMATT\t\tfixed\n"),
+            [Problem::Primary(2, "FORMATT".into())]
+        );
+        assert_eq!(
+            check("RECORD\n\tSIZE\t\tabc\n"),
+            [Problem::Value(2, "ABC".into())]
+        );
+        assert_eq!(
+            check("KEY 0\n\tSEG0_LENGTH 4\n\tSEG0_POSITION 0\n! c\n\n"),
+            []
+        );
+    }
+}

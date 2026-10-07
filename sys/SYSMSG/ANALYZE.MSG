@@ -1,0 +1,17 @@
+! ANALYZE/RMS_FILE's messages, facility ANLRMS. Their codes are VMS's
+! (fixtures/fdlutil: %X003B8009, %X003B8103, %X003B88B2); the texts of OK
+! and BADFILE, which VMS never showed, are vmsport's.
+	.TITLE		ANLRMS	ANALYZE/RMS_FILE messages
+	.FACILITY	ANLRMS,59 /SYSTEM
+	.SEVERITY	SUCCESS
+OK		<analysis complete>
+	.BASE		32
+	.SEVERITY	INFORMATIONAL
+ERRORS		"<!AS> !UL error!%S" /FAO=2
+	.BASE		278
+	.SEVERITY	ERROR
+BADFILE		<the analysis found errors>
+	.FACILITY	ANALYZE,177 /SYSTEM
+	.SEVERITY	ERROR
+	.BASE		1000
+RMSONLY		<only /RMS_FILE analyses are available>
