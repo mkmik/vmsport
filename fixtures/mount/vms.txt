@@ -1,0 +1,5 @@
+# MOUNT and DISMOUNT: what they say, their statuses, and the DISK$label
+# logical name. DKA100 is the input volume, VPTIN.
+in mount.com
+run @MOUNT.COM/OUTPUT=MOUNT.LOG
+text MOUNT.LOG recorded/mount.log

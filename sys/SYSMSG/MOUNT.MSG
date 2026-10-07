@@ -1,0 +1,7 @@
+! MOUNT's own messages; their numbers are vmsport's. Its errors are the
+! system's (fixtures/mount: %MOUNT-F-DEVMOUNT is %X0072006C).
+	.TITLE		MOUNT	MOUNT messages
+	.FACILITY	MOUNT,114 /SYSTEM
+	.SEVERITY	INFORMATIONAL
+MOUNTED		<!AS mounted on !AS> /FAO=2
+VOLIDENT	<label = '!AS', owner = '!AS', format = '!AS'> /FAO=3

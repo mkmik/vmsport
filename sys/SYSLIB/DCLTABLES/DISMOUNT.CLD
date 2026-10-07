@@ -1,0 +1,6 @@
+! DISMOUNT: a mounted image's device; its changes go back into the image.
+MODULE DISMOUNT_TABLES
+
+DEFINE VERB DISMOUNT
+	IMAGE "SYS$SYSTEM:DISMOUNT.EXE"
+	PARAMETER P1, LABEL=DEVICE, PROMPT="Device", VALUE(REQUIRED)

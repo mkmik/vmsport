@@ -13,6 +13,8 @@ vms-msg = { path = "../vms-msg" }
 vms-rms = { path = "../vms-rms" }
 vms-time = { path = "../vms-time" }
 vms-help = { path = "../vms-help" }
+vms-lnm = { path = "../vms-lnm" }
 
 [dev-dependencies]
 vmsportd = { path = "../vmsportd" }
+ods-image = { git = "https://github.com/mkmik/vaxpunk", rev = "4073d2cd1050c992e335029788c938a12f70399a" }

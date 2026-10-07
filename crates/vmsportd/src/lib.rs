@@ -192,10 +192,16 @@ fn lock_request(m: &locks::Manager, owner: u64, line: &str) -> Option<String> {
     };
     let mode = |s: &str| locks::Mode::parse(s).ok_or(Cond(0x14));
     Some(match f[..] {
-        ["enq", md, res, ..] => reply(mode(md).and_then(|md| m.enq(owner, &unescape(res), md, noqueue))),
+        ["enq", md, res, ..] => {
+            reply(mode(md).and_then(|md| m.enq(owner, &unescape(res), md, noqueue)))
+        }
         ["cvt", id, md, ..] => {
             let id: u32 = id.parse().unwrap_or(0);
-            reply(mode(md).and_then(|md| m.convert(owner, id, md, noqueue)).map(|st| (id, st)))
+            reply(
+                mode(md)
+                    .and_then(|md| m.convert(owner, id, md, noqueue))
+                    .map(|st| (id, st)),
+            )
         }
         ["deq", id] => {
             let id: u32 = id.parse().unwrap_or(0);
@@ -415,10 +421,16 @@ impl Client {
 
     fn lock(&self, line: &str) -> Result<(u32, Cond), Cond> {
         let resp = self.request(line).map_err(|_| SS_ABORT)?;
-        let f: Vec<&str> = resp.first().map(|l| l.split('\t').collect()).unwrap_or_default();
+        let f: Vec<&str> = resp
+            .first()
+            .map(|l| l.split('\t').collect())
+            .unwrap_or_default();
         let code = |c: &str| u32::from_str_radix(c.trim_start_matches("%X"), 16).map(Cond);
         match f[..] {
-            ["ok", id, c] => Ok((id.parse().map_err(|_| SS_ABORT)?, code(c).map_err(|_| SS_ABORT)?)),
+            ["ok", id, c] => Ok((
+                id.parse().map_err(|_| SS_ABORT)?,
+                code(c).map_err(|_| SS_ABORT)?,
+            )),
             ["err", c] => Err(code(c).map_err(|_| SS_ABORT)?),
             _ => Err(SS_ABORT),
         }
@@ -427,7 +439,12 @@ impl Client {
     /// `$ENQW`: a lock on `resource` in `mode`, waiting for it unless
     /// `noqueue` (then SS$_NOTQUEUED). The lock lasts until [`Client::deq`]
     /// or this connection closes. Returns its ID and SS$_SYNCH or SS$_NORMAL.
-    pub fn enq(&self, resource: &str, mode: locks::Mode, noqueue: bool) -> Result<(u32, Cond), Cond> {
+    pub fn enq(
+        &self,
+        resource: &str,
+        mode: locks::Mode,
+        noqueue: bool,
+    ) -> Result<(u32, Cond), Cond> {
         let nq = if noqueue { "\tnoqueue" } else { "" };
         self.lock(&format!("enq\t{mode:?}\t{}{nq}", escape(resource)))
     }

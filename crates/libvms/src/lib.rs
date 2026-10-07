@@ -9,6 +9,8 @@ pub mod cli;
 pub mod files;
 pub mod help;
 pub mod image;
+pub mod mount;
+pub mod rms;
 pub mod sys;
 
 use std::path::{Path, PathBuf};
@@ -440,18 +442,14 @@ impl Session {
     }
 }
 
-/// The host directory of a resolved spec: its physical device must be
-/// `HOST:`.
+/// The host directory of a resolved spec: on `HOST:`, or on a mounted
+/// image's device.
 fn host_dir(r: &Resolved) -> Result<PathBuf, Cond> {
-    if !r
-        .physical
-        .device
-        .as_deref()
-        .is_some_and(|d| d.eq_ignore_ascii_case(HOST_DEVICE))
-    {
-        return Err(status::DEV);
-    }
-    let mut p = PathBuf::from("/");
+    let dev = r.physical.device.as_deref().unwrap_or("");
+    let mut p = match dev.eq_ignore_ascii_case(HOST_DEVICE) {
+        true => PathBuf::from("/"),
+        false => mount::root(dev).ok_or(status::DEV)?,
+    };
     for part in r.path() {
         let name = vms_filespec::unescape(&part).map_err(|_| status::DIR)?;
         p = case_blind(p, &name);

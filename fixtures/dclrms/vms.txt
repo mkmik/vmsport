@@ -1,0 +1,10 @@
+# DCL's OPEN, READ, WRITE and CLOSE on indexed and relative files: keyed
+# reads (/KEY, /INDEX, /MATCH), /DELETE, WRITE/UPDATE, sharing and record
+# locks between two streams, and TYPE, SEARCH, DIRECTORY/FULL and
+# F$FILE_ATTRIBUTES on them. The files' blocks show what VMS left.
+in dclrms.com
+run @DCLRMS.COM/OUTPUT=DCLRMS.LOG
+text DCLRMS.LOG recorded/dclrms.log
+blocks KEYED.DAT recorded/KEYED.DAT
+blocks REL.DAT recorded/REL.DAT
+manifest *.DAT recorded/manifest.json

@@ -122,12 +122,30 @@ pub struct Manager {
 impl Manager {
     /// `$ENQW`: a new lock on `resource` in `mode`, waiting unless
     /// `noqueue`. Returns its ID and SYNCH (at once) or NORMAL (waited).
-    pub fn enq(&self, owner: u64, resource: &str, mode: Mode, noqueue: bool) -> Result<(u32, Cond), Cond> {
+    pub fn enq(
+        &self,
+        owner: u64,
+        resource: &str,
+        mode: Mode,
+        noqueue: bool,
+    ) -> Result<(u32, Cond), Cond> {
         let mut s = self.state.lock().unwrap();
         s.next += 1;
         let id = s.next;
-        s.locks.insert(id, Lock { owner, resource: resource.to_string(), mode: Mode::NL, granted: false, want: Some(mode) });
-        s.resources.entry(resource.to_string()).or_default().push(id);
+        s.locks.insert(
+            id,
+            Lock {
+                owner,
+                resource: resource.to_string(),
+                mode: Mode::NL,
+                granted: false,
+                want: Some(mode),
+            },
+        );
+        s.resources
+            .entry(resource.to_string())
+            .or_default()
+            .push(id);
         self.wait(s, id, noqueue).map(|st| (id, st))
     }
 
@@ -142,7 +160,12 @@ impl Manager {
         self.wait(s, id, noqueue)
     }
 
-    fn wait(&self, mut s: std::sync::MutexGuard<'_, State>, id: u32, noqueue: bool) -> Result<Cond, Cond> {
+    fn wait(
+        &self,
+        mut s: std::sync::MutexGuard<'_, State>,
+        id: u32,
+        noqueue: bool,
+    ) -> Result<Cond, Cond> {
         if s.grantable(id) {
             s.grant(id);
             return Ok(SYNCH);
@@ -184,7 +207,12 @@ impl Manager {
     /// Everything a process held or waited for, when it goes away.
     pub fn release(&self, owner: u64) {
         let mut s = self.state.lock().unwrap();
-        let ids: Vec<u32> = s.locks.iter().filter(|(_, l)| l.owner == owner).map(|(id, _)| *id).collect();
+        let ids: Vec<u32> = s
+            .locks
+            .iter()
+            .filter(|(_, l)| l.owner == owner)
+            .map(|(id, _)| *id)
+            .collect();
         for id in ids {
             s.remove(id);
         }

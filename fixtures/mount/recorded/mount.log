@@ -1,0 +1,36 @@
+@@ dismount
+  $STATUS == "%X00000001"
+%SYSTEM-F-DEVNOTMOUNT, device is not mounted
+  $STATUS == "%X0000007C"
+%SYSTEM-W-NOSUCHDEV, no such device available
+  $STATUS == "%X00000908"
+%SYSTEM-W-NOSUCHDEV, no such device available
+  $STATUS == "%X00000908"
+@@ mount
+%MOUNT-I-MOUNTED, VPTIN mounted on _DKA100:
+  $STATUS == "%X00000001"
+   "DISK$VPTIN" = "DKA100:" (LNM$JOB_80CB54C0)
+%MOUNT-F-DEVMOUNT, device is already mounted
+  $STATUS == "%X1072006C"
+%MOUNT-F-DEVMOUNT, device is already mounted
+  $STATUS == "%X1072006C"
+%MOUNT-F-INCVOLLABEL, incorrect volume label
+-MOUNT-I-VOLIDENT, label = 'VPTIN       ', owner = '            ', format = 'DECFILE11B  '
+  $STATUS == "%X1072010C"
+%MOUNT-I-MOUNTED, VPTIN mounted on _DKA100:
+  $STATUS == "%X00000001"
+   "DISK$VPTIN" = "DKA100:" (LNM$JOB_80CB54C0)
+%MOUNT-I-MOUNTED, VPTIN mounted on _DKA100:
+  $STATUS == "%X00000001"
+   "MYDISK" = "DKA100:" (LNM$JOB_80CB54C0)
+
+Directory MYDISK:[T]
+
+DCLRMS.DIR;1        MOUNT.DIR;1         RECORD.COM;1        
+
+Total of 3 files.
+%SHOW-S-NOTRAN, no translation for logical name MYDISK
+%MOUNT-F-NOSUCHDEV, no such device available
+  $STATUS == "%X1072090C"
+%MOUNT-I-MOUNTED, VPTIN mounted on _DKA100:
+@@ end
