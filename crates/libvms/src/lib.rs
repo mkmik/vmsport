@@ -298,11 +298,16 @@ impl Session {
         if ver > 32767 {
             return Err(status::CRE);
         }
-        let name = format!(
-            "{}.{};{ver}",
-            vms_filespec::unescape(&spec.name).map_err(|_| status::SYN)?,
-            vms_filespec::unescape(&typ).map_err(|_| status::SYN)?
-        );
+        // A new version is named as the file's others are (README.md;2).
+        let base = match existing.iter().max() {
+            Some((_, host)) => split_host(host),
+            None => (
+                vms_filespec::unescape(&spec.name).map_err(|_| status::SYN)?,
+                vms_filespec::unescape(&typ).map_err(|_| status::SYN)?,
+                0,
+            ),
+        };
+        let name = format!("{}.{};{ver}", base.0, base.1);
         let mut shown = display;
         shown.version = Some(Version::Number(ver as i16));
         Ok((dir.join(name), shown))

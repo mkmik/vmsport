@@ -158,3 +158,71 @@ fn edit_fdl_through_dcl() {
         assert_eq!(mask(&got[s]), mask(&vms[s]), "{s}");
     }
 }
+
+/// EDIT of a text file: the host's editor (here a script adding a line)
+/// makes a new version named as the file's others are; nothing written
+/// when nothing changed, nor with /READ_ONLY; a VAR file comes back VAR.
+#[test]
+fn edit_text_through_dcl() {
+    for p in ["vms-dcl", "vmsportd"] {
+        let st = Command::new(env!("CARGO"))
+            .args(["build", "-q", "-p", p])
+            .status()
+            .unwrap();
+        assert!(st.success());
+    }
+    let dcl = Path::new(env!("CARGO_BIN_EXE_edf")).with_file_name("dcl");
+    let tmp = std::env::temp_dir().join(format!("vpt-edit-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&tmp);
+    std::fs::create_dir_all(&tmp).unwrap();
+    std::fs::write(tmp.join("notes.txt"), "one\n").unwrap();
+    std::fs::write(tmp.join("ADD.SH"), "echo added >> \"$1\"\n").unwrap();
+    let var = vms_rms::Fab {
+        rfm: vms_rms::Rfm::Var,
+        ..vms_rms::Fab::default()
+    };
+    let mut w = libvms::files::Writer::create(&tmp.join("V.DAT;1"), var).unwrap();
+    w.put(&vms_rms::Record::new(b"x".to_vec())).unwrap();
+    drop(w);
+    let run = PathBuf::from(format!("/tmp/vpt-et{}", std::process::id()));
+    let edit = |editor: &str, cmd: &str| {
+        let st = Command::new(&dcl)
+            .args(["-c", cmd])
+            .current_dir(&tmp)
+            .env("VMSPORT_RUN", &run)
+            .env("EDITOR", editor)
+            .env_remove("VISUAL")
+            .stdin(std::process::Stdio::null())
+            .status()
+            .unwrap();
+        assert!(st.success(), "{cmd}");
+    };
+    let add = format!("sh {}", tmp.join("ADD.SH").display());
+    edit(&add, "EDIT NOTES.TXT");
+    edit("true", "EDIT NOTES.TXT");
+    edit(&add, "EDIT/READ_ONLY NOTES.TXT");
+    edit("true", "EDIT NEW.TXT");
+    edit(&add, "EDIT V.DAT");
+    let mut names: Vec<String> = std::fs::read_dir(&tmp)
+        .unwrap()
+        .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
+        .collect();
+    names.sort();
+    assert_eq!(
+        names,
+        ["ADD.SH", "V.DAT;1", "V.DAT;2", "notes.txt", "notes.txt;2"]
+    );
+    let mut r = libvms::files::Reader::open(&tmp.join("V.DAT;2")).unwrap();
+    assert_eq!(r.fab, var);
+    let recs: Vec<Vec<u8>> = std::iter::from_fn(|| r.get().map(|r| r.data)).collect();
+    assert_eq!(recs, [b"x".to_vec(), b"added".to_vec()]);
+    assert_eq!(
+        std::fs::read_to_string(tmp.join("notes.txt;2")).unwrap(),
+        "one\nadded\n"
+    );
+    if let Ok(c) = vmsportd::Client::connect_in(&run, Path::new("/nonexistent")) {
+        let _ = c.stop();
+    }
+    let _ = std::fs::remove_dir_all(&run);
+    let _ = std::fs::remove_dir_all(&tmp);
+}

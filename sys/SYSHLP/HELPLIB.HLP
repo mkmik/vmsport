@@ -685,23 +685,46 @@ device-name[:]
 
  The device, as MOUNT named it (DKA100:).
 1 EDIT
- vmsport's EDIT is only EDIT/FDL, and of the FDL editor only the part
- that runs without a terminal: it takes an indexed file's design (an FDL)
- and an analysis of data like the file's (what ANALYZE/RMS_FILE/FDL
- writes), and writes the design again with the bucket sizes, areas,
- allocations and extensions that suit that data. There are no text
- editors and no interactive FDL editor.
+ Edits a text file in the host's editor: $VISUAL, else $EDITOR, else vi.
+ What the editor leaves is saved as a new version of the file; if
+ nothing changed, nothing is written. A file that isn't plain (stream_LF)
+ text is edited as its records, one per line, and saved in its record
+ format.
+
+ EDIT/FDL is the FDL editor, of which vmsport has only the part that runs
+ without a terminal (see EDIT /FDL).
 
  Format
 
+   EDIT [/qualifier...] file-spec
    EDIT/FDL/NOINTERACTIVE/ANALYSIS=analysis-fdl input-fdl
 2 Parameters
 file-spec
 
- With /FDL, the design to optimize.
+ The file to edit; with /FDL, the design to optimize.
 2 Qualifiers
 /FDL
  Runs the FDL editor; see EDIT /FDL.
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ Edits a new file when the one named doesn't exist; with /NOCREATE that
+ is an error.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Saves what the editor leaves in this file (a new version of it) rather
+ than in a new version of the one edited.
+/READ_ONLY
+ Shows the file in the editor and saves nothing.
+/TPU
+ Accepted: vmsport has no EVE or TPU of its own, and uses the host's
+ editor.
+/EDT
+ Accepted, as /TPU.
 2 /FDL
  Optimizes an indexed file's design for the data an analysis describes.
  A sequential or relative design is left alone and nothing is written;
