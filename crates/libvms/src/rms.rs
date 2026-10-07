@@ -2,12 +2,14 @@
 //! blocks in host files, shared between processes through vmsportd's lock
 //! manager (docs/design/m3.md).
 
+use crate::fileinfo::CLUSTER;
 use crate::files::{self, io_status};
 use std::os::unix::fs::{FileExt, MetadataExt};
 use std::path::{Path, PathBuf};
 use vms_cond::Cond;
+use vms_rms::idx::{self, Cursor, Found};
 use vms_rms::rel::Rel;
-use vms_rms::{BLOCK, Blocks, Design, Fab, Org, Record, Rfa, status};
+use vms_rms::{BLOCK, Blocks, Design, Fab, Org, Record, Rfa, Rfm, status};
 use vmsportd::Client;
 use vmsportd::locks::{self, Mode};
 
@@ -142,6 +144,13 @@ enum Kind {
         b: HostBlocks,
         next: u32,
     },
+    Idx {
+        f: idx::File<HostBlocks>,
+        /// The key sequential $GETs follow (the last keyed access's), and
+        /// the record they are past.
+        key: u8,
+        next: Option<Cursor>,
+    },
 }
 
 /// Where the next sequential record is, kept to go back to.
@@ -149,6 +158,7 @@ enum Kind {
 enum Mark {
     Seq(usize),
     Rel(u32),
+    Idx(u8, Option<Cursor>),
 }
 
 impl Kind {
@@ -156,6 +166,7 @@ impl Kind {
         match self {
             Kind::Seq { next, .. } => Mark::Seq(*next),
             Kind::Rel { next, .. } => Mark::Rel(*next),
+            Kind::Idx { key, next, .. } => Mark::Idx(*key, next.clone()),
         }
     }
 
@@ -163,6 +174,7 @@ impl Kind {
         match (self, m) {
             (Kind::Seq { next, .. }, Mark::Seq(n)) => *next = n,
             (Kind::Rel { next, .. }, Mark::Rel(n)) => *next = n,
+            (Kind::Idx { key, next, .. }, Mark::Idx(k, n)) => (*key, *next) = (k, n),
             _ => {}
         }
     }
@@ -251,8 +263,15 @@ impl File {
                 b: HostBlocks::new(host_file(path, fac & WRITES != 0, false)?)?,
                 next: 1,
             },
-            // ponytail: indexed files come with vms_rms::idx.
-            Org::Idx => return Err(status::ORG),
+            Org::Idx => Kind::Idx {
+                f: idx::File::new(
+                    HostBlocks::new(host_file(path, fac & WRITES != 0, false)?)?,
+                    fab.rfm == Rfm::Fix,
+                    fab.mrs,
+                ),
+                key: 0,
+                next: None,
+            },
         };
         Ok(File {
             path: path.to_path_buf(),
@@ -277,12 +296,38 @@ impl File {
             }
             Org::Rel => {
                 let mut b = HostBlocks::new(host_file(path, true, true)?)?;
+                // Allocations come in clusters, as on a VMS disk.
+                let alloc = d.areas.first().map_or(0, |a| a.allocation).max(1);
+                b.grow(alloc.div_ceil(CLUSTER) * CLUSTER)?;
                 let rel = vms_rms::rel::create(&mut b, d)?;
                 crate::sys::set_xattr(path, vms_rms::XATTR, rel.fab.to_string().as_bytes())
                     .map_err(|_| status::CRE)?;
                 (rel.fab, Kind::Rel { rel, b, next: 1 })
             }
-            Org::Idx => return Err(status::ORG),
+            Org::Idx => {
+                let b = HostBlocks::new(host_file(path, true, true)?)?;
+                let mut f = idx::File::create(b, d, CLUSTER)?;
+                // What RMS keeps: the largest bucket, area 0's extension,
+                // the record size of fixed records.
+                let areas = f.prologue()?.areas;
+                let fab = Fab {
+                    bks: areas.iter().map(|a| a.bucket_size).max().unwrap_or(1),
+                    deq: match d.fab.deq {
+                        0 => areas.first().map_or(0, |a| a.extension),
+                        n => n,
+                    },
+                    lrl: if d.fab.rfm == Rfm::Fix { d.fab.mrs } else { 0 },
+                    ..d.fab
+                };
+                crate::sys::set_xattr(path, vms_rms::XATTR, fab.to_string().as_bytes())
+                    .map_err(|_| status::CRE)?;
+                let kind = Kind::Idx {
+                    f,
+                    key: 0,
+                    next: None,
+                };
+                (fab, kind)
+            }
         };
         let locks = Locks::take(path, fac | fab::PUT, shr)?;
         Ok(File {
@@ -306,6 +351,7 @@ impl File {
                 Ok(())
             }
             Kind::Rel { rel, b, next } => rel.last(b).map(|n| *next = n + 1),
+            Kind::Idx { .. } => Ok(()),
         };
         release(client, held);
         r
@@ -339,16 +385,18 @@ impl File {
     }
 
     /// $PUT: sequentially, or (a relative file) as record number `key`.
+    /// RMS$_OK_DUP when an indexed file's record repeats a key.
     pub fn put(&mut self, rec: &Record, key: Option<u32>) -> Result<Cond, Cond> {
         self.unlock();
+        let normal = |r: Result<(), Cond>| r.map(|()| status::NORMAL);
         self.op(|k| match k {
-            Kind::Seq { out, .. } => out.as_mut().ok_or(status::FAC)?.put(rec),
-            Kind::Rel { rel, b, next } => match key {
+            Kind::Seq { out, .. } => normal(out.as_mut().ok_or(status::FAC)?.put(rec)),
+            Kind::Rel { rel, b, next } => normal(match key {
                 Some(n) => rel.put(b, n, rec),
                 None => rel.put(b, *next, rec).map(|()| *next += 1),
-            },
-        })?;
-        Ok(status::NORMAL)
+            }),
+            Kind::Idx { f, .. } => f.put(&rec.data).map(|(_, st)| st),
+        })
     }
 
     /// $UPDATE of the current record.
@@ -356,10 +404,11 @@ impl File {
         let rfa = self.current.ok_or(status::CUR)?;
         let r = self.op(|k| match k {
             Kind::Seq { .. } => Err(status::IOP),
-            Kind::Rel { rel, b, .. } => rel.update(b, rfa.vbn, rec),
+            Kind::Rel { rel, b, .. } => rel.update(b, rfa.vbn, rec).map(|()| status::NORMAL),
+            Kind::Idx { f, .. } => f.update(rfa, &rec.data),
         });
         self.unlock();
-        r.map(|()| status::NORMAL)
+        r
     }
 
     /// $DELETE of the current record.
@@ -368,18 +417,21 @@ impl File {
         let r = self.op(|k| match k {
             Kind::Seq { .. } => Err(status::IOP),
             Kind::Rel { rel, b, .. } => rel.delete(b, rfa.vbn),
+            Kind::Idx { f, .. } => f.delete(rfa),
         });
         self.unlock();
         r.map(|()| status::NORMAL)
     }
 
-    /// $REWIND: the next record is the first again.
-    pub fn rewind(&mut self) {
+    /// $REWIND: the next record is the first again, in key `krf`'s
+    /// order for an indexed file.
+    pub fn rewind(&mut self, krf: u8) {
         self.unlock();
         self.current = None;
         match &mut self.kind {
             Kind::Seq { next, .. } => *next = 0,
             Kind::Rel { next, .. } => *next = 1,
+            Kind::Idx { key, next, .. } => (*key, *next) = (krf, None),
         }
     }
 
@@ -501,7 +553,59 @@ fn locate(k: &mut Kind, at: At) -> Result<(Rfa, Record), Cond> {
             *next = n + 1;
             Ok((Rfa { vbn: n, id: 0 }, rec))
         }
+        Kind::Idx { f, key, next } => {
+            let found = match at {
+                At::Next => match next {
+                    Some(c) => f.next(c)?,
+                    None => f.first(*key)?,
+                },
+                At::Rfa(r) => return Ok((r, Record::new(f.get_rfa(r)?))),
+                At::Key(krf, value, m) => {
+                    let found = match m {
+                        Match::Eq => f.get(krf, value, idx::Match::Eq)?,
+                        Match::Ge => f.get(krf, value, idx::Match::Ge)?,
+                        Match::Gt => f.get(krf, value, idx::Match::Gt)?,
+                        Match::Le | Match::Lt => before(f, krf, value, m == Match::Le)?,
+                    };
+                    *key = krf;
+                    found
+                }
+            };
+            *next = Some(found.at.clone());
+            Ok((found.rfa, Record::new(found.record)))
+        }
     }
+}
+
+/// The last record of key `krf` before `value`, or at it if `or_equal`.
+/// ponytail: reads the key's order from its start.
+fn before(
+    f: &mut idx::File<HostBlocks>,
+    krf: u8,
+    value: &[u8],
+    or_equal: bool,
+) -> Result<Found, Cond> {
+    let desc = f
+        .prologue()?
+        .keys
+        .get(krf as usize)
+        .ok_or(status::KRF)?
+        .desc
+        .clone();
+    if value.is_empty() || value.len() > desc.length() as usize {
+        return Err(status::KSZ);
+    }
+    let mut last = None;
+    let mut cur = f.first(krf);
+    while let Ok(found) = cur {
+        let o = idx::compare(&desc, &desc.extract(&found.record), value);
+        if o == std::cmp::Ordering::Greater || o == std::cmp::Ordering::Equal && !or_equal {
+            break;
+        }
+        cur = f.next(&found.at);
+        last = Some(found);
+    }
+    last.ok_or(status::RNF)
 }
 
 #[cfg(test)]

@@ -17,7 +17,7 @@ fn fixtures(area: &str) -> PathBuf {
 /// Runs `procs` of fixtures/AREA and returns the differences from what VMS
 /// gave, after `mask` on both sides.
 fn run_area(area: &str, procs: &[&str], mask: fn(&str) -> String) -> Vec<String> {
-    let tag = format!("{}{}", &area[..1], std::process::id());
+    let tag = format!("{area}{}", std::process::id());
     let tmp = std::env::temp_dir().join(format!("vpt-{area}-{}", std::process::id()));
     let dir = tmp.join("T").join(area.to_uppercase());
     std::fs::create_dir_all(&dir).unwrap();
@@ -125,7 +125,8 @@ fn diff(want: &str, got: &str) -> String {
     out
 }
 
-/// DIRECTORY/FULL's dates, file IDs and owners are the run's.
+/// DIRECTORY/FULL's dates, file IDs and owners are the run's, and its
+/// protection the host's.
 fn mask_full(s: &str) -> String {
     s.lines()
         .map(|l| {
@@ -135,6 +136,7 @@ fn mask_full(s: &str) -> String {
                 "Accessed:",
                 "Attr Mod:",
                 "Data Mod:",
+                "File protection:",
             ];
             match () {
                 _ if dated.iter().any(|d| l.starts_with(d)) => format!("{}\n", &l[..10]),
@@ -149,7 +151,7 @@ fn mask_full(s: &str) -> String {
 }
 
 #[test]
-#[ignore = "needs CREATE/FDL and indexed files"]
+
 fn recorded_keyed_io() {
     let failures = run_area("dclrms", &["DCLRMS"], mask_full);
     assert!(failures.is_empty(), "{}", failures.join("\n"));

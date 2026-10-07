@@ -3,14 +3,12 @@
 //! organization as an FDL describes it (/FDL; the messages are FDL's).
 //! What it says and returns is what VMS did (fixtures/fdlutil).
 
-use libvms::fileinfo::CLUSTER;
 use libvms::files::{Writer, io_status};
-use libvms::rms::HostBlocks;
 use std::io::BufRead;
 use vms_cond::Cond;
 use vms_fao::Arg;
 use vms_filespec::FileSpec;
-use vms_rms::{Blocks, Fab, Org, Record, Rfm, fdl, rat};
+use vms_rms::{Fab, Org, Record, Rfm, fdl, rat};
 use vms_utils::{E, I, NOSUCHFILE, Util, inhibit, shr, texts};
 
 const CREATE: u32 = 145;
@@ -292,21 +290,8 @@ fn from_fdl(mut u: Util) -> ! {
 fn make(path: &std::path::Path, d: &vms_rms::Design) -> Result<(), Cond> {
     match d.fab.org {
         Org::Seq => Writer::create(path, d.fab).map(drop),
-        Org::Rel => {
-            let f = std::fs::OpenOptions::new()
-                .read(true)
-                .write(true)
-                .create_new(true)
-                .open(path)
-                .map_err(io_status)?;
-            let mut b = HostBlocks::new(f)?;
-            let alloc = d.areas.first().map_or(0, |a| a.allocation).max(1);
-            b.grow(alloc.div_ceil(CLUSTER) * CLUSTER)?;
-            let rel = vms_rms::rel::create(&mut b, d)?;
-            libvms::sys::set_xattr(path, vms_rms::XATTR, rel.fab.to_string().as_bytes())
-                .map_err(|_| libvms::status::CRE)
+        Org::Rel | Org::Idx => {
+            libvms::rms::File::create(path, d, libvms::rms::fab::PUT, 0).map(drop)
         }
-        // ponytail: indexed files once vms_rms::idx can make them.
-        Org::Idx => Err(vms_rms::status::ORG),
     }
 }

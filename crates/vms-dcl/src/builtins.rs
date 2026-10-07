@@ -534,7 +534,8 @@ impl Dcl {
                             _ => Match::Eq,
                         };
                         let index = value(r, "INDEX").and_then(|i| i.parse().ok());
-                        (unquote(&k).into_bytes(), m, index.unwrap_or(0))
+                        // As the parser gives it: unquoted, quoted parts' case kept.
+                        (k.into_bytes(), m, index.unwrap_or(0))
                     }),
                     delete: present(r, "DELETE"),
                     nolock: present(r, "NOLOCK"),
@@ -611,7 +612,7 @@ impl Dcl {
                 }
                 // %DCL-E-OPENIN (or OPENOUT), then the reason.
                 let full = self.host.parse(&spec, "", "", false, false).unwrap_or(spec);
-                let what = if mode == Mode::Read {
+                let what = if matches!(mode, Mode::Read | Mode::ReadWrite) {
                     0x0003_109A
                 } else {
                     0x0003_10A2

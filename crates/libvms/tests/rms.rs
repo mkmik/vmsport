@@ -65,7 +65,7 @@ fn relative_shared() {
     assert_eq!(a.get(key, Rop::default()).err(), Some(status::RNF));
     assert_eq!(a.update(&rec("x")).err(), Some(status::CUR));
     // Sequentially, past the deleted cell; keys of the wrong size.
-    a.rewind();
+    a.rewind(0);
     let next = |f: &mut File| f.get(At::Next, Rop::default()).map(text);
     assert_eq!(next(&mut a).unwrap(), "first");
     assert_eq!(next(&mut a).unwrap(), "third");

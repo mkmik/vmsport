@@ -264,6 +264,9 @@ impl Context {
         let fd: i32 = std::env::var("VMSPORT_CONTEXT").ok()?.parse().ok()?;
         // SAFETY: DCL left this descriptor open for us; we own it from here.
         unsafe { std::env::remove_var("VMSPORT_CONTEXT") };
+        // Not for our children (a vmsportd we start, say): DCL waits for
+        // the descriptor's last holder to close it.
+        unsafe { libc::fcntl(fd, libc::F_SETFD, libc::FD_CLOEXEC) };
         let stream = unsafe { <UnixStream as std::os::fd::FromRawFd>::from_raw_fd(fd) };
         let mut r = BufReader::new(stream.try_clone().ok()?);
         let mut ctx = Context {

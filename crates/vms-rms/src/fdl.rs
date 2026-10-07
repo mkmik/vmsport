@@ -276,6 +276,15 @@ pub fn to_design(fdl: &Fdl) -> Result<Design, Error> {
     if areas.is_empty() {
         areas.push(area(0, file)?);
     }
+    // An indexed file's buckets default to 2 blocks (VMS made FIX 20, 30
+    // and 64 so), or one record's worth. ponytail: the record overhead is
+    // a guess; record a file of large records to pin it.
+    if org == Org::Idx {
+        let one = (fab.mrs as u32 + 32).div_ceil(BLOCK as u32).max(2) as u8;
+        for a in areas.iter_mut().filter(|a| a.bucket_size == 0) {
+            a.bucket_size = if fab.bks != 0 { fab.bks } else { one };
+        }
+    }
     let key0 = fdl.section("KEY", "0");
     let prologue = match key0.map(|k| k.num("PROLOG")).transpose()?.flatten() {
         Some(p) => p as u8,

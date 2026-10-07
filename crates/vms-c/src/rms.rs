@@ -939,7 +939,7 @@ pub unsafe extern "C" fn connect(rab: *mut Rab, err: *const c_void, suc: *const 
                 if o.connected {
                     return Err(status::ACT);
                 }
-                o.file.rewind();
+                o.file.rewind(r.krf);
                 if r.rop & rop::EOF != 0 {
                     o.file.to_end()?;
                 }
@@ -1114,8 +1114,8 @@ pub unsafe extern "C" fn delete(rab: *mut Rab, err: *const c_void, suc: *const c
 #[unsafe(export_name = "sys$rewind")]
 pub unsafe extern "C" fn rewind(rab: *mut Rab, err: *const c_void, suc: *const c_void) -> u32 {
     unsafe {
-        rab_service(rab, err, suc, |_, o| {
-            o.file.rewind();
+        rab_service(rab, err, suc, |r, o| {
+            o.file.rewind(r.krf);
             Ok(status::NORMAL)
         })
     }
