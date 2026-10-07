@@ -32,6 +32,7 @@ struct State {
     ctx: Option<Context>,
     command: Option<ParseResult>,
     catalog: Option<vms_msg::Catalog>,
+    session: Option<crate::Session>,
 }
 
 static STATE: Mutex<State> = Mutex::new(State {
@@ -39,6 +40,7 @@ static STATE: Mutex<State> = Mutex::new(State {
     ctx: None,
     command: None,
     catalog: None,
+    session: None,
 });
 
 /// The process's state, DCL's context taken (and its command parsed) the
@@ -253,6 +255,24 @@ pub fn exit(st: Cond) -> ! {
         c.finish(st);
     }
     std::process::exit(if st.is_success() { 0 } else { 1 });
+}
+
+/// The process's file names for RMS's services: a session with DCL's
+/// default directory and process logical names, made the first time.
+pub fn session<R>(f: impl FnOnce(&crate::Session) -> R) -> Result<R, Cond> {
+    with(|s| {
+        if s.session.is_none() {
+            let mut ses = crate::Session::new().map_err(|_| Cond(0x2C))?;
+            if let Some(c) = &s.ctx {
+                let _ = ses.set_default(&c.default);
+                for l in &c.process {
+                    let _ = ses.define(vms_lnm::PROCESS_TABLE, l.clone());
+                }
+            }
+            s.session = Some(ses);
+        }
+        Ok(f(s.session.as_ref().unwrap()))
+    })
 }
 
 #[cfg(test)]

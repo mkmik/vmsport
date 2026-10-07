@@ -139,6 +139,9 @@ dependencies = [
  "libvms",
  "vms-cond",
  "vms-fao",
+ "vms-filespec",
+ "vms-rms",
+ "vmsportd",
 ]
 
 [[package]]

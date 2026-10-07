@@ -168,6 +168,8 @@ impl Manager {
     ) -> Result<Cond, Cond> {
         if s.grantable(id) {
             s.grant(id);
+            // A conversion down lets others in.
+            self.changed.notify_all();
             return Ok(SYNCH);
         }
         if noqueue {
