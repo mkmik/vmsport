@@ -100,6 +100,8 @@ pub enum After {
 pub struct Keypad {
     gold: bool,
     count: Option<usize>,
+    /// Digits typed after GOLD go on making the count.
+    counting: bool,
     backup: bool,
     select: Option<(usize, usize)>,
     und_char: String,
@@ -150,15 +152,18 @@ impl Keypad {
                 self.gold = true;
                 return After::Stay;
             }
-            (true, Key::Char(d)) if d.is_ascii_digit() => {
+            // GOLD and digits: a count for the next key (itself GOLDed or
+            // not); the digits after the first need no GOLD.
+            (g, Key::Char(d)) if d.is_ascii_digit() && (g || self.counting) => {
                 let n = self.count.unwrap_or(0) * 10 + d.to_digit(10).unwrap() as usize;
                 self.count = Some(n);
-                self.gold = true;
+                self.counting = true;
                 self.message = format!("Repeat: {n}");
                 return After::Stay;
             }
             _ => {}
         }
+        self.counting = false;
         let n = self.count.take().unwrap_or(1).max(1);
         let times = if gold && matches!(k, Key::Kp('3')) {
             1
@@ -183,13 +188,11 @@ impl Keypad {
             (true, Key::Pf(3)) => self.prompt = Some(Prompt::Search(String::new())),
             (false, Key::Pf(4)) => {
                 let (l, c) = pos(e);
-                let len = e.buf().lines.get(l).map_or(0, |x| x.text.len());
                 let end = if l < e.buf().lines.len() {
                     (l + 1, 0)
                 } else {
                     (l, c)
                 };
-                let _ = len;
                 self.und_line = cut(e, (l, c), end);
             }
             (true, Key::Pf(4)) => {
@@ -549,7 +552,7 @@ impl Keypad {
         let u: Vec<char> = up.chars().collect();
         while i < s.len() {
             // I text ^Z: insert.
-            if u[i] == 'I' && !u.get(i + 1).is_some_and(|c| c.is_ascii_alphabetic()) {
+            if u[i] == 'I' {
                 let end = (i + 1..s.len())
                     .find(|j| s[*j] == '^' && u.get(j + 1) == Some(&'Z'))
                     .unwrap_or(s.len());

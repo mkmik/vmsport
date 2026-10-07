@@ -102,6 +102,7 @@ impl Input {
     }
 
     fn byte(&mut self) -> Option<u8> {
+        REPLAYING.store(!self.replay.is_empty(), Relaxed);
         let b = match self.replay.pop_front() {
             Some(b) => b,
             None => {
@@ -153,6 +154,9 @@ impl Read for Input {
 }
 
 static RAW: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+/// A journal is being replayed (keypad mode reads through term::Keys).
+static REPLAYING: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+use std::sync::atomic::Ordering::Relaxed;
 
 fn raw_now() -> bool {
     RAW.load(std::sync::atomic::Ordering::Relaxed)
@@ -300,10 +304,7 @@ fn main() {
             if ended == Flow::Change {
                 // ponytail: keypad keys in a journal replay in keypad mode
                 // only when the journal switched to it.
-                let f = keypad_mode(&mut e, &mut input, &mut files, &mut out);
-                if let Some(f) = f {
-                    let _ = f;
-                }
+                let _ = keypad_mode(&mut e, &mut input, &mut files, &mut out);
             }
         }
         e.replaying = false;
@@ -386,6 +387,7 @@ fn keypad_mode(
         if key == Key::Ctrl('W') {
             last = None;
         }
+        e.replaying = REPLAYING.load(Relaxed);
         match k.key(e, key, files) {
             After::Stay => {}
             After::LineMode => break None,

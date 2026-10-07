@@ -17,6 +17,7 @@ The vmsport crates are tested against these. The inputs were written for vmsport
 | `utils/` | `setup.txt`, `cases.txt` (`gen.py` makes `UTILS.COM`) | DIRECTORY, TYPE, COPY, DELETE, PURGE and SEARCH output and `$STATUS`, case by case |
 | `cabi/` | `CODES.COM` | the `#define` lines of the LIB$, SS$, CLI$, STS$ and DSC$ values vmsport's C headers use, from DEC C's SYS$STARLET_C.TLB (`to_headers.py` writes `include/`) |
 | `lnm/` | `LNM.COM` | logical names: SHOW LOGICAL, F$TRNLNM items, rooted and concealed devices through F$PARSE |
+| `edt/` | `run2.dcl`, `run3.dcl` (typed at an installed system's console by `fixtures/vms/system.py`) | EDT in line mode from a procedure's data lines: ranges and line numbers, every command's output and messages, FILL, RESEQUENCE, buffers, SET and SHOW, PRINT's records (DUMP), journals and /RECOVER, the qualifiers. Keypad mode couldn't be recorded at the console: it follows EDT's documented keypad (crates/vms-edt/tests/keypad.rs) |
 | `time/` | `time.com` | `F$CVTIME`, `F$TIME` and the time formats |
 | `spawn/` | `SPAWN.COM`, `PIPE.COM` | SPAWN and PIPE: their messages, statuses and symbols |
 | `help/` | `TEST.HLP`, `help.com` | HELP: a topic, and a prompting session fed by data lines |
