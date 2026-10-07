@@ -88,8 +88,9 @@ pub fn volume(image: &Path) -> Result<Volume, Error> {
     })
 }
 
-/// MOUNT: `image` as `device`. Returns the volume label.
-pub fn mount(image: &Path, device: &str) -> Result<String, Error> {
+/// MOUNT: `image` as `device`; with `write` false (/NOWRITE), DISMOUNT
+/// leaves the image as it was. Returns the volume label.
+pub fn mount(image: &Path, device: &str, write: bool) -> Result<String, Error> {
     let device = device_name(device)?;
     let image = std::fs::canonicalize(image).map_err(|e| io(e, image))?;
     let mnt = vmsportd::run_dir().join("mnt");
@@ -114,6 +115,9 @@ pub fn mount(image: &Path, device: &str) -> Result<String, Error> {
         let tmp = dir.join("staging");
         stage_out(&mut img, MFD, &tmp, "", &mut list, &mut vec![MFD])?;
         std::fs::write(dir.join("STAGED"), list).map_err(|e| io(e, &dir))?;
+        if !write {
+            std::fs::write(dir.join("NOWRITE"), "").map_err(|e| io(e, &dir))?;
+        }
         std::fs::write(dir.join("IMAGE"), format!("{}\n{label}\n", image.display()))
             .map_err(|e| io(e, &dir))?;
         // The tree appears whole or not at all.
@@ -134,6 +138,9 @@ pub fn dismount(device: &str) -> Result<(), Error> {
     let Some((image, _)) = mounted(&device) else {
         return Err((DEVNOTMOUNT, device));
     };
+    if dir.join("NOWRITE").exists() {
+        return std::fs::remove_dir_all(&dir).map_err(|e| io(e, &dir));
+    }
     let list = std::fs::read_to_string(dir.join("STAGED")).map_err(|e| io(e, &dir))?;
     let staged: HashMap<&str, &str> = list
         .lines()
@@ -184,6 +191,7 @@ fn fab_of(r: &RecordAttrs) -> Fab {
         lrl: r.rsize,
         fsz: r.vfcsize,
         bks: r.bktsize,
+        deq: r.defext,
     }
 }
 
@@ -201,6 +209,7 @@ fn record_of(f: &Fab, old: RecordAttrs) -> RecordAttrs {
         maxrec: f.mrs,
         vfcsize: f.fsz,
         bktsize: f.bks,
+        defext: f.deq,
         ..old
     }
 }

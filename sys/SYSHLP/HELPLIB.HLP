@@ -485,6 +485,18 @@ file-spec[,...]
  3.$ DIRECTORY/VERSIONS=1 SYS$LOGIN:
 
    The newest version of each file in your home directory.
+1 DISMOUNT
+ Ends the use of a device MOUNT made from a Files-11 image file. The
+ files that changed, came or went while it was mounted are written back
+ into the image, and the logical name MOUNT defined goes away.
+
+ Format
+
+   DISMOUNT device-name[:]
+2 Parameters
+device-name[:]
+
+ The device, as MOUNT named it (DKA100:).
 1 ELSE
  Starts the part of an IF block that runs when the condition is false.
  See IF.
@@ -920,6 +932,45 @@ prompt-string
  Accepted; no logout message is shown.
 /FULL
  Accepted; no accounting is shown.
+1 MOUNT
+ Makes a Files-11 disk image (ODS-2 or ODS-5, as INITIALIZE or the ods
+ tool make it, or as copied from a VMS system) a device, so its files can
+ be used as DKA100:[DIR]FILE.TYP. Every process of the user sees it until
+ DISMOUNT, which writes the changes back into the image.
+
+ vmsport names the image first, where VMS names a drive.
+
+ Format
+
+   MOUNT image-file device-name[:] [volume-label] [logical-name[:]]
+2 Parameters
+image-file
+
+ The host file holding the volume.
+device-name[:]
+
+ The name the volume gets: DKA100:, LDA1: or any other.
+volume-label
+
+ The label the volume must have; MOUNT fails with INCVOLLABEL when it
+ has another.
+logical-name[:]
+
+ The logical name to define for the device in the job table; by default
+ DISK$label.
+2 Qualifiers
+/OVERRIDE
+
+    /OVERRIDE=IDENTIFICATION
+
+ Mounts the volume whatever its label.
+/WRITE
+
+    /WRITE (default)
+    /NOWRITE
+
+ With /NOWRITE, DISMOUNT leaves the image as it was, whatever was
+ changed on the device.
 1 ON
  Says what to do when a command in this procedure level fails.
 

@@ -24,6 +24,7 @@ fn main() {
     let device = u.value("DEVICE").unwrap_or_default();
     let label = u.value("VOLUME_LABEL");
     let logical = u.value("LOGICAL_NAME");
+    let write = u.present("WRITE");
     let check = !u
         .values("OVERRIDE")
         .iter()
@@ -81,7 +82,7 @@ fn main() {
         ]);
         u.exit(inhibit(INCVOLLABEL));
     }
-    if let Err(e) = mount::mount(&path, &dev) {
+    if let Err(e) = mount::mount(&path, &dev, write) {
         failed(u, e);
     }
     let name = logical.unwrap_or_else(|| format!("DISK${}", vol.label));

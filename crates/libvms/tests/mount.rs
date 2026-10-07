@@ -61,13 +61,13 @@ fn round_trip() {
         img.flush().unwrap();
     }
 
-    assert_eq!(mount::mount(&path, "_dka100:").unwrap(), "TESTVOL");
+    assert_eq!(mount::mount(&path, "_dka100:", true).unwrap(), "TESTVOL");
     assert_eq!(
-        mount::mount(&path, "DKA200").unwrap_err().0,
+        mount::mount(&path, "DKA200", true).unwrap_err().0,
         mount::DEVMOUNT
     );
     assert_eq!(
-        mount::mount(&path, "DKA100").unwrap_err().0,
+        mount::mount(&path, "DKA100", true).unwrap_err().0,
         mount::DEVMOUNT
     );
     let root = mount::root("DKA100:").unwrap();
@@ -126,6 +126,13 @@ fn round_trip() {
         (changed, 0x21, 1)
     );
     assert_eq!(img.verify().unwrap().findings, vec![]);
+    drop(img);
+    // /NOWRITE: nothing goes back.
+    mount::mount(&path, "DKA100", false).unwrap();
+    std::fs::remove_file(mount::root("DKA100").unwrap().join("T/A.TXT;1")).unwrap();
+    mount::dismount("DKA100").unwrap();
+    let mut img = Image::open(&path, ods_image::Mode::ReadOnly).unwrap();
+    assert!(img.lookup("[T]A.TXT;1").is_ok());
     drop(img);
     let _ = std::fs::remove_dir_all(&tmp);
     let _ = std::fs::remove_dir_all(&run);
