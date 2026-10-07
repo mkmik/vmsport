@@ -1,0 +1,12 @@
+FILE
+	ORGANIZATION		indexed
+RECORD
+	CARRIAGE_CONTROL	carriage_return
+	FORMAT			fixed
+	SIZE			15
+KEY 0
+	CHANGES			no
+	DUPLICATES		no
+	SEG0_LENGTH		8
+	SEG0_POSITION		0
+	TYPE			string

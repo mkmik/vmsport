@@ -141,11 +141,15 @@ def harvest(run, areas):
             name, dest = rest.split()
             dest = FIX / area / dest
             dest.parent.mkdir(parents=True, exist_ok=True)
-            if verb == "text":
-                ods("copy-out", out, f"[T.{d}]{name}", dest, "--mode", "records-to-lines")
-            elif verb == "blocks":
-                dest.write_bytes(blocks(out, f"[T.{d}]{name}"))
-            else:
+            # A file the run didn't make is reported, not fatal.
+            try:
+                if verb == "text":
+                    ods("copy-out", out, f"[T.{d}]{name}", dest, "--mode", "records-to-lines")
+                elif verb == "blocks":
+                    dest.write_bytes(blocks(out, f"[T.{d}]{name}"))
+            except (subprocess.CalledProcessError, AttributeError):
+                print(f"{area}: no {name}")
+            if verb == "manifest":
                 entries = [e for e in manifest["entries"]
                            if e["path"].upper().startswith(f"{d}/") and fnmatch.fnmatch(e["name"], name)]
                 m = dict(manifest, entries=entries)

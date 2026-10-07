@@ -1,0 +1,10 @@
+banana  0012 b
+banana  0012 f
+ba
+date    0045 e
+ab
+cherry  0003 c
+fig     0010 g
+elderberry-is-a-long-name 0001 h
+apple   0007 d
+apple   0100 a

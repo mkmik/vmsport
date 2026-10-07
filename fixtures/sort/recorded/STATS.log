@@ -1,0 +1,374 @@
+%DCL-I-SUPERSEDE, previous value of SYS$SCRATCH has been superseded
+@@ G10
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          10          Input record length:       32
+Records sorted:        10          Internal length:           36
+Records output:        10          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             9          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           34          Work file alloc:            0
+Elapsed time: 00:00:00.00          Elapsed CPU:      00:00:00.01   
+  $STATUS == "%X00000001"
+@@ G20
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          20          Input record length:       32
+Records sorted:        20          Internal length:           36
+Records output:        20          Output record length:      32
+Working set:        24000          Sort tree size:            68
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           32          Work file alloc:            0
+Elapsed time: 00:00:00.00          Elapsed CPU:      00:00:00.01   
+  $STATUS == "%X00000001"
+@@ G34
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          34          Input record length:       32
+Records sorted:        34          Internal length:           36
+Records output:        34          Output record length:      32
+Working set:        24000          Sort tree size:            92
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           32          Work file alloc:            0
+Elapsed time: 00:00:00.00          Elapsed CPU:      00:00:00.01   
+  $STATUS == "%X00000001"
+@@ G35
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          35          Input record length:       32
+Records sorted:        35          Internal length:           36
+Records output:        35          Output record length:      32
+Working set:        24000          Sort tree size:            92
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           32          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+  $STATUS == "%X00000001"
+@@ G100
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           36
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           244
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           34          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+  $STATUS == "%X00000001"
+@@ G300
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         300          Input record length:       32
+Records sorted:       300          Internal length:           36
+Records output:       300          Output record length:      32
+Working set:        24000          Sort tree size:           674
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           38          Work file alloc:            0
+Elapsed time: 00:00:00.02          Elapsed CPU:      00:00:00.03   
+  $STATUS == "%X00000001"
+@@ G1K
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:        1000          Input record length:       32
+Records sorted:      1000          Internal length:           36
+Records output:      1000          Output record length:      32
+Working set:        24000          Sort tree size:          2140
+Virtual memory:       464          Number of initial runs:     0
+Direct I/O:            10          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           48          Work file alloc:            0
+Elapsed time: 00:00:00.07          Elapsed CPU:      00:00:00.07   
+  $STATUS == "%X00000001"
+@@ H100
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       80
+Records sorted:       100          Internal length:           84
+Records output:       100          Output record length:      80
+Working set:        24000          Sort tree size:           216
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           34          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.02   
+  $STATUS == "%X00000001"
+@@ K100
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       10
+Records sorted:       100          Internal length:           14
+Records output:       100          Output record length:      10
+Working set:        24000          Sort tree size:           276
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           32          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.02   
+  $STATUS == "%X00000001"
+@@ G3
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:           3          Input record length:       32
+Records sorted:         3          Internal length:           36
+Records output:         3          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           32          Work file alloc:            0
+Elapsed time: 00:00:00.00          Elapsed CPU:      00:00:00.01   
+  $STATUS == "%X00000001"
+@@ G1
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:           1          Input record length:       32
+Records sorted:         1          Internal length:           36
+Records output:         1          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           32          Work file alloc:            0
+Elapsed time: 00:00:00.00          Elapsed CPU:      00:00:00.01   
+  $STATUS == "%X00000001"
+@@ G100 stable
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           40
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           244
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             9          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           33          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.02   
+@@ G100 nodup
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           36
+Records output:         7          Output record length:      32
+Working set:        24000          Sort tree size:           244
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           33          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.02   
+@@ G100 desc
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           36
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           244
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           33          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+@@ G100 two keys
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           36
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           244
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           33          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+@@ G100 whole
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           36
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           244
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           33          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+@@ G100 binary
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           36
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           196
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           32          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+@@ G100 decimal
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           40
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           202
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             6          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           34          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+@@ G100 tag
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:         100          Input record length:       32
+Records sorted:       100          Internal length:           10
+Records output:       100          Output record length:      32
+Working set:        24000          Sort tree size:           256
+Virtual memory:       272          Number of initial runs:     0
+Direct I/O:             7          Maximum merge order:        0
+Buffered I/O:           6          Number of merge passes:     0
+Page faults:           34          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+@@ G1K merge
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:        1100          Input record length:       32
+Records sorted:      1100          Internal length:           36
+Records output:      1100          Output record length:      32
+Working set:        24000          Sort tree size:             0
+Virtual memory:       272          Number of initial runs:     2
+Direct I/O:            11          Maximum merge order:        2
+Buffered I/O:           7          Number of merge passes:     1
+Page faults:           38          Work file alloc:            0
+Elapsed time: 00:00:00.06          Elapsed CPU:      00:00:00.06   
+@@ IN decimal
+%SORT-W-BAD_SRL, record length (2) is too short to contain keys
+-SORT-E-READERR, error reading DKA200:[T.SORT]IN.TXT;1
+%SORT-W-BAD_SRL, record length (2) is too short to contain keys
+-SORT-E-READERR, error reading DKA200:[T.SORT]IN.TXT;1
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          10          Input record length:       32
+Records sorted:         8          Internal length:           38
+Records output:         8          Output record length:      32
+Working set:        24000          Sort tree size:            32
+Virtual memory:       608          Number of initial runs:     0
+Direct I/O:            10          Maximum merge order:        0
+Buffered I/O:          26          Number of merge passes:     0
+Page faults:           43          Work file alloc:            0
+Elapsed time: 00:00:00.03          Elapsed CPU:      00:00:00.03   
+@@ IN key
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          10          Input record length:       32
+Records sorted:        10          Internal length:           34
+Records output:        10          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       400          Number of initial runs:     0
+Direct I/O:             8          Maximum merge order:        0
+Buffered I/O:          15          Number of merge passes:     0
+Page faults:           35          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+@@ IN binary
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          10          Input record length:       32
+Records sorted:        10          Internal length:           34
+Records output:        10          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       400          Number of initial runs:     0
+Direct I/O:             8          Maximum merge order:        0
+Buffered I/O:          15          Number of merge passes:     0
+Page faults:           35          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.02   
+@@ IN pos30
+%SORT-I-KEY_LEN, invalid key length, key number 1, length 4
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          10          Input record length:       32
+Records sorted:        10          Internal length:           34
+Records output:        10          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       608          Number of initial runs:     0
+Direct I/O:            10          Maximum merge order:        0
+Buffered I/O:          23          Number of merge passes:     0
+Page faults:           39          Work file alloc:            0
+Elapsed time: 00:00:00.02          Elapsed CPU:      00:00:00.02   
+@@ IN nodup
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          10          Input record length:       32
+Records sorted:        10          Internal length:           34
+Records output:         8          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       400          Number of initial runs:     0
+Direct I/O:             8          Maximum merge order:        0
+Buffered I/O:          15          Number of merge passes:     0
+Page faults:           35          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.00   
+ab
+apple   0007 d
+ba
+banana  0012 f
+cherry  0003 c
+date    0045 e
+elderberry-is-a-long-name 0001 h
+fig     0010 g
+@@ IN key1-8
+
+                  OpenVMS Sort/Merge Statistics
+
+Records read:          10          Input record length:       32
+Records sorted:        10          Internal length:           34
+Records output:        10          Output record length:      32
+Working set:        24000          Sort tree size:            34
+Virtual memory:       400          Number of initial runs:     0
+Direct I/O:             8          Maximum merge order:        0
+Buffered I/O:          15          Number of merge passes:     0
+Page faults:           35          Work file alloc:            0
+Elapsed time: 00:00:00.01          Elapsed CPU:      00:00:00.01   
+ab
+apple   0100 a
+apple   0007 d
+ba
+banana  0012 b
+banana  0012 f
+cherry  0003 c
+date    0045 e
+elderberry-is-a-long-name 0001 h
+fig     0010 g
+@@ end

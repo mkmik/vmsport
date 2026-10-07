@@ -1,0 +1,17 @@
+! The SORT and MERGE messages vmsport uses, with VMS's numbers
+! (fixtures/sort/recorded/MSGS.log, from SYS$MESSAGE:SORTMSG).
+	.TITLE		SORT	SORT/MERGE messages
+	.FACILITY	SORT,28 /SYSTEM
+	.SEVERITY	WARNING
+	.BASE		6
+BAD_KEY		<invalid key specification>
+	.BASE		10
+IND_OVR		<indexed output file must already exist>
+	.BASE		12
+VAR_FIX		<records may be truncated or padded in output file: !/	!AS> /FAO=1
+	.BASE		21
+KEY_LEN		<invalid key length, key number !SL, length !SL> /FAO=2
+	.BASE		26
+BAD_ORDER	<merge input is out of order>
+	.BASE		31
+BAD_SRL		<record length (!UL) is too short to contain keys> /FAO=1

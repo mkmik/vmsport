@@ -1,5 +1,7 @@
 //! What the utilities share: their command, file lists, messages.
 
+pub mod sort;
+
 use libvms::image::Image;
 use std::path::PathBuf;
 use vms_cld::status as cli;
@@ -16,6 +18,8 @@ pub mod shr {
     pub const NEWFILES: u32 = 530;
     pub const OPENIN: u32 = 531;
     pub const OPENOUT: u32 = 532;
+    pub const READERR: u32 = 534;
+    pub const WRITEERR: u32 = 538;
     pub const DELVER: u32 = 577;
     pub const SEARCHFAIL: u32 = 583;
     pub const TOTAL: u32 = 610;
