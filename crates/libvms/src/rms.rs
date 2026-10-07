@@ -264,11 +264,15 @@ impl File {
                 next: 1,
             },
             Org::Idx => Kind::Idx {
-                f: idx::File::new(
-                    HostBlocks::new(host_file(path, fac & WRITES != 0, false)?)?,
-                    fab.rfm == Rfm::Fix,
-                    fab.mrs,
-                ),
+                // Extensions come in clusters too, as when it was made.
+                f: idx::File {
+                    cluster: CLUSTER,
+                    ..idx::File::new(
+                        HostBlocks::new(host_file(path, fac & WRITES != 0, false)?)?,
+                        fab.rfm == Rfm::Fix,
+                        fab.mrs,
+                    )
+                },
                 key: 0,
                 next: None,
             },

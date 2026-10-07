@@ -86,6 +86,16 @@ fn analyzed(area: &str, name: &str, dat: &str, report: &str) -> usize {
     let now = &chk.lines().nth(1).unwrap()[45..68];
     let command = chk.lines().last().unwrap();
     let (got, errors) = check(&fab, &h, &mut b, now, command).unwrap();
+    // VMS stamps each page with the time it printed it; ours say `now`.
+    let chk: String = chk
+        .split_inclusive('\n')
+        .map(|l| match l.find("   Page ") {
+            Some(at) if l.starts_with("Check RMS File Integrity") => {
+                format!("{}{now}{}", &l[..45], &l[at..])
+            }
+            _ => l.to_string(),
+        })
+        .collect();
     assert_eq!(got, chk, "{report}.CHK");
     if let Ok(anl) = read("ANL") {
         let ident = after(&anl, "IDENT\tFDL_VERSION 02 \"").unwrap();
@@ -140,4 +150,16 @@ fn made_by_vms_rms() {
         analyzed("rmsback", "RGAPS", "recorded/RGAPS.DAT", "RGAPSV"),
         0
     );
+}
+
+#[test]
+fn indexed() {
+    made_on_vms("rms", "IDX");
+    made_on_vms("rms", "IDXVAR");
+    for name in [
+        "E1", "E2", "E3", "E4", "E5", "E6", "E7", "P1", "P2", "RB", "AS", "DS", "DEL", "PD", "KS",
+        "NC", "TY", "ML",
+    ] {
+        made_on_vms("idx", name);
+    }
 }
