@@ -1,6 +1,6 @@
 //! The keypad editors on a real terminal (a pty): raw mode holds, so
 //! cursor keys and the keypad arrive as keys, not text; F16 (ESC [29~)
-//! is GOLD in EDT's keypad.
+//! is Do: EVE's command prompt, EDT's COMMAND.
 
 use std::io::{Read, Write};
 use std::os::fd::FromRawFd;
@@ -69,21 +69,21 @@ fn keypad_editors_on_a_terminal() {
     let run = PathBuf::from(format!("/tmp/vpt-pt{}", std::process::id()));
     let bin = |name: &str| Path::new(env!("CARGO_BIN_EXE_tpu")).with_file_name(name);
 
-    // EVE: two rights, a letter, Ctrl/Z.
+    // EVE: two rights, a letter, then Do (F16) EXIT.
     std::fs::write(tmp.join("e.txt"), "abc\n").unwrap();
     on_pty(
         &tmp,
         &run,
         &bin("tpu"),
         &["e.txt"],
-        &[b"\x1b[C", b"\x1b[C", b"X", b"\x1a"],
+        &[b"\x1b[C", b"\x1b[C", b"X", b"\x1b[29~", b"exit\r"],
     );
     assert_eq!(
         std::fs::read_to_string(tmp.join("e.txt;2")).unwrap(),
         "abXc\n"
     );
 
-    // EDT: CHANGE, down, right, a letter, F16 (GOLD) KP7 (COMMAND), EXIT.
+    // EDT: CHANGE, down, right, a letter, Do (F16: COMMAND), EXIT.
     std::fs::write(tmp.join("d.txt"), "abc\ndef\n").unwrap();
     let keys: &[&[u8]] = &[
         b"CHANGE\r",
@@ -91,7 +91,6 @@ fn keypad_editors_on_a_terminal() {
         b"\x1b[C",
         b"Y",
         b"\x1b[29~",
-        b"\x1bOw",
         b"EXIT\r",
     ];
     on_pty(&tmp, &run, &bin("edt"), &["d.txt"], keys);

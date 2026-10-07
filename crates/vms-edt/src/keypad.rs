@@ -148,9 +148,7 @@ impl Keypad {
             self.goal = None;
         }
         match (gold, &k) {
-            // GOLD: PF1, and F16 (ESC [29~), which EDT leaves free, for
-            // keyboards without PF1.
-            (_, Key::Pf(1) | Key::F(16)) => {
+            (_, Key::Pf(1)) => {
                 self.gold = true;
                 return After::Stay;
             }
@@ -202,7 +200,10 @@ impl Keypad {
                 insert_text(e, &t);
             }
             (false, Key::Kp('7')) => move_page(e, fwd),
-            (true, Key::Kp('7')) => self.prompt = Some(Prompt::Command(String::new())),
+            // COMMAND; also on Do (F16, ESC [29~), which EDT leaves free.
+            (true, Key::Kp('7')) | (_, Key::F(16)) => {
+                self.prompt = Some(Prompt::Command(String::new()))
+            }
             (false, Key::Kp('8')) => move_lines(e, fwd, SECT),
             (true, Key::Kp('8')) => {
                 if let Some((s, _)) = self.range(e) {
