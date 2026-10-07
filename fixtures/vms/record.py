@@ -11,6 +11,8 @@ Each AREA is a directory under fixtures/ with a vms.txt that says what to do:
                          the attributes its ods-manifest.json gives them
     volume IMAGE         make fixtures/AREA/IMAGE (gzipped if .gz) the input
                          volume rather than a new one: [T.AREA] may be on it
+    binary FILE ATTRS    copy it in as its bytes, with record attributes ATTRS
+                         as in the vms.fab xattr: org=idx rfm=fix rat=cr mrs=64 bks=1
     run DCL-LINE         a line of DCL, run in DKA200:[T.AREA]
     text NAME DEST       copy [T.AREA]NAME out as text lines to fixtures/AREA/DEST
     blocks NAME DEST     copy it out as raw blocks, up to its highwater mark
@@ -73,6 +75,26 @@ def ods(*args, capture=False):
     return r.stdout
 
 
+def binary_in(img, path, spec, attrs):
+    """Copies a host file in as its bytes, with record attributes from the
+    vms.fab text `attrs`, by `ods import` of it and a one-entry manifest."""
+    a = dict(kv.split("=", 1) for kv in attrs.split())
+    org = {"seq": 0, "rel": 1, "idx": 2}[a.get("org", "seq")]
+    rfm = ["udf", "fix", "var", "vfc", "stm", "stmlf", "stmcr"].index(a.get("rfm", "udf"))
+    rat = sum({"ftn": 1, "cr": 2, "prn": 4, "blk": 8}.get(r, 0) for r in a.get("rat", "none").split(","))
+    name = spec.split("]")[1]
+    entry = dict(path=name + ";1", directory=False, name=name, version=1, bytes=path.stat().st_size,
+                 rtype=org << 4 | rfm, rattrib=rat, rsize=int(a.get("lrl", 0)), bktsize=int(a.get("bks", 0)),
+                 vfcsize=int(a.get("fsz", 0)), maxrec=int(a.get("mrs", 0)), defext=0, gbc=0, reserved=[0] * 8,
+                 version_limit=0, filechar=0, owner=0x10004, protection=0xFA00, revision=1, created=0, revised=0,
+                 expires=0, backup=0, accessed=0, attr_changed=0)
+    with tempfile.TemporaryDirectory() as tmp:
+        shutil.copy(path, pathlib.Path(tmp) / (name + ";1"))
+        manifest = dict(volume="", structure_level=5, root="[T]", entries=[entry])
+        (pathlib.Path(tmp) / "ods-manifest.json").write_text(json.dumps(manifest))
+        ods("import", img, tmp, spec.split("]")[0] + "]")
+
+
 def area_steps(area):
     """The (verb, rest) lines of fixtures/AREA/vms.txt."""
     steps = []
@@ -122,6 +144,9 @@ def record(run, areas):
                 ods("copy-in", img, FIX / area / rest, f"[T.{d}]{rest.upper()}", "--mode", "lines-to-records")
             elif verb == "import":
                 ods("import", img, FIX / area / rest, f"[T.{d}]")
+            elif verb == "binary":
+                name, attrs = rest.split(None, 1)
+                binary_in(img, FIX / area / name, f"[T.{d}]{name.upper()}", attrs)
             elif verb == "run":
                 com.append(rest if rest.startswith("$") else "$ " + rest)
     com.append("$ DIRECTORY/SIZE DKA200:[T...]")

@@ -1,0 +1,7 @@
+# How full RMS lets a data bucket get (crates/vms-rms/src/idx.rs).
+in CPK.FDL
+in CPN.FDL
+in CPKR.FDL
+in PROBE.COM
+run @PROBE.COM/OUTPUT=PROBE.LOG
+text PROBE.LOG recorded/probe.log

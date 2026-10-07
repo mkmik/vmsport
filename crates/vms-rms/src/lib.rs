@@ -34,6 +34,7 @@ pub mod analyze;
 /// Record attribute bits (`FAB$V_FTN` ...).
 mod blocks;
 pub mod fdl;
+pub mod idx;
 pub mod rel;
 pub mod status;
 

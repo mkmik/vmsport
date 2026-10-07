@@ -1,0 +1,307 @@
+IDENT	FDL_VERSION 02 " 7-OCT-2026 03:46:32   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              144
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             1
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T.IDXRT]RT3.DAT;1"
+	ORGANIZATION            indexed
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        none
+	FORMAT                  fixed
+	SIZE                    40
+
+AREA 0
+	ALLOCATION              128
+	BUCKET_SIZE             1
+	EXTENSION               16
+
+KEY 0
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    no
+	DATA_RECORD_COMPRESSION yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              no
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    "R"
+	NULL_KEY                no
+	PROLOG                  3
+	SEG0_LENGTH             4
+	SEG0_POSITION           0
+	TYPE                    string
+
+KEY 1
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             2
+	SEG0_POSITION           4
+	TYPE                    int2
+
+KEY 2
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             4
+	SEG0_POSITION           6
+	TYPE                    int4
+
+KEY 3
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             8
+	SEG0_POSITION           10
+	TYPE                    int8
+
+KEY 4
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             2
+	SEG0_POSITION           18
+	TYPE                    bin2
+
+KEY 5
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             8
+	SEG0_POSITION           20
+	TYPE                    bin8
+
+KEY 6
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             3
+	SEG0_POSITION           28
+	TYPE                    decimal
+
+KEY 7
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             4
+	SEG0_POSITION           31
+	TYPE                    dstring
+
+KEY 8
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    no
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       no
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             4
+	SEG0_POSITION           35
+	TYPE                    dint4
+
+ANALYSIS_OF_AREA 0
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_KEY 0
+	DATA_FILL               59
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COMPRESSION -3
+	DATA_RECORD_COUNT       267
+	DATA_SPACE_OCCUPIED     52
+	DEPTH                   1
+	INDEX_COMPRESSION       0
+	INDEX_FILL              64
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     52
+	MEAN_DATA_LENGTH        40
+	MEAN_INDEX_LENGTH       6
+	LONGEST_RECORD_LENGTH   40
+
+ANALYSIS_OF_KEY 1
+	DATA_FILL               57
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       9
+	DATA_SPACE_OCCUPIED     5
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     29
+	INDEX_COMPRESSION       0
+	INDEX_FILL              7
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     5
+	MEAN_DATA_LENGTH        156
+	MEAN_INDEX_LENGTH       4
+
+ANALYSIS_OF_KEY 2
+	DATA_FILL               71
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       10
+	DATA_SPACE_OCCUPIED     4
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     26
+	INDEX_COMPRESSION       0
+	INDEX_FILL              8
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     4
+	MEAN_DATA_LENGTH        140
+	MEAN_INDEX_LENGTH       6
+
+ANALYSIS_OF_KEY 3
+	DATA_FILL               51
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       267
+	DATA_SPACE_OCCUPIED     16
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     0
+	INDEX_COMPRESSION       0
+	INDEX_FILL              34
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     16
+	MEAN_DATA_LENGTH        15
+	MEAN_INDEX_LENGTH       10
+
+ANALYSIS_OF_KEY 4
+	DATA_FILL               71
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       7
+	DATA_SPACE_OCCUPIED     4
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     37
+	INDEX_COMPRESSION       0
+	INDEX_FILL              6
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     4
+	MEAN_DATA_LENGTH        199
+	MEAN_INDEX_LENGTH       4
+
+ANALYSIS_OF_KEY 5
+	DATA_FILL               55
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       267
+	DATA_SPACE_OCCUPIED     15
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     0
+	INDEX_COMPRESSION       0
+	INDEX_FILL              32
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     15
+	MEAN_DATA_LENGTH        15
+	MEAN_INDEX_LENGTH       10
+
+ANALYSIS_OF_KEY 6
+	DATA_FILL               73
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       13
+	DATA_SPACE_OCCUPIED     4
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     20
+	INDEX_COMPRESSION       0
+	INDEX_FILL              7
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     4
+	MEAN_DATA_LENGTH        111
+	MEAN_INDEX_LENGTH       5
+
+ANALYSIS_OF_KEY 7
+	DATA_FILL               48
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       6
+	DATA_SPACE_OCCUPIED     6
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     44
+	INDEX_COMPRESSION       0
+	INDEX_FILL              10
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     6
+	MEAN_DATA_LENGTH        234
+	MEAN_INDEX_LENGTH       6
+
+ANALYSIS_OF_KEY 8
+	DATA_FILL               57
+	DATA_KEY_COMPRESSION    0
+	DATA_RECORD_COUNT       5
+	DATA_SPACE_OCCUPIED     5
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     52
+	INDEX_COMPRESSION       0
+	INDEX_FILL              9
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     5
+	MEAN_DATA_LENGTH        280
+	MEAN_INDEX_LENGTH       6

@@ -1,0 +1,97 @@
+IDENT	FDL_VERSION 02 " 7-OCT-2026 02:54:36   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              96
+	BEST_TRY_CONTIGUOUS     no
+	BUCKET_SIZE             1
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               32
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T.IDXW]MC.DAT;1"
+	ORGANIZATION            indexed
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        carriage_return
+	FORMAT                  fixed
+	SIZE                    60
+
+AREA 0
+	ALLOCATION              96
+	BUCKET_SIZE             1
+	EXTENSION               32
+
+KEY 0
+	CHANGES                 no
+	DATA_KEY_COMPRESSION    yes
+	DATA_RECORD_COMPRESSION yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              no
+	INDEX_AREA              0
+	INDEX_COMPRESSION       yes
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	PROLOG                  3
+	SEG0_LENGTH             40
+	SEG0_POSITION           0
+	TYPE                    string
+
+KEY 1
+	CHANGES                 yes
+	DATA_KEY_COMPRESSION    yes
+	DATA_AREA               0
+	DATA_FILL               100
+	DUPLICATES              yes
+	INDEX_AREA              0
+	INDEX_COMPRESSION       yes
+	INDEX_FILL              100
+	LEVEL1_INDEX_AREA       0
+	NAME                    ""
+	NULL_KEY                no
+	SEG0_LENGTH             30
+	SEG0_POSITION           30
+	TYPE                    string
+
+ANALYSIS_OF_AREA 0
+	RECLAIMED_SPACE         0
+
+ANALYSIS_OF_KEY 0
+	DATA_FILL               73
+	DATA_KEY_COMPRESSION    3
+	DATA_RECORD_COMPRESSION 56
+	DATA_RECORD_COUNT       300
+	DATA_SPACE_OCCUPIED     52
+	DEPTH                   2
+	INDEX_COMPRESSION       4
+	INDEX_FILL              61
+	INDEX_SPACE_OCCUPIED    8
+	LEVEL1_RECORD_COUNT     52
+	MEAN_DATA_LENGTH        60
+	MEAN_INDEX_LENGTH       42
+	LONGEST_RECORD_LENGTH   60
+
+ANALYSIS_OF_KEY 1
+	DATA_FILL               80
+	DATA_KEY_COMPRESSION    53
+	DATA_RECORD_COUNT       300
+	DATA_SPACE_OCCUPIED     16
+	DEPTH                   1
+	DUPLICATES_PER_SIDR     0
+	INDEX_COMPRESSION       48
+	INDEX_FILL              54
+	INDEX_SPACE_OCCUPIED    1
+	LEVEL1_RECORD_COUNT     16
+	MEAN_DATA_LENGTH        21
+	MEAN_INDEX_LENGTH       32
