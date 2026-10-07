@@ -473,6 +473,19 @@ impl File {
             let _ = self.locks.client.deq(id);
         }
     }
+
+    /// What the file is: its FAB, and an indexed file's areas and keys as
+    /// its prologue has them ($DISPLAY's XABKEYs and XABALLs).
+    pub fn design(&mut self) -> Result<Design, Cond> {
+        let fab = self.fab;
+        self.op(|k| match k {
+            Kind::Idx { f, .. } => f.design(fab),
+            _ => Ok(Design {
+                fab,
+                ..Design::default()
+            }),
+        })
+    }
 }
 
 fn structure(client: &Client, id: &str, shared: bool) -> Result<Option<u32>, Cond> {

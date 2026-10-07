@@ -9,4 +9,5 @@ vms-cond = { path = "../vms-cond" }
 vms-fao = { path = "../vms-fao" }
 
 [dev-dependencies]
+vms-rms = { path = "../vms-rms" }
 vmsportd = { path = "../vmsportd" }

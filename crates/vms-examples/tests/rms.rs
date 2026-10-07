@@ -95,14 +95,22 @@ fn rms_from_c() {
     let got = run_example("rmsdemo", &dir, &run);
     stop(&run);
     assert_eq!(got, RMSDEMO);
-    let files: Vec<(&str, Vec<u8>, String)> =
-        [("DEMO.REL", "DEMO.REL;1"), ("DEMO.SEQ", "DEMO.SEQ;1")]
-            .iter()
-            .map(|(name, host)| {
-                let p = dir.join(host);
-                (*name, std::fs::read(&p).unwrap(), entry(name, &p))
-            })
-            .collect();
+    let files: Vec<(&str, Vec<u8>, String)> = [
+        ("DEMO.REL", "DEMO.REL;1"),
+        ("DEMO.IDX", "DEMO.IDX;1"),
+        ("DEMO.SEQ", "DEMO.SEQ;1"),
+    ]
+    .iter()
+    .map(|(name, host)| {
+        let p = dir.join(host);
+        (*name, std::fs::read(&p).unwrap(), entry(name, &p))
+    })
+    .collect();
+    // What vmsport reads in them, for VMS's DCL READ to agree with.
+    let reads: Vec<Vec<String>> = files
+        .iter()
+        .map(|(name, _, _)| records(&dir.join(format!("{name};1"))))
+        .collect();
     let _ = std::fs::remove_dir_all(&dir);
     let manifest = format!(
         "{{\"volume\": \"VPTIN\", \"structure_level\": 5, \"root\": \"[T]\", \"entries\": [\n{}\n]}}\n",
@@ -131,7 +139,7 @@ fn rms_from_c() {
     }
     let log =
         std::fs::read_to_string(root().join("fixtures/cabiback/recorded/CABIBACK.log")).unwrap();
-    for name in ["DEMO.REL", "DEMO.SEQ"] {
+    for (name, _, _) in &files {
         let check = log
             .split("@@ ")
             .find(|b| b.starts_with(&format!("check {name}")))
@@ -150,8 +158,11 @@ fn rms_from_c() {
             .filter_map(|l| Some(l.strip_prefix('[')?.strip_suffix(']')?.to_string()))
             .collect()
     };
-    assert_eq!(read("DEMO.REL"), ["first", "SECOND", "third"]);
-    assert_eq!(read("DEMO.SEQ"), ["one line", "and another"]);
+    for ((name, _, _), ours) in files.iter().zip(&reads) {
+        assert_eq!(&read(name), ours, "{name}");
+    }
+    assert_eq!(reads[0], ["first", "SECOND", "third"]);
+    assert_eq!(reads[2], ["one line", "and another"]);
 }
 
 /// A file's ods-manifest.json entry: its record attributes from vms.fab,
@@ -179,85 +190,40 @@ fn entry(name: &str, path: &Path) -> String {
 }
 
 /// What rmsdemo says.
-const RMSDEMO: &str = "open, bad FAB          0001850C
-create relative        00010001
-connect                00010001
-put                    00010001
-put                    00010001
-put                    00010001
-put key 10             00010001
-put key 10 again       000182A2
-put key 10 UIF         00010001
-close                  00010001
-open relative          00010001
-  org 10 rfm 2 mrs 40 mrn 100 bks 1 lrl 40 ebk 3
-connect                00010001
-get                    00010001
-  [first] rfa 1.0
-get                    00010001
-  [second] rfa 2.0
-get                    00010001
-  [third] rfa 3.0
-get                    00010001
-  [tenth, again] rfa 10.0
-get                    0001827A
-get key 2              00010001
-  [second] rfa 2.0
-update                 00010001
-get key GE 4           00010001
-  [tenth, again] rfa 10.0
-delete                 00010001
-delete again           000184B4
-get key 4              000182B2
-get rfa 2              00010001
-  [SECOND] rfa 2.0
-get, short buffer      000181A8
-  [SEC] rfa 2.0
-rewind                 00010001
-get                    00010001
-  [first] rfa 1.0
-get                    00010001
-  [SECOND] rfa 2.0
-get                    00010001
-  [third] rfa 3.0
-get                    0001827A
-disconnect             00010001
-get, disconnected      00018584
-close                  00010001
-close again            00018564
-create sequential      00010001
-connect                00010001
-put                    00010001
-put                    00010001
-close                  00010001
-open sequential        00010001
-  org 00 rfm 2 rat 2
-connect                00010001
-get                    00010001
-  [one line] rfa 1.0
-get                    00010001
-  [and another] rfa 2.0
-get                    0001827A
-close                  00010001
-create again           00010001
-close                  00010001
-create SUP             00010631
-close                  00010001
-create CIF             00010001
-close                  00010001
-create CIF, new        00010619
-close                  00010001
-erase                  00010001
-erase again            00018292
-parse                  00010001
-  fnb 0000011F name [DEMO.*;*]
-search                 00010001
-  DEMO.REL;1
-search                 00010001
-  DEMO.SEQ;2
-search                 00010001
-  DEMO.SEQ;1
-search                 000182CA
-parse                  00010001
-search                 00018292
-";
+const RMSDEMO: &str = "open, bad FAB          0001850C\ncreate relative        00010001\nconnect                00010001\nput                    00010001\nput                    00010001\nput                    00010001\nput key 10             00010001\nput key 10 again       000182A2\nput key 10 UIF         00010001\nclose                  00010001\nopen relative          00010001\n  org 10 rfm 2 mrs 40 mrn 100 bks 1 lrl 40 ebk 17\nconnect                00010001\nget                    00010001\n  [first] rfa 1.0\nget                    00010001\n  [second] rfa 2.0\nget                    00010001\n  [third] rfa 3.0\nget                    00010001\n  [tenth, again] rfa 10.0\nget                    0001827A\nget key 2              00010001\n  [second] rfa 2.0\nupdate                 00010001\nget key GE 4           00010001\n  [tenth, again] rfa 10.0\ndelete                 00010001\ndelete again           000184B4\nget key 4              000182B2\nget rfa 2              00010001\n  [SECOND] rfa 2.0\nget, short buffer      000181A8\n  [SEC] rfa 2.0\nrewind                 00010001\nget                    00010001\n  [first] rfa 1.0\nget                    00010001\n  [SECOND] rfa 2.0\nget                    00010001\n  [third] rfa 3.0\nget                    0001827A\ndisconnect             00010001\nget, disconnected      00018584\nclose                  00010001\nclose again            00018564\ncreate indexed         00010001\nconnect                00010001\nput 100 records\nput duplicate ID       000184EC\nput duplicate name     00018011\nclose                  00010001\nopen indexed           00010001\n  org 20 rfm 1 mrs 30 bks 2 nok 2 noa 2 pvn 3\n  key 1 [BY_NAME] pos 4 siz 10 flg 83 dtp 0 dan 1 ian 1 dbs 1 ibs 1 tks 10\nconnect                00010001\nget                    00010001\n  [0001BANANA    a note          ] rfa 4.44\nget                    00010001\n  [0002GRAPE     a note          ] rfa 4.35\nget                    00010001\n  [0003ELDER     a note          ] rfa 4.11\n  101 records by ID\nget key 0050           00010001\n  [0050BANANA    a note          ] rfa 4.15\nget key GT 0100        00010001\nget key GE 0100        00010001\n  [0100CHERRY    a note          ] rfa 8.16\nget key 005 (generic)  00010001\n  [0050BANANA    a note          ] rfa 4.15\nget name CH (generic)  00010001\n  [0074CHERRY    a note          ] rfa 4.2\nget next by name       00010001\n  [0030CHERRY    a note          ] rfa 4.9\nget name GT DATE       00010001\n  [0047ELDER     a note          ] rfa 4.4\nget name ZEBRA         000182B2\nget key 5              0001859C\nget rfa of 0050        00010001\n  [0050BANANA    a note          ] rfa 4.15\nupdate name            00010001\nget rfa of 0050        00010001\nupdate ID              0001849C\nget name ZEBRA         00010001\n  [0050ZEBRA     renamed         ] rfa 4.15\nfind 0001              00010001\ndelete                 00010001\nget 0001               000182B2\nrewind                 00010001\nget first              00010001\n  [0002GRAPE     a note          ] rfa 4.35\nclose                  00010001\ncreate sequential      00010001\nconnect                00010001\nput                    00010001\nput                    00010001\nclose                  00010001\nopen sequential        00010001\n  org 00 rfm 2 rat 2\nconnect                00010001\nget                    00010001\n  [one line] rfa 1.0\nget                    00010001\n  [and another] rfa 2.0\nget                    0001827A\nclose                  00010001\ncreate again           00010001\nclose                  00010001\ncreate SUP             00010631\nclose                  00010001\ncreate CIF             00010001\nclose                  00010001\ncreate CIF, new        00010619\nclose                  00010001\nerase                  00010001\nerase again            00018292\nparse                  00010001\n  fnb 0000011F name [DEMO.*;*]\nsearch                 00010001\n  DEMO.IDX;1\nsearch                 00010001\n  DEMO.REL;1\nsearch                 00010001\n  DEMO.SEQ;2\nsearch                 00010001\n  DEMO.SEQ;1\nsearch                 000182CA\nparse                  00010001\nsearch                 00018292\n";
+
+/// A file's records in order (an indexed file's by its primary key).
+fn records(path: &Path) -> Vec<String> {
+    use vms_rms::{Org, Rfm, idx, rel::Rel};
+    let fab = libvms::files::fab(path);
+    let mut b = std::fs::read(path).unwrap();
+    let data: Vec<Vec<u8>> = match fab.org {
+        Org::Seq => vms_rms::decode(&fab, &b)
+            .unwrap()
+            .into_iter()
+            .map(|r| r.data)
+            .collect(),
+        Org::Rel => {
+            let rel = Rel::new(fab).unwrap();
+            let (mut n, mut out) = (0, Vec::new());
+            while let Ok((m, r)) = rel.next(&mut b, n) {
+                out.push(r.data);
+                n = m;
+            }
+            out
+        }
+        Org::Idx => {
+            let mut f = idx::File::new(b, fab.rfm == Rfm::Fix, fab.mrs);
+            let mut out = Vec::new();
+            let mut cur = f.first(0);
+            while let Ok(found) = cur {
+                out.push(found.record.clone());
+                cur = f.next(&found.at);
+            }
+            out
+        }
+    };
+    data.into_iter()
+        .map(|d| String::from_utf8(d).unwrap())
+        .collect()
+}

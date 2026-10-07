@@ -520,6 +520,22 @@ fn key_type(dtp: u8) -> Result<(KeyType, bool), Cond> {
     Ok((t, dtp & 32 != 0))
 }
 
+/// XAB$B_DTP for a key: its type, 32 more when descending.
+fn dtp_of(k: &KeyDesc) -> u8 {
+    let t = match k.typ {
+        KeyType::String => 0,
+        KeyType::Int2 => 1,
+        KeyType::Bin2 => 2,
+        KeyType::Int4 => 3,
+        KeyType::Bin4 => 4,
+        KeyType::Decimal => 5,
+        KeyType::Int8 => 6,
+        KeyType::Bin8 => 7,
+        KeyType::Collated => 8,
+    };
+    t | if k.descending { 32 } else { 0 }
+}
+
 /// What $CREATE makes: the FAB with its XABKEYs and XABALLs.
 unsafe fn design(f: &Fab) -> Result<Design, Cond> {
     let mut d = Design {
@@ -590,7 +606,8 @@ unsafe fn design(f: &Fab) -> Result<Design, Cond> {
 }
 
 /// Fills the FAB and its XABs from an open file.
-unsafe fn display(f: &mut Fab, file: &host::File) {
+unsafe fn display(f: &mut Fab, file: &mut host::File) {
+    let d = file.design().unwrap_or_default();
     let a = &file.fab;
     let info = libvms::files::info(&file.path).ok();
     let used = std::fs::metadata(&file.path).map_or(0, |m| m.len());
@@ -648,17 +665,73 @@ unsafe fn display(f: &mut Fab, file: &host::File) {
                     p.uic = m.gid() << 16 | (m.uid() & 0xFFFF);
                 }
             }
-            XAB_SUM => {
+            // An indexed file's keys and areas, as its prologue has them.
+            XAB_SUM if a.org == Org::Idx => {
                 let s = unsafe { &mut *(x as *mut XabSum) };
-                s.noa = 0;
-                s.nok = 0;
-                s.pvn = 0;
+                s.noa = d.areas.len() as u8;
+                s.nok = d.keys.len() as u8;
+                s.pvn = d.prologue as u16;
+            }
+            XAB_KEY if a.org == Org::Idx => {
+                let k = unsafe { &mut *(x as *mut XabKey) };
+                let Some(key) = d.keys.iter().find(|key| key.number == k.r#ref) else {
+                    continue;
+                };
+                let bks = |area: u8| d.areas.get(area as usize).map_or(0, |a| a.bucket_size);
+                k.ian = key.index_area;
+                k.lan = key.level1_index_area;
+                k.dan = key.data_area;
+                k.ibs = bks(key.index_area);
+                k.dbs = bks(key.data_area);
+                k.flg = [
+                    (key.duplicates, flg::DUP),
+                    (key.changes, flg::CHG),
+                    (key.null_key, flg::NUL),
+                    (!key.index_compression, flg::IDX_NCMPR),
+                    (!key.data_key_compression, flg::KEY_NCMPR),
+                    (!key.data_record_compression, flg::DAT_NCMPR),
+                ]
+                .iter()
+                .filter(|b| b.0)
+                .fold(0, |f, b| f | b.1);
+                k.dtp = dtp_of(key);
+                k.nsg = key.segments.len() as u8;
+                k.nul = key.null_value;
+                k.tks = key.length() as u8;
+                k.mrl = key
+                    .segments
+                    .iter()
+                    .map(|s| s.position + s.length)
+                    .max()
+                    .unwrap_or(0);
+                k.ifl = key.index_fill;
+                k.dfl = key.data_fill;
+                (k.pos, k.siz, k.typ) = ([0; 8], [0; 8], [0; 8]);
+                for (i, seg) in key.segments.iter().take(8).enumerate() {
+                    (k.pos[i], k.siz[i], k.typ[i]) = (seg.position, seg.length as u8, k.dtp);
+                }
+                k.prolog = d.prologue;
+                if !k.knm.is_null() {
+                    let mut name = [b' '; 32];
+                    let n = key.name.len().min(32);
+                    name[..n].copy_from_slice(&key.name.as_bytes()[..n]);
+                    unsafe { std::ptr::copy_nonoverlapping(name.as_ptr(), k.knm, 32) };
+                }
             }
             XAB_ALL => {
                 let al = unsafe { &mut *(x as *mut XabAll) };
-                al.alq = alloc;
-                al.bkz = a.bks;
-                al.deq = a.deq;
+                match d.areas.iter().find(|ar| ar.number == al.aid) {
+                    Some(ar) if a.org == Org::Idx => {
+                        al.alq = ar.allocation;
+                        al.bkz = ar.bucket_size;
+                        al.deq = ar.extension;
+                    }
+                    _ => {
+                        al.alq = alloc;
+                        al.bkz = a.bks;
+                        al.deq = a.deq;
+                    }
+                }
             }
             _ => {}
         }
@@ -736,8 +809,8 @@ pub unsafe extern "C" fn open(fab: *mut Fab, err: *const c_void, suc: *const c_v
             let nam = nam_of(f)?;
             let spec = parse(f, nam.as_deref())?;
             let (path, shown) = libvms::cli::session(|s| s.find(&spec))??;
-            let file = host::File::open(&path, fac(f), f.shr)?;
-            display(f, &file);
+            let mut file = host::File::open(&path, fac(f), f.shr)?;
+            display(f, &mut file);
             if let Some(n) = nam {
                 fill_name(n, &expanded(&spec)?, false)?;
                 fill_name(n, &shown, true)?;
@@ -757,7 +830,7 @@ pub unsafe extern "C" fn create(fab: *mut Fab, err: *const c_void, suc: *const c
             let nam = nam_of(f)?;
             let spec = parse(f, nam.as_deref())?;
             let existing = libvms::cli::session(|s| s.find(&spec))?;
-            let (file, shown, st) = match existing {
+            let (mut file, shown, st) = match existing {
                 Ok((path, shown)) if f.fop & fop::CIF != 0 => {
                     let file = host::File::open(&path, fac(f), f.shr)?;
                     (file, shown, status::NORMAL)
@@ -784,7 +857,7 @@ pub unsafe extern "C" fn create(fab: *mut Fab, err: *const c_void, suc: *const c
                     (file, shown, st)
                 }
             };
-            display(f, &file);
+            display(f, &mut file);
             if let Some(n) = nam {
                 fill_name(n, &expanded(&spec)?, false)?;
                 fill_name(n, &shown, true)?;
@@ -820,7 +893,7 @@ pub unsafe extern "C" fn display_(fab: *mut Fab, err: *const c_void, suc: *const
             with_open(
                 ifi,
                 |o| {
-                    display(f, &o.file);
+                    display(f, &mut o.file);
                     Ok(status::NORMAL)
                 },
                 status::IFI,
