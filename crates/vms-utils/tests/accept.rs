@@ -55,13 +55,22 @@ fn blocks(img: &mut Image, spec: &str) -> Vec<u8> {
     v
 }
 
-/// The `@@` sections of a log that READS.COM wrote.
+/// The `@@` sections of a log that READS.COM wrote, each up to the status
+/// it ends with.
 fn reads(log: &str) -> Vec<String> {
-    log.split("@@ ").skip(1).map(|s| s.to_string()).collect()
+    log.split("@@ ")
+        .skip(1)
+        .map(|s| {
+            let end = s.find("  $STATUS").map_or(s.len(), |i| {
+                i + s[i..].find('\n').map_or(s.len() - i, |n| n + 1)
+            });
+            s[..end].to_string()
+        })
+        .collect()
 }
 
 #[test]
-#[ignore = "needs indexed files"]
+
 fn indexed_files_from_vms_through_an_image() {
     for p in ["vms-dcl", "vmsportd"] {
         let st = Command::new(env!("CARGO"))
