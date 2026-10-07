@@ -1,6 +1,6 @@
-"""Writes include/{ssdef,climsgdef,libdef,stsdef}.h, vmsport's status
-headers, from the values recorded on OpenVMS (recorded/codes.log): names
-and numbers only, comments dropped."""
+"""Writes include/{ssdef,climsgdef,libdef,stsdef,lckdef,lksbdef}.h,
+vmsport's status and lock headers, from the values recorded on OpenVMS
+(recorded/codes.log): names and numbers only, comments dropped."""
 import pathlib, re
 
 here = pathlib.Path(__file__).parent
@@ -29,5 +29,16 @@ header("stsdef", "STS$", """
 #define $VMS_STATUS_MSG_NO(code) (((code) & STS$M_MSG_NO) >> STS$V_MSG_NO)
 #define $VMS_STATUS_COND_ID(code) (((code) & STS$M_COND_ID) >> STS$V_COND_ID)
 #define $VMS_STATUS_INHIB_MSG(code) (((code) & STS$M_INHIB_MSG) >> STS$V_INHIB_MSG)
+""")
+header("lckdef", "LCK$")
+header("lksbdef", "LKSB$", """
+/* The lock status block $ENQ fills. */
+struct lksb {
+    unsigned short lksb$w_status;
+    unsigned short lksb$w_reserved;
+    unsigned int lksb$l_lkid;
+    unsigned char lksb$b_valblk[16];
+};
+typedef struct lksb LKSB;
 """)
 print("headers written")

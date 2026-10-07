@@ -12,3 +12,6 @@ libc = "0.2"
 libvms = { path = "../libvms" }
 vms-cond = { path = "../vms-cond" }
 vms-fao = { path = "../vms-fao" }
+vms-filespec = { path = "../vms-filespec" }
+vms-rms = { path = "../vms-rms" }
+vmsportd = { path = "../vmsportd" }

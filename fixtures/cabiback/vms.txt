@@ -1,0 +1,7 @@
+# What OpenVMS makes of the files examples/rms/rmsdemo.c writes through
+# the C ABI (ours/, written by crates/vms-examples/tests/rms.rs with
+# VMSPORT_WRITE_FIXTURES=1): ANALYZE/RMS_FILE/CHECK and DCL READ.
+import ours
+in CABIBACK.COM
+run @CABIBACK.COM/OUTPUT=CABIBACK.LOG
+text CABIBACK.LOG recorded/CABIBACK.log

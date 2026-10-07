@@ -6,6 +6,9 @@
 //! null (the headers pad omitted ones); lib$signal and lib$stop are
 //! variadic in C only, in a header wrapper that calls [`signal`].
 
+mod lck;
+pub mod rms;
+
 use libvms::cli;
 use std::ffi::{CStr, c_char};
 use vms_cond::Cond;
@@ -22,7 +25,7 @@ pub struct Desc {
 const CLASS_D: u8 = 2;
 
 /// A descriptor's text; `None` for a null descriptor.
-unsafe fn text(d: *const Desc) -> Option<String> {
+pub(crate) unsafe fn text(d: *const Desc) -> Option<String> {
     let d = unsafe { d.as_ref() }?;
     if d.ptr.is_null() {
         return Some(String::new());

@@ -13,5 +13,7 @@
 #define _VMS_A3(...) _VMS_A3_(__VA_ARGS__, 0, 0, 0)
 #define _VMS_A4(...) _VMS_A4_(__VA_ARGS__, 0, 0, 0, 0)
 #define _VMS_A5(...) _VMS_A5_(__VA_ARGS__, 0, 0, 0, 0, 0)
+#define _VMS_A11_(a, b, c, d, e, f, g, h, i, j, k, ...) a, b, c, d, e, f, g, h, i, j, k
+#define _VMS_A11(...) _VMS_A11_(__VA_ARGS__, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 #endif

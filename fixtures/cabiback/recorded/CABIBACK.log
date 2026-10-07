@@ -1,0 +1,13 @@
+@@ check DEMO.REL
+%ANLRMS-I-ERRORS, <DKA200:[T.CABIBACK]DEMO.REL;1> 0 errors
+The analysis uncovered NO errors.
+@@ read DEMO.REL
+[first]
+[SECOND]
+[third]
+@@ check DEMO.SEQ
+%ANLRMS-I-ERRORS, <DKA200:[T.CABIBACK]DEMO.SEQ;1> 0 errors
+The analysis uncovered NO errors.
+@@ read DEMO.SEQ
+[one line]
+[and another]

@@ -1231,7 +1231,10 @@ file-spec
 
     /SHARE[=READ|WRITE]
 
- Accepted; there is no file locking between processes yet.
+ Lets others open the file too: READ lets them read it, WRITE (the
+ default) read and change it. Without /SHARE a file opened to read can be
+ read by others, and one opened to write is the opener's alone; an open
+ that conflicts fails with RMS-E-FLK.
 /ERROR
 
     /ERROR=label
@@ -1337,16 +1340,28 @@ symbol-name
 
     /KEY=string
 
- Accepted; indexed files come with M3.
+ Reads the record whose key matches the string, in the key /INDEX names
+ (the primary key by default); a string shorter than the key matches its
+ leading part. Later READs go on in that key's order. A relative file's
+ key is the record number as 4 bytes.
 /INDEX
 
     /INDEX=n
 
- Accepted; indexed files come with M3.
+ The key /KEY reads by: 0 is the primary key, 1 the first alternate.
+/MATCH
+
+    /MATCH=option
+
+ How /KEY matches: EQ (the default), GE, GT, LE or LT, the record whose
+ key is equal to the string, at or after it, after it, at or before it,
+ or before it.
 /DELETE
- Accepted; indexed files come with M3.
+ Deletes the record once it is read.
 /NOLOCK
- Accepted; there is no record locking yet.
+ Reads the record without locking it, even when another stream has it
+ locked. Without /NOLOCK, in a file others may change, the record stays
+ locked against other streams until this one's next operation.
 /TIME_OUT
 
     /TIME_OUT=n
