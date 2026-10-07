@@ -32,6 +32,7 @@ pub fn fab(area: &str, name: &str) -> Fab {
         lrl: 0,
         fsz: 0,
         bks: field(&m, name, "bktsize") as u8,
+        deq: field(&m, name, "defext") as u16,
     }
 }
 

@@ -592,7 +592,7 @@ fn before(
         .ok_or(status::KRF)?
         .desc
         .clone();
-    if value.is_empty() || value.len() > desc.length() as usize {
+    if value.is_empty() || value.len() > desc.length() {
         return Err(status::KSZ);
     }
     let mut last = None;
