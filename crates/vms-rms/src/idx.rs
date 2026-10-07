@@ -1321,7 +1321,7 @@ impl<B: Blocks> File<B> {
         let at = if seq || all_same {
             pos
         } else {
-            self.split_at(&k, &recs, &rrvs)
+            self.split_at(&k, b.vbn, &recs, &rrvs, Some(pos))
         };
         if pos >= at {
             // It goes to the new bucket, taking no ID here.
@@ -1331,9 +1331,15 @@ impl<B: Blocks> File<B> {
         Ok((rfa.unwrap_or(new.rrv), dup))
     }
 
-    /// Where the records of a bucket with these RRVs split.
-    fn split_at(&self, k: &Key, recs: &[Rec], rrvs: &[Rec]) -> usize {
-        split_point(&self.sizes(k, recs), 9 * rrvs.len(), recs, &k.desc)
+    /// Where the records of bucket `vbn`, with these RRVs, split; `new`
+    /// is the one being put.
+    fn split_at(&self, k: &Key, vbn: u32, recs: &[Rec], rrvs: &[Rec], new: Option<usize>) -> usize {
+        let born: Vec<bool> = recs
+            .iter()
+            .enumerate()
+            .map(|(i, r)| Some(i) != new && r.live() && r.rrv.vbn == vbn)
+            .collect();
+        split_point(&self.sizes(k, recs), rrvs.len(), &born, recs, &k.desc)
     }
 
     /// The bytes each record takes laid out in a bucket after the one
@@ -1592,9 +1598,12 @@ impl<B: Blocks> File<B> {
                 one.free() - HDR
             })
             .collect();
-        // A new value at the end goes to the new bucket alone.
+        // A new value at the end goes to the new bucket alone; a value that
+        // grew sends the last SIDR there.
         let cut = if !found && at + 1 == sidrs.len() {
             at
+        } else if found {
+            sidrs.len() - 1
         } else {
             balance(&sizes)
         };
@@ -1795,7 +1804,7 @@ impl<B: Blocks> File<B> {
             return self.write(&mut try_b);
         }
         let path = self.descend(k, &recs[i].key, Match::Ge)?.0;
-        let at = self.split_at(k, &recs, &rrvs);
+        let at = self.split_at(k, vbn, &recs, &rrvs, None);
         self.split_data(p, k, path, b, recs, rrvs, at, None, false)?;
         Ok(())
     }
@@ -1960,25 +1969,30 @@ impl<B: Blocks> File<B> {
 }
 
 /// Where a bucket of records of these sizes splits: the first cut where
-/// the old bucket (its RRVs, `base` bytes, the records it keeps, and six
-/// bytes for each record that leaves) holds as much as the new one. Never
-/// inside a run of one key value. (Fits every split VMS made in
-/// fixtures/idx and fixtures/idxw.)
-fn split_point(sizes: &[usize], base: usize, recs: &[Rec], k: &KeyDesc) -> usize {
+/// the old bucket (the records it keeps, half of the `rrvs` it has, half
+/// of the RRVs the records `born` there leave when they go, and 50 bytes)
+/// holds as much as the new one; then back to the nearest cut before it
+/// between two key values. (Fits every split of fixtures/idx, idxw, idxv
+/// and fixtures/accept's PARTS that we could follow; see OTHER_SPLITS in
+/// tests/idx_write.rs for the files it doesn't.)
+fn split_point(sizes: &[usize], rrvs: usize, born: &[bool], recs: &[Rec], k: &KeyDesc) -> usize {
     let total: usize = sizes.iter().sum();
     let mut left = 0;
-    let mut last = 1;
+    let mut cut = sizes.len() - 1;
     for j in 1..sizes.len() {
         left += sizes[j - 1];
-        if compare(k, &recs[j - 1].key, &recs[j].key) == Ordering::Equal {
-            continue;
-        }
-        last = j;
-        if base + left + 6 * (sizes.len() - j) >= total - left {
-            return j;
+        let leaving = born[j..].iter().filter(|&&b| b).count();
+        if 2 * left + 9 * (rrvs + leaving) + 100 >= 2 * (total - left) {
+            cut = j;
+            break;
         }
     }
-    last
+    let between = |j: usize| compare(k, &recs[j - 1].key, &recs[j].key) != Ordering::Equal;
+    (1..=cut)
+        .rev()
+        .find(|&j| between(j))
+        .or_else(|| (cut + 1..sizes.len()).find(|&j| between(j)))
+        .unwrap_or(cut)
 }
 
 /// The most even cut of items of these sizes.

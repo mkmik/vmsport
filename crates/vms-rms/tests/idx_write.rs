@@ -346,8 +346,8 @@ fn order(f: &mut File<Vec<u8>>, key: u8) -> Vec<Vec<u8>> {
 
 /// Where VMS split a bucket at another record than we do (see
 /// `split_point`): the files hold the same records, laid out otherwise.
-const OTHER_SPLITS: [&str; 8] = [
-    "idx/RB", "idx/KS", "idx/ML", "idxw/SC", "idxw/MC", "idxv/V1", "idxv/V2", "idxv/V5",
+const OTHER_SPLITS: [&str; 6] = [
+    "idx/RB", "idx/ML", "idxw/SC", "idxw/MC", "idxv/V1", "idxv/V2",
 ];
 
 #[test]
