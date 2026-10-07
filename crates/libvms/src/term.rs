@@ -43,7 +43,8 @@ pub enum Key {
 pub fn decode(bytes: &[u8]) -> Option<(Key, usize)> {
     let b = *bytes.first()?;
     let key = match b {
-        b'\r' | b'\n' => Key::Return,
+        // LF is Ctrl/J (raw mode leaves CR as Return sends it).
+        b'\r' => Key::Return,
         b'\t' => Key::Tab,
         0x08 => Key::Backspace,
         0x7F => Key::Delete,
@@ -245,7 +246,7 @@ mod tests {
     #[test]
     fn keys_as_terminals_send_them() {
         let all: Vec<Key> = Keys::new(
-            &b"a\x1bOP\x1bOw\x1bOM\x1b[A\x1b[1~\x1b[6~\x1b[29~\x1b[28~\x1b[17~\x1a\x7f\r\xc3\xa9\x1b"[..],
+            &b"a\x1bOP\x1bOw\x1bOM\x1b[A\x1b[1~\x1b[6~\x1b[29~\x1b[28~\x1b[17~\x1a\x7f\r\n\xc3\xa9\x1b"[..],
         )
         .collect();
         assert_eq!(
@@ -264,6 +265,7 @@ mod tests {
                 Key::Ctrl('Z'),
                 Key::Delete,
                 Key::Return,
+                Key::Ctrl('J'),
                 Key::Char('é'),
                 Key::Escape,
             ]

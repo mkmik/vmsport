@@ -5,11 +5,13 @@ and the keyed sessions of sessions.txt into recorded/sessions-console.log;
 screens.py turns those into recorded/batch.log and recorded/screens.txt.
 
 usage: record.py [batch|sessions]   (default: both, one boot each)
+       record.py sessions NAME...   (just those, added to recorded/again-console.log)
 
 It boots vaxpunk's installed system image the way fixtures/vms/system.py
 does (run-vms.py --system: a copy-on-write clone, thrown away after), and
 adds what EVE needs: after a session's EDIT command, its keys are typed one
-by one (escape sequences whole), a \\x1e marking in the log where each
+by one (escape sequences whole), each once the screen has settled (TPU
+doesn't paint while keys wait), a \\x1e marking in the log where each
 key's output ends; a session stuck at a prompt gets Ctrl/Z until DCL's
 prompt is back. AXPbox now and then crashes an image with an ACCVIO
 (any image: EVE, SET TERMINAL, PURGE): such a command, or session, runs
@@ -26,14 +28,14 @@ RUNVMS = home(os.environ.get("RUNVMS", "~/p/vaxpunk/ods/vms/run-vms.py"))
 SYSTEM = home(os.environ.get("VMS_SYSTEM", "~/Library/Caches/vaxpunk/bliss-oracle/golden-sys.img"))
 AXPBOX = home(os.environ.get("AXPBOX", "~/p/vaxpunk/real_vms_playground/axpbox"))
 ROM = home(os.environ.get("AXPBOX_ROM", "~/p/vaxpunk/real_vms_playground/rom"))
-KEYGAP = 0.25
+QUIET = 1.0
 
 
 def rows(name):
     return [l.split("\t") for l in (HERE / name).read_text().splitlines() if l and not l.startswith("#")]
 
 
-def commands(part):
+def commands(part, names=()):
     c = ["SET DEFAULT SYS$SYSDEVICE:[000000]", "CREATE/DIRECTORY [EVE]", "SET DEFAULT SYS$SYSDEVICE:[EVE]"]
     for f in sorted((HERE / "files").iterdir()):
         if f.name == "L.TXT":
@@ -49,7 +51,8 @@ def commands(part):
           "$ n = n + 1", "$ IF n .LE. 60 THEN GOTO l", "$ CLOSE f", "@@CTRLZ", "@MKL"]
     if part == "sessions":
         c.append("SET TERMINAL/DEVICE=VT200/NOEIGHTBIT/WIDTH=80/PAGE=24")
-        c += [f"@@SESSION {name}\t{cmd}\t{keys}" for name, cmd, keys in rows("sessions.txt")]
+        c += [f"@@SESSION {name}\t{cmd}\t{keys}" for name, cmd, keys in rows("sessions.txt")
+              if not names or name in names]
         c.append('WRITE SYS$OUTPUT "@@ end"')
         return c
     c += ["CREATE B.COM", "$ SET NOON"]
@@ -68,7 +71,8 @@ def commands(part):
 
 def main():
     signal.signal(signal.SIGTERM, lambda *_: sys.exit("terminated"))
-    parts = sys.argv[1:] or ["batch", "sessions"]
+    parts = [a for a in sys.argv[1:] if a in ("batch", "sessions")] or ["batch", "sessions"]
+    names = [a for a in sys.argv[1:] if a not in parts]
     spec = importlib.util.spec_from_file_location("runvms", RUNVMS)
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
@@ -108,10 +112,21 @@ def main():
             return session(self, name, cmd, keys.encode("latin-1").decode("unicode_escape"))
         return command(self, line)
 
+    def settle(self):
+        """Waits for the screen to be painted: TPU doesn't paint while keys
+        are waiting, so a key typed early leaves an old screen."""
+        start = last = time.time()
+        while time.time() - last < QUIET and time.time() - start < 10:
+            n = len(self.buf)
+            self.pump(0.05)
+            if len(self.buf) != n:
+                last = time.time()
+
     def typed(self, cmd, keys):
         self.mark = len(self.buf)
         self.sock.sendall((cmd + "\r").encode("latin-1"))
-        self.pump(1.0)
+        self.poll(lambda: any(s in self.since() for s in ("Forward", "Reverse", "%TPU", "%DCL")) or self.at_prompt(), 60)
+        settle(self)
         i = 0
         while i < len(keys):
             j = i + 1
@@ -125,9 +140,7 @@ def main():
                     j = i + 3
             self.sock.sendall(keys[i:j].encode("latin-1"))
             i = j
-            end = time.time() + KEYGAP
-            while time.time() < end:
-                self.pump(0.05)
+            settle(self)
             self.log.write("\x1e")
         for _ in range(4):
             if self.poll(self.at_prompt, 25):
@@ -143,7 +156,14 @@ def main():
     out.mkdir(exist_ok=True)
     try:
         for part in parts:
-            m.run(commands(part), str(out / f"{part}-console.log"), SYSTEM)
+            log = out / ("new-console.log" if names else f"{part}-console.log")
+            m.run(commands(part, names), str(log), SYSTEM)
+            pathlib.Path(f"{log}.emu").unlink(missing_ok=True)
+            if names:
+                # Added to the sessions recorded again before.
+                with open(out / "again-console.log", "a", encoding="utf-8", newline="") as f:
+                    f.write(log.read_text(encoding="utf-8", newline=""))
+                log.unlink()
     finally:
         shutil.rmtree(run)
     print("recorded; now: screens.py")

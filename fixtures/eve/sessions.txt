@@ -78,3 +78,10 @@ ambiguous_then	EDIT/TPU T.TXT	\x1b[29~mo\r\x1b[29~bottom\r\x1a
 unknown	EDIT/TPU T.TXT	\x1b[29~frob\rX\r\x1b[29~top\rY\x1a
 keypad_edt	EDIT/TPU T.TXT	\x1b[29~set keypad edt\r\x1bOq\x1bOS\x1a
 ctrl_l	EDIT/TPU T.TXT	\x0c\x1a
+wrap_default	EDIT/TPU NEW3.TXT	\x1b[29~set wrap\raaaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj kkkk llll mmmm nnnn oooo pppp qqqq\x1a
+void_delete	EDIT/TPU T.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x7fX\x1a
+void_return	EDIT/TPU T.TXT	\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\x1bOC\rX\x1a
+dcl_twice	EDIT/TPU T.TXT	\x1b[29~dcl show default\r\x1b[29~dcl show default\r\x1a
+exit_other	EDIT/TPU T.TXT	\x1b[29~buffer foo\rabc\x1b[29~buffer t.txt\r\x1ay\rFOO.TXT\r
+center_odd	EDIT/TPU P.TXT	\x1b[29~center line\r\x1a
+center_margins	EDIT/TPU T.TXT	\x1b[29~set left margin 11\r\x1b[29~set right margin 50\r\x1bOB\x1bOB\x1b[29~center line\r\x1a

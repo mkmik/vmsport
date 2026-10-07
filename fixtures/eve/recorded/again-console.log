@@ -1,0 +1,919 @@
+This is serial port #0 on AXPbox Alpha Emulator
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU0: unexpected exception/interrupt through vector 440
+process idle, pcb = 001AAD60
+
+ pc: 00000000 001A7C98  ps: 00000000 00000000
+ r2: 00000000 001A168C  r5: 00000000 00000000
+ r3: 00000000 0002A350  r6: 00000000 00000003
+ r4: 00000000 00000000  r7: 00000000 00000000
+
+exception context saved starting at 001ABCC0
+
+GPRs:
+  0: 00000000 00000000  16: FFFFFFFF FFFFFFFE
+  1: 00000000 00000000  17: 00000000 00000000
+  2: 00000000 00162448  18: 00000000 00000000
+  3: 00000000 00000000  19: 00000016 BCC35B40
+  4: 00000000 0003CA00  20: 00000000 00000000
+  5: 00000000 0003CA00  21: 00000000 0000000D
+  6: 00000000 00000003  22: 00000000 001ABE08
+  7: 00000000 00000000  23: 00000000 00000000
+  8: 00000000 001ABE1C  24: 00000000 00000001
+  9: CCCCCCCC CCCCCCCD  25: 00000000 00000003
+ 10: 00000000 00000001  26: 00000000 00068C10
+ 11: 00000000 0003C338  27: 00000000 001A84F0
+ 12: 00000000 0003C338  28: FFFFFFFF FFFFFE00
+ 13: 00000000 001AAD60  29: 00000000 001ABE00
+ 14: 00000000 001898B0  30: 00000000 001ABE00
+ 15: 00000000 0003C448
+
+dump of active call frames:
+
+PC  =  001A7C94
+PD  =  00162448
+FP  =  001ABE00
+SP  =  001ABE00
+
+R2 R3 R4 R5 R6 R7 R8 R9 R29 saved starting at 001ABE28
+
+R2  =  0015FF60
+R3  =  001AAE80
+R4  =  0003C338
+R5  =  001A0A78
+R6  =  0003C8F0
+R7  =  00000001
+R8  =  0003C300
+R9  =  00189888
+R29 =  001ABEC0
+
+PC  =  0005BCD4
+PD  =  0015FF60
+FP  =  001ABEC0
+SP  =  001ABE80
+
+R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15 R29 saved starting at 001ABEC8
+
+R2  =  00001000
+R3  =  001A1D20
+R4  =  001ABF50
+R5  =  001AF520
+R6  =  000001F0
+R7  =  00000000
+R8  =  00000000
+R9  =  001ABF50
+R10 =  00000000
+R11 =  00000000
+R12 =  00000000
+R13 =  00000000
+R14 =  00000000
+R15 =  00000000
+R29 =  00000000
+
+breakpoint at PC 1a0cb0 desired, XDELTA not loaded
+Initializing...
+
+
+OpenVMS PALcode V1.98-104, Tru64 UNIX PALcode V1.92-105
+
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU 0 speed is 800 MHz
+create dead_eater
+create poll
+create timer
+create powerup
+access NVRAM
+Memory size 512 MB
+testing memory
+..
+probe I/O subsystem
+probing hose 1, PCI
+probing hose 0, PCI
+probing PCI-to-ISA bridge, bus 1
+bus 0, slot 3 -- pka -- NCR 53C810
+bus 0, slot 15 -- dqa -- Acer Labs M1543C IDE
+bus 0, slot 15 -- dqb -- Acer Labs M1543C IDE
+starting drivers
+entering idle loop
+*** system serial number not set. use set sys_serial_num command.
+Partition 0, Memory base: 000000000, size: 020000000
+initializing GCT/FRU at 1c8000
+Initializing pka dqa dqb 
+Memory Testing and Configuration Status
+  Array       Size       Base Address    Intlv Mode
+---------  ----------  ----------------  ----------
+    0        512Mb     0000000000000000    4-Way
+
+     512 MB of System Memory
+Testing the System
+Testing the Disks (read only)
+AlphaServer ES40 Console V7.3-1, built on Feb 27 2007 at 12:57:47
+P00>>>show device
+dka0.0.0.3.0               DKA0                           RZ58  2000
+dva0.0.0.1000.0            DVA0                               
+pka0.7.0.3.0               PKA0                  SCSI Bus ID 7
+P00>>>boot dka0
+(boot dka0.0.0.3.0 -flags 0)
+block 0 of dka0.0.0.3.0 is a valid boot block
+reading 1230 blocks from dka0.0.0.3.0
+bootstrap code read in
+base = 200000, image_start = 0, image_bytes = 99c00(629760)
+initializing HWRPB at 2000
+initializing page table at 1ff56000
+initializing machine state
+setting affinity to the primary CPU
+jumping to bootstrap code
+
+
+    OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+                    Copyright 2016 VMS Software, Inc.
+
+%DECnet-I-LOADED, network base image loaded, version = 05.17.02
+
+%DECnet-W-NOOPEN, could not open SYS$SYSROOT:[SYSEXE]NET$CONFIG.DAT
+
+%STDRV-I-STARTUP, OpenVMS startup begun at  7-OCT-2026 19:15:04.23
+%RUN-S-PROC_ID, identification of created process is 00000204
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:08.89  %%%%%%%%%%%
+Operator _PUNK$OPA0: has been enabled, username SYSTEM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:08.89  %%%%%%%%%%%
+Operator status for operator _PUNK$OPA0:
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:08.90  %%%%%%%%%%%
+Logfile has been initialized by operator _PUNK$OPA0:
+Logfile is PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:08.91  %%%%%%%%%%%
+Operator status for operator PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%SET-I-NEWAUDSRV, identification of new audit server process is 0000020A
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:09.05  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%JBC-E-OPENERR, error opening SYS$COMMON:[SYSEXE]QMAN$MASTER.DAT;
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:09.05  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+-RMS-E-FNF, file not found
+
+%RUN-S-PROC_ID, identification of created process is 0000020D
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:10.96  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:10.96  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:10.97  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIACRECLUDB, security server created cluster intrusion database
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:10.97  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-SERVERSTARTINGU, security server starting up
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:10.98  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIASTARTINGUP, breakin detection and evasion processing now starting u
+p
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:12.06  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%ACME-I-SERVERSTART, ACME_SERVER starting
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:18.23  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+TDF-I-SETTDF TDF set new timezone differential
+
+Copyright 2015 VMS Software, Inc.
+%NET$STARTUP-W-NONETCONFIG, this node has not been configured to run DECnet-Plus
+ for OpenVMS
+        use SYS$MANAGER:NET$CONFIGURE.COM if you wish to configure DECnet
+%NET$STARTUP-I-OPERSTATUS, DECnet-Plus for OpenVMS operational status is OFF
+%DECdtm-F-NODECnet, the TP_SERVER process was not started because either:
+
+o  DECnet-Plus is not started or is not configured, or
+
+o  The SYS$NODE_FULLNAME logical name is not defined
+
+   This could be because when you installed DECnet-Plus and were prompted 
+   for the system's full name, you specified a local name instead of a 
+   DECdns or Domain name.
+
+If you want to use DECdtm services, make sure that DECnet-Plus is started and 
+configured and that SYS$NODE_FULLNAME is defined, then use the following 
+command to start the TP_SERVER process:
+
+    $ @SYS$STARTUP:DECDTM$STARTUP.COM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:19.30  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+
+
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+Startup processing continuing...
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:19.47  %%%%%%%%%%%
+Message from user AUDIT$SERVER on PUNK
+Security alarm (SECURITY) and security audit (SECURITY) on PUNK, system id: 42
+Auditable event:          Audit server starting up
+Event time:                7-OCT-2026 19:15:19.45
+PID:                      00000203        
+Username:                 SYSTEM          
+
+%STARTUP-I-AUDITCONTINUE, audit server initialization complete
+
+The OpenVMS system is now executing the site-specific startup commands.
+
+%MOUNT-F-NOSUCHDEV, no such device available
+%SET-I-INTSET, login interactive limit = 64, current interactive value = 0
+%RUN-S-PROC_ID, identification of created process is 00000217
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:15:20.95  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SMHANDLER-S-STARTUP, server management event handler startup
+
+  SYSTEM       job terminated at  7-OCT-2026 19:15:27.12
+
+  Accounting information:
+  Buffered I/O count:               3925      Peak working set size:       6736
+  Direct I/O count:                 1673      Peak virtual size:         186640
+  Page faults:                      4875      Mounted volumes:                0
+  Charged CPU time:        0 00:00:06.53      Elapsed time:       0 00:00:22.96
+
+ Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+
+Username: SYSTEM
+Password: 
+%LICENSE-I-NOLICENSE, no license is active for this software product
+%LOGIN-S-LOGOPRCON, login allowed from OPA0:
+   Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+    Last interactive login on Tuesday, 29-SEP-2026 17:13:08.23[c\Z[0c
+%SET-W-NOTSET, error modifying OPA0:
+-SET-I-UNKTERM, unknown terminal type7[999;999H[6n8
+$ SET TERMINAL/EIGHTBIT/WIDTH=132
+$ SET DEFAULT SYS$SYSDEVICE:[000000]
+$ CREATE/DIRECTORY [EVE]
+$ SET DEFAULT SYS$SYSDEVICE:[EVE]
+$ CREATE P.ORI
+This is a paragraph
+of short lines that
+FILL should join.
+
+Second paragraph here.
+*EXIT*
+$ CREATE T.ORI
+line one
+line two
+the third line
+*EXIT*
+$ CREATE W.ORI
+short
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyzzzzzzzzzzzzzzzzzzzz
+a       b       c
+*EXIT*
+$ CREATE WD.ORI
+alpha beta  gamma, delta.epsilon
+  indented words here
+last
+*EXIT*
+$ CREATE I0.EVE
+top
+find "two"
+erase line
+write file
+exit
+*EXIT*
+$ CREATE I1.EVE
+bottom
+line 2
+uppercase word
+move right
+*EXIT*
+$ CREATE I2.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I3.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I4.EVE
+line 99
+top
+erase word
+show buffers
+frobnicate
+bottom
+*EXIT*
+$ CREATE I5.EVE
+include file P.TXT
+bottom
+center line
+fill
+*EXIT*
+$ CREATE I6.EVE
+replace line row all
+replace "line" "row"
+*EXIT*
+$ CREATE I7.EVE
+e
+bottom
+*EXIT*
+$ CREATE I8.EVE
+line 2
+uppercase word
+*EXIT*
+$ CREATE I11.EVE
+dcl show default
+buffer new.txt
+include file T.TXT
+*EXIT*
+$ CREATE MKL.COM
+$ OPEN/WRITE f L.ORI
+$ n = 1
+$ l:
+$ WRITE f "line ", n
+$ n = n + 1
+$ IF n .LE. 60 THEN GOTO l
+$ CLOSE f
+*EXIT*
+$ @MKL
+$ SET TERMINAL/DEVICE=VT200/NOEIGHTBIT/WIDTH=80/PAGE=24
+[?3l>$ DELETE/NOLOG *.TXT;*
+%DELETE-W-SEARCHFAIL, error searching for SYS$SYSDEVICE:[EVE]*.TXT;*
+-RMS-E-FNF, file not found
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ find_case"
+@@ find_case
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [KLINE
+Could not find: LINE[;H[23B[mCould not find: LINE[;H[22B[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [KLine
+Could not find: Line[;H[23B[mCould not find: Line[;H[22B[K[K[22A[4h>[?7h[4l[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ wrap_default"
+@@ wrap_default
+$ EDIT/TPU NEW3.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K[;7mEditing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW3.TXT;[mEditing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW3.TXT;[21;80H[1J[;H[End of file][K[22;H[;7m Buffer: NEW3.TXT                                    | Write | Insert | Forward [m
+[K[K[22A[22BCommand: set wrap
+[K[23;18H[K
+Text in this buffer will wrap at the right margin.[;Ha[K
+[End of file][K[1;2Haaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj kkkk llll mmmm nnnn oooo pppp[1;80H[1;80H [1;80H[1;80H[1;80H[K
+q[K
+[End of file][K[2;2Hqqq[24;H2 lines written to file SYS$SYSDEVICE:[EVE]NEW3.TXT;1[2;5H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ void_delete"
+@@ void_delete
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[C[C[C[C[C[4l[2D X[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;11H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ void_return"
+@@ void_return
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[C[C[C[C[C[2;5r
+M[4lX[24;H4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ dcl_twice"
+@@ dcl_twice
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: dcl show default
+[K[23;26H[K
+Creating DCL subprocess...[;H[23BSubprocess activated[K[;H[11;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[9Aline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[12;H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[9A[K
+show default[K
+[K[22;H[;7m Buffer: DCL                                     | Read-only | Insert | Forward [m[13;13H
+  SYS$SYSDEVICE:[EVE]
+[K[14A[4h[4l[22BCommand: dcl show default
+[K[23;26H[K[7Ashow default[K
+[K[16;13H
+  SYS$SYSDEVICE:[EVE]
+[K[17A[4h>[?7h[4l[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ exit_other"
+@@ exit_other
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: buffer foo
+[K[23;20H[K[21;80H[1J[;H[End of file][K[22;H[;7m Buffer: FOO                                         | Write | Insert | Forward [m[;Ha[K
+[End of file][K[1;2Hbc[23;HCommand: buffer t.txt[K[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[;H[4h[22B[K[4l[;7mWrite Buffer FOO? [Ky[KType filename for buffer FOO (press RETURN to not write it): [KFOO.TXT
+[m1 line written to file SYS$SYSDEVICE:[EVE]FOO.TXT;1[;H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ WRITE SYS$OUTPUT "@@ end"
+@@ end
+$ This is serial port #0 on AXPbox Alpha Emulator
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU0: unexpected exception/interrupt through vector 440
+process idle, pcb = 001AAD60
+
+ pc: 00000000 001A7C98  ps: 00000000 00000000
+ r2: 00000000 001A168C  r5: 00000000 00000000
+ r3: 00000000 0002A350  r6: 00000000 00000003
+ r4: 00000000 00000000  r7: 00000000 00000000
+
+exception context saved starting at 001ABCC0
+
+GPRs:
+  0: 00000000 00000000  16: FFFFFFFF FFFFFFFE
+  1: 00000000 00000000  17: 00000000 00000000
+  2: 00000000 00162448  18: 00000000 00000000
+  3: 00000000 00000000  19: 00000016 BCC35B40
+  4: 00000000 0003CA00  20: 00000000 00000000
+  5: 00000000 0003CA00  21: 00000000 0000000D
+  6: 00000000 00000003  22: 00000000 001ABE08
+  7: 00000000 00000000  23: 00000000 00000000
+  8: 00000000 001ABE1C  24: 00000000 00000001
+  9: CCCCCCCC CCCCCCCD  25: 00000000 00000003
+ 10: 00000000 00000001  26: 00000000 00068C10
+ 11: 00000000 0003C338  27: 00000000 001A84F0
+ 12: 00000000 0003C338  28: FFFFFFFF FFFFFE00
+ 13: 00000000 001AAD60  29: 00000000 001ABE00
+ 14: 00000000 001898B0  30: 00000000 001ABE00
+ 15: 00000000 0003C448
+
+dump of active call frames:
+
+PC  =  001A7C94
+PD  =  00162448
+FP  =  001ABE00
+SP  =  001ABE00
+
+R2 R3 R4 R5 R6 R7 R8 R9 R29 saved starting at 001ABE28
+
+R2  =  0015FF60
+R3  =  001AAE80
+R4  =  0003C338
+R5  =  001A0A78
+R6  =  0003C8F0
+R7  =  00000001
+R8  =  0003C300
+R9  =  00189888
+R29 =  001ABEC0
+
+PC  =  0005BCD4
+PD  =  0015FF60
+FP  =  001ABEC0
+SP  =  001ABE80
+
+R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15 R29 saved starting at 001ABEC8
+
+R2  =  00001000
+R3  =  001A1D20
+R4  =  001ABF50
+R5  =  001AF520
+R6  =  000001F0
+R7  =  00000000
+R8  =  00000000
+R9  =  001ABF50
+R10 =  00000000
+R11 =  00000000
+R12 =  00000000
+R13 =  00000000
+R14 =  00000000
+R15 =  00000000
+R29 =  00000000
+
+breakpoint at PC 1a0cb0 desired, XDELTA not loaded
+Initializing...
+
+
+OpenVMS PALcode V1.98-104, Tru64 UNIX PALcode V1.92-105
+
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU 0 speed is 800 MHz
+create dead_eater
+create poll
+create timer
+create powerup
+access NVRAM
+Memory size 512 MB
+testing memory
+..
+probe I/O subsystem
+probing hose 1, PCI
+probing hose 0, PCI
+probing PCI-to-ISA bridge, bus 1
+bus 0, slot 3 -- pka -- NCR 53C810
+bus 0, slot 15 -- dqa -- Acer Labs M1543C IDE
+bus 0, slot 15 -- dqb -- Acer Labs M1543C IDE
+starting drivers
+entering idle loop
+*** system serial number not set. use set sys_serial_num command.
+Partition 0, Memory base: 000000000, size: 020000000
+initializing GCT/FRU at 1c8000
+Initializing pka dqa dqb 
+Memory Testing and Configuration Status
+  Array       Size       Base Address    Intlv Mode
+---------  ----------  ----------------  ----------
+    0        512Mb     0000000000000000    4-Way
+
+     512 MB of System Memory
+Testing the System
+Testing the Disks (read only)
+AlphaServer ES40 Console V7.3-1, built on Feb 27 2007 at 12:57:47
+P00>>>show device
+dka0.0.0.3.0               DKA0                           RZ58  2000
+dva0.0.0.1000.0            DVA0                               
+pka0.7.0.3.0               PKA0                  SCSI Bus ID 7
+P00>>>boot dka0
+(boot dka0.0.0.3.0 -flags 0)
+block 0 of dka0.0.0.3.0 is a valid boot block
+reading 1230 blocks from dka0.0.0.3.0
+bootstrap code read in
+base = 200000, image_start = 0, image_bytes = 99c00(629760)
+initializing HWRPB at 2000
+initializing page table at 1ff56000
+initializing machine state
+setting affinity to the primary CPU
+jumping to bootstrap code
+
+
+    OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+                    Copyright 2016 VMS Software, Inc.
+
+%DECnet-I-LOADED, network base image loaded, version = 05.17.02
+
+%DECnet-W-NOOPEN, could not open SYS$SYSROOT:[SYSEXE]NET$CONFIG.DAT
+
+%STDRV-I-STARTUP, OpenVMS startup begun at  7-OCT-2026 19:23:34.31
+%RUN-S-PROC_ID, identification of created process is 00000204
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:38.89  %%%%%%%%%%%
+Operator _PUNK$OPA0: has been enabled, username SYSTEM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:38.90  %%%%%%%%%%%
+Operator status for operator _PUNK$OPA0:
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:38.91  %%%%%%%%%%%
+Logfile has been initialized by operator _PUNK$OPA0:
+Logfile is PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:38.92  %%%%%%%%%%%
+Operator status for operator PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%SET-I-NEWAUDSRV, identification of new audit server process is 0000020A
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:39.09  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%JBC-E-OPENERR, error opening SYS$COMMON:[SYSEXE]QMAN$MASTER.DAT;
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:39.09  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+-RMS-E-FNF, file not found
+
+%RUN-S-PROC_ID, identification of created process is 0000020D
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:41.20  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:41.20  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:41.21  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIACRECLUDB, security server created cluster intrusion database
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:41.22  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-SERVERSTARTINGU, security server starting up
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:41.22  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIASTARTINGUP, breakin detection and evasion processing now starting u
+p
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:42.39  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%ACME-I-SERVERSTART, ACME_SERVER starting
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:48.56  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+TDF-I-SETTDF TDF set new timezone differential
+
+Copyright 2015 VMS Software, Inc.
+%NET$STARTUP-W-NONETCONFIG, this node has not been configured to run DECnet-Plus
+ for OpenVMS
+        use SYS$MANAGER:NET$CONFIGURE.COM if you wish to configure DECnet
+%NET$STARTUP-I-OPERSTATUS, DECnet-Plus for OpenVMS operational status is OFF
+%DECdtm-F-NODECnet, the TP_SERVER process was not started because either:
+
+o  DECnet-Plus is not started or is not configured, or
+
+o  The SYS$NODE_FULLNAME logical name is not defined
+
+   This could be because when you installed DECnet-Plus and were prompted 
+   for the system's full name, you specified a local name instead of a 
+   DECdns or Domain name.
+
+If you want to use DECdtm services, make sure that DECnet-Plus is started and 
+configured and that SYS$NODE_FULLNAME is defined, then use the following 
+command to start the TP_SERVER process:
+
+    $ @SYS$STARTUP:DECDTM$STARTUP.COM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:49.62  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+
+
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+Startup processing continuing...
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:49.80  %%%%%%%%%%%
+Message from user AUDIT$SERVER on PUNK
+Security alarm (SECURITY) and security audit (SECURITY) on PUNK, system id: 42
+Auditable event:          Audit server starting up
+Event time:                7-OCT-2026 19:23:49.78
+PID:                      00000203        
+Username:                 SYSTEM          
+
+%STARTUP-I-AUDITCONTINUE, audit server initialization complete
+
+The OpenVMS system is now executing the site-specific startup commands.
+
+%MOUNT-F-NOSUCHDEV, no such device available
+%SET-I-INTSET, login interactive limit = 64, current interactive value = 0
+%%%%%%%%%%%  OPCOM   7-OCT-2026 19:23:51.23  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SMHANDLER-S-STARTUP, server management event handler startup
+
+%RUN-S-PROC_ID, identification of created process is 00000217
+  SYSTEM       job terminated at  7-OCT-2026 19:23:57.39
+
+  Accounting information:
+  Buffered I/O count:               3925      Peak working set size:       6736
+  Direct I/O count:                 1673      Peak virtual size:         186640
+  Page faults:                      4875      Mounted volumes:                0
+  Charged CPU time:        0 00:00:06.41      Elapsed time:       0 00:00:23.15
+
+ Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+
+Username: SYSTEM
+Password: 
+%LICENSE-I-NOLICENSE, no license is active for this software product
+%LOGIN-S-LOGOPRCON, login allowed from OPA0:
+   Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+    Last interactive login on Tuesday, 29-SEP-2026 17:13:08.23[c\Z[0c
+%SET-W-NOTSET, error modifying OPA0:
+-SET-I-UNKTERM, unknown terminal type7[999;999H[6n8
+$ SET TERMINAL/EIGHTBIT/WIDTH=132
+$ SET DEFAULT SYS$SYSDEVICE:[000000]
+$ CREATE/DIRECTORY [EVE]
+$ SET DEFAULT SYS$SYSDEVICE:[EVE]
+$ CREATE P.ORI
+This is a paragraph
+of short lines that
+FILL should join.
+
+Second paragraph here.
+*EXIT*
+$ CREATE T.ORI
+line one
+line two
+the third line
+*EXIT*
+$ CREATE W.ORI
+short
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyzzzzzzzzzzzzzzzzzzzz
+a       b       c
+*EXIT*
+$ CREATE WD.ORI
+alpha beta  gamma, delta.epsilon
+  indented words here
+last
+*EXIT*
+$ CREATE I0.EVE
+top
+find "two"
+erase line
+write file
+exit
+*EXIT*
+$ CREATE I1.EVE
+bottom
+line 2
+uppercase word
+move right
+*EXIT*
+$ CREATE I2.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I3.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I4.EVE
+line 99
+top
+erase word
+show buffers
+frobnicate
+bottom
+*EXIT*
+$ CREATE I5.EVE
+include file P.TXT
+bottom
+center line
+fill
+*EXIT*
+$ CREATE I6.EVE
+replace line row all
+replace "line" "row"
+*EXIT*
+$ CREATE I7.EVE
+e
+bottom
+*EXIT*
+$ CREATE I8.EVE
+line 2
+uppercase word
+*EXIT*
+$ CREATE I11.EVE
+dcl show default
+buffer new.txt
+include file T.TXT
+*EXIT*
+$ CREATE MKL.COM
+$ OPEN/WRITE f L.ORI
+$ n = 1
+$ l:
+$ WRITE f "line ", n
+$ n = n + 1
+$ IF n .LE. 60 THEN GOTO l
+$ CLOSE f
+*EXIT*
+$ @MKL
+$ SET TERMINAL/DEVICE=VT200/NOEIGHTBIT/WIDTH=80/PAGE=24
+[?3l>$ DELETE/NOLOG *.TXT;*
+%DELETE-W-SEARCHFAIL, error searching for SYS$SYSDEVICE:[EVE]*.TXT;*
+-RMS-E-FNF, file not found
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ center_odd"
+@@ center_odd
+$ EDIT/TPU P.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K5 lines read from file SYS$SYSDEVICE:[EVE]P.TXT;1[21;80H[1J[;HThis is a paragraph[K
+of short lines that[K
+FILL should join.[K
+[K
+Second paragraph here.[K
+[End of file][K[22;H[;7m Buffer: P.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: center line
+[K[23;21H[K[22A                             This is a paragraph[19D[4h[4l[24;H5 lines written to file SYS$SYSDEVICE:[EVE]P.TXT;2[1;30H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ center_margins"
+@@ center_margins
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: set left margin 11
+[K[23;28H[K
+Left margin set to: 11[;H[4h[4l[22BCommand: set right margin 50
+[K[23;29H[K
+Right margin set to: 50[;H[4h
+
+[4l[20BCommand: center line
+[K[23;21H[K[20A                      the third line[14D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;23H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ WRITE SYS$OUTPUT "@@ end"
+@@ end
+$ 

@@ -82,11 +82,11 @@ impl Grid {
                     });
                     attr = a;
                 }
-                // The diamond of a line that goes on past the edge.
-                if c == '\u{25c6}' {
-                    out.push_str("\x0e`\x0f");
-                } else {
-                    out.push(c);
+                // DEC special graphics: the diamond of a line that goes on
+                // past the edge, and the symbols for FF, CR, LF and VT.
+                match GRAPHICS.iter().find(|g| g.0 == c) {
+                    Some(&(_, g)) => out.push_str(&format!("\x0e{g}\x0f")),
+                    None => out.push(c),
                 }
             }
             if attr != Attr::Normal {
@@ -102,6 +102,15 @@ impl Grid {
         out
     }
 }
+
+/// Characters drawn from the DEC special graphics set, and their codes.
+pub const GRAPHICS: [(char, char); 5] = [
+    ('\u{25c6}', '`'),
+    ('\u{240c}', 'c'),
+    ('\u{240d}', 'd'),
+    ('\u{240a}', 'e'),
+    ('\u{240b}', 'i'),
+];
 
 /// Setting the terminal up for a full screen, and back.
 pub const START: &str = "\x1b)0\x1b[m\x1b[2J\x1b[?7l";

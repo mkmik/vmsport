@@ -7,6 +7,33 @@ pub type Pos = (usize, usize);
 #[derive(Debug, Clone, Default)]
 pub struct Text {
     pub lines: Vec<Vec<char>>,
+    /// What typing, Return and deleting did, for the editor to move
+    /// other windows' positions by (it takes them).
+    pub edits: Vec<Edit>,
+}
+
+/// Text went in from the first position up to the second, or what was
+/// between them went out.
+#[derive(Debug, Clone, Copy)]
+pub enum Edit {
+    Insert(Pos, Pos),
+    Delete(Pos, Pos),
+}
+
+impl Edit {
+    /// Where position `q` is after the edit: with its character, as TPU's
+    /// marks, so text put in at a position goes before it.
+    pub fn moved(&self, q: Pos) -> Pos {
+        match *self {
+            Edit::Insert(a, _) if q < a => q,
+            Edit::Insert(a, b) if q.0 == a.0 => (b.0, b.1 + q.1 - a.1),
+            Edit::Insert(a, b) => (q.0 + b.0 - a.0, q.1),
+            Edit::Delete(a, _) if q <= a => q,
+            Edit::Delete(a, b) if q < b => a,
+            Edit::Delete(a, b) if q.0 == b.0 => (a.0, a.1 + q.1 - b.1),
+            Edit::Delete(a, b) => (q.0 - (b.0 - a.0), q.1),
+        }
+    }
 }
 
 fn blank(c: char) -> bool {
@@ -17,6 +44,7 @@ impl Text {
     pub fn from_lines<S: AsRef<str>>(lines: &[S]) -> Text {
         Text {
             lines: lines.iter().map(|l| l.as_ref().chars().collect()).collect(),
+            edits: Vec::new(),
         }
     }
 
@@ -34,12 +62,15 @@ impl Text {
     pub fn type_char(&mut self, p: Pos, c: char, over: bool) -> Pos {
         if p.0 == self.lines.len() {
             self.lines.push(Vec::new());
+            self.edits.push(Edit::Insert(p, (p.0 + 1, 0)));
         }
         let line = &mut self.lines[p.0];
         if over && p.1 < line.len() {
             line[p.1] = c;
         } else {
-            line.insert(p.1.min(line.len()), c);
+            let at = (p.0, p.1.min(line.len()));
+            line.insert(at.1, c);
+            self.edits.push(Edit::Insert(at, (at.0, at.1 + 1)));
         }
         (p.0, p.1 + 1)
     }
@@ -49,6 +80,7 @@ impl Text {
         if p.0 == self.lines.len() && s.ends_with('\n') {
             self.lines
                 .extend(s[..s.len() - 1].split('\n').map(|l| l.chars().collect()));
+            self.edits.push(Edit::Insert(p, (self.lines.len(), 0)));
             return (self.lines.len(), 0);
         }
         let mut p = p;
@@ -65,11 +97,13 @@ impl Text {
     pub fn split(&mut self, p: Pos) -> Pos {
         if p.0 == self.lines.len() {
             self.lines.push(Vec::new());
+            self.edits.push(Edit::Insert(p, (p.0 + 1, 0)));
             return (p.0 + 1, 0);
         }
         let at = p.1.min(self.lines[p.0].len());
         let rest = self.lines[p.0].split_off(at);
         self.lines.insert(p.0 + 1, rest);
+        self.edits.push(Edit::Insert((p.0, at), (p.0 + 1, 0)));
         (p.0 + 1, 0)
     }
 
@@ -109,6 +143,7 @@ impl Text {
         head.truncate(a.1.min(head.len()));
         head.extend(tail);
         self.lines.drain(a.0 + 1..=b.0);
+        self.edits.push(Edit::Delete(a, b));
         // What was taken up to the end of the buffer leaves no empty last line.
         if got.ends_with('\n')
             && a.1 == 0
@@ -313,27 +348,29 @@ impl Text {
     /// a sentence's end, as EVE leaves them), broken before `right`
     /// columns, starting at column `left` (1-based).
     pub fn fill(&mut self, a: usize, b: usize, left: usize, right: usize) {
-        let words: Vec<String> = (a..=b)
-            .flat_map(|n| {
-                self.string(n)
-                    .split_whitespace()
-                    .map(str::to_string)
-                    .collect::<Vec<_>>()
-            })
-            .collect();
         let indent: String = " ".repeat(left.saturating_sub(1));
         let mut out: Vec<Vec<char>> = Vec::new();
         let mut cur = String::new();
-        for w in words {
-            if !cur.is_empty() && cur.chars().count() + 1 + w.chars().count() > right {
-                out.push(cur.chars().collect());
-                cur.clear();
+        for n in a..=b {
+            let line = self.string(n);
+            // A blank line ends a paragraph and stays.
+            if line.trim().is_empty() {
+                if !cur.is_empty() {
+                    out.push(std::mem::take(&mut cur).chars().collect());
+                }
+                out.push(self.line(n).to_vec());
+                continue;
             }
-            if cur.is_empty() {
-                cur = format!("{indent}{w}");
-            } else {
-                cur.push(' ');
-                cur.push_str(&w);
+            for w in line.split_whitespace() {
+                if !cur.is_empty() && cur.chars().count() + 1 + w.chars().count() > right {
+                    out.push(std::mem::take(&mut cur).chars().collect());
+                }
+                if cur.is_empty() {
+                    cur = format!("{indent}{w}");
+                } else {
+                    cur.push(' ');
+                    cur.push_str(w);
+                }
             }
         }
         if !cur.is_empty() {

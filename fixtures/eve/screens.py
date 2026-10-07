@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""recorded/sessions-console.log as recorded/screens.txt (each EVE
-session's last screen: its 24 rows as a VT100 shows them, the cursor,
-$STATUS; a session recorded again after a crash, its last time) and
+"""recorded/sessions-console.log (then again-console.log, sessions
+recorded anew) as recorded/screens.txt (each EVE session's last screen:
+its 24 rows as a VT100 shows them, the cursor, $STATUS; a session
+recorded again, its last time) and
 recorded/batch-console.log as recorded/batch.log (the NODISPLAY cases'
 output, CRs dropped).
 
@@ -43,8 +44,10 @@ class Screen:
             else:
                 self.c = 0
                 self.lf()
-        if self.graphics and ch == "`":
-            ch = "◆"
+        if self.graphics:
+            # DEC special graphics: the diamond, and the symbols TPU shows
+            # FF, CR, LF and VT as.
+            ch = {"`": "◆", "c": "␌", "d": "␍", "e": "␊", "i": "␋"}.get(ch, ch)
         row = self.g[self.r]
         if self.insert:
             row.insert(self.c, " ")
@@ -156,13 +159,16 @@ class Screen:
         return rows + f"cursor {self.r + 1},{self.c + 1}\n"
 
 
-SESSION = re.compile(r"@@ ([^\r\n\"]*)\r?\n\r?\$ ([^\r\n]*)\r?\n(.*?)[\r\n\x1e\x1f]*\$ \x1e?SHOW SYMBOL \$STATUS\r?\n\r?  \$STATUS == \"([^\"]*)\"", re.S)
+SESSION = re.compile(r"@@ (?!end\r)([^\r\n\"]*)\r?\n\r?\$ ([^\r\n]*)\r?\n(.*?)[\r\n\x1e\x1f]*\$ \x1e?SHOW SYMBOL \$STATUS\r?\n\r?  \$STATUS == \"([^\"]*)\"", re.S)
 
 
 def main():
-    log = (HERE / "recorded/sessions-console.log").read_text(encoding="utf-8", newline="")
+    # Sessions recorded again (record.py sessions NAME...) replace the first.
+    logs = [HERE / "recorded/sessions-console.log", HERE / "recorded/again-console.log"]
+    texts = [p.read_text(encoding="utf-8", newline="") for p in logs if p.exists()]
+    matches = [m for t in texts for m in SESSION.finditer(t)]
     if sys.argv[1:2] == ["-k"]:
-        for m in SESSION.finditer(log):
+        for m in matches:
             if m.group(1) == sys.argv[2]:
                 s = Screen()
                 for n, part in enumerate(m.group(3).split("\x1e")):
@@ -170,7 +176,7 @@ def main():
                     print(f"-- after key {n}\n{s.dump()}", end="")
         return
     out = {}
-    for m in SESSION.finditer(log):
+    for m in matches:
         name, cmd, stream, status = m.groups()
         s = Screen()
         s.feed(stream.replace("\x1e", "").replace("\x1f", "").rstrip("\r\n"))

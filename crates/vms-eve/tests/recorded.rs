@@ -8,7 +8,7 @@ use std::cell::RefCell;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
-use vms_eve::{Done, Editor, Host, Start};
+use vms_eve::{Done, Editor, Host, Key, Start};
 
 fn fixtures() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fixtures/eve")
@@ -174,6 +174,12 @@ fn sessions_as_vms_left_them() {
                 break;
             }
             e.key(k);
+        }
+        // record.py's Ctrl/Z for a session left at a question.
+        for _ in 0..4 {
+            if e.done.is_none() {
+                e.key(Key::Ctrl('Z'));
+            }
         }
         let got = dump(&e);
         let got_status = match e.done {

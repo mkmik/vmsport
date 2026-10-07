@@ -65,6 +65,10 @@ struct Window {
     /// The first line shown.
     top: usize,
     pos: Pos,
+    /// The cursor's column when it is off the text (EVE's free cursor:
+    /// past a line's end, inside a tab, below the end of the buffer, where
+    /// pos's line may be); typing there fills it in first.
+    col: Option<usize>,
     /// First screen row, and how many rows of text (its status line is
     /// the row after them).
     row: usize,
@@ -88,6 +92,8 @@ enum Ask {
     QuitAnyway,
     /// EXIT: a file for a buffer that has none.
     ExitFile(usize),
+    /// EXIT: whether to write another modified buffer.
+    ExitWrite(usize),
     /// The key for DEFINE KEY (the command), or for what LEARN learned.
     DefineKey(String),
     LearnKey(Vec<Key>),
@@ -99,7 +105,6 @@ struct Replace {
     old: String,
     new: String,
     count: usize,
-    start: Pos,
     all: bool,
 }
 
@@ -160,8 +165,6 @@ pub struct Editor {
     overstrike: bool,
     pub reverse: bool,
     message: String,
-    /// What the prompt row shows when nothing is asked.
-    command_row: String,
     prompt: Option<Prompt>,
     select: Option<Pos>,
     /// What INSERT HERE inserts.
@@ -189,6 +192,9 @@ pub struct Editor {
     /// No screen: messages go here, a line each, for the caller to print.
     pub nodisplay: Option<Vec<String>>,
     pub done: Option<Done>,
+    /// A question just answered, as it stays on the screen when the
+    /// answer ends the session.
+    answered: Option<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -456,7 +462,6 @@ impl Editor {
             overstrike: false,
             reverse: false,
             message: String::new(),
-            command_row: String::new(),
             prompt: None,
             select: None,
             paste: String::new(),
@@ -479,6 +484,7 @@ impl Editor {
             host,
             nodisplay: None,
             done: None,
+            answered: None,
         }
     }
 
@@ -520,13 +526,14 @@ impl Editor {
             buffer: 0,
             top: 0,
             pos: (0, 0),
+            col: None,
             row: 0,
             height: self.rows - 3,
         }];
         if let Some((l, c)) = s.start_position {
             let line = (l.max(1) - 1).min(self.buf().text.lines.len());
-            self.win_mut().pos = (line, c.max(1) - 1);
-            self.scroll();
+            self.set_pos((line, 0));
+            self.win_mut().col = Some(c.max(1) - 1);
         }
         if let Some(Err(name)) = &s.init {
             self.msg(&format!("No initialization file matching: {name}"));
@@ -599,13 +606,46 @@ impl Editor {
         &mut self.buffers[b]
     }
 
+    /// Where editing happens: the character under the cursor, the end of
+    /// its line past it, the end of the buffer below that.
     fn pos(&self) -> Pos {
-        self.win().pos
+        let w = self.win();
+        let n = self.buf().text.lines.len();
+        match w.col {
+            _ if w.pos.0 >= n => (n, 0),
+            Some(c) => (w.pos.0, self.char_at_col(w.pos.0, c)),
+            None => w.pos,
+        }
     }
 
     fn set_pos(&mut self, p: Pos) {
-        self.win_mut().pos = p;
+        let w = self.win_mut();
+        w.pos = p;
+        w.col = None;
         self.scroll();
+    }
+
+    /// The free cursor's place made real, to type there: lines down to
+    /// it, blanks out to it, a tab it is inside split at it.
+    fn fill(&mut self) -> Pos {
+        let w = self.win().clone();
+        let Some(col) = w.col else {
+            return self.pos();
+        };
+        let l = w.pos.0;
+        let t = &mut self.buf_mut().text;
+        while t.lines.len() < l || col > 0 && t.lines.len() == l {
+            t.lines.push(Vec::new());
+        }
+        let c = self.char_at_col(l, col);
+        let at = self.display_col((l, c));
+        let n = col.saturating_sub(at);
+        let t = &mut self.buf_mut().text;
+        if l < t.lines.len() {
+            t.lines[l].splice(c..c, std::iter::repeat_n(' ', n));
+        }
+        self.set_pos((l, c + n));
+        (l, c + n)
     }
 
     /// Whether the buffer may change; if not, says so.
@@ -622,9 +662,18 @@ impl Editor {
         false
     }
 
+    /// After an edit: the buffer is modified, and the other windows on it
+    /// keep their places in the text.
     fn changed(&mut self) {
         self.buf_mut().modified = true;
         self.found = None;
+        let b = self.win().buffer;
+        let edits = std::mem::take(&mut self.buffers[b].text.edits);
+        for (i, w) in self.windows.iter_mut().enumerate() {
+            if i != self.current && w.buffer == b {
+                w.pos = edits.iter().fold(w.pos, |q, e| e.moved(q));
+            }
+        }
     }
 
     /// Keeps the cursor's line in its window, scrolling as little as
@@ -646,6 +695,7 @@ impl Editor {
         let lines = self.buf().text.lines.len();
         let w = self.win_mut();
         w.pos = p;
+        w.col = None;
         if p.0 < top || p.0 >= top + h {
             let last_top = (lines + 1).saturating_sub(h);
             w.top = p.0.saturating_sub(h / 2).min(last_top);
@@ -676,15 +726,14 @@ impl Editor {
 
     /// Shows buffer `b` in the current window.
     fn show(&mut self, b: usize) {
-        let pos = self.win().pos;
+        let pos = self.pos();
         let old = self.win().buffer;
         self.buffers[old].pos = pos;
         let w = self.win_mut();
         w.buffer = b;
         w.top = 0;
         let p = self.buffers[b].pos;
-        self.win_mut().pos = p;
-        self.scroll();
+        self.set_pos(p);
     }
 
     fn find_buffer(&self, name: &str) -> Option<usize> {
@@ -723,6 +772,7 @@ impl Editor {
         w.buffer = b;
         w.top = 0;
         w.pos = (0, 0);
+        w.col = None;
         self.windows.push(w);
         if height == 0 {
             self.layout();
@@ -763,6 +813,7 @@ impl Editor {
 
     /// A key typed.
     pub fn key(&mut self, k: Key) {
+        self.answered = None;
         if let Some(l) = &mut self.learning
             && k != Key::Ctrl('R')
         {
@@ -815,7 +866,8 @@ impl Editor {
             HELP => self.help(),
             Key::F(10) | Key::Ctrl('Z') => self.exit(),
             Key::F(11) => self.command("Change direction", ""),
-            Key::F(12) | Key::Ctrl('H') | Key::Backspace => self.command("Move by line", ""),
+            Key::F(12) => self.command("Move by line", ""),
+            Key::Ctrl('H') | Key::Backspace => self.command("Start of line", ""),
             Key::F(13) | Key::Ctrl('J') => self.command("Erase word", ""),
             Key::F(14) | Key::Ctrl('A') => self.command("Change mode", ""),
             Key::Ctrl('B') => self.ask("Command: ", Ask::Command),
@@ -880,7 +932,7 @@ impl Editor {
         if !self.can_change(true) {
             return;
         }
-        let p = self.pos();
+        let p = self.fill();
         let over = self.overstrike;
         let p = self.buf_mut().text.type_char(p, c, over);
         self.changed();
@@ -936,24 +988,39 @@ impl Editor {
         self.set_pos(p);
     }
 
-    fn vertical(&mut self, d: isize) {
-        let (l, c) = self.pos();
-        let col = self.display_col((l, c));
-        let lines = self.buf().text.lines.len();
-        let to = l as isize + d;
-        if to < 0 || to as usize > lines {
-            return;
-        }
-        let to = to as usize;
-        let c = self.char_at_col(to, col);
-        self.set_pos((to, c));
+    /// The cursor's screen column.
+    fn cursor_col(&self) -> usize {
+        let w = self.win();
+        w.col.unwrap_or_else(|| self.display_col(w.pos))
     }
 
+    /// Up and down keep the column, whatever the line has there; down
+    /// goes on below the end of the buffer to the window's last row.
+    fn vertical(&mut self, d: isize) {
+        let col = self.cursor_col();
+        let w = self.win();
+        let Some(to) = w.pos.0.checked_add_signed(d) else {
+            return;
+        };
+        if to > self.buf().text.lines.len() && to >= w.top + w.height {
+            return;
+        }
+        let w = self.win_mut();
+        w.pos.0 = to;
+        w.col = Some(col);
+        self.scroll();
+    }
+
+    /// Left and right go a column, not past the line's ends to another
+    /// line: from the left edge nowhere, to the right up to the screen's.
     fn horizontal(&mut self, right: bool) {
-        let p = self.pos();
-        let t = &self.buf().text;
-        let n = if right { t.next(p) } else { t.prev(p) };
-        self.set_pos(n);
+        let col = self.cursor_col();
+        let col = if right {
+            (col + 1).min(self.cols - 1)
+        } else {
+            col.saturating_sub(1)
+        };
+        self.win_mut().col = Some(col);
     }
 
     /// The screen column (0-based) of a position, tabs expanded.
@@ -1036,12 +1103,18 @@ impl Editor {
                     p.text = r.chars().collect();
                 }
             }
-            Key::Return | Key::KpEnter | DO => {
+            Key::Return | Key::KpEnter => {
                 let p = self.prompt.take().unwrap();
                 let text: String = p.text.iter().collect();
                 self.answer(p, text);
             }
-            Key::Ctrl('Z') | Key::Ctrl('C') => {
+            // Ctrl/Z at a question is EXIT, the question left as it was.
+            Key::Ctrl('Z') => {
+                let p = self.prompt.take().unwrap();
+                self.answered = Some(format!("{}{}", p.label, p.text.iter().collect::<String>()));
+                self.exit();
+            }
+            Key::Ctrl('C') => {
                 let p = self.prompt.take().unwrap();
                 self.answer(p, String::new());
             }
@@ -1050,9 +1123,14 @@ impl Editor {
     }
 
     fn answer(&mut self, p: Prompt, text: String) {
+        if !matches!(p.ask, Ask::Command) {
+            self.answered = Some(format!("{}{text}", p.label));
+        }
         match p.ask {
             Ask::Command => {
-                self.command_row = format!("{}{text}", p.label);
+                // Return at the Do prompt clears the message line.
+                self.message.clear();
+                self.close_choices();
                 if !text.trim().is_empty() {
                     self.recall.push(text.clone());
                 }
@@ -1069,8 +1147,6 @@ impl Editor {
             Ask::Replace(r) => self.replace_answer(r, &text),
             Ask::ReplaceBack(r) => {
                 if text.to_lowercase().starts_with('y') {
-                    let mut r = r;
-                    r.start = (0, 0);
                     self.replace_next(r, (0, 0));
                 } else {
                     self.replaced(r.count);
@@ -1083,7 +1159,26 @@ impl Editor {
             }
             Ask::ExitFile(b) => {
                 if !text.is_empty() {
-                    self.buffers[b].file = Some(text);
+                    self.write_buffer(b, &text);
+                }
+                self.exit();
+            }
+            Ask::ExitWrite(b) => {
+                if text.to_lowercase().starts_with('y') {
+                    match self.buffers[b].file.clone() {
+                        Some(f) => {
+                            self.write_buffer(b, &f);
+                        }
+                        None => {
+                            let name = self.buffers[b].name.clone();
+                            return self.ask(
+                                &format!(
+                                    "Type filename for buffer {name} (press RETURN to not write it): "
+                                ),
+                                Ask::ExitFile(b),
+                            );
+                        }
+                    }
                 }
                 self.exit();
             }
@@ -1117,6 +1212,14 @@ impl Editor {
             Err(choices) => {
                 self.msg(&format!("Ambiguous command name: {line}"));
                 self.show_choices(&choices);
+                // The Do prompt again, with what was typed, to finish it.
+                if self.nodisplay.is_none() {
+                    self.prompt = Some(Prompt {
+                        label: "Command: ".into(),
+                        text: line.chars().collect(),
+                        ask: Ask::Command,
+                    });
+                }
             }
         }
     }
@@ -1183,13 +1286,17 @@ impl Editor {
                     ));
                     self.jump((lines, 0));
                 } else {
-                    self.jump((n.max(1) - 1, 0));
+                    self.set_pos((n.max(1) - 1, 0));
                 }
             }
             "What line" => {
                 let (l, _) = self.pos();
-                let n = self.buf().text.lines.len();
-                self.msg(&format!("You are on line {} of {n}.", l + 1));
+                let n = self.buf().text.lines.len().max(1);
+                self.msg(&format!(
+                    "You are on line {} out of {n} ({}%).",
+                    l + 1,
+                    (l + 1) * 100 / n
+                ));
             }
             "Move up" => self.vertical(-1),
             "Move down" => self.vertical(1),
@@ -1237,10 +1344,10 @@ impl Editor {
                 } else {
                     (l + step).min(lines)
                 };
-                let w = self.win_mut();
-                w.pos = (to, 0);
-                w.top = to;
-                self.scroll();
+                // The end of the buffer no higher than the last row.
+                let last_top = (lines + 1).saturating_sub(h);
+                self.set_pos((to, 0));
+                self.win_mut().top = to.min(last_top);
             }
             "Forward" => self.reverse = false,
             "Reverse" => self.reverse = true,
@@ -1261,6 +1368,7 @@ impl Editor {
                         (true, true) => "Forward Wildcard Find: ",
                         (false, true) => "Reverse Wildcard Find: ",
                     };
+                    self.message.clear();
                     self.ask(label, Ask::Find { forward, wildcard });
                 } else {
                     self.find(&unquote(args), forward, wildcard);
@@ -1269,9 +1377,9 @@ impl Editor {
             "Replace" => {
                 let parts = replace_args(args);
                 match parts.len() {
-                    0 => self.ask("Old string: ", Ask::Arg("replace".into())),
+                    0 => self.ask("Old String: ", Ask::Arg("replace".into())),
                     1 => self.ask(
-                        "New string: ",
+                        "New String: ",
                         Ask::Arg(format!("replace \"{}\"", parts[0])),
                     ),
                     2 => {
@@ -1279,7 +1387,6 @@ impl Editor {
                             old: parts[0].clone(),
                             new: parts[1].clone(),
                             count: 0,
-                            start: self.pos(),
                             all: false,
                         };
                         let p = self.pos();
@@ -1290,10 +1397,10 @@ impl Editor {
             }
             "Select" => {
                 if self.select.take().is_some() {
-                    self.msg("Selection cancelled.");
+                    self.msg("Selection canceled.");
                 } else {
                     self.select = Some(self.pos());
-                    self.msg("Selection started.  Press Select again to cancel.");
+                    self.msg("Move the text cursor to select text.");
                 }
             }
             "Select all" => {
@@ -1311,7 +1418,7 @@ impl Editor {
                     self.changed();
                     self.set_pos(a);
                 } else {
-                    self.msg("There is no active select range.");
+                    self.msg("No selection active.");
                 }
             }
             "Store text" | "Copy" => {
@@ -1319,14 +1426,14 @@ impl Editor {
                     self.paste = self.buf().text.get(a, b);
                     self.select = None;
                 } else {
-                    self.msg("There is no active select range.");
+                    self.msg("No selection active.");
                 }
             }
             "Insert here" | "Paste" => {
                 if !self.can_change(false) {
                     return;
                 }
-                let p = self.pos();
+                let p = self.fill();
                 let s = self.paste.clone();
                 let p = self.buf_mut().text.insert_str(p, &s);
                 self.changed();
@@ -1342,6 +1449,12 @@ impl Editor {
                 self.changed();
             }
             "Delete" => {
+                // Past the end of the line it only moves back.
+                let (l, col) = (self.win().pos.0, self.cursor_col());
+                let end = self.buf().text.line(l).len();
+                if self.win().col.is_some() && col > self.display_col((l, end)) {
+                    return self.horizontal(false);
+                }
                 if !self.can_change(true) {
                     return;
                 }
@@ -1377,11 +1490,18 @@ impl Editor {
                 if !self.can_change(false) {
                     return;
                 }
+                // To the start of the word the cursor is in, or else of
+                // the one before, then ERASE WORD.
                 let p = self.pos();
-                let a = self.buf().text.word_move(p, false);
-                self.erased = self.buf_mut().text.delete(a, p);
-                self.changed();
-                self.set_pos(a);
+                let t = &self.buf().text;
+                let (a, _) = t.word_at(p);
+                let to = if a < p.1 {
+                    (p.0, a)
+                } else {
+                    t.word_move(p, false)
+                };
+                self.set_pos(to);
+                self.command("Erase word", "");
             }
             "Erase line" => {
                 if !self.can_change(false) {
@@ -1419,6 +1539,9 @@ impl Editor {
                     return;
                 }
                 let (l, c) = self.pos();
+                if l == self.buf().text.lines.len() {
+                    return;
+                }
                 let (a, b) = self.buf().text.word_at((l, c));
                 let line = &mut self.buf_mut().text.lines[l];
                 for (i, ch) in line[a..b].iter_mut().enumerate() {
@@ -1446,8 +1569,11 @@ impl Editor {
                     return;
                 }
                 let s: String = self.buf().text.string(l).trim().to_string();
+                // As VMS centers (fixtures/eve: center, center_odd,
+                // center_margins): a column left of the middle.
                 let width = self.right - self.left + 1;
-                let pad = (self.left - 1) + width.saturating_sub(s.chars().count()) / 2;
+                let pad =
+                    (self.left + width.saturating_sub(s.chars().count()) / 2).saturating_sub(2);
                 self.buf_mut().text.lines[l] = format!("{}{s}", " ".repeat(pad)).chars().collect();
                 self.changed();
                 self.set_pos((l, pad));
@@ -1496,7 +1622,10 @@ impl Editor {
                     return;
                 }
                 match num(args) {
-                    Some(n) if n >= 1 && n < self.right => self.left = n,
+                    Some(n) if n >= 1 && n < self.right => {
+                        self.left = n;
+                        self.msg(&format!("Left margin set to: {n}"));
+                    }
                     _ => self.msg(&format!(
                         "Left margin must be between 1 and {}.",
                         self.right - 1
@@ -1508,7 +1637,10 @@ impl Editor {
                     return;
                 }
                 match num(args) {
-                    Some(n) if n > self.left => self.right = n,
+                    Some(n) if n > self.left => {
+                        self.right = n;
+                        self.msg(&format!("Right margin set to: {n}"));
+                    }
                     _ => self.msg(&format!(
                         "Right margin must be greater than left margin {}.",
                         self.left
@@ -1694,6 +1826,7 @@ impl Editor {
                     if w.buffer == b {
                         w.buffer = 0;
                         w.pos = (0, 0);
+                        w.col = None;
                         w.top = 0;
                     } else if w.buffer > b {
                         w.buffer -= 1;
@@ -1746,6 +1879,7 @@ impl Editor {
                         Ask::QuitAnyway,
                     );
                 } else {
+                    self.message.clear();
                     self.done = Some(Done::Quit);
                 }
             }
@@ -1858,12 +1992,8 @@ impl Editor {
                 }
             }
             None => {
-                let before = self
-                    .buf()
-                    .text
-                    .find((0, 0), &r.old, true)
-                    .filter(|h| h.0 < r.start);
-                if before.is_some() && r.start != (0, 0) {
+                let before = self.buf().text.find((0, 0), &r.old, true);
+                if before.is_some() {
                     self.ask(
                         "Found in reverse direction (may have already replaced).  Go there [N]? ",
                         Ask::ReplaceBack(r),
@@ -1922,9 +2052,11 @@ impl Editor {
         if get {
             let name = buffer_name(spec);
             if let Some(b) = self.find_buffer(&name) {
-                let shown = self.buffers[b].file.clone().unwrap_or(name);
+                if b == self.win().buffer {
+                    let shown = self.buffers[b].file.clone().unwrap_or(name);
+                    self.msg(&format!("You are already editing file: {shown}"));
+                }
                 self.show(b);
-                self.msg(&format!("You are already editing file: {shown}"));
                 return;
             }
         }
@@ -1943,8 +2075,7 @@ impl Editor {
                     let p = self.pos();
                     let line_start = (p.0, 0);
                     let text: String = lines.iter().map(|l| format!("{l}\n")).collect();
-                    let at = if p.1 == 0 { line_start } else { p };
-                    self.buf_mut().text.insert_str(at, &text);
+                    self.buf_mut().text.insert_str(line_start, &text);
                     self.changed();
                 }
                 self.msg(&format!(
@@ -1980,9 +2111,7 @@ impl Editor {
                     "{} written to file {full}",
                     plural(lines.len(), "line")
                 ));
-                if self.buffers[b].file.is_none() {
-                    self.buffers[b].file = Some(full);
-                }
+                self.buffers[b].file = Some(full);
                 true
             }
             Err(e) => {
@@ -1994,38 +2123,47 @@ impl Editor {
 
     /// EXIT: each modified buffer written, then the end.
     fn exit(&mut self) {
-        for b in 0..self.buffers.len() {
+        // The current buffer first; others are asked about.
+        let cur = self.win().buffer;
+        let mut order: Vec<usize> = (0..self.buffers.len()).collect();
+        order.sort_by_key(|&b| b != cur);
+        for b in order {
             let buf = &self.buffers[b];
             if !buf.modified || !buf.write || buf.system {
                 continue;
             }
-            match buf.file.clone() {
+            let (name, file) = (buf.name.clone(), buf.file.clone());
+            self.buffers[b].modified = false;
+            if self.nodisplay.is_none() && b != cur {
+                return self.ask(&format!("Write Buffer {name}? "), Ask::ExitWrite(b));
+            }
+            match file {
                 Some(f) => {
                     if !self.write_buffer(b, &f) {
+                        self.buffers[b].modified = true;
                         return;
                     }
-                    self.buffers[b].modified = false;
                 }
                 None if self.nodisplay.is_some() => {}
                 None => {
-                    let label = format!(
-                        "Type the file name for buffer {} (press RETURN to not write it): ",
-                        self.buffers[b].name
+                    return self.ask(
+                        &format!(
+                            "Type filename for buffer {name} (press RETURN to not write it): "
+                        ),
+                        Ask::ExitFile(b),
                     );
-                    self.buffers[b].modified = false;
-                    self.ask(&label, Ask::ExitFile(b));
-                    return;
                 }
             }
         }
-        if self.dcl_started {
+        // Said at the end of a procedure; on the screen it isn't seen.
+        if self.dcl_started && self.nodisplay.is_some() {
             self.msg("Subprocess terminated");
         }
         self.done = Some(Done::Exit);
     }
 
     fn dcl(&mut self, command: &str) {
-        let mut lines = vec![command.to_string()];
+        let mut lines = vec![String::new(), command.to_string()];
         lines.extend(self.host.dcl(command));
         let b = match self.find_buffer("DCL") {
             Some(b) => {
@@ -2069,7 +2207,7 @@ impl Editor {
             }
             lines.push(
                 format!(
-                    "  {:<30}{:>5}  {}",
+                    "  {:<30}{:>4}  {}",
                     b.name,
                     b.text.lines.len(),
                     attrs.join(", ")
@@ -2079,7 +2217,7 @@ impl Editor {
             );
         }
         let b = self.system_buffer("BUFFER LIST", &lines);
-        self.buffers[b].pos = (2, 0);
+        self.buffers[b].pos = (2, 2);
         self.show(b);
     }
 
@@ -2141,22 +2279,22 @@ impl Editor {
             self.draw_window(&mut g, w, i == self.current);
         }
         let prompt_row = self.rows - 2;
-        match &self.prompt {
-            Some(p) => {
-                let a = if matches!(p.ask, Ask::Command) {
-                    Attr::Normal
-                } else {
-                    Attr::Reverse
-                };
-                g.put(prompt_row, 0, &p.label, a);
-                let text: String = p.text.iter().collect();
-                g.put(prompt_row, p.label.chars().count(), &text, Attr::Normal);
-                g.cursor = (
-                    prompt_row,
-                    (p.label.chars().count() + p.text.len()).min(self.cols - 1),
-                );
-            }
-            None => g.put(prompt_row, 0, &self.command_row, Attr::Normal),
+        if let Some(p) = &self.prompt {
+            let a = if matches!(p.ask, Ask::Command) {
+                Attr::Normal
+            } else {
+                Attr::Reverse
+            };
+            g.put(prompt_row, 0, &p.label, a);
+            let text: String = p.text.iter().collect();
+            g.put(prompt_row, p.label.chars().count(), &text, Attr::Normal);
+            g.cursor = (
+                prompt_row,
+                (p.label.chars().count() + p.text.len()).min(self.cols - 1),
+            );
+        }
+        if let Some(a) = self.answered.as_ref().filter(|_| self.done.is_some()) {
+            g.put(prompt_row, 0, a, Attr::Normal);
         }
         g.put(self.rows - 1, 0, &self.message, Attr::Normal);
         if self.done.is_some() {
@@ -2171,7 +2309,8 @@ impl Editor {
         for r in 0..w.height {
             let l = w.top + r;
             let row = w.row + r;
-            if l == b.text.lines.len() {
+            // EVE's own buffers have no end-of-file line.
+            if l == b.text.lines.len() && !b.system {
                 g.put(row, 0, "[End of file]", Attr::Normal);
                 continue;
             }
@@ -2190,7 +2329,8 @@ impl Editor {
                 };
                 let shown: String = match c {
                     '\t' => " ".repeat((col / self.tabs + 1) * self.tabs - col),
-                    '\u{c}' => "<FF>".to_string(),
+                    // FF, CR, LF, VT as their symbols.
+                    '\u{b}'..='\r' => char::from_u32(0x2400 + c as u32).unwrap().to_string(),
                     c if (c as u32) < 32 => format!("^{}", (c as u8 + 64) as char),
                     c => c.to_string(),
                 };
@@ -2221,7 +2361,7 @@ impl Editor {
             Attr::Reverse,
         );
         if current {
-            let c = self.display_col(w.pos).min(self.cols - 1);
+            let c = self.cursor_col().min(self.cols - 1);
             g.cursor = (w.row + w.pos.0 - w.top, c);
         }
     }
