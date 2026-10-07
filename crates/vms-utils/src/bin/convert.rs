@@ -111,13 +111,19 @@ fn main() {
             }
         }
     }
+    // /KEY=n: an indexed input in the order of its key n.
+    let krf: u8 = u.value("KEY").and_then(|k| k.parse().ok()).unwrap_or(0);
     let mut records = Vec::new();
     let mut first: Option<(Fab, PathBuf)> = None;
     for (path, spec) in &inputs {
-        match Reader::open(path) {
-            Ok(mut r) => {
-                first.get_or_insert((r.fab, path.clone()));
-                records.extend(std::iter::from_fn(|| r.get()));
+        let read = match files::fab(path).org {
+            Org::Idx if krf != 0 => by_key(path, krf),
+            _ => Reader::open(path).map(|mut r| std::iter::from_fn(|| r.get()).collect()),
+        };
+        match read {
+            Ok(r) => {
+                first.get_or_insert((files::fab(path), path.clone()));
+                records.extend(r);
             }
             Err(e) => {
                 let open = u.shared(shr::OPENIN, F);
@@ -150,10 +156,28 @@ fn main() {
             fail(u, open, &parsed.expanded(), e)
         }
     };
-    let mut design = fdl.unwrap_or(Design {
-        fab: Fab { lrl: 0, ..in_fab },
-        ..Design::default()
-    });
+    // Without an FDL file, the first input's design: an indexed one's keys
+    // and areas too.
+    let mut design = match fdl {
+        Some(d) => d,
+        None if in_fab.org == Org::Idx => {
+            let open = std::fs::File::open(&in_path)
+                .map_err(files::io_status)
+                .and_then(rms::HostBlocks::new);
+            let fixed = in_fab.rfm == Rfm::Fix;
+            match open.and_then(|b| vms_rms::idx::File::new(b, fixed, in_fab.mrs).design(in_fab)) {
+                Ok(d) => d,
+                Err(e) => {
+                    let open = u.shared(shr::OPENIN, F);
+                    fail(u, open, &in_path.display().to_string(), e)
+                }
+            }
+        }
+        None => Design {
+            fab: Fab { lrl: 0, ..in_fab },
+            ..Design::default()
+        },
+    };
     if existing {
         design.fab = files::fab(&path);
     }
@@ -360,6 +384,18 @@ fn main() {
         println!("Elapsed Time:{t:>23}\tCPU Time:{t:>23}");
     }
     u.exit(Cond(1));
+}
+
+/// An indexed file's records in the order of key `krf`.
+fn by_key(path: &std::path::Path, krf: u8) -> Result<Vec<Record>, Cond> {
+    use rms::fab::*;
+    let mut f = rms::File::open(path, GET, GET | PUT | UPD | DEL)?;
+    f.rewind(krf);
+    let rop = rms::Rop {
+        nolock: true,
+        ..rms::Rop::default()
+    };
+    Ok(std::iter::from_fn(|| f.get(rms::At::Next, rop).ok()).collect())
 }
 
 /// /PAD=x: a character, or %X, %O, %D and the like.

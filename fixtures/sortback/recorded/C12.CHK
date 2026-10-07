@@ -1,0 +1,104 @@
+
+Check RMS File Integrity                      7-OCT-2026 04:22:38.45   Page 1
+DKA200:[T.SORTBACK]C12.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.SORTBACK]C12.DAT;1
+	File ID: (16,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 00:28:23.27
+	Revision Date:    7-OCT-2026 00:28:23.27, Number: 1
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: indexed
+	Record Format: variable
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 40
+	Blocks Allocated: 32, Default Extend Size: 0
+	Bucket Size: 2
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Number of Areas: 1, VBN of First Descriptor: 3
+	Prolog Version: 3
+
+AREA DESCRIPTOR #0 (VBN 3, offset %X'0000')
+
+	Bucket Size: 2
+	Reclaimed Bucket VBN: 0
+	Current Extent Start: 1, Blocks: 16, Used: 11, Next: 12
+	Default Extend Quantity: 0
+	Total Allocation: 16
+
+KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
+
+	Next Key Descriptor VBN: 2, Offset: %X'0000'
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 2, Data Bucket Size: 2
+	Root VBN: 6
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    1
+		(3)  KEY$V_IDX_COMPR  1
+		(4)  KEY$V_INITIDX    0
+
+Check RMS File Integrity                      7-OCT-2026 04:22:38.45   Page 2
+DKA200:[T.SORTBACK]C12.DAT;1
+
+
+		(6)  KEY$V_KEY_COMPR  1
+		(7)  KEY$V_REC_COMPR  1
+	Key Segments: 1
+	Key Size: 8
+	Minimum Record Size: 8
+	Index Fill Quantity: 1024, Data Fill Quantity: 1024
+	Segment Positions:       0
+	Segment Sizes:           8
+	Data Type: string
+	Name: ""
+	First Data Bucket VBN: 4
+
+KEY DESCRIPTOR #1 (VBN 2, offset %X'0000')
+
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 2, Data Bucket Size: 2
+	Root VBN: 10
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    1
+		(1)  KEY$V_CHGKEYS    1
+		(2)  KEY$V_NULKEYS    0
+		(3)  KEY$V_IDX_COMPR  0
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  0
+	Key Segments: 1
+	Key Size: 4
+	Minimum Record Size: 12
+	Index Fill Quantity: 1024, Data Fill Quantity: 1024
+	Segment Positions:       8
+	Segment Sizes:           4
+	Data Type: string
+	Name: ""
+	First Data Bucket VBN: 8
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK/OUTPUT=C12.CHK C12.DAT

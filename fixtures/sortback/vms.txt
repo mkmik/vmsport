@@ -1,0 +1,16 @@
+# What OpenVMS makes of the indexed files SORT and CONVERT made here
+# (fixtures/sort's procedures): ANALYZE/RMS_FILE/CHECK, and DCL's reads.
+import ours
+in SORTBACK.COM
+run @SORTBACK.COM/OUTPUT=SORTBACK.LOG
+text SORTBACK.LOG recorded/SORTBACK.log
+text C10.CHK recorded/C10.CHK
+text C11.CHK recorded/C11.CHK
+text C12.CHK recorded/C12.CHK
+text C13.CHK recorded/C13.CHK
+text C14.CHK recorded/C14.CHK
+text C15.CHK recorded/C15.CHK
+text C16.CHK recorded/C16.CHK
+text C19.CHK recorded/C19.CHK
+text C21.CHK recorded/C21.CHK
+text S21.CHK recorded/S21.CHK
