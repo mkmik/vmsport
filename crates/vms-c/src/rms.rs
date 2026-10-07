@@ -1153,8 +1153,8 @@ pub unsafe extern "C" fn put(rab: *mut Rab, err: *const c_void, suc: *const c_vo
                     o.file.update(&rec)
                 }
                 st => {
-                    if let (Some(n), Ok(_)) = (key, &st) {
-                        (r.rfa0, r.rfa4) = (n, 0);
+                    if let (Some(rfa), Ok(_)) = (o.file.put_rfa, &st) {
+                        (r.rfa0, r.rfa4) = (rfa.vbn, rfa.id);
                     }
                     st
                 }

@@ -228,6 +228,8 @@ pub struct File {
     kind: Kind,
     /// The record $UPDATE and $DELETE act on.
     current: Option<Rfa>,
+    /// The record the last $PUT wrote (RAB$W_RFA after it).
+    pub put_rfa: Option<Rfa>,
     locks: Locks,
 }
 
@@ -280,6 +282,7 @@ impl File {
             fab,
             kind,
             current: None,
+            put_rfa: None,
             locks,
         })
     }
@@ -337,6 +340,7 @@ impl File {
             fab,
             kind,
             current: None,
+            put_rfa: None,
             locks,
         })
     }
@@ -390,15 +394,25 @@ impl File {
     /// RMS$_OK_DUP when an indexed file's record repeats a key.
     pub fn put(&mut self, rec: &Record, key: Option<u32>) -> Result<Cond, Cond> {
         self.unlock();
-        let normal = |r: Result<(), Cond>| r.map(|()| status::NORMAL);
-        self.op(|k| match k {
-            Kind::Seq { out, .. } => normal(out.as_mut().ok_or(status::FAC)?.put(rec)),
-            Kind::Rel { rel, b, next } => normal(match key {
-                Some(n) => rel.put(b, n, rec),
-                None => rel.put(b, *next, rec).map(|()| *next += 1),
-            }),
-            Kind::Idx { f, .. } => f.put(&rec.data).map(|(_, st)| st),
-        })
+        let cell = |n: u32| Rfa { vbn: n, id: 0 };
+        let (rfa, st) = self.op(|k| match k {
+            Kind::Seq { records, out, .. } => {
+                out.as_mut().ok_or(status::FAC)?.put(rec)?;
+                records.push(rec.clone());
+                Ok((cell(records.len() as u32), status::NORMAL))
+            }
+            Kind::Rel { rel, b, next } => {
+                let n = key.unwrap_or(*next);
+                rel.put(b, n, rec)?;
+                if key.is_none() {
+                    *next += 1;
+                }
+                Ok((cell(n), status::NORMAL))
+            }
+            Kind::Idx { f, .. } => f.put(&rec.data),
+        })?;
+        self.put_rfa = Some(rfa);
+        Ok(st)
     }
 
     /// $UPDATE of the current record.
