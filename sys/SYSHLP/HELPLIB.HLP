@@ -728,6 +728,28 @@ file-spec
  editor.
 /EDT
  Accepted, as /TPU.
+2 /HOST
+ Edits a text file in the host's editor ($VISUAL, $EDITOR or vi), as
+ EDIT does now, whatever EDIT's default becomes.
+
+ Format
+
+   EDIT/HOST [/qualifier...] file-spec
+3 Qualifiers
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ Edits a new file when the one named doesn't exist; with /NOCREATE that
+ is an error.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Saves what the editor leaves in this file (a new version of it).
+/READ_ONLY
+ Shows the file in the editor and saves nothing.
 2 /FDL
  Optimizes an indexed file's design for the data an analysis describes.
  A sequential or relative design is left alone and nothing is written;
