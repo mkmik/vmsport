@@ -1,0 +1,3457 @@
+%ANLRMS-I-ERRORS, <DKA100:[T.ACCEPTBACK]ORDERS.DAT;1> 0 errors
+  $STATUS == "%X103B8103"
+%ANLRMS-I-ERRORS, <DKA100:[T.ACCEPTBACK]PARTS.DAT;1> 0 errors
+  $STATUS == "%X103B8103"
+@@ DKA100:[T.ACCEPTBACK]ORDERS.DAT key 0
+O0000001GLOBEX    0053widgets ga
+O0000002INITECH   0106widgets gadgets gizm
+O0000003UMBRELLA  0159widgets gadgets gizmos sprocke
+O0000004HOOLI     0212widgets gadgets gizmos sprockets doohick
+O0000005STARK     0265widgets gadgets gizmos sprockets doohickeys thinga
+O0000006WAYNE     0318
+O0000007NEWCUST   0007widgets ga
+O0000008CYBERDYNE 0424widgets gadgets gizm
+O0000009SOYLENT   0477widgets gadgets gizmos sprocke
+O0000010MASSIVE   0530widgets gadgets gizmos sprockets doohick
+O0000012WONKA     0636
+O0000013ACME      0689widgets ga
+O0000014NEWCUST   0014widgets gadgets gizm
+O0000015INITECH   0795widgets gadgets gizmos sprocke
+O0000016UMBRELLA  0848widgets gadgets gizmos sprockets doohick
+O0000017HOOLI     0901widgets gadgets gizmos sprockets doohickeys thinga
+O0000018STARK     0954
+O0000019WAYNE     1007widgets ga
+O0000020TYRELL    1060widgets gadgets gizm
+O0000021NEWCUST   0021widgets gadgets gizmos sprocke
+O0000023MASSIVE   1219widgets gadgets gizmos sprockets doohickeys thinga
+O0000024VANDELAY  1272
+O0000025WONKA     1325widgets ga
+O0000026ACME      1378widgets gadgets gizm
+O0000027GLOBEX    1431widgets gadgets gizmos sprocke
+O0000028NEWCUST   0028widgets gadgets gizmos sprockets doohick
+O0000029UMBRELLA  1537widgets gadgets gizmos sprockets doohickeys thinga
+O0000030HOOLI     1590
+O0000031STARK     1643widgets ga
+O0000032WAYNE     1696widgets gadgets gizm
+O0000034CYBERDYNE 1802widgets gadgets gizmos sprockets doohick
+O0000035NEWCUST   0035widgets gadgets gizmos sprockets doohickeys thinga
+O0000036MASSIVE   1908
+O0000037VANDELAY  1961widgets ga
+O0000038WONKA     2014widgets gadgets gizm
+O0000039ACME      2067widgets gadgets gizmos sprocke
+O0000040GLOBEX    2120widgets gadgets gizmos sprockets doohick
+O0000041INITECH   2173widgets gadgets gizmos sprockets doohickeys thinga
+O0000042NEWCUST   0042
+O0000043HOOLI     2279widgets ga
+O0000045WAYNE     2385widgets gadgets gizmos sprocke
+O0000046TYRELL    2438widgets gadgets gizmos sprockets doohick
+O0000047CYBERDYNE 2491widgets gadgets gizmos sprockets doohickeys thinga
+O0000048SOYLENT   2544
+O0000049NEWCUST   0049widgets ga
+O0000050VANDELAY  2650widgets gadgets gizm
+O0000051WONKA     2703widgets gadgets gizmos sprocke
+O0000052ACME      2756widgets gadgets gizmos sprockets doohick
+O0000053GLOBEX    2809widgets gadgets gizmos sprockets doohickeys thinga
+O0000054INITECH   2862
+O0000056NEWCUST   0056widgets gadgets gizm
+O0000057STARK     3021widgets gadgets gizmos sprocke
+O0000058WAYNE     3074widgets gadgets gizmos sprockets doohick
+O0000059TYRELL    3127widgets gadgets gizmos sprockets doohickeys thinga
+O0000060CYBERDYNE 3180
+O0000061SOYLENT   3233widgets ga
+O0000062MASSIVE   3286widgets gadgets gizm
+O0000063NEWCUST   0063widgets gadgets gizmos sprocke
+O0000064WONKA     3392widgets gadgets gizmos sprockets doohick
+O0000065ACME      3445widgets gadgets gizmos sprockets doohickeys thinga
+O0000067INITECH   3551widgets ga
+O0000068UMBRELLA  3604widgets gadgets gizm
+O0000069HOOLI     3657widgets gadgets gizmos sprocke
+O0000070NEWCUST   0070widgets gadgets gizmos sprockets doohick
+O0000071WAYNE     3763widgets gadgets gizmos sprockets doohickeys thinga
+O0000072TYRELL    3816
+O0000073CYBERDYNE 3869widgets ga
+O0000074SOYLENT   3922widgets gadgets gizm
+O0000075MASSIVE   3975widgets gadgets gizmos sprocke
+O0000076VANDELAY  4028widgets gadgets gizmos sprockets doohick
+O0000078ACME      4134
+O0000079GLOBEX    4187widgets ga
+O0000080INITECH   4240widgets gadgets gizm
+O0000081UMBRELLA  4293widgets gadgets gizmos sprocke
+O0000082HOOLI     4346widgets gadgets gizmos sprockets doohick
+O0000083STARK     4399widgets gadgets gizmos sprockets doohickeys thinga
+O0000084NEWCUST   0084
+O0000085TYRELL    4505widgets ga
+O0000086CYBERDYNE 4558widgets gadgets gizm
+O0000087SOYLENT   4611widgets gadgets gizmos sprocke
+O0000089VANDELAY  4717widgets gadgets gizmos sprockets doohickeys thinga
+O0000090WONKA     4770
+O0000091NEWCUST   0091widgets ga
+O0000092GLOBEX    4876widgets gadgets gizm
+O0000093INITECH   4929widgets gadgets gizmos sprocke
+O0000094UMBRELLA  4982widgets gadgets gizmos sprockets doohick
+O0000095HOOLI     5035widgets gadgets gizmos sprockets doohickeys thinga
+O0000096STARK     5088
+O0000097WAYNE     5141widgets ga
+O0000098NEWCUST   0098widgets gadgets gizm
+O0000100SOYLENT   5300widgets gadgets gizmos sprockets doohick
+O0000101MASSIVE   5353widgets gadgets gizmos sprockets doohickeys thinga
+O0000102VANDELAY  5406
+O0000103WONKA     5459widgets ga
+O0000104ACME      5512widgets gadgets gizm
+O0000105NEWCUST   0105widgets gadgets gizmos sprocke
+O0000106INITECH   5618widgets gadgets gizmos sprockets doohick
+O0000107UMBRELLA  5671widgets gadgets gizmos sprockets doohickeys thinga
+O0000108HOOLI     5724
+O0000109STARK     5777widgets ga
+O0000111TYRELL    5883widgets gadgets gizmos sprocke
+O0000112NEWCUST   0112widgets gadgets gizmos sprockets doohick
+O0000113SOYLENT   5989widgets gadgets gizmos sprockets doohickeys thinga
+O0000114MASSIVE   6042
+O0000115VANDELAY  6095widgets ga
+O0000116WONKA     6148widgets gadgets gizm
+O0000117ACME      6201widgets gadgets gizmos sprocke
+O0000118GLOBEX    6254widgets gadgets gizmos sprockets doohick
+O0000119NEWCUST   0119widgets gadgets gizmos sprockets doohickeys thinga
+O0000120UMBRELLA  6360
+O0000122STARK     6466widgets gadgets gizm
+O0000123WAYNE     6519widgets gadgets gizmos sprocke
+O0000124TYRELL    6572widgets gadgets gizmos sprockets doohick
+O0000125CYBERDYNE 6625widgets gadgets gizmos sprockets doohickeys thinga
+O0000126NEWCUST   0126
+O0000127MASSIVE   6731widgets ga
+O0000128VANDELAY  6784widgets gadgets gizm
+O0000129WONKA     6837widgets gadgets gizmos sprocke
+O0000130ACME      6890widgets gadgets gizmos sprockets doohick
+O0000131GLOBEX    6943widgets gadgets gizmos sprockets doohickeys thinga
+O0000133NEWCUST   0133widgets ga
+O0000134HOOLI     7102widgets gadgets gizm
+O0000135STARK     7155widgets gadgets gizmos sprocke
+O0000136WAYNE     7208widgets gadgets gizmos sprockets doohick
+O0000137TYRELL    7261widgets gadgets gizmos sprockets doohickeys thinga
+O0000138CYBERDYNE 7314
+O0000139SOYLENT   7367widgets ga
+O0000140NEWCUST   0140widgets gadgets gizm
+O0000141VANDELAY  7473widgets gadgets gizmos sprocke
+O0000142WONKA     7526widgets gadgets gizmos sprockets doohick
+O0000144GLOBEX    7632
+O0000145INITECH   7685widgets ga
+O0000146UMBRELLA  7738widgets gadgets gizm
+O0000147NEWCUST   0147widgets gadgets gizmos sprocke
+O0000148STARK     7844widgets gadgets gizmos sprockets doohick
+O0000149WAYNE     7897widgets gadgets gizmos sprockets doohickeys thinga
+O0000150TYRELL    7950
+O0000151CYBERDYNE 8003widgets ga
+O0000152SOYLENT   8056widgets gadgets gizm
+O0000153MASSIVE   8109widgets gadgets gizmos sprocke
+O0000155WONKA     8215widgets gadgets gizmos sprockets doohickeys thinga
+O0000156ACME      8268
+O0000157GLOBEX    8321widgets ga
+O0000158INITECH   8374widgets gadgets gizm
+O0000159UMBRELLA  8427widgets gadgets gizmos sprocke
+O0000160HOOLI     8480widgets gadgets gizmos sprockets doohick
+O0000161NEWCUST   0161widgets gadgets gizmos sprockets doohickeys thinga
+O0000162WAYNE     8586
+O0000163TYRELL    8639widgets ga
+O0000164CYBERDYNE 8692widgets gadgets gizm
+O0000166MASSIVE   8798widgets gadgets gizmos sprockets doohick
+O0000167VANDELAY  8851widgets gadgets gizmos sprockets doohickeys thinga
+O0000168NEWCUST   0168
+O0000169ACME      8957widgets ga
+O0000170GLOBEX    9010widgets gadgets gizm
+O0000171INITECH   9063widgets gadgets gizmos sprocke
+O0000172UMBRELLA  9116widgets gadgets gizmos sprockets doohick
+O0000173HOOLI     9169widgets gadgets gizmos sprockets doohickeys thinga
+O0000174STARK     9222
+O0000175NEWCUST   0175widgets ga
+O0000177CYBERDYNE 9381widgets gadgets gizmos sprocke
+O0000178SOYLENT   9434widgets gadgets gizmos sprockets doohick
+O0000179MASSIVE   9487widgets gadgets gizmos sprockets doohickeys thinga
+O0000180VANDELAY  9540
+O0000181WONKA     9593widgets ga
+O0000182NEWCUST   0182widgets gadgets gizm
+O0000183GLOBEX    9699widgets gadgets gizmos sprocke
+O0000184INITECH   9752widgets gadgets gizmos sprockets doohick
+O0000185UMBRELLA  9805widgets gadgets gizmos sprockets doohickeys thinga
+O0000186HOOLI     9858
+O0000188WAYNE     9964widgets gadgets gizm
+O0000189NEWCUST   0189widgets gadgets gizmos sprocke
+O0000190CYBERDYNE 0070widgets gadgets gizmos sprockets doohick
+O0000191SOYLENT   0123widgets gadgets gizmos sprockets doohickeys thinga
+O0000192MASSIVE   0176
+O0000193VANDELAY  0229widgets ga
+O0000194WONKA     0282widgets gadgets gizm
+O0000195ACME      0335widgets gadgets gizmos sprocke
+O0000196NEWCUST   0196widgets gadgets gizmos sprockets doohick
+O0000197INITECH   0441widgets gadgets gizmos sprockets doohickeys thinga
+O0000199HOOLI     0547widgets ga
+O0000200STARK     0600widgets gadgets gizm
+O0000201WAYNE     0653widgets gadgets gizmos sprocke
+O0000202TYRELL    0706widgets gadgets gizmos sprockets doohick
+O0000203NEWCUST   0203widgets gadgets gizmos sprockets doohickeys thinga
+O0000204SOYLENT   0812
+O0000205MASSIVE   0865widgets ga
+O0000206VANDELAY  0918widgets gadgets gizm
+O0000207WONKA     0971widgets gadgets gizmos sprocke
+O0000208ACME      1024widgets gadgets gizmos sprockets doohick
+O0000210NEWCUST   0210
+O0000211UMBRELLA  1183widgets ga
+O0000212HOOLI     1236widgets gadgets gizm
+O0000213STARK     1289widgets gadgets gizmos sprocke
+O0000214WAYNE     1342widgets gadgets gizmos sprockets doohick
+O0000215TYRELL    1395widgets gadgets gizmos sprockets doohickeys thinga
+O0000216CYBERDYNE 1448
+O0000217NEWCUST   0217widgets ga
+O0000218MASSIVE   1554widgets gadgets gizm
+O0000219VANDELAY  1607widgets gadgets gizmos sprocke
+O0000221ACME      1713widgets gadgets gizmos sprockets doohickeys thinga
+O0000222GLOBEX    1766
+O0000223INITECH   1819widgets ga
+O0000224NEWCUST   0224widgets gadgets gizm
+O0000225HOOLI     1925widgets gadgets gizmos sprocke
+O0000226STARK     1978widgets gadgets gizmos sprockets doohick
+O0000227WAYNE     2031widgets gadgets gizmos sprockets doohickeys thinga
+O0000228TYRELL    2084
+O0000229CYBERDYNE 2137widgets ga
+O0000230SOYLENT   2190widgets gadgets gizm
+O0000232VANDELAY  2296widgets gadgets gizmos sprockets doohick
+O0000233WONKA     2349widgets gadgets gizmos sprockets doohickeys thinga
+O0000234ACME      2402
+O0000235GLOBEX    2455widgets ga
+O0000236INITECH   2508widgets gadgets gizm
+O0000237UMBRELLA  2561widgets gadgets gizmos sprocke
+O0000238NEWCUST   0238widgets gadgets gizmos sprockets doohick
+O0000239STARK     2667widgets gadgets gizmos sprockets doohickeys thinga
+O0000240WAYNE     2720
+O0000241TYRELL    2773widgets ga
+O0000243SOYLENT   2879widgets gadgets gizmos sprocke
+O0000244MASSIVE   2932widgets gadgets gizmos sprockets doohick
+O0000245NEWCUST   0245widgets gadgets gizmos sprockets doohickeys thinga
+O0000246WONKA     3038
+O0000247ACME      3091widgets ga
+O0000248GLOBEX    3144widgets gadgets gizm
+O0000249INITECH   3197widgets gadgets gizmos sprocke
+O0000250UMBRELLA  3250widgets gadgets gizmos sprockets doohick
+O0000251HOOLI     3303widgets gadgets gizmos sprockets doohickeys thinga
+O0000252NEWCUST   0252
+O0000254TYRELL    3462widgets gadgets gizm
+O0000255CYBERDYNE 3515widgets gadgets gizmos sprocke
+O0000256SOYLENT   3568widgets gadgets gizmos sprockets doohick
+O0000257MASSIVE   3621widgets gadgets gizmos sprockets doohickeys thinga
+O0000258VANDELAY  3674
+O0000259NEWCUST   0259widgets ga
+O0000260ACME      3780widgets gadgets gizm
+O0000261GLOBEX    3833widgets gadgets gizmos sprocke
+O0000262INITECH   3886widgets gadgets gizmos sprockets doohick
+O0000263UMBRELLA  3939widgets gadgets gizmos sprockets doohickeys thinga
+O0000265STARK     4045widgets ga
+O0000266NEWCUST   0266widgets gadgets gizm
+O0000267TYRELL    4151widgets gadgets gizmos sprocke
+O0000268CYBERDYNE 4204widgets gadgets gizmos sprockets doohick
+O0000269SOYLENT   4257widgets gadgets gizmos sprockets doohickeys thinga
+O0000270MASSIVE   4310
+O0000271VANDELAY  4363widgets ga
+O0000272WONKA     4416widgets gadgets gizm
+O0000273NEWCUST   0273widgets gadgets gizmos sprocke
+O0000274GLOBEX    4522widgets gadgets gizmos sprockets doohick
+O0000276UMBRELLA  4628
+O0000277HOOLI     4681widgets ga
+O0000278STARK     4734widgets gadgets gizm
+O0000279WAYNE     4787widgets gadgets gizmos sprocke
+O0000280NEWCUST   0280widgets gadgets gizmos sprockets doohick
+O0000281CYBERDYNE 4893widgets gadgets gizmos sprockets doohickeys thinga
+O0000282SOYLENT   4946
+O0000283MASSIVE   4999widgets ga
+O0000284VANDELAY  5052widgets gadgets gizm
+O0000285WONKA     5105widgets gadgets gizmos sprocke
+O0000287NEWCUST   0287widgets gadgets gizmos sprockets doohickeys thinga
+O0000288INITECH   5264
+O0000289UMBRELLA  5317widgets ga
+O0000290HOOLI     5370widgets gadgets gizm
+O0000291STARK     5423widgets gadgets gizmos sprocke
+O0000292WAYNE     5476widgets gadgets gizmos sprockets doohick
+O0000293TYRELL    5529widgets gadgets gizmos sprockets doohickeys thinga
+O0000294NEWCUST   0294
+O0000295SOYLENT   5635widgets ga
+O0000296MASSIVE   5688widgets gadgets gizm
+O0000298WONKA     5794widgets gadgets gizmos sprockets doohick
+O0000299ACME      5847widgets gadgets gizmos sprockets doohickeys thinga
+O0000300GLOBEX    5900
+O0000301NEWCUST   0301widgets ga
+O0000302UMBRELLA  6006widgets gadgets gizm
+O0000303HOOLI     6059widgets gadgets gizmos sprocke
+O0000304STARK     6112widgets gadgets gizmos sprockets doohick
+O0000305WAYNE     6165widgets gadgets gizmos sprockets doohickeys thinga
+O0000306TYRELL    6218
+O0000307CYBERDYNE 6271widgets ga
+O0000309MASSIVE   6377widgets gadgets gizmos sprocke
+O0000310VANDELAY  6430widgets gadgets gizmos sprockets doohick
+O0000311WONKA     6483widgets gadgets gizmos sprockets doohickeys thinga
+O0000312ACME      6536
+O0000313GLOBEX    6589widgets ga
+O0000314INITECH   6642widgets gadgets gizm
+O0000315NEWCUST   0315widgets gadgets gizmos sprocke
+O0000316HOOLI     6748widgets gadgets gizmos sprockets doohick
+O0000317STARK     6801widgets gadgets gizmos sprockets doohickeys thinga
+O0000318WAYNE     6854
+O0000320CYBERDYNE 6960widgets gadgets gizm
+O0000321SOYLENT   7013widgets gadgets gizmos sprocke
+O0000322NEWCUST   0322widgets gadgets gizmos sprockets doohick
+O0000323VANDELAY  7119widgets gadgets gizmos sprockets doohickeys thinga
+O0000324WONKA     7172
+O0000325ACME      7225widgets ga
+O0000326GLOBEX    7278widgets gadgets gizm
+O0000327INITECH   7331widgets gadgets gizmos sprocke
+O0000328UMBRELLA  7384widgets gadgets gizmos sprockets doohick
+O0000329NEWCUST   0329widgets gadgets gizmos sprockets doohickeys thinga
+O0000331WAYNE     7543widgets ga
+O0000332TYRELL    7596widgets gadgets gizm
+O0000333CYBERDYNE 7649widgets gadgets gizmos sprocke
+O0000334SOYLENT   7702widgets gadgets gizmos sprockets doohick
+O0000335MASSIVE   7755widgets gadgets gizmos sprockets doohickeys thinga
+O0000336NEWCUST   0336
+O0000337WONKA     7861widgets ga
+O0000338ACME      7914widgets gadgets gizm
+O0000339GLOBEX    7967widgets gadgets gizmos sprocke
+O0000340INITECH   8020widgets gadgets gizmos sprockets doohick
+O0000342HOOLI     8126
+O0000343NEWCUST   0343widgets ga
+O0000344WAYNE     8232widgets gadgets gizm
+O0000345TYRELL    8285widgets gadgets gizmos sprocke
+O0000346CYBERDYNE 8338widgets gadgets gizmos sprockets doohick
+O0000347SOYLENT   8391widgets gadgets gizmos sprockets doohickeys thinga
+O0000348MASSIVE   8444
+O0000349VANDELAY  8497widgets ga
+O0000350NEWCUST   0350widgets gadgets gizm
+O0000351ACME      8603widgets gadgets gizmos sprocke
+O0000353INITECH   8709widgets gadgets gizmos sprockets doohickeys thinga
+O0000354UMBRELLA  8762
+O0000355HOOLI     8815widgets ga
+O0000356STARK     8868widgets gadgets gizm
+O0000357NEWCUST   0357widgets gadgets gizmos sprocke
+O0000358TYRELL    8974widgets gadgets gizmos sprockets doohick
+O0000359CYBERDYNE 9027widgets gadgets gizmos sprockets doohickeys thinga
+O0000360SOYLENT   9080
+O0000361MASSIVE   9133widgets ga
+O0000362VANDELAY  9186widgets gadgets gizm
+O0000364NEWCUST   0364widgets gadgets gizmos sprockets doohick
+O0000365GLOBEX    9345widgets gadgets gizmos sprockets doohickeys thinga
+O0000366INITECH   9398
+O0000367UMBRELLA  9451widgets ga
+O0000368HOOLI     9504widgets gadgets gizm
+O0000369STARK     9557widgets gadgets gizmos sprocke
+O0000370WAYNE     9610widgets gadgets gizmos sprockets doohick
+O0000371NEWCUST   0371widgets gadgets gizmos sprockets doohickeys thinga
+O0000372CYBERDYNE 9716
+O0000373SOYLENT   9769widgets ga
+O0000375VANDELAY  9875widgets gadgets gizmos sprocke
+O0000376WONKA     9928widgets gadgets gizmos sprockets doohick
+O0000377ACME      9981widgets gadgets gizmos sprockets doohickeys thinga
+O0000378NEWCUST   0378
+O0000379INITECH   0087widgets ga
+O0000380UMBRELLA  0140widgets gadgets gizm
+O0000381HOOLI     0193widgets gadgets gizmos sprocke
+O0000382STARK     0246widgets gadgets gizmos sprockets doohick
+O0000383WAYNE     0299widgets gadgets gizmos sprockets doohickeys thinga
+O0000384TYRELL    0352
+O0000386SOYLENT   0458widgets gadgets gizm
+O0000387MASSIVE   0511widgets gadgets gizmos sprocke
+O0000388VANDELAY  0564widgets gadgets gizmos sprockets doohick
+O0000389WONKA     0617widgets gadgets gizmos sprockets doohickeys thinga
+O0000390ACME      0670
+O0000391GLOBEX    0723widgets ga
+O0000392NEWCUST   0392widgets gadgets gizm
+O0000393UMBRELLA  0829widgets gadgets gizmos sprocke
+O0000394HOOLI     0882widgets gadgets gizmos sprockets doohick
+O0000395STARK     0935widgets gadgets gizmos sprockets doohickeys thinga
+O0000397TYRELL    1041widgets ga
+O0000398CYBERDYNE 1094widgets gadgets gizm
+O0000399NEWCUST   0399widgets gadgets gizmos sprocke
+O0000400MASSIVE   1200widgets gadgets gizmos sprockets doohick
+O0000401VANDELAY  1253widgets gadgets gizmos sprockets doohickeys thinga
+O0000402WONKA     1306
+O0000403ACME      1359widgets ga
+O0000404GLOBEX    1412widgets gadgets gizm
+O0000405INITECH   1465widgets gadgets gizmos sprocke
+O0000406NEWCUST   0406widgets gadgets gizmos sprockets doohick
+O0000408STARK     1624
+O0000409WAYNE     1677widgets ga
+O0000410TYRELL    1730widgets gadgets gizm
+O0000411CYBERDYNE 1783widgets gadgets gizmos sprocke
+O0000412SOYLENT   1836widgets gadgets gizmos sprockets doohick
+O0000413NEWCUST   0413widgets gadgets gizmos sprockets doohickeys thinga
+O0000414VANDELAY  1942
+O0000415WONKA     1995widgets ga
+O0000416ACME      2048widgets gadgets gizm
+O0000417GLOBEX    2101widgets gadgets gizmos sprocke
+O0000419UMBRELLA  2207widgets gadgets gizmos sprockets doohickeys thinga
+O0000420NEWCUST   0420
+O0000421STARK     2313widgets ga
+O0000422WAYNE     2366widgets gadgets gizm
+O0000423TYRELL    2419widgets gadgets gizmos sprocke
+O0000424CYBERDYNE 2472widgets gadgets gizmos sprockets doohick
+O0000425SOYLENT   2525widgets gadgets gizmos sprockets doohickeys thinga
+O0000426MASSIVE   2578
+O0000427NEWCUST   0427widgets ga
+O0000428WONKA     2684widgets gadgets gizm
+O0000430GLOBEX    2790widgets gadgets gizmos sprockets doohick
+O0000431INITECH   2843widgets gadgets gizmos sprockets doohickeys thinga
+O0000432UMBRELLA  2896
+O0000433HOOLI     2949widgets ga
+O0000434NEWCUST   0434widgets gadgets gizm
+O0000435WAYNE     3055widgets gadgets gizmos sprocke
+O0000436TYRELL    3108widgets gadgets gizmos sprockets doohick
+O0000437CYBERDYNE 3161widgets gadgets gizmos sprockets doohickeys thinga
+O0000438SOYLENT   3214
+O0000439MASSIVE   3267widgets ga
+O0000441NEWCUST   0441widgets gadgets gizmos sprocke
+O0000442ACME      3426widgets gadgets gizmos sprockets doohick
+O0000443GLOBEX    3479widgets gadgets gizmos sprockets doohickeys thinga
+O0000444INITECH   3532
+O0000445UMBRELLA  3585widgets ga
+O0000446HOOLI     3638widgets gadgets gizm
+O0000447STARK     3691widgets gadgets gizmos sprocke
+O0000448NEWCUST   0448widgets gadgets gizmos sprockets doohick
+O0000449TYRELL    3797widgets gadgets gizmos sprockets doohickeys thinga
+O0000450CYBERDYNE 3850
+O0000452MASSIVE   3956widgets gadgets gizm
+O0000453VANDELAY  4009widgets gadgets gizmos sprocke
+O0000454WONKA     4062widgets gadgets gizmos sprockets doohick
+O0000455NEWCUST   0455widgets gadgets gizmos sprockets doohickeys thinga
+O0000456GLOBEX    4168
+O0000457INITECH   4221widgets ga
+O0000458UMBRELLA  4274widgets gadgets gizm
+O0000459HOOLI     4327widgets gadgets gizmos sprocke
+O0000460STARK     4380widgets gadgets gizmos sprockets doohick
+O0000461WAYNE     4433widgets gadgets gizmos sprockets doohickeys thinga
+O0000463CYBERDYNE 4539widgets ga
+O0000464SOYLENT   4592widgets gadgets gizm
+O0000465MASSIVE   4645widgets gadgets gizmos sprocke
+O0000466VANDELAY  4698widgets gadgets gizmos sprockets doohick
+O0000467WONKA     4751widgets gadgets gizmos sprockets doohickeys thinga
+O0000468ACME      4804
+O0000469NEWCUST   0469widgets ga
+O0000470INITECH   4910widgets gadgets gizm
+O0000471UMBRELLA  4963widgets gadgets gizmos sprocke
+O0000472HOOLI     5016widgets gadgets gizmos sprockets doohick
+O0000474WAYNE     5122
+O0000475TYRELL    5175widgets ga
+O0000476NEWCUST   0476widgets gadgets gizm
+O0000477SOYLENT   5281widgets gadgets gizmos sprocke
+O0000478MASSIVE   5334widgets gadgets gizmos sprockets doohick
+O0000479VANDELAY  5387widgets gadgets gizmos sprockets doohickeys thinga
+O0000480WONKA     5440
+O0000481ACME      5493widgets ga
+O0000482GLOBEX    5546widgets gadgets gizm
+O0000483NEWCUST   0483widgets gadgets gizmos sprocke
+O0000485HOOLI     5705widgets gadgets gizmos sprockets doohickeys thinga
+O0000486STARK     5758
+O0000487WAYNE     5811widgets ga
+O0000488TYRELL    5864widgets gadgets gizm
+O0000489CYBERDYNE 5917widgets gadgets gizmos sprocke
+O0000490NEWCUST   0490widgets gadgets gizmos sprockets doohick
+O0000491MASSIVE   6023widgets gadgets gizmos sprockets doohickeys thinga
+O0000492VANDELAY  6076
+O0000493WONKA     6129widgets ga
+O0000494ACME      6182widgets gadgets gizm
+O0000496INITECH   6288widgets gadgets gizmos sprockets doohick
+O0000497NEWCUST   0497widgets gadgets gizmos sprockets doohickeys thinga
+O0000498HOOLI     6394
+O0000499STARK     6447widgets ga
+O0000500WAYNE     6500widgets gadgets gizm
+O0000501TYRELL    6553widgets gadgets gizmos sprocke
+O0000502CYBERDYNE 6606widgets gadgets gizmos sprockets doohick
+O0000503SOYLENT   6659widgets gadgets gizmos sprockets doohickeys thinga
+O0000504NEWCUST   0504
+O0000505VANDELAY  6765widgets ga
+O0000507ACME      6871widgets gadgets gizmos sprocke
+O0000508GLOBEX    6924widgets gadgets gizmos sprockets doohick
+O0000509INITECH   6977widgets gadgets gizmos sprockets doohickeys thinga
+O0000510UMBRELLA  7030
+O0000511NEWCUST   0511widgets ga
+O0000512STARK     7136widgets gadgets gizm
+O0000513WAYNE     7189widgets gadgets gizmos sprocke
+O0000514TYRELL    7242widgets gadgets gizmos sprockets doohick
+O0000515CYBERDYNE 7295widgets gadgets gizmos sprockets doohickeys thinga
+O0000516SOYLENT   7348
+O0000518NEWCUST   0518widgets gadgets gizm
+O0000519WONKA     7507widgets gadgets gizmos sprocke
+O0000520ACME      7560widgets gadgets gizmos sprockets doohick
+O0000521GLOBEX    7613widgets gadgets gizmos sprockets doohickeys thinga
+O0000522INITECH   7666
+O0000523UMBRELLA  7719widgets ga
+O0000524HOOLI     7772widgets gadgets gizm
+O0000525NEWCUST   0525widgets gadgets gizmos sprocke
+O0000526WAYNE     7878widgets gadgets gizmos sprockets doohick
+O0000527TYRELL    7931widgets gadgets gizmos sprockets doohickeys thinga
+O0000529SOYLENT   8037widgets ga
+O0000530MASSIVE   8090widgets gadgets gizm
+O0000531VANDELAY  8143widgets gadgets gizmos sprocke
+O0000532NEWCUST   0532widgets gadgets gizmos sprockets doohick
+O0000533ACME      8249widgets gadgets gizmos sprockets doohickeys thinga
+O0000534GLOBEX    8302
+O0000535INITECH   8355widgets ga
+O0000536UMBRELLA  8408widgets gadgets gizm
+O0000537HOOLI     8461widgets gadgets gizmos sprocke
+O0000538STARK     8514widgets gadgets gizmos sprockets doohick
+O0000540TYRELL    8620
+O0000541CYBERDYNE 8673widgets ga
+O0000542SOYLENT   8726widgets gadgets gizm
+O0000543MASSIVE   8779widgets gadgets gizmos sprocke
+O0000544VANDELAY  8832widgets gadgets gizmos sprockets doohick
+O0000545WONKA     8885widgets gadgets gizmos sprockets doohickeys thinga
+O0000546NEWCUST   0546
+O0000547GLOBEX    8991widgets ga
+O0000548INITECH   9044widgets gadgets gizm
+O0000549UMBRELLA  9097widgets gadgets gizmos sprocke
+O0000551STARK     9203widgets gadgets gizmos sprockets doohickeys thinga
+O0000552WAYNE     9256
+O0000553NEWCUST   0553widgets ga
+O0000554CYBERDYNE 9362widgets gadgets gizm
+O0000555SOYLENT   9415widgets gadgets gizmos sprocke
+O0000556MASSIVE   9468widgets gadgets gizmos sprockets doohick
+O0000557VANDELAY  9521widgets gadgets gizmos sprockets doohickeys thinga
+O0000558WONKA     9574
+O0000559ACME      9627widgets ga
+O0000560NEWCUST   0560widgets gadgets gizm
+O0000562UMBRELLA  9786widgets gadgets gizmos sprockets doohick
+O0000563HOOLI     9839widgets gadgets gizmos sprockets doohickeys thinga
+O0000564STARK     9892
+O0000565WAYNE     9945widgets ga
+O0000566TYRELL    9998widgets gadgets gizm
+O0000567NEWCUST   0567widgets gadgets gizmos sprocke
+O0000568SOYLENT   0104widgets gadgets gizmos sprockets doohick
+O0000569MASSIVE   0157widgets gadgets gizmos sprockets doohickeys thinga
+O0000570VANDELAY  0210
+O0000571WONKA     0263widgets ga
+O0000573GLOBEX    0369widgets gadgets gizmos sprocke
+O0000574NEWCUST   0574widgets gadgets gizmos sprockets doohick
+O0000575UMBRELLA  0475widgets gadgets gizmos sprockets doohickeys thinga
+O0000576HOOLI     0528
+O0000577STARK     0581widgets ga
+O0000578WAYNE     0634widgets gadgets gizm
+O0000579TYRELL    0687widgets gadgets gizmos sprocke
+O0000580CYBERDYNE 0740widgets gadgets gizmos sprockets doohick
+O0000581NEWCUST   0581widgets gadgets gizmos sprockets doohickeys thinga
+O0000582MASSIVE   0846
+O0000584WONKA     0952widgets gadgets gizm
+O0000585ACME      1005widgets gadgets gizmos sprocke
+O0000586GLOBEX    1058widgets gadgets gizmos sprockets doohick
+O0000587INITECH   1111widgets gadgets gizmos sprockets doohickeys thinga
+O0000588NEWCUST   0588
+O0000589HOOLI     1217widgets ga
+O0000590STARK     1270widgets gadgets gizm
+O0000591WAYNE     1323widgets gadgets gizmos sprocke
+O0000592TYRELL    1376widgets gadgets gizmos sprockets doohick
+O0000593CYBERDYNE 1429widgets gadgets gizmos sprockets doohickeys thinga
+O0000595NEWCUST   0595widgets ga
+O0000596VANDELAY  1588widgets gadgets gizm
+O0000597WONKA     1641widgets gadgets gizmos sprocke
+O0000598ACME      1694widgets gadgets gizmos sprockets doohick
+O0000599GLOBEX    1747widgets gadgets gizmos sprockets doohickeys thinga
+O0000600INITECH   1800
+O0000601UMBRELLA  1853widgets ga
+O0000602NEWCUST   0602widgets gadgets gizm
+O0000603STARK     1959widgets gadgets gizmos sprocke
+O0000604WAYNE     2012widgets gadgets gizmos sprockets doohick
+O0000606CYBERDYNE 2118
+O0000607SOYLENT   2171widgets ga
+O0000608MASSIVE   2224widgets gadgets gizm
+O0000609NEWCUST   0609widgets gadgets gizmos sprocke
+O0000610WONKA     2330widgets gadgets gizmos sprockets doohick
+O0000611ACME      2383widgets gadgets gizmos sprockets doohickeys thinga
+O0000612GLOBEX    2436
+O0000613INITECH   2489widgets ga
+O0000614UMBRELLA  2542widgets gadgets gizm
+O0000615HOOLI     2595widgets gadgets gizmos sprocke
+O0000617WAYNE     2701widgets gadgets gizmos sprockets doohickeys thinga
+O0000618TYRELL    2754
+O0000619CYBERDYNE 2807widgets ga
+O0000620SOYLENT   2860widgets gadgets gizm
+O0000621MASSIVE   2913widgets gadgets gizmos sprocke
+O0000622VANDELAY  2966widgets gadgets gizmos sprockets doohick
+O0000623NEWCUST   0623widgets gadgets gizmos sprockets doohickeys thinga
+O0000624ACME      3072
+O0000625GLOBEX    3125widgets ga
+O0000626INITECH   3178widgets gadgets gizm
+O0000628HOOLI     3284widgets gadgets gizmos sprockets doohick
+O0000629STARK     3337widgets gadgets gizmos sprockets doohickeys thinga
+O0000630NEWCUST   0630
+O0000631TYRELL    3443widgets ga
+O0000632CYBERDYNE 3496widgets gadgets gizm
+O0000633SOYLENT   3549widgets gadgets gizmos sprocke
+O0000634MASSIVE   3602widgets gadgets gizmos sprockets doohick
+O0000635VANDELAY  3655widgets gadgets gizmos sprockets doohickeys thinga
+O0000636WONKA     3708
+O0000637NEWCUST   0637widgets ga
+O0000639INITECH   3867widgets gadgets gizmos sprocke
+O0000640UMBRELLA  3920widgets gadgets gizmos sprockets doohick
+O0000641HOOLI     3973widgets gadgets gizmos sprockets doohickeys thinga
+O0000642STARK     4026
+O0000643WAYNE     4079widgets ga
+O0000644NEWCUST   0644widgets gadgets gizm
+O0000645CYBERDYNE 4185widgets gadgets gizmos sprocke
+O0000646SOYLENT   4238widgets gadgets gizmos sprockets doohick
+O0000647MASSIVE   4291widgets gadgets gizmos sprockets doohickeys thinga
+O0000648VANDELAY  4344
+O0000650ACME      4450widgets gadgets gizm
+O0000651NEWCUST   0651widgets gadgets gizmos sprocke
+O0000652INITECH   4556widgets gadgets gizmos sprockets doohick
+O0000653UMBRELLA  4609widgets gadgets gizmos sprockets doohickeys thinga
+O0000654HOOLI     4662
+O0000655STARK     4715widgets ga
+O0000656WAYNE     4768widgets gadgets gizm
+O0000657TYRELL    4821widgets gadgets gizmos sprocke
+O0000658NEWCUST   0658widgets gadgets gizmos sprockets doohick
+O0000659SOYLENT   4927widgets gadgets gizmos sprockets doohickeys thinga
+O0000661VANDELAY  5033widgets ga
+O0000662WONKA     5086widgets gadgets gizm
+O0000663ACME      5139widgets gadgets gizmos sprocke
+O0000664GLOBEX    5192widgets gadgets gizmos sprockets doohick
+O0000665NEWCUST   0665widgets gadgets gizmos sprockets doohickeys thinga
+O0000666UMBRELLA  5298
+O0000667HOOLI     5351widgets ga
+O0000668STARK     5404widgets gadgets gizm
+O0000669WAYNE     5457widgets gadgets gizmos sprocke
+O0000670TYRELL    5510widgets gadgets gizmos sprockets doohick
+O0000672NEWCUST   0672
+O0000673MASSIVE   5669widgets ga
+O0000674VANDELAY  5722widgets gadgets gizm
+O0000675WONKA     5775widgets gadgets gizmos sprocke
+O0000676ACME      5828widgets gadgets gizmos sprockets doohick
+O0000677GLOBEX    5881widgets gadgets gizmos sprockets doohickeys thinga
+O0000678INITECH   5934
+O0000679NEWCUST   0679widgets ga
+O0000680HOOLI     6040widgets gadgets gizm
+O0000681STARK     6093widgets gadgets gizmos sprocke
+O0000683TYRELL    6199widgets gadgets gizmos sprockets doohickeys thinga
+O0000684CYBERDYNE 6252
+O0000685SOYLENT   6305widgets ga
+O0000686NEWCUST   0686widgets gadgets gizm
+O0000687VANDELAY  6411widgets gadgets gizmos sprocke
+O0000688WONKA     6464widgets gadgets gizmos sprockets doohick
+O0000689ACME      6517widgets gadgets gizmos sprockets doohickeys thinga
+O0000690GLOBEX    6570
+O0000691INITECH   6623widgets ga
+O0000692UMBRELLA  6676widgets gadgets gizm
+O0000694STARK     6782widgets gadgets gizmos sprockets doohick
+O0000695WAYNE     6835widgets gadgets gizmos sprockets doohickeys thinga
+O0000696TYRELL    6888
+O0000697CYBERDYNE 6941widgets ga
+O0000698SOYLENT   6994widgets gadgets gizm
+O0000699MASSIVE   7047widgets gadgets gizmos sprocke
+O0000700NEWCUST   0700widgets gadgets gizmos sprockets doohick
+O0000701WONKA     7153widgets gadgets gizmos sprockets doohickeys thinga
+O0000702ACME      7206
+O0000703GLOBEX    7259widgets ga
+O0000705UMBRELLA  7365widgets gadgets gizmos sprocke
+O0000706HOOLI     7418widgets gadgets gizmos sprockets doohick
+O0000707NEWCUST   0707widgets gadgets gizmos sprockets doohickeys thinga
+O0000708WAYNE     7524
+O0000709TYRELL    7577widgets ga
+O0000710CYBERDYNE 7630widgets gadgets gizm
+O0000711SOYLENT   7683widgets gadgets gizmos sprocke
+O0000712MASSIVE   7736widgets gadgets gizmos sprockets doohick
+O0000713VANDELAY  7789widgets gadgets gizmos sprockets doohickeys thinga
+O0000714NEWCUST   0714
+O0000716GLOBEX    7948widgets gadgets gizm
+O0000717INITECH   8001widgets gadgets gizmos sprocke
+O0000718UMBRELLA  8054widgets gadgets gizmos sprockets doohick
+O0000719HOOLI     8107widgets gadgets gizmos sprockets doohickeys thinga
+O0000720STARK     8160
+O0000721NEWCUST   0721widgets ga
+O0000722TYRELL    8266widgets gadgets gizm
+O0000723CYBERDYNE 8319widgets gadgets gizmos sprocke
+O0000724SOYLENT   8372widgets gadgets gizmos sprockets doohick
+O0000725MASSIVE   8425widgets gadgets gizmos sprockets doohickeys thinga
+O0000727WONKA     8531widgets ga
+O0000728NEWCUST   0728widgets gadgets gizm
+O0000729GLOBEX    8637widgets gadgets gizmos sprocke
+O0000730INITECH   8690widgets gadgets gizmos sprockets doohick
+O0000731UMBRELLA  8743widgets gadgets gizmos sprockets doohickeys thinga
+O0000732HOOLI     8796
+O0000733STARK     8849widgets ga
+O0000734WAYNE     8902widgets gadgets gizm
+O0000735NEWCUST   0735widgets gadgets gizmos sprocke
+O0000736CYBERDYNE 9008widgets gadgets gizmos sprockets doohick
+O0000738MASSIVE   9114
+O0000739VANDELAY  9167widgets ga
+O0000740WONKA     9220widgets gadgets gizm
+O0000741ACME      9273widgets gadgets gizmos sprocke
+O0000742NEWCUST   0742widgets gadgets gizmos sprockets doohick
+O0000743INITECH   9379widgets gadgets gizmos sprockets doohickeys thinga
+O0000744UMBRELLA  9432
+O0000745HOOLI     9485widgets ga
+O0000746STARK     9538widgets gadgets gizm
+O0000747WAYNE     9591widgets gadgets gizmos sprocke
+O0000749NEWCUST   0749widgets gadgets gizmos sprockets doohickeys thinga
+O0000750SOYLENT   9750
+O0000751MASSIVE   9803widgets ga
+O0000752VANDELAY  9856widgets gadgets gizm
+O0000753WONKA     9909widgets gadgets gizmos sprocke
+O0000754ACME      9962widgets gadgets gizmos sprockets doohick
+O0000755GLOBEX    0015widgets gadgets gizmos sprockets doohickeys thinga
+O0000756NEWCUST   0756
+O0000757UMBRELLA  0121widgets ga
+O0000758HOOLI     0174widgets gadgets gizm
+O0000760WAYNE     0280widgets gadgets gizmos sprockets doohick
+O0000761TYRELL    0333widgets gadgets gizmos sprockets doohickeys thinga
+O0000762CYBERDYNE 0386
+O0000763NEWCUST   0763widgets ga
+O0000764MASSIVE   0492widgets gadgets gizm
+O0000765VANDELAY  0545widgets gadgets gizmos sprocke
+O0000766WONKA     0598widgets gadgets gizmos sprockets doohick
+O0000767ACME      0651widgets gadgets gizmos sprockets doohickeys thinga
+O0000768GLOBEX    0704
+O0000769INITECH   0757widgets ga
+O0000771HOOLI     0863widgets gadgets gizmos sprocke
+O0000772STARK     0916widgets gadgets gizmos sprockets doohick
+O0000773WAYNE     0969widgets gadgets gizmos sprockets doohickeys thinga
+O0000774TYRELL    1022
+O0000775CYBERDYNE 1075widgets ga
+O0000776SOYLENT   1128widgets gadgets gizm
+O0000777NEWCUST   0777widgets gadgets gizmos sprocke
+O0000778VANDELAY  1234widgets gadgets gizmos sprockets doohick
+O0000779WONKA     1287widgets gadgets gizmos sprockets doohickeys thinga
+O0000780ACME      1340
+O0000782INITECH   1446widgets gadgets gizm
+O0000783UMBRELLA  1499widgets gadgets gizmos sprocke
+O0000784NEWCUST   0784widgets gadgets gizmos sprockets doohick
+O0000785STARK     1605widgets gadgets gizmos sprockets doohickeys thinga
+O0000786WAYNE     1658
+O0000787TYRELL    1711widgets ga
+O0000788CYBERDYNE 1764widgets gadgets gizm
+O0000789SOYLENT   1817widgets gadgets gizmos sprocke
+O0000790MASSIVE   1870widgets gadgets gizmos sprockets doohick
+O0000791NEWCUST   0791widgets gadgets gizmos sprockets doohickeys thinga
+O0000793ACME      2029widgets ga
+O0000794GLOBEX    2082widgets gadgets gizm
+O0000795INITECH   2135widgets gadgets gizmos sprocke
+O0000796UMBRELLA  2188widgets gadgets gizmos sprockets doohick
+O0000797HOOLI     2241widgets gadgets gizmos sprockets doohickeys thinga
+O0000798NEWCUST   0798
+O0000799WAYNE     2347widgets ga
+O0000800TYRELL    2400widgets gadgets gizm
+O0000801CYBERDYNE 2453widgets gadgets gizmos sprocke
+O0000802SOYLENT   2506widgets gadgets gizmos sprockets doohick
+O0000804VANDELAY  2612
+O0000805NEWCUST   0805widgets ga
+O0000806ACME      2718widgets gadgets gizm
+O0000807GLOBEX    2771widgets gadgets gizmos sprocke
+O0000808INITECH   2824widgets gadgets gizmos sprockets doohick
+O0000809UMBRELLA  2877widgets gadgets gizmos sprockets doohickeys thinga
+O0000810HOOLI     2930
+O0000811STARK     2983widgets ga
+O0000812NEWCUST   0812widgets gadgets gizm
+O0000813TYRELL    3089widgets gadgets gizmos sprocke
+O0000815SOYLENT   3195widgets gadgets gizmos sprockets doohickeys thinga
+O0000816MASSIVE   3248
+O0000817VANDELAY  3301widgets ga
+O0000818WONKA     3354widgets gadgets gizm
+O0000819NEWCUST   0819widgets gadgets gizmos sprocke
+O0000820GLOBEX    3460widgets gadgets gizmos sprockets doohick
+O0000821INITECH   3513widgets gadgets gizmos sprockets doohickeys thinga
+O0000822UMBRELLA  3566
+O0000823HOOLI     3619widgets ga
+O0000824STARK     3672widgets gadgets gizm
+O0000826NEWCUST   0826widgets gadgets gizmos sprockets doohick
+O0000827CYBERDYNE 3831widgets gadgets gizmos sprockets doohickeys thinga
+O0000828SOYLENT   3884
+O0000829MASSIVE   3937widgets ga
+O0000830VANDELAY  3990widgets gadgets gizm
+O0000831WONKA     4043widgets gadgets gizmos sprocke
+O0000832ACME      4096widgets gadgets gizmos sprockets doohick
+O0000833NEWCUST   0833widgets gadgets gizmos sprockets doohickeys thinga
+O0000834INITECH   4202
+O0000835UMBRELLA  4255widgets ga
+O0000837STARK     4361widgets gadgets gizmos sprocke
+O0000838WAYNE     4414widgets gadgets gizmos sprockets doohick
+O0000839TYRELL    4467widgets gadgets gizmos sprockets doohickeys thinga
+O0000840NEWCUST   0840
+O0000841SOYLENT   4573widgets ga
+O0000842MASSIVE   4626widgets gadgets gizm
+O0000843VANDELAY  4679widgets gadgets gizmos sprocke
+O0000844WONKA     4732widgets gadgets gizmos sprockets doohick
+O0000845ACME      4785widgets gadgets gizmos sprockets doohickeys thinga
+O0000846GLOBEX    4838
+O0000848UMBRELLA  4944widgets gadgets gizm
+O0000849HOOLI     4997widgets gadgets gizmos sprocke
+O0000850STARK     5050widgets gadgets gizmos sprockets doohick
+O0000851WAYNE     5103widgets gadgets gizmos sprockets doohickeys thinga
+O0000852TYRELL    5156
+O0000853CYBERDYNE 5209widgets ga
+O0000854NEWCUST   0854widgets gadgets gizm
+O0000855MASSIVE   5315widgets gadgets gizmos sprocke
+O0000856VANDELAY  5368widgets gadgets gizmos sprockets doohick
+O0000857WONKA     5421widgets gadgets gizmos sprockets doohickeys thinga
+O0000859GLOBEX    5527widgets ga
+O0000860INITECH   5580widgets gadgets gizm
+O0000861NEWCUST   0861widgets gadgets gizmos sprocke
+O0000862HOOLI     5686widgets gadgets gizmos sprockets doohick
+O0000863STARK     5739widgets gadgets gizmos sprockets doohickeys thinga
+O0000864WAYNE     5792
+O0000865TYRELL    5845widgets ga
+O0000866CYBERDYNE 5898widgets gadgets gizm
+O0000867SOYLENT   5951widgets gadgets gizmos sprocke
+O0000868NEWCUST   0868widgets gadgets gizmos sprockets doohick
+O0000870WONKA     6110
+O0000871ACME      6163widgets ga
+O0000872GLOBEX    6216widgets gadgets gizm
+O0000873INITECH   6269widgets gadgets gizmos sprocke
+O0000874UMBRELLA  6322widgets gadgets gizmos sprockets doohick
+O0000875NEWCUST   0875widgets gadgets gizmos sprockets doohickeys thinga
+O0000876STARK     6428
+O0000877WAYNE     6481widgets ga
+O0000878TYRELL    6534widgets gadgets gizm
+O0000879CYBERDYNE 6587widgets gadgets gizmos sprocke
+O0000881MASSIVE   6693widgets gadgets gizmos sprockets doohickeys thinga
+O0000882NEWCUST   0882
+O0000883WONKA     6799widgets ga
+O0000884ACME      6852widgets gadgets gizm
+O0000885GLOBEX    6905widgets gadgets gizmos sprocke
+O0000886INITECH   6958widgets gadgets gizmos sprockets doohick
+O0000887UMBRELLA  7011widgets gadgets gizmos sprockets doohickeys thinga
+O0000888HOOLI     7064
+O0000889NEWCUST   0889widgets ga
+O0000890WAYNE     7170widgets gadgets gizm
+O0000892CYBERDYNE 7276widgets gadgets gizmos sprockets doohick
+O0000893SOYLENT   7329widgets gadgets gizmos sprockets doohickeys thinga
+O0000894MASSIVE   7382
+O0000895VANDELAY  7435widgets ga
+O0000896NEWCUST   0896widgets gadgets gizm
+O0000897ACME      7541widgets gadgets gizmos sprocke
+O0000898GLOBEX    7594widgets gadgets gizmos sprockets doohick
+O0000899INITECH   7647widgets gadgets gizmos sprockets doohickeys thinga
+O0000900UMBRELLA  7700
+O0000901HOOLI     7753widgets ga
+O0000903NEWCUST   0903widgets gadgets gizmos sprocke
+O0000904TYRELL    7912widgets gadgets gizmos sprockets doohick
+O0000905CYBERDYNE 7965widgets gadgets gizmos sprockets doohickeys thinga
+O0000906SOYLENT   8018
+O0000907MASSIVE   8071widgets ga
+O0000908VANDELAY  8124widgets gadgets gizm
+O0000909WONKA     8177widgets gadgets gizmos sprocke
+O0000910NEWCUST   0910widgets gadgets gizmos sprockets doohick
+  $STATUS == "%X0001827A"
+@@ DKA100:[T.ACCEPTBACK]ORDERS.DAT key 1
+O0000221ACME      1713widgets gadgets gizmos sprockets doohickeys thinga
+O0000169ACME      8957widgets ga
+O0000117ACME      6201widgets gadgets gizmos sprocke
+O0000065ACME      3445widgets gadgets gizmos sprockets doohickeys thinga
+O0000013ACME      0689widgets ga
+O0000234ACME      2402
+O0000130ACME      6890widgets gadgets gizmos sprockets doohick
+O0000078ACME      4134
+O0000026ACME      1378widgets gadgets gizm
+O0000299ACME      5847widgets gadgets gizmos sprockets doohickeys thinga
+O0000247ACME      3091widgets ga
+O0000195ACME      0335widgets gadgets gizmos sprocke
+O0000039ACME      2067widgets gadgets gizmos sprocke
+O0000260ACME      3780widgets gadgets gizm
+O0000208ACME      1024widgets gadgets gizmos sprockets doohick
+O0000156ACME      8268
+O0000104ACME      5512widgets gadgets gizm
+O0000052ACME      2756widgets gadgets gizmos sprockets doohick
+O0000351ACME      8603widgets gadgets gizmos sprocke
+O0000884ACME      6852widgets gadgets gizm
+O0000611ACME      2383widgets gadgets gizmos sprockets doohickeys thinga
+O0000338ACME      7914widgets gadgets gizm
+O0000871ACME      6163widgets ga
+O0000598ACME      1694widgets gadgets gizmos sprockets doohick
+O0000325ACME      7225widgets ga
+O0000585ACME      1005widgets gadgets gizmos sprocke
+O0000312ACME      6536
+O0000845ACME      4785widgets gadgets gizmos sprockets doohickeys thinga
+O0000832ACME      4096widgets gadgets gizmos sprockets doohick
+O0000559ACME      9627widgets ga
+O0000806ACME      2718widgets gadgets gizm
+O0000533ACME      8249widgets gadgets gizmos sprockets doohickeys thinga
+O0000793ACME      2029widgets ga
+O0000520ACME      7560widgets gadgets gizmos sprockets doohick
+O0000780ACME      1340
+O0000507ACME      6871widgets gadgets gizmos sprocke
+O0000767ACME      0651widgets gadgets gizmos sprockets doohickeys thinga
+O0000494ACME      6182widgets gadgets gizm
+O0000754ACME      9962widgets gadgets gizmos sprockets doohick
+O0000481ACME      5493widgets ga
+O0000741ACME      9273widgets gadgets gizmos sprocke
+O0000468ACME      4804
+O0000442ACME      3426widgets gadgets gizmos sprockets doohick
+O0000702ACME      7206
+O0000689ACME      6517widgets gadgets gizmos sprockets doohickeys thinga
+O0000416ACME      2048widgets gadgets gizm
+O0000676ACME      5828widgets gadgets gizmos sprockets doohick
+O0000403ACME      1359widgets ga
+O0000663ACME      5139widgets gadgets gizmos sprocke
+O0000390ACME      0670
+O0000650ACME      4450widgets gadgets gizm
+O0000377ACME      9981widgets gadgets gizmos sprockets doohickeys thinga
+O0000897ACME      7541widgets gadgets gizmos sprocke
+O0000624ACME      3072
+O0000281CYBERDYNE 4893widgets gadgets gizmos sprockets doohickeys thinga
+O0000229CYBERDYNE 2137widgets ga
+O0000177CYBERDYNE 9381widgets gadgets gizmos sprocke
+O0000125CYBERDYNE 6625widgets gadgets gizmos sprockets doohickeys thinga
+O0000073CYBERDYNE 3869widgets ga
+O0000190CYBERDYNE 0070widgets gadgets gizmos sprockets doohick
+O0000138CYBERDYNE 7314
+O0000086CYBERDYNE 4558widgets gadgets gizm
+O0000034CYBERDYNE 1802widgets gadgets gizmos sprockets doohick
+O0000307CYBERDYNE 6271widgets ga
+O0000255CYBERDYNE 3515widgets gadgets gizmos sprocke
+O0000151CYBERDYNE 8003widgets ga
+O0000047CYBERDYNE 2491widgets gadgets gizmos sprockets doohickeys thinga
+O0000268CYBERDYNE 4204widgets gadgets gizmos sprockets doohick
+O0000216CYBERDYNE 1448
+O0000164CYBERDYNE 8692widgets gadgets gizm
+O0000060CYBERDYNE 3180
+O0000008CYBERDYNE 0424widgets gadgets gizm
+O0000515CYBERDYNE 7295widgets gadgets gizmos sprockets doohickeys thinga
+O0000775CYBERDYNE 1075widgets ga
+O0000502CYBERDYNE 6606widgets gadgets gizmos sprockets doohick
+O0000762CYBERDYNE 0386
+O0000489CYBERDYNE 5917widgets gadgets gizmos sprocke
+O0000736CYBERDYNE 9008widgets gadgets gizmos sprockets doohick
+O0000463CYBERDYNE 4539widgets ga
+O0000723CYBERDYNE 8319widgets gadgets gizmos sprocke
+O0000450CYBERDYNE 3850
+O0000710CYBERDYNE 7630widgets gadgets gizm
+O0000437CYBERDYNE 3161widgets gadgets gizmos sprockets doohickeys thinga
+O0000697CYBERDYNE 6941widgets ga
+O0000424CYBERDYNE 2472widgets gadgets gizmos sprockets doohick
+O0000684CYBERDYNE 6252
+O0000411CYBERDYNE 1783widgets gadgets gizmos sprocke
+O0000398CYBERDYNE 1094widgets gadgets gizm
+O0000645CYBERDYNE 4185widgets gadgets gizmos sprocke
+O0000372CYBERDYNE 9716
+O0000905CYBERDYNE 7965widgets gadgets gizmos sprockets doohickeys thinga
+O0000632CYBERDYNE 3496widgets gadgets gizm
+O0000359CYBERDYNE 9027widgets gadgets gizmos sprockets doohickeys thinga
+O0000892CYBERDYNE 7276widgets gadgets gizmos sprockets doohick
+O0000619CYBERDYNE 2807widgets ga
+O0000346CYBERDYNE 8338widgets gadgets gizmos sprockets doohick
+O0000879CYBERDYNE 6587widgets gadgets gizmos sprocke
+O0000606CYBERDYNE 2118
+O0000333CYBERDYNE 7649widgets gadgets gizmos sprocke
+O0000866CYBERDYNE 5898widgets gadgets gizm
+O0000593CYBERDYNE 1429widgets gadgets gizmos sprockets doohickeys thinga
+O0000320CYBERDYNE 6960widgets gadgets gizm
+O0000853CYBERDYNE 5209widgets ga
+O0000580CYBERDYNE 0740widgets gadgets gizmos sprockets doohick
+O0000827CYBERDYNE 3831widgets gadgets gizmos sprockets doohickeys thinga
+O0000554CYBERDYNE 9362widgets gadgets gizm
+O0000541CYBERDYNE 8673widgets ga
+O0000801CYBERDYNE 2453widgets gadgets gizmos sprocke
+O0000788CYBERDYNE 1764widgets gadgets gizm
+O0000222GLOBEX    1766
+O0000170GLOBEX    9010widgets gadgets gizm
+O0000118GLOBEX    6254widgets gadgets gizmos sprockets doohick
+O0000235GLOBEX    2455widgets ga
+O0000183GLOBEX    9699widgets gadgets gizmos sprocke
+O0000131GLOBEX    6943widgets gadgets gizmos sprockets doohickeys thinga
+O0000079GLOBEX    4187widgets ga
+O0000027GLOBEX    1431widgets gadgets gizmos sprocke
+O0000300GLOBEX    5900
+O0000248GLOBEX    3144widgets gadgets gizm
+O0000144GLOBEX    7632
+O0000092GLOBEX    4876widgets gadgets gizm
+O0000040GLOBEX    2120widgets gadgets gizmos sprockets doohick
+O0000261GLOBEX    3833widgets gadgets gizmos sprocke
+O0000157GLOBEX    8321widgets ga
+O0000053GLOBEX    2809widgets gadgets gizmos sprockets doohickeys thinga
+O0000001GLOBEX    0053widgets ga
+O0000274GLOBEX    4522widgets gadgets gizmos sprockets doohick
+O0000365GLOBEX    9345widgets gadgets gizmos sprockets doohickeys thinga
+O0000898GLOBEX    7594widgets gadgets gizmos sprockets doohick
+O0000625GLOBEX    3125widgets ga
+O0000885GLOBEX    6905widgets gadgets gizmos sprocke
+O0000612GLOBEX    2436
+O0000339GLOBEX    7967widgets gadgets gizmos sprocke
+O0000872GLOBEX    6216widgets gadgets gizm
+O0000599GLOBEX    1747widgets gadgets gizmos sprockets doohickeys thinga
+O0000326GLOBEX    7278widgets gadgets gizm
+O0000859GLOBEX    5527widgets ga
+O0000586GLOBEX    1058widgets gadgets gizmos sprockets doohick
+O0000313GLOBEX    6589widgets ga
+O0000846GLOBEX    4838
+O0000573GLOBEX    0369widgets gadgets gizmos sprocke
+O0000820GLOBEX    3460widgets gadgets gizmos sprockets doohick
+O0000547GLOBEX    8991widgets ga
+O0000807GLOBEX    2771widgets gadgets gizmos sprocke
+O0000534GLOBEX    8302
+O0000794GLOBEX    2082widgets gadgets gizm
+O0000521GLOBEX    7613widgets gadgets gizmos sprockets doohickeys thinga
+O0000508GLOBEX    6924widgets gadgets gizmos sprockets doohick
+O0000768GLOBEX    0704
+O0000755GLOBEX    0015widgets gadgets gizmos sprockets doohickeys thinga
+O0000482GLOBEX    5546widgets gadgets gizm
+O0000729GLOBEX    8637widgets gadgets gizmos sprocke
+O0000456GLOBEX    4168
+O0000716GLOBEX    7948widgets gadgets gizm
+O0000443GLOBEX    3479widgets gadgets gizmos sprockets doohickeys thinga
+O0000703GLOBEX    7259widgets ga
+O0000430GLOBEX    2790widgets gadgets gizmos sprockets doohick
+O0000690GLOBEX    6570
+O0000417GLOBEX    2101widgets gadgets gizmos sprocke
+O0000677GLOBEX    5881widgets gadgets gizmos sprockets doohickeys thinga
+O0000404GLOBEX    1412widgets gadgets gizm
+O0000664GLOBEX    5192widgets gadgets gizmos sprockets doohick
+O0000391GLOBEX    0723widgets ga
+O0000303HOOLI     6059widgets gadgets gizmos sprocke
+O0000251HOOLI     3303widgets gadgets gizmos sprockets doohickeys thinga
+O0000199HOOLI     0547widgets ga
+O0000095HOOLI     5035widgets gadgets gizmos sprockets doohickeys thinga
+O0000043HOOLI     2279widgets ga
+O0000212HOOLI     1236widgets gadgets gizm
+O0000160HOOLI     8480widgets gadgets gizmos sprockets doohick
+O0000108HOOLI     5724
+O0000004HOOLI     0212widgets gadgets gizmos sprockets doohick
+O0000277HOOLI     4681widgets ga
+O0000225HOOLI     1925widgets gadgets gizmos sprocke
+O0000173HOOLI     9169widgets gadgets gizmos sprockets doohickeys thinga
+O0000069HOOLI     3657widgets gadgets gizmos sprocke
+O0000017HOOLI     0901widgets gadgets gizmos sprockets doohickeys thinga
+O0000290HOOLI     5370widgets gadgets gizm
+O0000186HOOLI     9858
+O0000134HOOLI     7102widgets gadgets gizm
+O0000082HOOLI     4346widgets gadgets gizmos sprockets doohick
+O0000030HOOLI     1590
+O0000433HOOLI     2949widgets ga
+O0000680HOOLI     6040widgets gadgets gizm
+O0000667HOOLI     5351widgets ga
+O0000394HOOLI     0882widgets gadgets gizmos sprockets doohick
+O0000654HOOLI     4662
+O0000381HOOLI     0193widgets gadgets gizmos sprocke
+O0000641HOOLI     3973widgets gadgets gizmos sprockets doohickeys thinga
+O0000368HOOLI     9504widgets gadgets gizm
+O0000901HOOLI     7753widgets ga
+O0000628HOOLI     3284widgets gadgets gizmos sprockets doohick
+O0000355HOOLI     8815widgets ga
+O0000888HOOLI     7064
+O0000615HOOLI     2595widgets gadgets gizmos sprocke
+O0000342HOOLI     8126
+O0000862HOOLI     5686widgets gadgets gizmos sprockets doohick
+O0000589HOOLI     1217widgets ga
+O0000316HOOLI     6748widgets gadgets gizmos sprockets doohick
+O0000849HOOLI     4997widgets gadgets gizmos sprocke
+O0000576HOOLI     0528
+O0000563HOOLI     9839widgets gadgets gizmos sprockets doohickeys thinga
+O0000823HOOLI     3619widgets ga
+O0000810HOOLI     2930
+O0000537HOOLI     8461widgets gadgets gizmos sprocke
+O0000797HOOLI     2241widgets gadgets gizmos sprockets doohickeys thinga
+O0000524HOOLI     7772widgets gadgets gizm
+O0000771HOOLI     0863widgets gadgets gizmos sprocke
+O0000498HOOLI     6394
+O0000758HOOLI     0174widgets gadgets gizm
+O0000485HOOLI     5705widgets gadgets gizmos sprockets doohickeys thinga
+O0000745HOOLI     9485widgets ga
+O0000472HOOLI     5016widgets gadgets gizmos sprockets doohick
+O0000732HOOLI     8796
+O0000459HOOLI     4327widgets gadgets gizmos sprocke
+O0000719HOOLI     8107widgets gadgets gizmos sprockets doohickeys thinga
+O0000446HOOLI     3638widgets gadgets gizm
+O0000706HOOLI     7418widgets gadgets gizmos sprockets doohick
+O0000288INITECH   5264
+O0000236INITECH   2508widgets gadgets gizm
+O0000184INITECH   9752widgets gadgets gizmos sprockets doohick
+O0000080INITECH   4240widgets gadgets gizm
+O0000249INITECH   3197widgets gadgets gizmos sprocke
+O0000197INITECH   0441widgets gadgets gizmos sprockets doohickeys thinga
+O0000145INITECH   7685widgets ga
+O0000093INITECH   4929widgets gadgets gizmos sprocke
+O0000041INITECH   2173widgets gadgets gizmos sprockets doohickeys thinga
+O0000262INITECH   3886widgets gadgets gizmos sprockets doohick
+O0000158INITECH   8374widgets gadgets gizm
+O0000106INITECH   5618widgets gadgets gizmos sprockets doohick
+O0000054INITECH   2862
+O0000002INITECH   0106widgets gadgets gizm
+O0000223INITECH   1819widgets ga
+O0000171INITECH   9063widgets gadgets gizmos sprocke
+O0000067INITECH   3551widgets ga
+O0000015INITECH   0795widgets gadgets gizmos sprocke
+O0000652INITECH   4556widgets gadgets gizmos sprockets doohick
+O0000379INITECH   0087widgets ga
+O0000639INITECH   3867widgets gadgets gizmos sprocke
+O0000366INITECH   9398
+O0000899INITECH   7647widgets gadgets gizmos sprockets doohickeys thinga
+O0000626INITECH   3178widgets gadgets gizm
+O0000353INITECH   8709widgets gadgets gizmos sprockets doohickeys thinga
+O0000886INITECH   6958widgets gadgets gizmos sprockets doohick
+O0000613INITECH   2489widgets ga
+O0000340INITECH   8020widgets gadgets gizmos sprockets doohick
+O0000873INITECH   6269widgets gadgets gizmos sprocke
+O0000600INITECH   1800
+O0000327INITECH   7331widgets gadgets gizmos sprocke
+O0000860INITECH   5580widgets gadgets gizm
+O0000587INITECH   1111widgets gadgets gizmos sprockets doohickeys thinga
+O0000314INITECH   6642widgets gadgets gizm
+O0000834INITECH   4202
+O0000821INITECH   3513widgets gadgets gizmos sprockets doohickeys thinga
+O0000548INITECH   9044widgets gadgets gizm
+O0000808INITECH   2824widgets gadgets gizmos sprockets doohick
+O0000535INITECH   8355widgets ga
+O0000795INITECH   2135widgets gadgets gizmos sprocke
+O0000522INITECH   7666
+O0000782INITECH   1446widgets gadgets gizm
+O0000509INITECH   6977widgets gadgets gizmos sprockets doohickeys thinga
+O0000769INITECH   0757widgets ga
+O0000496INITECH   6288widgets gadgets gizmos sprockets doohick
+O0000743INITECH   9379widgets gadgets gizmos sprockets doohickeys thinga
+O0000470INITECH   4910widgets gadgets gizm
+O0000730INITECH   8690widgets gadgets gizmos sprockets doohick
+O0000457INITECH   4221widgets ga
+O0000717INITECH   8001widgets gadgets gizmos sprocke
+O0000444INITECH   3532
+O0000431INITECH   2843widgets gadgets gizmos sprockets doohickeys thinga
+O0000691INITECH   6623widgets ga
+O0000678INITECH   5934
+O0000405INITECH   1465widgets gadgets gizmos sprocke
+O0000296MASSIVE   5688widgets gadgets gizm
+O0000244MASSIVE   2932widgets gadgets gizmos sprockets doohick
+O0000192MASSIVE   0176
+O0000036MASSIVE   1908
+O0000309MASSIVE   6377widgets gadgets gizmos sprocke
+O0000257MASSIVE   3621widgets gadgets gizmos sprockets doohickeys thinga
+O0000205MASSIVE   0865widgets ga
+O0000153MASSIVE   8109widgets gadgets gizmos sprocke
+O0000101MASSIVE   5353widgets gadgets gizmos sprockets doohickeys thinga
+O0000270MASSIVE   4310
+O0000218MASSIVE   1554widgets gadgets gizm
+O0000166MASSIVE   8798widgets gadgets gizmos sprockets doohick
+O0000114MASSIVE   6042
+O0000062MASSIVE   3286widgets gadgets gizm
+O0000010MASSIVE   0530widgets gadgets gizmos sprockets doohick
+O0000283MASSIVE   4999widgets ga
+O0000179MASSIVE   9487widgets gadgets gizmos sprockets doohickeys thinga
+O0000127MASSIVE   6731widgets ga
+O0000075MASSIVE   3975widgets gadgets gizmos sprocke
+O0000023MASSIVE   1219widgets gadgets gizmos sprockets doohickeys thinga
+O0000556MASSIVE   9468widgets gadgets gizmos sprockets doohick
+O0000816MASSIVE   3248
+O0000543MASSIVE   8779widgets gadgets gizmos sprocke
+O0000530MASSIVE   8090widgets gadgets gizm
+O0000790MASSIVE   1870widgets gadgets gizmos sprockets doohick
+O0000764MASSIVE   0492widgets gadgets gizm
+O0000491MASSIVE   6023widgets gadgets gizmos sprockets doohickeys thinga
+O0000751MASSIVE   9803widgets ga
+O0000478MASSIVE   5334widgets gadgets gizmos sprockets doohick
+O0000738MASSIVE   9114
+O0000465MASSIVE   4645widgets gadgets gizmos sprocke
+O0000725MASSIVE   8425widgets gadgets gizmos sprockets doohickeys thinga
+O0000452MASSIVE   3956widgets gadgets gizm
+O0000712MASSIVE   7736widgets gadgets gizmos sprockets doohick
+O0000439MASSIVE   3267widgets ga
+O0000699MASSIVE   7047widgets gadgets gizmos sprocke
+O0000426MASSIVE   2578
+O0000673MASSIVE   5669widgets ga
+O0000400MASSIVE   1200widgets gadgets gizmos sprockets doohick
+O0000387MASSIVE   0511widgets gadgets gizmos sprocke
+O0000647MASSIVE   4291widgets gadgets gizmos sprockets doohickeys thinga
+O0000907MASSIVE   8071widgets ga
+O0000634MASSIVE   3602widgets gadgets gizmos sprockets doohick
+O0000361MASSIVE   9133widgets ga
+O0000894MASSIVE   7382
+O0000621MASSIVE   2913widgets gadgets gizmos sprocke
+O0000348MASSIVE   8444
+O0000881MASSIVE   6693widgets gadgets gizmos sprockets doohickeys thinga
+O0000608MASSIVE   2224widgets gadgets gizm
+O0000335MASSIVE   7755widgets gadgets gizmos sprockets doohickeys thinga
+O0000855MASSIVE   5315widgets gadgets gizmos sprocke
+O0000582MASSIVE   0846
+O0000842MASSIVE   4626widgets gadgets gizm
+O0000569MASSIVE   0157widgets gadgets gizmos sprockets doohickeys thinga
+O0000829MASSIVE   3937widgets ga
+O0000007NEWCUST   0007widgets ga
+O0000014NEWCUST   0014widgets gadgets gizm
+O0000021NEWCUST   0021widgets gadgets gizmos sprocke
+O0000028NEWCUST   0028widgets gadgets gizmos sprockets doohick
+O0000035NEWCUST   0035widgets gadgets gizmos sprockets doohickeys thinga
+O0000042NEWCUST   0042
+O0000049NEWCUST   0049widgets ga
+O0000056NEWCUST   0056widgets gadgets gizm
+O0000063NEWCUST   0063widgets gadgets gizmos sprocke
+O0000070NEWCUST   0070widgets gadgets gizmos sprockets doohick
+O0000084NEWCUST   0084
+O0000091NEWCUST   0091widgets ga
+O0000098NEWCUST   0098widgets gadgets gizm
+O0000105NEWCUST   0105widgets gadgets gizmos sprocke
+O0000112NEWCUST   0112widgets gadgets gizmos sprockets doohick
+O0000119NEWCUST   0119widgets gadgets gizmos sprockets doohickeys thinga
+O0000126NEWCUST   0126
+O0000133NEWCUST   0133widgets ga
+O0000140NEWCUST   0140widgets gadgets gizm
+O0000147NEWCUST   0147widgets gadgets gizmos sprocke
+O0000161NEWCUST   0161widgets gadgets gizmos sprockets doohickeys thinga
+O0000168NEWCUST   0168
+O0000175NEWCUST   0175widgets ga
+O0000182NEWCUST   0182widgets gadgets gizm
+O0000189NEWCUST   0189widgets gadgets gizmos sprocke
+O0000196NEWCUST   0196widgets gadgets gizmos sprockets doohick
+O0000203NEWCUST   0203widgets gadgets gizmos sprockets doohickeys thinga
+O0000210NEWCUST   0210
+O0000217NEWCUST   0217widgets ga
+O0000224NEWCUST   0224widgets gadgets gizm
+O0000238NEWCUST   0238widgets gadgets gizmos sprockets doohick
+O0000245NEWCUST   0245widgets gadgets gizmos sprockets doohickeys thinga
+O0000252NEWCUST   0252
+O0000259NEWCUST   0259widgets ga
+O0000266NEWCUST   0266widgets gadgets gizm
+O0000273NEWCUST   0273widgets gadgets gizmos sprocke
+O0000280NEWCUST   0280widgets gadgets gizmos sprockets doohick
+O0000287NEWCUST   0287widgets gadgets gizmos sprockets doohickeys thinga
+O0000294NEWCUST   0294
+O0000301NEWCUST   0301widgets ga
+O0000315NEWCUST   0315widgets gadgets gizmos sprocke
+O0000322NEWCUST   0322widgets gadgets gizmos sprockets doohick
+O0000329NEWCUST   0329widgets gadgets gizmos sprockets doohickeys thinga
+O0000336NEWCUST   0336
+O0000343NEWCUST   0343widgets ga
+O0000350NEWCUST   0350widgets gadgets gizm
+O0000357NEWCUST   0357widgets gadgets gizmos sprocke
+O0000364NEWCUST   0364widgets gadgets gizmos sprockets doohick
+O0000371NEWCUST   0371widgets gadgets gizmos sprockets doohickeys thinga
+O0000378NEWCUST   0378
+O0000392NEWCUST   0392widgets gadgets gizm
+O0000399NEWCUST   0399widgets gadgets gizmos sprocke
+O0000406NEWCUST   0406widgets gadgets gizmos sprockets doohick
+O0000413NEWCUST   0413widgets gadgets gizmos sprockets doohickeys thinga
+O0000420NEWCUST   0420
+O0000427NEWCUST   0427widgets ga
+O0000434NEWCUST   0434widgets gadgets gizm
+O0000441NEWCUST   0441widgets gadgets gizmos sprocke
+O0000448NEWCUST   0448widgets gadgets gizmos sprockets doohick
+O0000455NEWCUST   0455widgets gadgets gizmos sprockets doohickeys thinga
+O0000469NEWCUST   0469widgets ga
+O0000476NEWCUST   0476widgets gadgets gizm
+O0000483NEWCUST   0483widgets gadgets gizmos sprocke
+O0000490NEWCUST   0490widgets gadgets gizmos sprockets doohick
+O0000497NEWCUST   0497widgets gadgets gizmos sprockets doohickeys thinga
+O0000504NEWCUST   0504
+O0000511NEWCUST   0511widgets ga
+O0000518NEWCUST   0518widgets gadgets gizm
+O0000525NEWCUST   0525widgets gadgets gizmos sprocke
+O0000532NEWCUST   0532widgets gadgets gizmos sprockets doohick
+O0000546NEWCUST   0546
+O0000553NEWCUST   0553widgets ga
+O0000560NEWCUST   0560widgets gadgets gizm
+O0000567NEWCUST   0567widgets gadgets gizmos sprocke
+O0000574NEWCUST   0574widgets gadgets gizmos sprockets doohick
+O0000581NEWCUST   0581widgets gadgets gizmos sprockets doohickeys thinga
+O0000588NEWCUST   0588
+O0000595NEWCUST   0595widgets ga
+O0000602NEWCUST   0602widgets gadgets gizm
+O0000609NEWCUST   0609widgets gadgets gizmos sprocke
+O0000623NEWCUST   0623widgets gadgets gizmos sprockets doohickeys thinga
+O0000630NEWCUST   0630
+O0000637NEWCUST   0637widgets ga
+O0000644NEWCUST   0644widgets gadgets gizm
+O0000651NEWCUST   0651widgets gadgets gizmos sprocke
+O0000658NEWCUST   0658widgets gadgets gizmos sprockets doohick
+O0000665NEWCUST   0665widgets gadgets gizmos sprockets doohickeys thinga
+O0000672NEWCUST   0672
+O0000679NEWCUST   0679widgets ga
+O0000686NEWCUST   0686widgets gadgets gizm
+O0000700NEWCUST   0700widgets gadgets gizmos sprockets doohick
+O0000707NEWCUST   0707widgets gadgets gizmos sprockets doohickeys thinga
+O0000714NEWCUST   0714
+O0000721NEWCUST   0721widgets ga
+O0000728NEWCUST   0728widgets gadgets gizm
+O0000735NEWCUST   0735widgets gadgets gizmos sprocke
+O0000742NEWCUST   0742widgets gadgets gizmos sprockets doohick
+O0000749NEWCUST   0749widgets gadgets gizmos sprockets doohickeys thinga
+O0000756NEWCUST   0756
+O0000763NEWCUST   0763widgets ga
+O0000777NEWCUST   0777widgets gadgets gizmos sprocke
+O0000784NEWCUST   0784widgets gadgets gizmos sprockets doohick
+O0000791NEWCUST   0791widgets gadgets gizmos sprockets doohickeys thinga
+O0000798NEWCUST   0798
+O0000805NEWCUST   0805widgets ga
+O0000812NEWCUST   0812widgets gadgets gizm
+O0000819NEWCUST   0819widgets gadgets gizmos sprocke
+O0000826NEWCUST   0826widgets gadgets gizmos sprockets doohick
+O0000833NEWCUST   0833widgets gadgets gizmos sprockets doohickeys thinga
+O0000840NEWCUST   0840
+O0000854NEWCUST   0854widgets gadgets gizm
+O0000861NEWCUST   0861widgets gadgets gizmos sprocke
+O0000868NEWCUST   0868widgets gadgets gizmos sprockets doohick
+O0000875NEWCUST   0875widgets gadgets gizmos sprockets doohickeys thinga
+O0000882NEWCUST   0882
+O0000889NEWCUST   0889widgets ga
+O0000896NEWCUST   0896widgets gadgets gizm
+O0000903NEWCUST   0903widgets gadgets gizmos sprocke
+O0000910NEWCUST   0910widgets gadgets gizmos sprockets doohick
+O0000074SOYLENT   3922widgets gadgets gizm
+O0000295SOYLENT   5635widgets ga
+O0000243SOYLENT   2879widgets gadgets gizmos sprocke
+O0000191SOYLENT   0123widgets gadgets gizmos sprockets doohickeys thinga
+O0000139SOYLENT   7367widgets ga
+O0000087SOYLENT   4611widgets gadgets gizmos sprocke
+O0000256SOYLENT   3568widgets gadgets gizmos sprockets doohick
+O0000204SOYLENT   0812
+O0000152SOYLENT   8056widgets gadgets gizm
+O0000100SOYLENT   5300widgets gadgets gizmos sprockets doohick
+O0000048SOYLENT   2544
+O0000269SOYLENT   4257widgets gadgets gizmos sprockets doohickeys thinga
+O0000113SOYLENT   5989widgets gadgets gizmos sprockets doohickeys thinga
+O0000061SOYLENT   3233widgets ga
+O0000009SOYLENT   0477widgets gadgets gizmos sprocke
+O0000282SOYLENT   4946
+O0000230SOYLENT   2190widgets gadgets gizm
+O0000178SOYLENT   9434widgets gadgets gizmos sprockets doohick
+O0000802SOYLENT   2506widgets gadgets gizmos sprockets doohick
+O0000529SOYLENT   8037widgets ga
+O0000789SOYLENT   1817widgets gadgets gizmos sprocke
+O0000516SOYLENT   7348
+O0000776SOYLENT   1128widgets gadgets gizm
+O0000503SOYLENT   6659widgets gadgets gizmos sprockets doohickeys thinga
+O0000750SOYLENT   9750
+O0000477SOYLENT   5281widgets gadgets gizmos sprocke
+O0000464SOYLENT   4592widgets gadgets gizm
+O0000724SOYLENT   8372widgets gadgets gizmos sprockets doohick
+O0000711SOYLENT   7683widgets gadgets gizmos sprocke
+O0000438SOYLENT   3214
+O0000698SOYLENT   6994widgets gadgets gizm
+O0000425SOYLENT   2525widgets gadgets gizmos sprockets doohickeys thinga
+O0000685SOYLENT   6305widgets ga
+O0000412SOYLENT   1836widgets gadgets gizmos sprockets doohick
+O0000659SOYLENT   4927widgets gadgets gizmos sprockets doohickeys thinga
+O0000386SOYLENT   0458widgets gadgets gizm
+O0000646SOYLENT   4238widgets gadgets gizmos sprockets doohick
+O0000373SOYLENT   9769widgets ga
+O0000906SOYLENT   8018
+O0000633SOYLENT   3549widgets gadgets gizmos sprocke
+O0000360SOYLENT   9080
+O0000893SOYLENT   7329widgets gadgets gizmos sprockets doohickeys thinga
+O0000620SOYLENT   2860widgets gadgets gizm
+O0000347SOYLENT   8391widgets gadgets gizmos sprockets doohickeys thinga
+O0000607SOYLENT   2171widgets ga
+O0000334SOYLENT   7702widgets gadgets gizmos sprockets doohick
+O0000867SOYLENT   5951widgets gadgets gizmos sprocke
+O0000321SOYLENT   7013widgets gadgets gizmos sprocke
+O0000841SOYLENT   4573widgets ga
+O0000568SOYLENT   0104widgets gadgets gizmos sprockets doohick
+O0000828SOYLENT   3884
+O0000555SOYLENT   9415widgets gadgets gizmos sprocke
+O0000815SOYLENT   3195widgets gadgets gizmos sprockets doohickeys thinga
+O0000542SOYLENT   8726widgets gadgets gizm
+O0000148STARK     7844widgets gadgets gizmos sprockets doohick
+O0000096STARK     5088
+O0000265STARK     4045widgets ga
+O0000213STARK     1289widgets gadgets gizmos sprocke
+O0000109STARK     5777widgets ga
+O0000057STARK     3021widgets gadgets gizmos sprocke
+O0000005STARK     0265widgets gadgets gizmos sprockets doohickeys thinga
+O0000278STARK     4734widgets gadgets gizm
+O0000226STARK     1978widgets gadgets gizmos sprockets doohick
+O0000174STARK     9222
+O0000122STARK     6466widgets gadgets gizm
+O0000018STARK     0954
+O0000291STARK     5423widgets gadgets gizmos sprocke
+O0000239STARK     2667widgets gadgets gizmos sprockets doohickeys thinga
+O0000135STARK     7155widgets gadgets gizmos sprocke
+O0000083STARK     4399widgets gadgets gizmos sprockets doohickeys thinga
+O0000031STARK     1643widgets ga
+O0000304STARK     6112widgets gadgets gizmos sprockets doohick
+O0000200STARK     0600widgets gadgets gizm
+O0000720STARK     8160
+O0000447STARK     3691widgets gadgets gizmos sprocke
+O0000694STARK     6782widgets gadgets gizmos sprockets doohick
+O0000421STARK     2313widgets ga
+O0000681STARK     6093widgets gadgets gizmos sprocke
+O0000408STARK     1624
+O0000668STARK     5404widgets gadgets gizm
+O0000395STARK     0935widgets gadgets gizmos sprockets doohickeys thinga
+O0000655STARK     4715widgets ga
+O0000382STARK     0246widgets gadgets gizmos sprockets doohick
+O0000642STARK     4026
+O0000369STARK     9557widgets gadgets gizmos sprocke
+O0000629STARK     3337widgets gadgets gizmos sprockets doohickeys thinga
+O0000356STARK     8868widgets gadgets gizm
+O0000876STARK     6428
+O0000603STARK     1959widgets gadgets gizmos sprocke
+O0000863STARK     5739widgets gadgets gizmos sprockets doohickeys thinga
+O0000590STARK     1270widgets gadgets gizm
+O0000317STARK     6801widgets gadgets gizmos sprockets doohickeys thinga
+O0000850STARK     5050widgets gadgets gizmos sprockets doohick
+O0000577STARK     0581widgets ga
+O0000837STARK     4361widgets gadgets gizmos sprocke
+O0000564STARK     9892
+O0000824STARK     3672widgets gadgets gizm
+O0000551STARK     9203widgets gadgets gizmos sprockets doohickeys thinga
+O0000811STARK     2983widgets ga
+O0000538STARK     8514widgets gadgets gizmos sprockets doohick
+O0000785STARK     1605widgets gadgets gizmos sprockets doohickeys thinga
+O0000512STARK     7136widgets gadgets gizm
+O0000772STARK     0916widgets gadgets gizmos sprockets doohick
+O0000499STARK     6447widgets ga
+O0000486STARK     5758
+O0000746STARK     9538widgets gadgets gizm
+O0000733STARK     8849widgets ga
+O0000460STARK     4380widgets gadgets gizmos sprockets doohick
+O0000111TYRELL    5883widgets gadgets gizmos sprocke
+O0000059TYRELL    3127widgets gadgets gizmos sprockets doohickeys thinga
+O0000228TYRELL    2084
+O0000124TYRELL    6572widgets gadgets gizmos sprockets doohick
+O0000072TYRELL    3816
+O0000020TYRELL    1060widgets gadgets gizm
+O0000293TYRELL    5529widgets gadgets gizmos sprockets doohickeys thinga
+O0000241TYRELL    2773widgets ga
+O0000137TYRELL    7261widgets gadgets gizmos sprockets doohickeys thinga
+O0000085TYRELL    4505widgets ga
+O0000306TYRELL    6218
+O0000254TYRELL    3462widgets gadgets gizm
+O0000202TYRELL    0706widgets gadgets gizmos sprockets doohick
+O0000150TYRELL    7950
+O0000046TYRELL    2438widgets gadgets gizmos sprockets doohick
+O0000267TYRELL    4151widgets gadgets gizmos sprocke
+O0000215TYRELL    1395widgets gadgets gizmos sprockets doohickeys thinga
+O0000163TYRELL    8639widgets ga
+O0000761TYRELL    0333widgets gadgets gizmos sprockets doohickeys thinga
+O0000488TYRELL    5864widgets gadgets gizm
+O0000475TYRELL    5175widgets ga
+O0000722TYRELL    8266widgets gadgets gizm
+O0000449TYRELL    3797widgets gadgets gizmos sprockets doohickeys thinga
+O0000709TYRELL    7577widgets ga
+O0000436TYRELL    3108widgets gadgets gizmos sprockets doohick
+O0000696TYRELL    6888
+O0000423TYRELL    2419widgets gadgets gizmos sprocke
+O0000683TYRELL    6199widgets gadgets gizmos sprockets doohickeys thinga
+O0000410TYRELL    1730widgets gadgets gizm
+O0000670TYRELL    5510widgets gadgets gizmos sprockets doohick
+O0000397TYRELL    1041widgets ga
+O0000657TYRELL    4821widgets gadgets gizmos sprocke
+O0000384TYRELL    0352
+O0000904TYRELL    7912widgets gadgets gizmos sprockets doohick
+O0000631TYRELL    3443widgets ga
+O0000358TYRELL    8974widgets gadgets gizmos sprockets doohick
+O0000618TYRELL    2754
+O0000345TYRELL    8285widgets gadgets gizmos sprocke
+O0000878TYRELL    6534widgets gadgets gizm
+O0000332TYRELL    7596widgets gadgets gizm
+O0000865TYRELL    5845widgets ga
+O0000592TYRELL    1376widgets gadgets gizmos sprockets doohick
+O0000852TYRELL    5156
+O0000579TYRELL    0687widgets gadgets gizmos sprocke
+O0000839TYRELL    4467widgets gadgets gizmos sprockets doohickeys thinga
+O0000566TYRELL    9998widgets gadgets gizm
+O0000813TYRELL    3089widgets gadgets gizmos sprocke
+O0000540TYRELL    8620
+O0000800TYRELL    2400widgets gadgets gizm
+O0000527TYRELL    7931widgets gadgets gizmos sprockets doohickeys thinga
+O0000787TYRELL    1711widgets ga
+O0000514TYRELL    7242widgets gadgets gizmos sprockets doohick
+O0000774TYRELL    1022
+O0000501TYRELL    6553widgets gadgets gizmos sprocke
+O0000185UMBRELLA  9805widgets gadgets gizmos sprockets doohickeys thinga
+O0000081UMBRELLA  4293widgets gadgets gizmos sprocke
+O0000029UMBRELLA  1537widgets gadgets gizmos sprockets doohickeys thinga
+O0000302UMBRELLA  6006widgets gadgets gizm
+O0000250UMBRELLA  3250widgets gadgets gizmos sprockets doohick
+O0000146UMBRELLA  7738widgets gadgets gizm
+O0000094UMBRELLA  4982widgets gadgets gizmos sprockets doohick
+O0000263UMBRELLA  3939widgets gadgets gizmos sprockets doohickeys thinga
+O0000211UMBRELLA  1183widgets ga
+O0000159UMBRELLA  8427widgets gadgets gizmos sprocke
+O0000107UMBRELLA  5671widgets gadgets gizmos sprockets doohickeys thinga
+O0000003UMBRELLA  0159widgets gadgets gizmos sprocke
+O0000276UMBRELLA  4628
+O0000172UMBRELLA  9116widgets gadgets gizmos sprockets doohick
+O0000120UMBRELLA  6360
+O0000068UMBRELLA  3604widgets gadgets gizm
+O0000016UMBRELLA  0848widgets gadgets gizmos sprockets doohick
+O0000289UMBRELLA  5317widgets ga
+O0000237UMBRELLA  2561widgets gadgets gizmos sprocke
+O0000666UMBRELLA  5298
+O0000393UMBRELLA  0829widgets gadgets gizmos sprocke
+O0000653UMBRELLA  4609widgets gadgets gizmos sprockets doohickeys thinga
+O0000380UMBRELLA  0140widgets gadgets gizm
+O0000640UMBRELLA  3920widgets gadgets gizmos sprockets doohick
+O0000367UMBRELLA  9451widgets ga
+O0000900UMBRELLA  7700
+O0000354UMBRELLA  8762
+O0000887UMBRELLA  7011widgets gadgets gizmos sprockets doohickeys thinga
+O0000614UMBRELLA  2542widgets gadgets gizm
+O0000874UMBRELLA  6322widgets gadgets gizmos sprockets doohick
+O0000601UMBRELLA  1853widgets ga
+O0000328UMBRELLA  7384widgets gadgets gizmos sprockets doohick
+O0000848UMBRELLA  4944widgets gadgets gizm
+O0000575UMBRELLA  0475widgets gadgets gizmos sprockets doohickeys thinga
+O0000835UMBRELLA  4255widgets ga
+O0000562UMBRELLA  9786widgets gadgets gizmos sprockets doohick
+O0000822UMBRELLA  3566
+O0000549UMBRELLA  9097widgets gadgets gizmos sprocke
+O0000809UMBRELLA  2877widgets gadgets gizmos sprockets doohickeys thinga
+O0000536UMBRELLA  8408widgets gadgets gizm
+O0000796UMBRELLA  2188widgets gadgets gizmos sprockets doohick
+O0000523UMBRELLA  7719widgets ga
+O0000783UMBRELLA  1499widgets gadgets gizmos sprocke
+O0000510UMBRELLA  7030
+O0000757UMBRELLA  0121widgets ga
+O0000744UMBRELLA  9432
+O0000471UMBRELLA  4963widgets gadgets gizmos sprocke
+O0000731UMBRELLA  8743widgets gadgets gizmos sprockets doohickeys thinga
+O0000458UMBRELLA  4274widgets gadgets gizm
+O0000718UMBRELLA  8054widgets gadgets gizmos sprockets doohick
+O0000445UMBRELLA  3585widgets ga
+O0000705UMBRELLA  7365widgets gadgets gizmos sprocke
+O0000432UMBRELLA  2896
+O0000692UMBRELLA  6676widgets gadgets gizm
+O0000419UMBRELLA  2207widgets gadgets gizmos sprockets doohickeys thinga
+O0000037VANDELAY  1961widgets ga
+O0000310VANDELAY  6430widgets gadgets gizmos sprockets doohick
+O0000258VANDELAY  3674
+O0000206VANDELAY  0918widgets gadgets gizm
+O0000102VANDELAY  5406
+O0000050VANDELAY  2650widgets gadgets gizm
+O0000271VANDELAY  4363widgets ga
+O0000219VANDELAY  1607widgets gadgets gizmos sprocke
+O0000167VANDELAY  8851widgets gadgets gizmos sprockets doohickeys thinga
+O0000115VANDELAY  6095widgets ga
+O0000284VANDELAY  5052widgets gadgets gizm
+O0000232VANDELAY  2296widgets gadgets gizmos sprockets doohick
+O0000180VANDELAY  9540
+O0000128VANDELAY  6784widgets gadgets gizm
+O0000076VANDELAY  4028widgets gadgets gizmos sprockets doohick
+O0000024VANDELAY  1272
+O0000193VANDELAY  0229widgets ga
+O0000141VANDELAY  7473widgets gadgets gizmos sprocke
+O0000089VANDELAY  4717widgets gadgets gizmos sprockets doohickeys thinga
+O0000843VANDELAY  4679widgets gadgets gizmos sprocke
+O0000570VANDELAY  0210
+O0000830VANDELAY  3990widgets gadgets gizm
+O0000557VANDELAY  9521widgets gadgets gizmos sprockets doohickeys thinga
+O0000817VANDELAY  3301widgets ga
+O0000544VANDELAY  8832widgets gadgets gizmos sprockets doohick
+O0000804VANDELAY  2612
+O0000531VANDELAY  8143widgets gadgets gizmos sprocke
+O0000778VANDELAY  1234widgets gadgets gizmos sprockets doohick
+O0000505VANDELAY  6765widgets ga
+O0000765VANDELAY  0545widgets gadgets gizmos sprocke
+O0000492VANDELAY  6076
+O0000752VANDELAY  9856widgets gadgets gizm
+O0000479VANDELAY  5387widgets gadgets gizmos sprockets doohickeys thinga
+O0000739VANDELAY  9167widgets ga
+O0000466VANDELAY  4698widgets gadgets gizmos sprockets doohick
+O0000453VANDELAY  4009widgets gadgets gizmos sprocke
+O0000713VANDELAY  7789widgets gadgets gizmos sprockets doohickeys thinga
+O0000687VANDELAY  6411widgets gadgets gizmos sprocke
+O0000414VANDELAY  1942
+O0000674VANDELAY  5722widgets gadgets gizm
+O0000401VANDELAY  1253widgets gadgets gizmos sprockets doohickeys thinga
+O0000661VANDELAY  5033widgets ga
+O0000388VANDELAY  0564widgets gadgets gizmos sprockets doohick
+O0000648VANDELAY  4344
+O0000375VANDELAY  9875widgets gadgets gizmos sprocke
+O0000908VANDELAY  8124widgets gadgets gizm
+O0000635VANDELAY  3655widgets gadgets gizmos sprockets doohickeys thinga
+O0000362VANDELAY  9186widgets gadgets gizm
+O0000895VANDELAY  7435widgets ga
+O0000622VANDELAY  2966widgets gadgets gizmos sprockets doohick
+O0000349VANDELAY  8497widgets ga
+O0000596VANDELAY  1588widgets gadgets gizm
+O0000323VANDELAY  7119widgets gadgets gizmos sprockets doohickeys thinga
+O0000856VANDELAY  5368widgets gadgets gizmos sprockets doohick
+O0000214WAYNE     1342widgets gadgets gizmos sprockets doohick
+O0000162WAYNE     8586
+O0000058WAYNE     3074widgets gadgets gizmos sprockets doohick
+O0000006WAYNE     0318
+O0000279WAYNE     4787widgets gadgets gizmos sprocke
+O0000227WAYNE     2031widgets gadgets gizmos sprockets doohickeys thinga
+O0000123WAYNE     6519widgets gadgets gizmos sprocke
+O0000071WAYNE     3763widgets gadgets gizmos sprockets doohickeys thinga
+O0000019WAYNE     1007widgets ga
+O0000292WAYNE     5476widgets gadgets gizmos sprockets doohick
+O0000240WAYNE     2720
+O0000188WAYNE     9964widgets gadgets gizm
+O0000136WAYNE     7208widgets gadgets gizmos sprockets doohick
+O0000032WAYNE     1696widgets gadgets gizm
+O0000305WAYNE     6165widgets gadgets gizmos sprockets doohickeys thinga
+O0000201WAYNE     0653widgets gadgets gizmos sprocke
+O0000149WAYNE     7897widgets gadgets gizmos sprockets doohickeys thinga
+O0000097WAYNE     5141widgets ga
+O0000045WAYNE     2385widgets gadgets gizmos sprocke
+O0000474WAYNE     5122
+O0000734WAYNE     8902widgets gadgets gizm
+O0000461WAYNE     4433widgets gadgets gizmos sprockets doohickeys thinga
+O0000708WAYNE     7524
+O0000435WAYNE     3055widgets gadgets gizmos sprocke
+O0000695WAYNE     6835widgets gadgets gizmos sprockets doohickeys thinga
+O0000422WAYNE     2366widgets gadgets gizm
+O0000409WAYNE     1677widgets ga
+O0000669WAYNE     5457widgets gadgets gizmos sprocke
+O0000656WAYNE     4768widgets gadgets gizm
+O0000383WAYNE     0299widgets gadgets gizmos sprockets doohickeys thinga
+O0000643WAYNE     4079widgets ga
+O0000370WAYNE     9610widgets gadgets gizmos sprockets doohick
+O0000890WAYNE     7170widgets gadgets gizm
+O0000617WAYNE     2701widgets gadgets gizmos sprockets doohickeys thinga
+O0000344WAYNE     8232widgets gadgets gizm
+O0000877WAYNE     6481widgets ga
+O0000604WAYNE     2012widgets gadgets gizmos sprockets doohick
+O0000331WAYNE     7543widgets ga
+O0000864WAYNE     5792
+O0000591WAYNE     1323widgets gadgets gizmos sprocke
+O0000318WAYNE     6854
+O0000851WAYNE     5103widgets gadgets gizmos sprockets doohickeys thinga
+O0000578WAYNE     0634widgets gadgets gizm
+O0000838WAYNE     4414widgets gadgets gizmos sprockets doohick
+O0000565WAYNE     9945widgets ga
+O0000552WAYNE     9256
+O0000799WAYNE     2347widgets ga
+O0000526WAYNE     7878widgets gadgets gizmos sprockets doohick
+O0000786WAYNE     1658
+O0000513WAYNE     7189widgets gadgets gizmos sprocke
+O0000773WAYNE     0969widgets gadgets gizmos sprockets doohickeys thinga
+O0000500WAYNE     6500widgets gadgets gizm
+O0000760WAYNE     0280widgets gadgets gizmos sprockets doohick
+O0000487WAYNE     5811widgets ga
+O0000747WAYNE     9591widgets gadgets gizmos sprocke
+O0000207WONKA     0971widgets gadgets gizmos sprocke
+O0000155WONKA     8215widgets gadgets gizmos sprockets doohickeys thinga
+O0000103WONKA     5459widgets ga
+O0000051WONKA     2703widgets gadgets gizmos sprocke
+O0000272WONKA     4416widgets gadgets gizm
+O0000116WONKA     6148widgets gadgets gizm
+O0000064WONKA     3392widgets gadgets gizmos sprockets doohick
+O0000012WONKA     0636
+O0000285WONKA     5105widgets gadgets gizmos sprocke
+O0000233WONKA     2349widgets gadgets gizmos sprockets doohickeys thinga
+O0000181WONKA     9593widgets ga
+O0000129WONKA     6837widgets gadgets gizmos sprocke
+O0000025WONKA     1325widgets ga
+O0000298WONKA     5794widgets gadgets gizmos sprockets doohick
+O0000246WONKA     3038
+O0000194WONKA     0282widgets gadgets gizm
+O0000142WONKA     7526widgets gadgets gizmos sprockets doohick
+O0000090WONKA     4770
+O0000038WONKA     2014widgets gadgets gizm
+O0000597WONKA     1641widgets gadgets gizmos sprocke
+O0000324WONKA     7172
+O0000857WONKA     5421widgets gadgets gizmos sprockets doohickeys thinga
+O0000584WONKA     0952widgets gadgets gizm
+O0000311WONKA     6483widgets gadgets gizmos sprockets doohickeys thinga
+O0000844WONKA     4732widgets gadgets gizmos sprockets doohick
+O0000571WONKA     0263widgets ga
+O0000831WONKA     4043widgets gadgets gizmos sprocke
+O0000558WONKA     9574
+O0000818WONKA     3354widgets gadgets gizm
+O0000545WONKA     8885widgets gadgets gizmos sprockets doohickeys thinga
+O0000519WONKA     7507widgets gadgets gizmos sprocke
+O0000779WONKA     1287widgets gadgets gizmos sprockets doohickeys thinga
+O0000766WONKA     0598widgets gadgets gizmos sprockets doohick
+O0000493WONKA     6129widgets ga
+O0000753WONKA     9909widgets gadgets gizmos sprocke
+O0000480WONKA     5440
+O0000740WONKA     9220widgets gadgets gizm
+O0000467WONKA     4751widgets gadgets gizmos sprockets doohickeys thinga
+O0000727WONKA     8531widgets ga
+O0000454WONKA     4062widgets gadgets gizmos sprockets doohick
+O0000701WONKA     7153widgets gadgets gizmos sprockets doohickeys thinga
+O0000428WONKA     2684widgets gadgets gizm
+O0000688WONKA     6464widgets gadgets gizmos sprockets doohick
+O0000415WONKA     1995widgets ga
+O0000675WONKA     5775widgets gadgets gizmos sprocke
+O0000402WONKA     1306
+O0000662WONKA     5086widgets gadgets gizm
+O0000389WONKA     0617widgets gadgets gizmos sprockets doohickeys thinga
+O0000376WONKA     9928widgets gadgets gizmos sprockets doohick
+O0000909WONKA     8177widgets gadgets gizmos sprocke
+O0000636WONKA     3708
+O0000883WONKA     6799widgets ga
+O0000610WONKA     2330widgets gadgets gizmos sprockets doohick
+O0000337WONKA     7861widgets ga
+O0000870WONKA     6110
+  $STATUS == "%X0001827A"
+@@ DKA100:[T.ACCEPTBACK]ORDERS.DAT key 2
+O0000566TYRELL    9998widgets gadgets gizm
+O0000377ACME      9981widgets gadgets gizmos sprockets doohickeys thinga
+O0000188WAYNE     9964widgets gadgets gizm
+O0000754ACME      9962widgets gadgets gizmos sprockets doohick
+O0000565WAYNE     9945widgets ga
+O0000376WONKA     9928widgets gadgets gizmos sprockets doohick
+O0000753WONKA     9909widgets gadgets gizmos sprocke
+O0000564STARK     9892
+O0000375VANDELAY  9875widgets gadgets gizmos sprocke
+O0000186HOOLI     9858
+O0000752VANDELAY  9856widgets gadgets gizm
+O0000563HOOLI     9839widgets gadgets gizmos sprockets doohickeys thinga
+O0000185UMBRELLA  9805widgets gadgets gizmos sprockets doohickeys thinga
+O0000751MASSIVE   9803widgets ga
+O0000562UMBRELLA  9786widgets gadgets gizmos sprockets doohick
+O0000373SOYLENT   9769widgets ga
+O0000184INITECH   9752widgets gadgets gizmos sprockets doohick
+O0000750SOYLENT   9750
+O0000372CYBERDYNE 9716
+O0000183GLOBEX    9699widgets gadgets gizmos sprocke
+O0000559ACME      9627widgets ga
+O0000370WAYNE     9610widgets gadgets gizmos sprockets doohick
+O0000181WONKA     9593widgets ga
+O0000747WAYNE     9591widgets gadgets gizmos sprocke
+O0000558WONKA     9574
+O0000369STARK     9557widgets gadgets gizmos sprocke
+O0000180VANDELAY  9540
+O0000746STARK     9538widgets gadgets gizm
+O0000557VANDELAY  9521widgets gadgets gizmos sprockets doohickeys thinga
+O0000368HOOLI     9504widgets gadgets gizm
+O0000179MASSIVE   9487widgets gadgets gizmos sprockets doohickeys thinga
+O0000745HOOLI     9485widgets ga
+O0000556MASSIVE   9468widgets gadgets gizmos sprockets doohick
+O0000367UMBRELLA  9451widgets ga
+O0000178SOYLENT   9434widgets gadgets gizmos sprockets doohick
+O0000744UMBRELLA  9432
+O0000555SOYLENT   9415widgets gadgets gizmos sprocke
+O0000366INITECH   9398
+O0000177CYBERDYNE 9381widgets gadgets gizmos sprocke
+O0000743INITECH   9379widgets gadgets gizmos sprockets doohickeys thinga
+O0000554CYBERDYNE 9362widgets gadgets gizm
+O0000365GLOBEX    9345widgets gadgets gizmos sprockets doohickeys thinga
+O0000741ACME      9273widgets gadgets gizmos sprocke
+O0000552WAYNE     9256
+O0000174STARK     9222
+O0000740WONKA     9220widgets gadgets gizm
+O0000551STARK     9203widgets gadgets gizmos sprockets doohickeys thinga
+O0000362VANDELAY  9186widgets gadgets gizm
+O0000173HOOLI     9169widgets gadgets gizmos sprockets doohickeys thinga
+O0000739VANDELAY  9167widgets ga
+O0000361MASSIVE   9133widgets ga
+O0000172UMBRELLA  9116widgets gadgets gizmos sprockets doohick
+O0000738MASSIVE   9114
+O0000549UMBRELLA  9097widgets gadgets gizmos sprocke
+O0000360SOYLENT   9080
+O0000171INITECH   9063widgets gadgets gizmos sprocke
+O0000548INITECH   9044widgets gadgets gizm
+O0000359CYBERDYNE 9027widgets gadgets gizmos sprockets doohickeys thinga
+O0000170GLOBEX    9010widgets gadgets gizm
+O0000736CYBERDYNE 9008widgets gadgets gizmos sprockets doohick
+O0000547GLOBEX    8991widgets ga
+O0000358TYRELL    8974widgets gadgets gizmos sprockets doohick
+O0000169ACME      8957widgets ga
+O0000734WAYNE     8902widgets gadgets gizm
+O0000545WONKA     8885widgets gadgets gizmos sprockets doohickeys thinga
+O0000356STARK     8868widgets gadgets gizm
+O0000167VANDELAY  8851widgets gadgets gizmos sprockets doohickeys thinga
+O0000733STARK     8849widgets ga
+O0000544VANDELAY  8832widgets gadgets gizmos sprockets doohick
+O0000355HOOLI     8815widgets ga
+O0000166MASSIVE   8798widgets gadgets gizmos sprockets doohick
+O0000732HOOLI     8796
+O0000543MASSIVE   8779widgets gadgets gizmos sprocke
+O0000354UMBRELLA  8762
+O0000731UMBRELLA  8743widgets gadgets gizmos sprockets doohickeys thinga
+O0000542SOYLENT   8726widgets gadgets gizm
+O0000353INITECH   8709widgets gadgets gizmos sprockets doohickeys thinga
+O0000164CYBERDYNE 8692widgets gadgets gizm
+O0000730INITECH   8690widgets gadgets gizmos sprockets doohick
+O0000541CYBERDYNE 8673widgets ga
+O0000163TYRELL    8639widgets ga
+O0000729GLOBEX    8637widgets gadgets gizmos sprocke
+O0000540TYRELL    8620
+O0000351ACME      8603widgets gadgets gizmos sprocke
+O0000162WAYNE     8586
+O0000727WONKA     8531widgets ga
+O0000538STARK     8514widgets gadgets gizmos sprockets doohick
+O0000349VANDELAY  8497widgets ga
+O0000160HOOLI     8480widgets gadgets gizmos sprockets doohick
+O0000537HOOLI     8461widgets gadgets gizmos sprocke
+O0000348MASSIVE   8444
+O0000159UMBRELLA  8427widgets gadgets gizmos sprocke
+O0000725MASSIVE   8425widgets gadgets gizmos sprockets doohickeys thinga
+O0000536UMBRELLA  8408widgets gadgets gizm
+O0000347SOYLENT   8391widgets gadgets gizmos sprockets doohickeys thinga
+O0000158INITECH   8374widgets gadgets gizm
+O0000724SOYLENT   8372widgets gadgets gizmos sprockets doohick
+O0000535INITECH   8355widgets ga
+O0000346CYBERDYNE 8338widgets gadgets gizmos sprockets doohick
+O0000157GLOBEX    8321widgets ga
+O0000723CYBERDYNE 8319widgets gadgets gizmos sprocke
+O0000534GLOBEX    8302
+O0000345TYRELL    8285widgets gadgets gizmos sprocke
+O0000156ACME      8268
+O0000722TYRELL    8266widgets gadgets gizm
+O0000533ACME      8249widgets gadgets gizmos sprockets doohickeys thinga
+O0000344WAYNE     8232widgets gadgets gizm
+O0000155WONKA     8215widgets gadgets gizmos sprockets doohickeys thinga
+O0000909WONKA     8177widgets gadgets gizmos sprocke
+O0000720STARK     8160
+O0000531VANDELAY  8143widgets gadgets gizmos sprocke
+O0000342HOOLI     8126
+O0000908VANDELAY  8124widgets gadgets gizm
+O0000153MASSIVE   8109widgets gadgets gizmos sprocke
+O0000719HOOLI     8107widgets gadgets gizmos sprockets doohickeys thinga
+O0000530MASSIVE   8090widgets gadgets gizm
+O0000907MASSIVE   8071widgets ga
+O0000152SOYLENT   8056widgets gadgets gizm
+O0000718UMBRELLA  8054widgets gadgets gizmos sprockets doohick
+O0000529SOYLENT   8037widgets ga
+O0000340INITECH   8020widgets gadgets gizmos sprockets doohick
+O0000906SOYLENT   8018
+O0000151CYBERDYNE 8003widgets ga
+O0000717INITECH   8001widgets gadgets gizmos sprocke
+O0000339GLOBEX    7967widgets gadgets gizmos sprocke
+O0000905CYBERDYNE 7965widgets gadgets gizmos sprockets doohickeys thinga
+O0000150TYRELL    7950
+O0000716GLOBEX    7948widgets gadgets gizm
+O0000527TYRELL    7931widgets gadgets gizmos sprockets doohickeys thinga
+O0000338ACME      7914widgets gadgets gizm
+O0000904TYRELL    7912widgets gadgets gizmos sprockets doohick
+O0000149WAYNE     7897widgets gadgets gizmos sprockets doohickeys thinga
+O0000526WAYNE     7878widgets gadgets gizmos sprockets doohick
+O0000337WONKA     7861widgets ga
+O0000148STARK     7844widgets gadgets gizmos sprockets doohick
+O0000713VANDELAY  7789widgets gadgets gizmos sprockets doohickeys thinga
+O0000524HOOLI     7772widgets gadgets gizm
+O0000335MASSIVE   7755widgets gadgets gizmos sprockets doohickeys thinga
+O0000901HOOLI     7753widgets ga
+O0000146UMBRELLA  7738widgets gadgets gizm
+O0000712MASSIVE   7736widgets gadgets gizmos sprockets doohick
+O0000523UMBRELLA  7719widgets ga
+O0000334SOYLENT   7702widgets gadgets gizmos sprockets doohick
+O0000900UMBRELLA  7700
+O0000145INITECH   7685widgets ga
+O0000711SOYLENT   7683widgets gadgets gizmos sprocke
+O0000522INITECH   7666
+O0000333CYBERDYNE 7649widgets gadgets gizmos sprocke
+O0000899INITECH   7647widgets gadgets gizmos sprockets doohickeys thinga
+O0000144GLOBEX    7632
+O0000710CYBERDYNE 7630widgets gadgets gizm
+O0000521GLOBEX    7613widgets gadgets gizmos sprockets doohickeys thinga
+O0000332TYRELL    7596widgets gadgets gizm
+O0000898GLOBEX    7594widgets gadgets gizmos sprockets doohick
+O0000709TYRELL    7577widgets ga
+O0000520ACME      7560widgets gadgets gizmos sprockets doohick
+O0000331WAYNE     7543widgets ga
+O0000897ACME      7541widgets gadgets gizmos sprocke
+O0000142WONKA     7526widgets gadgets gizmos sprockets doohick
+O0000708WAYNE     7524
+O0000519WONKA     7507widgets gadgets gizmos sprocke
+O0000141VANDELAY  7473widgets gadgets gizmos sprocke
+O0000895VANDELAY  7435widgets ga
+O0000706HOOLI     7418widgets gadgets gizmos sprockets doohick
+O0000328UMBRELLA  7384widgets gadgets gizmos sprockets doohick
+O0000894MASSIVE   7382
+O0000139SOYLENT   7367widgets ga
+O0000705UMBRELLA  7365widgets gadgets gizmos sprocke
+O0000516SOYLENT   7348
+O0000327INITECH   7331widgets gadgets gizmos sprocke
+O0000893SOYLENT   7329widgets gadgets gizmos sprockets doohickeys thinga
+O0000138CYBERDYNE 7314
+O0000515CYBERDYNE 7295widgets gadgets gizmos sprockets doohickeys thinga
+O0000326GLOBEX    7278widgets gadgets gizm
+O0000892CYBERDYNE 7276widgets gadgets gizmos sprockets doohick
+O0000137TYRELL    7261widgets gadgets gizmos sprockets doohickeys thinga
+O0000703GLOBEX    7259widgets ga
+O0000514TYRELL    7242widgets gadgets gizmos sprockets doohick
+O0000325ACME      7225widgets ga
+O0000136WAYNE     7208widgets gadgets gizmos sprockets doohick
+O0000702ACME      7206
+O0000513WAYNE     7189widgets gadgets gizmos sprocke
+O0000324WONKA     7172
+O0000890WAYNE     7170widgets gadgets gizm
+O0000135STARK     7155widgets gadgets gizmos sprocke
+O0000701WONKA     7153widgets gadgets gizmos sprockets doohickeys thinga
+O0000512STARK     7136widgets gadgets gizm
+O0000323VANDELAY  7119widgets gadgets gizmos sprockets doohickeys thinga
+O0000134HOOLI     7102widgets gadgets gizm
+O0000888HOOLI     7064
+O0000699MASSIVE   7047widgets gadgets gizmos sprocke
+O0000510UMBRELLA  7030
+O0000321SOYLENT   7013widgets gadgets gizmos sprocke
+O0000887UMBRELLA  7011widgets gadgets gizmos sprockets doohickeys thinga
+O0000698SOYLENT   6994widgets gadgets gizm
+O0000509INITECH   6977widgets gadgets gizmos sprockets doohickeys thinga
+O0000320CYBERDYNE 6960widgets gadgets gizm
+O0000886INITECH   6958widgets gadgets gizmos sprockets doohick
+O0000131GLOBEX    6943widgets gadgets gizmos sprockets doohickeys thinga
+O0000697CYBERDYNE 6941widgets ga
+O0000508GLOBEX    6924widgets gadgets gizmos sprockets doohick
+O0000885GLOBEX    6905widgets gadgets gizmos sprocke
+O0000130ACME      6890widgets gadgets gizmos sprockets doohick
+O0000696TYRELL    6888
+O0000507ACME      6871widgets gadgets gizmos sprocke
+O0000318WAYNE     6854
+O0000884ACME      6852widgets gadgets gizm
+O0000129WONKA     6837widgets gadgets gizmos sprocke
+O0000695WAYNE     6835widgets gadgets gizmos sprockets doohickeys thinga
+O0000317STARK     6801widgets gadgets gizmos sprockets doohickeys thinga
+O0000883WONKA     6799widgets ga
+O0000128VANDELAY  6784widgets gadgets gizm
+O0000694STARK     6782widgets gadgets gizmos sprockets doohick
+O0000505VANDELAY  6765widgets ga
+O0000316HOOLI     6748widgets gadgets gizmos sprockets doohick
+O0000127MASSIVE   6731widgets ga
+O0000881MASSIVE   6693widgets gadgets gizmos sprockets doohickeys thinga
+O0000692UMBRELLA  6676widgets gadgets gizm
+O0000503SOYLENT   6659widgets gadgets gizmos sprockets doohickeys thinga
+O0000314INITECH   6642widgets gadgets gizm
+O0000125CYBERDYNE 6625widgets gadgets gizmos sprockets doohickeys thinga
+O0000691INITECH   6623widgets ga
+O0000502CYBERDYNE 6606widgets gadgets gizmos sprockets doohick
+O0000313GLOBEX    6589widgets ga
+O0000879CYBERDYNE 6587widgets gadgets gizmos sprocke
+O0000124TYRELL    6572widgets gadgets gizmos sprockets doohick
+O0000690GLOBEX    6570
+O0000501TYRELL    6553widgets gadgets gizmos sprocke
+O0000312ACME      6536
+O0000878TYRELL    6534widgets gadgets gizm
+O0000123WAYNE     6519widgets gadgets gizmos sprocke
+O0000689ACME      6517widgets gadgets gizmos sprockets doohickeys thinga
+O0000500WAYNE     6500widgets gadgets gizm
+O0000311WONKA     6483widgets gadgets gizmos sprockets doohickeys thinga
+O0000877WAYNE     6481widgets ga
+O0000122STARK     6466widgets gadgets gizm
+O0000688WONKA     6464widgets gadgets gizmos sprockets doohick
+O0000499STARK     6447widgets ga
+O0000310VANDELAY  6430widgets gadgets gizmos sprockets doohick
+O0000876STARK     6428
+O0000687VANDELAY  6411widgets gadgets gizmos sprocke
+O0000498HOOLI     6394
+O0000309MASSIVE   6377widgets gadgets gizmos sprocke
+O0000120UMBRELLA  6360
+O0000874UMBRELLA  6322widgets gadgets gizmos sprockets doohick
+O0000685SOYLENT   6305widgets ga
+O0000496INITECH   6288widgets gadgets gizmos sprockets doohick
+O0000307CYBERDYNE 6271widgets ga
+O0000873INITECH   6269widgets gadgets gizmos sprocke
+O0000118GLOBEX    6254widgets gadgets gizmos sprockets doohick
+O0000684CYBERDYNE 6252
+O0000306TYRELL    6218
+O0000872GLOBEX    6216widgets gadgets gizm
+O0000117ACME      6201widgets gadgets gizmos sprocke
+O0000683TYRELL    6199widgets gadgets gizmos sprockets doohickeys thinga
+O0000494ACME      6182widgets gadgets gizm
+O0000305WAYNE     6165widgets gadgets gizmos sprockets doohickeys thinga
+O0000871ACME      6163widgets ga
+O0000116WONKA     6148widgets gadgets gizm
+O0000493WONKA     6129widgets ga
+O0000304STARK     6112widgets gadgets gizmos sprockets doohick
+O0000870WONKA     6110
+O0000115VANDELAY  6095widgets ga
+O0000681STARK     6093widgets gadgets gizmos sprocke
+O0000492VANDELAY  6076
+O0000303HOOLI     6059widgets gadgets gizmos sprocke
+O0000114MASSIVE   6042
+O0000680HOOLI     6040widgets gadgets gizm
+O0000491MASSIVE   6023widgets gadgets gizmos sprockets doohickeys thinga
+O0000302UMBRELLA  6006widgets gadgets gizm
+O0000113SOYLENT   5989widgets gadgets gizmos sprockets doohickeys thinga
+O0000867SOYLENT   5951widgets gadgets gizmos sprocke
+O0000678INITECH   5934
+O0000489CYBERDYNE 5917widgets gadgets gizmos sprocke
+O0000300GLOBEX    5900
+O0000866CYBERDYNE 5898widgets gadgets gizm
+O0000111TYRELL    5883widgets gadgets gizmos sprocke
+O0000677GLOBEX    5881widgets gadgets gizmos sprockets doohickeys thinga
+O0000488TYRELL    5864widgets gadgets gizm
+O0000299ACME      5847widgets gadgets gizmos sprockets doohickeys thinga
+O0000865TYRELL    5845widgets ga
+O0000676ACME      5828widgets gadgets gizmos sprockets doohick
+O0000487WAYNE     5811widgets ga
+O0000298WONKA     5794widgets gadgets gizmos sprockets doohick
+O0000864WAYNE     5792
+O0000109STARK     5777widgets ga
+O0000675WONKA     5775widgets gadgets gizmos sprocke
+O0000486STARK     5758
+O0000863STARK     5739widgets gadgets gizmos sprockets doohickeys thinga
+O0000108HOOLI     5724
+O0000674VANDELAY  5722widgets gadgets gizm
+O0000485HOOLI     5705widgets gadgets gizmos sprockets doohickeys thinga
+O0000296MASSIVE   5688widgets gadgets gizm
+O0000862HOOLI     5686widgets gadgets gizmos sprockets doohick
+O0000107UMBRELLA  5671widgets gadgets gizmos sprockets doohickeys thinga
+O0000673MASSIVE   5669widgets ga
+O0000295SOYLENT   5635widgets ga
+O0000106INITECH   5618widgets gadgets gizmos sprockets doohick
+O0000860INITECH   5580widgets gadgets gizm
+O0000482GLOBEX    5546widgets gadgets gizm
+O0000293TYRELL    5529widgets gadgets gizmos sprockets doohickeys thinga
+O0000859GLOBEX    5527widgets ga
+O0000104ACME      5512widgets gadgets gizm
+O0000670TYRELL    5510widgets gadgets gizmos sprockets doohick
+O0000481ACME      5493widgets ga
+O0000292WAYNE     5476widgets gadgets gizmos sprockets doohick
+O0000103WONKA     5459widgets ga
+O0000669WAYNE     5457widgets gadgets gizmos sprocke
+O0000480WONKA     5440
+O0000291STARK     5423widgets gadgets gizmos sprocke
+O0000857WONKA     5421widgets gadgets gizmos sprockets doohickeys thinga
+O0000102VANDELAY  5406
+O0000668STARK     5404widgets gadgets gizm
+O0000479VANDELAY  5387widgets gadgets gizmos sprockets doohickeys thinga
+O0000290HOOLI     5370widgets gadgets gizm
+O0000856VANDELAY  5368widgets gadgets gizmos sprockets doohick
+O0000101MASSIVE   5353widgets gadgets gizmos sprockets doohickeys thinga
+O0000667HOOLI     5351widgets ga
+O0000478MASSIVE   5334widgets gadgets gizmos sprockets doohick
+O0000289UMBRELLA  5317widgets ga
+O0000855MASSIVE   5315widgets gadgets gizmos sprocke
+O0000100SOYLENT   5300widgets gadgets gizmos sprockets doohick
+O0000666UMBRELLA  5298
+O0000477SOYLENT   5281widgets gadgets gizmos sprocke
+O0000288INITECH   5264
+O0000853CYBERDYNE 5209widgets ga
+O0000664GLOBEX    5192widgets gadgets gizmos sprockets doohick
+O0000475TYRELL    5175widgets ga
+O0000852TYRELL    5156
+O0000097WAYNE     5141widgets ga
+O0000663ACME      5139widgets gadgets gizmos sprocke
+O0000474WAYNE     5122
+O0000285WONKA     5105widgets gadgets gizmos sprocke
+O0000851WAYNE     5103widgets gadgets gizmos sprockets doohickeys thinga
+O0000096STARK     5088
+O0000662WONKA     5086widgets gadgets gizm
+O0000284VANDELAY  5052widgets gadgets gizm
+O0000850STARK     5050widgets gadgets gizmos sprockets doohick
+O0000095HOOLI     5035widgets gadgets gizmos sprockets doohickeys thinga
+O0000661VANDELAY  5033widgets ga
+O0000472HOOLI     5016widgets gadgets gizmos sprockets doohick
+O0000283MASSIVE   4999widgets ga
+O0000849HOOLI     4997widgets gadgets gizmos sprocke
+O0000094UMBRELLA  4982widgets gadgets gizmos sprockets doohick
+O0000471UMBRELLA  4963widgets gadgets gizmos sprocke
+O0000282SOYLENT   4946
+O0000848UMBRELLA  4944widgets gadgets gizm
+O0000093INITECH   4929widgets gadgets gizmos sprocke
+O0000659SOYLENT   4927widgets gadgets gizmos sprockets doohickeys thinga
+O0000470INITECH   4910widgets gadgets gizm
+O0000281CYBERDYNE 4893widgets gadgets gizmos sprockets doohickeys thinga
+O0000092GLOBEX    4876widgets gadgets gizm
+O0000846GLOBEX    4838
+O0000657TYRELL    4821widgets gadgets gizmos sprocke
+O0000468ACME      4804
+O0000279WAYNE     4787widgets gadgets gizmos sprocke
+O0000845ACME      4785widgets gadgets gizmos sprockets doohickeys thinga
+O0000090WONKA     4770
+O0000656WAYNE     4768widgets gadgets gizm
+O0000467WONKA     4751widgets gadgets gizmos sprockets doohickeys thinga
+O0000278STARK     4734widgets gadgets gizm
+O0000844WONKA     4732widgets gadgets gizmos sprockets doohick
+O0000089VANDELAY  4717widgets gadgets gizmos sprockets doohickeys thinga
+O0000655STARK     4715widgets ga
+O0000466VANDELAY  4698widgets gadgets gizmos sprockets doohick
+O0000277HOOLI     4681widgets ga
+O0000843VANDELAY  4679widgets gadgets gizmos sprocke
+O0000654HOOLI     4662
+O0000465MASSIVE   4645widgets gadgets gizmos sprocke
+O0000276UMBRELLA  4628
+O0000842MASSIVE   4626widgets gadgets gizm
+O0000087SOYLENT   4611widgets gadgets gizmos sprocke
+O0000653UMBRELLA  4609widgets gadgets gizmos sprockets doohickeys thinga
+O0000464SOYLENT   4592widgets gadgets gizm
+O0000841SOYLENT   4573widgets ga
+O0000086CYBERDYNE 4558widgets gadgets gizm
+O0000652INITECH   4556widgets gadgets gizmos sprockets doohick
+O0000463CYBERDYNE 4539widgets ga
+O0000274GLOBEX    4522widgets gadgets gizmos sprockets doohick
+O0000085TYRELL    4505widgets ga
+O0000839TYRELL    4467widgets gadgets gizmos sprockets doohickeys thinga
+O0000650ACME      4450widgets gadgets gizm
+O0000461WAYNE     4433widgets gadgets gizmos sprockets doohickeys thinga
+O0000272WONKA     4416widgets gadgets gizm
+O0000838WAYNE     4414widgets gadgets gizmos sprockets doohick
+O0000083STARK     4399widgets gadgets gizmos sprockets doohickeys thinga
+O0000460STARK     4380widgets gadgets gizmos sprockets doohick
+O0000271VANDELAY  4363widgets ga
+O0000837STARK     4361widgets gadgets gizmos sprocke
+O0000082HOOLI     4346widgets gadgets gizmos sprockets doohick
+O0000648VANDELAY  4344
+O0000459HOOLI     4327widgets gadgets gizmos sprocke
+O0000270MASSIVE   4310
+O0000081UMBRELLA  4293widgets gadgets gizmos sprocke
+O0000647MASSIVE   4291widgets gadgets gizmos sprockets doohickeys thinga
+O0000458UMBRELLA  4274widgets gadgets gizm
+O0000269SOYLENT   4257widgets gadgets gizmos sprockets doohickeys thinga
+O0000835UMBRELLA  4255widgets ga
+O0000080INITECH   4240widgets gadgets gizm
+O0000646SOYLENT   4238widgets gadgets gizmos sprockets doohick
+O0000457INITECH   4221widgets ga
+O0000268CYBERDYNE 4204widgets gadgets gizmos sprockets doohick
+O0000834INITECH   4202
+O0000079GLOBEX    4187widgets ga
+O0000645CYBERDYNE 4185widgets gadgets gizmos sprocke
+O0000456GLOBEX    4168
+O0000267TYRELL    4151widgets gadgets gizmos sprocke
+O0000078ACME      4134
+O0000832ACME      4096widgets gadgets gizmos sprockets doohick
+O0000643WAYNE     4079widgets ga
+O0000454WONKA     4062widgets gadgets gizmos sprockets doohick
+O0000265STARK     4045widgets ga
+O0000831WONKA     4043widgets gadgets gizmos sprocke
+O0000076VANDELAY  4028widgets gadgets gizmos sprockets doohick
+O0000642STARK     4026
+O0000453VANDELAY  4009widgets gadgets gizmos sprocke
+O0000830VANDELAY  3990widgets gadgets gizm
+O0000075MASSIVE   3975widgets gadgets gizmos sprocke
+O0000641HOOLI     3973widgets gadgets gizmos sprockets doohickeys thinga
+O0000452MASSIVE   3956widgets gadgets gizm
+O0000263UMBRELLA  3939widgets gadgets gizmos sprockets doohickeys thinga
+O0000829MASSIVE   3937widgets ga
+O0000074SOYLENT   3922widgets gadgets gizm
+O0000640UMBRELLA  3920widgets gadgets gizmos sprockets doohick
+O0000262INITECH   3886widgets gadgets gizmos sprockets doohick
+O0000828SOYLENT   3884
+O0000073CYBERDYNE 3869widgets ga
+O0000639INITECH   3867widgets gadgets gizmos sprocke
+O0000450CYBERDYNE 3850
+O0000261GLOBEX    3833widgets gadgets gizmos sprocke
+O0000827CYBERDYNE 3831widgets gadgets gizmos sprockets doohickeys thinga
+O0000072TYRELL    3816
+O0000449TYRELL    3797widgets gadgets gizmos sprockets doohickeys thinga
+O0000260ACME      3780widgets gadgets gizm
+O0000071WAYNE     3763widgets gadgets gizmos sprockets doohickeys thinga
+O0000636WONKA     3708
+O0000447STARK     3691widgets gadgets gizmos sprocke
+O0000258VANDELAY  3674
+O0000824STARK     3672widgets gadgets gizm
+O0000069HOOLI     3657widgets gadgets gizmos sprocke
+O0000635VANDELAY  3655widgets gadgets gizmos sprockets doohickeys thinga
+O0000446HOOLI     3638widgets gadgets gizm
+O0000257MASSIVE   3621widgets gadgets gizmos sprockets doohickeys thinga
+O0000823HOOLI     3619widgets ga
+O0000068UMBRELLA  3604widgets gadgets gizm
+O0000634MASSIVE   3602widgets gadgets gizmos sprockets doohick
+O0000445UMBRELLA  3585widgets ga
+O0000256SOYLENT   3568widgets gadgets gizmos sprockets doohick
+O0000822UMBRELLA  3566
+O0000067INITECH   3551widgets ga
+O0000633SOYLENT   3549widgets gadgets gizmos sprocke
+O0000444INITECH   3532
+O0000255CYBERDYNE 3515widgets gadgets gizmos sprocke
+O0000821INITECH   3513widgets gadgets gizmos sprockets doohickeys thinga
+O0000632CYBERDYNE 3496widgets gadgets gizm
+O0000443GLOBEX    3479widgets gadgets gizmos sprockets doohickeys thinga
+O0000254TYRELL    3462widgets gadgets gizm
+O0000820GLOBEX    3460widgets gadgets gizmos sprockets doohick
+O0000065ACME      3445widgets gadgets gizmos sprockets doohickeys thinga
+O0000631TYRELL    3443widgets ga
+O0000442ACME      3426widgets gadgets gizmos sprockets doohick
+O0000064WONKA     3392widgets gadgets gizmos sprockets doohick
+O0000818WONKA     3354widgets gadgets gizm
+O0000629STARK     3337widgets gadgets gizmos sprockets doohickeys thinga
+O0000251HOOLI     3303widgets gadgets gizmos sprockets doohickeys thinga
+O0000817VANDELAY  3301widgets ga
+O0000062MASSIVE   3286widgets gadgets gizm
+O0000628HOOLI     3284widgets gadgets gizmos sprockets doohick
+O0000439MASSIVE   3267widgets ga
+O0000250UMBRELLA  3250widgets gadgets gizmos sprockets doohick
+O0000816MASSIVE   3248
+O0000061SOYLENT   3233widgets ga
+O0000438SOYLENT   3214
+O0000249INITECH   3197widgets gadgets gizmos sprocke
+O0000815SOYLENT   3195widgets gadgets gizmos sprockets doohickeys thinga
+O0000060CYBERDYNE 3180
+O0000626INITECH   3178widgets gadgets gizm
+O0000437CYBERDYNE 3161widgets gadgets gizmos sprockets doohickeys thinga
+O0000248GLOBEX    3144widgets gadgets gizm
+O0000059TYRELL    3127widgets gadgets gizmos sprockets doohickeys thinga
+O0000625GLOBEX    3125widgets ga
+O0000436TYRELL    3108widgets gadgets gizmos sprockets doohick
+O0000247ACME      3091widgets ga
+O0000813TYRELL    3089widgets gadgets gizmos sprocke
+O0000058WAYNE     3074widgets gadgets gizmos sprockets doohick
+O0000624ACME      3072
+O0000435WAYNE     3055widgets gadgets gizmos sprocke
+O0000246WONKA     3038
+O0000057STARK     3021widgets gadgets gizmos sprocke
+O0000811STARK     2983widgets ga
+O0000622VANDELAY  2966widgets gadgets gizmos sprockets doohick
+O0000433HOOLI     2949widgets ga
+O0000244MASSIVE   2932widgets gadgets gizmos sprockets doohick
+O0000810HOOLI     2930
+O0000621MASSIVE   2913widgets gadgets gizmos sprocke
+O0000432UMBRELLA  2896
+O0000243SOYLENT   2879widgets gadgets gizmos sprocke
+O0000809UMBRELLA  2877widgets gadgets gizmos sprockets doohickeys thinga
+O0000054INITECH   2862
+O0000620SOYLENT   2860widgets gadgets gizm
+O0000431INITECH   2843widgets gadgets gizmos sprockets doohickeys thinga
+O0000808INITECH   2824widgets gadgets gizmos sprockets doohick
+O0000053GLOBEX    2809widgets gadgets gizmos sprockets doohickeys thinga
+O0000619CYBERDYNE 2807widgets ga
+O0000430GLOBEX    2790widgets gadgets gizmos sprockets doohick
+O0000241TYRELL    2773widgets ga
+O0000807GLOBEX    2771widgets gadgets gizmos sprocke
+O0000052ACME      2756widgets gadgets gizmos sprockets doohick
+O0000618TYRELL    2754
+O0000240WAYNE     2720
+O0000806ACME      2718widgets gadgets gizm
+O0000051WONKA     2703widgets gadgets gizmos sprocke
+O0000617WAYNE     2701widgets gadgets gizmos sprockets doohickeys thinga
+O0000428WONKA     2684widgets gadgets gizm
+O0000239STARK     2667widgets gadgets gizmos sprockets doohickeys thinga
+O0000050VANDELAY  2650widgets gadgets gizm
+O0000804VANDELAY  2612
+O0000615HOOLI     2595widgets gadgets gizmos sprocke
+O0000426MASSIVE   2578
+O0000237UMBRELLA  2561widgets gadgets gizmos sprocke
+O0000048SOYLENT   2544
+O0000614UMBRELLA  2542widgets gadgets gizm
+O0000425SOYLENT   2525widgets gadgets gizmos sprockets doohickeys thinga
+O0000236INITECH   2508widgets gadgets gizm
+O0000802SOYLENT   2506widgets gadgets gizmos sprockets doohick
+O0000047CYBERDYNE 2491widgets gadgets gizmos sprockets doohickeys thinga
+O0000613INITECH   2489widgets ga
+O0000424CYBERDYNE 2472widgets gadgets gizmos sprockets doohick
+O0000235GLOBEX    2455widgets ga
+O0000801CYBERDYNE 2453widgets gadgets gizmos sprocke
+O0000046TYRELL    2438widgets gadgets gizmos sprockets doohick
+O0000612GLOBEX    2436
+O0000423TYRELL    2419widgets gadgets gizmos sprocke
+O0000234ACME      2402
+O0000800TYRELL    2400widgets gadgets gizm
+O0000045WAYNE     2385widgets gadgets gizmos sprocke
+O0000611ACME      2383widgets gadgets gizmos sprockets doohickeys thinga
+O0000422WAYNE     2366widgets gadgets gizm
+O0000233WONKA     2349widgets gadgets gizmos sprockets doohickeys thinga
+O0000799WAYNE     2347widgets ga
+O0000610WONKA     2330widgets gadgets gizmos sprockets doohick
+O0000421STARK     2313widgets ga
+O0000232VANDELAY  2296widgets gadgets gizmos sprockets doohick
+O0000043HOOLI     2279widgets ga
+O0000797HOOLI     2241widgets gadgets gizmos sprockets doohickeys thinga
+O0000608MASSIVE   2224widgets gadgets gizm
+O0000419UMBRELLA  2207widgets gadgets gizmos sprockets doohickeys thinga
+O0000230SOYLENT   2190widgets gadgets gizm
+O0000796UMBRELLA  2188widgets gadgets gizmos sprockets doohick
+O0000041INITECH   2173widgets gadgets gizmos sprockets doohickeys thinga
+O0000607SOYLENT   2171widgets ga
+O0000229CYBERDYNE 2137widgets ga
+O0000795INITECH   2135widgets gadgets gizmos sprocke
+O0000040GLOBEX    2120widgets gadgets gizmos sprockets doohick
+O0000606CYBERDYNE 2118
+O0000417GLOBEX    2101widgets gadgets gizmos sprocke
+O0000228TYRELL    2084
+O0000794GLOBEX    2082widgets gadgets gizm
+O0000039ACME      2067widgets gadgets gizmos sprocke
+O0000416ACME      2048widgets gadgets gizm
+O0000227WAYNE     2031widgets gadgets gizmos sprockets doohickeys thinga
+O0000793ACME      2029widgets ga
+O0000038WONKA     2014widgets gadgets gizm
+O0000604WAYNE     2012widgets gadgets gizmos sprockets doohick
+O0000415WONKA     1995widgets ga
+O0000226STARK     1978widgets gadgets gizmos sprockets doohick
+O0000037VANDELAY  1961widgets ga
+O0000603STARK     1959widgets gadgets gizmos sprocke
+O0000414VANDELAY  1942
+O0000225HOOLI     1925widgets gadgets gizmos sprocke
+O0000036MASSIVE   1908
+O0000790MASSIVE   1870widgets gadgets gizmos sprockets doohick
+O0000601UMBRELLA  1853widgets ga
+O0000412SOYLENT   1836widgets gadgets gizmos sprockets doohick
+O0000223INITECH   1819widgets ga
+O0000789SOYLENT   1817widgets gadgets gizmos sprocke
+O0000034CYBERDYNE 1802widgets gadgets gizmos sprockets doohick
+O0000600INITECH   1800
+O0000411CYBERDYNE 1783widgets gadgets gizmos sprocke
+O0000222GLOBEX    1766
+O0000788CYBERDYNE 1764widgets gadgets gizm
+O0000599GLOBEX    1747widgets gadgets gizmos sprockets doohickeys thinga
+O0000410TYRELL    1730widgets gadgets gizm
+O0000221ACME      1713widgets gadgets gizmos sprockets doohickeys thinga
+O0000787TYRELL    1711widgets ga
+O0000032WAYNE     1696widgets gadgets gizm
+O0000598ACME      1694widgets gadgets gizmos sprockets doohick
+O0000409WAYNE     1677widgets ga
+O0000786WAYNE     1658
+O0000031STARK     1643widgets ga
+O0000597WONKA     1641widgets gadgets gizmos sprocke
+O0000408STARK     1624
+O0000219VANDELAY  1607widgets gadgets gizmos sprocke
+O0000785STARK     1605widgets gadgets gizmos sprockets doohickeys thinga
+O0000030HOOLI     1590
+O0000596VANDELAY  1588widgets gadgets gizm
+O0000218MASSIVE   1554widgets gadgets gizm
+O0000029UMBRELLA  1537widgets gadgets gizmos sprockets doohickeys thinga
+O0000783UMBRELLA  1499widgets gadgets gizmos sprocke
+O0000405INITECH   1465widgets gadgets gizmos sprocke
+O0000216CYBERDYNE 1448
+O0000782INITECH   1446widgets gadgets gizm
+O0000027GLOBEX    1431widgets gadgets gizmos sprocke
+O0000593CYBERDYNE 1429widgets gadgets gizmos sprockets doohickeys thinga
+O0000404GLOBEX    1412widgets gadgets gizm
+O0000215TYRELL    1395widgets gadgets gizmos sprockets doohickeys thinga
+O0000026ACME      1378widgets gadgets gizm
+O0000592TYRELL    1376widgets gadgets gizmos sprockets doohick
+O0000403ACME      1359widgets ga
+O0000214WAYNE     1342widgets gadgets gizmos sprockets doohick
+O0000780ACME      1340
+O0000025WONKA     1325widgets ga
+O0000591WAYNE     1323widgets gadgets gizmos sprocke
+O0000402WONKA     1306
+O0000213STARK     1289widgets gadgets gizmos sprocke
+O0000779WONKA     1287widgets gadgets gizmos sprockets doohickeys thinga
+O0000024VANDELAY  1272
+O0000590STARK     1270widgets gadgets gizm
+O0000401VANDELAY  1253widgets gadgets gizmos sprockets doohickeys thinga
+O0000212HOOLI     1236widgets gadgets gizm
+O0000778VANDELAY  1234widgets gadgets gizmos sprockets doohick
+O0000023MASSIVE   1219widgets gadgets gizmos sprockets doohickeys thinga
+O0000589HOOLI     1217widgets ga
+O0000400MASSIVE   1200widgets gadgets gizmos sprockets doohick
+O0000211UMBRELLA  1183widgets ga
+O0000776SOYLENT   1128widgets gadgets gizm
+O0000587INITECH   1111widgets gadgets gizmos sprockets doohickeys thinga
+O0000398CYBERDYNE 1094widgets gadgets gizm
+O0000775CYBERDYNE 1075widgets ga
+O0000020TYRELL    1060widgets gadgets gizm
+O0000586GLOBEX    1058widgets gadgets gizmos sprockets doohick
+O0000397TYRELL    1041widgets ga
+O0000208ACME      1024widgets gadgets gizmos sprockets doohick
+O0000774TYRELL    1022
+O0000019WAYNE     1007widgets ga
+O0000585ACME      1005widgets gadgets gizmos sprocke
+O0000207WONKA     0971widgets gadgets gizmos sprocke
+O0000773WAYNE     0969widgets gadgets gizmos sprockets doohickeys thinga
+O0000018STARK     0954
+O0000584WONKA     0952widgets gadgets gizm
+O0000395STARK     0935widgets gadgets gizmos sprockets doohickeys thinga
+O0000206VANDELAY  0918widgets gadgets gizm
+O0000772STARK     0916widgets gadgets gizmos sprockets doohick
+O0000910NEWCUST   0910widgets gadgets gizmos sprockets doohick
+O0000903NEWCUST   0903widgets gadgets gizmos sprocke
+O0000017HOOLI     0901widgets gadgets gizmos sprockets doohickeys thinga
+O0000896NEWCUST   0896widgets gadgets gizm
+O0000889NEWCUST   0889widgets ga
+O0000394HOOLI     0882widgets gadgets gizmos sprockets doohick
+O0000882NEWCUST   0882
+O0000875NEWCUST   0875widgets gadgets gizmos sprockets doohickeys thinga
+O0000868NEWCUST   0868widgets gadgets gizmos sprockets doohick
+O0000205MASSIVE   0865widgets ga
+O0000771HOOLI     0863widgets gadgets gizmos sprocke
+O0000861NEWCUST   0861widgets gadgets gizmos sprocke
+O0000854NEWCUST   0854widgets gadgets gizm
+O0000016UMBRELLA  0848widgets gadgets gizmos sprockets doohick
+O0000582MASSIVE   0846
+O0000840NEWCUST   0840
+O0000833NEWCUST   0833widgets gadgets gizmos sprockets doohickeys thinga
+O0000393UMBRELLA  0829widgets gadgets gizmos sprocke
+O0000826NEWCUST   0826widgets gadgets gizmos sprockets doohick
+O0000819NEWCUST   0819widgets gadgets gizmos sprocke
+O0000204SOYLENT   0812
+O0000812NEWCUST   0812widgets gadgets gizm
+O0000805NEWCUST   0805widgets ga
+O0000798NEWCUST   0798
+O0000015INITECH   0795widgets gadgets gizmos sprocke
+O0000791NEWCUST   0791widgets gadgets gizmos sprockets doohickeys thinga
+O0000784NEWCUST   0784widgets gadgets gizmos sprockets doohick
+O0000777NEWCUST   0777widgets gadgets gizmos sprocke
+O0000763NEWCUST   0763widgets ga
+O0000769INITECH   0757widgets ga
+O0000756NEWCUST   0756
+O0000749NEWCUST   0749widgets gadgets gizmos sprockets doohickeys thinga
+O0000742NEWCUST   0742widgets gadgets gizmos sprockets doohick
+O0000580CYBERDYNE 0740widgets gadgets gizmos sprockets doohick
+O0000735NEWCUST   0735widgets gadgets gizmos sprocke
+O0000728NEWCUST   0728widgets gadgets gizm
+O0000391GLOBEX    0723widgets ga
+O0000721NEWCUST   0721widgets ga
+O0000714NEWCUST   0714
+O0000707NEWCUST   0707widgets gadgets gizmos sprockets doohickeys thinga
+O0000202TYRELL    0706widgets gadgets gizmos sprockets doohick
+O0000768GLOBEX    0704
+O0000700NEWCUST   0700widgets gadgets gizmos sprockets doohick
+O0000013ACME      0689widgets ga
+O0000579TYRELL    0687widgets gadgets gizmos sprocke
+O0000686NEWCUST   0686widgets gadgets gizm
+O0000679NEWCUST   0679widgets ga
+O0000672NEWCUST   0672
+O0000390ACME      0670
+O0000665NEWCUST   0665widgets gadgets gizmos sprockets doohickeys thinga
+O0000658NEWCUST   0658widgets gadgets gizmos sprockets doohick
+O0000201WAYNE     0653widgets gadgets gizmos sprocke
+O0000767ACME      0651widgets gadgets gizmos sprockets doohickeys thinga
+O0000651NEWCUST   0651widgets gadgets gizmos sprocke
+O0000644NEWCUST   0644widgets gadgets gizm
+O0000637NEWCUST   0637widgets ga
+O0000012WONKA     0636
+O0000578WAYNE     0634widgets gadgets gizm
+O0000630NEWCUST   0630
+O0000623NEWCUST   0623widgets gadgets gizmos sprockets doohickeys thinga
+O0000389WONKA     0617widgets gadgets gizmos sprockets doohickeys thinga
+O0000609NEWCUST   0609widgets gadgets gizmos sprocke
+O0000602NEWCUST   0602widgets gadgets gizm
+O0000200STARK     0600widgets gadgets gizm
+O0000766WONKA     0598widgets gadgets gizmos sprockets doohick
+O0000595NEWCUST   0595widgets ga
+O0000588NEWCUST   0588
+O0000577STARK     0581widgets ga
+O0000581NEWCUST   0581widgets gadgets gizmos sprockets doohickeys thinga
+O0000574NEWCUST   0574widgets gadgets gizmos sprockets doohick
+O0000567NEWCUST   0567widgets gadgets gizmos sprocke
+O0000388VANDELAY  0564widgets gadgets gizmos sprockets doohick
+O0000560NEWCUST   0560widgets gadgets gizm
+O0000553NEWCUST   0553widgets ga
+O0000199HOOLI     0547widgets ga
+O0000546NEWCUST   0546
+O0000765VANDELAY  0545widgets gadgets gizmos sprocke
+O0000532NEWCUST   0532widgets gadgets gizmos sprockets doohick
+O0000010MASSIVE   0530widgets gadgets gizmos sprockets doohick
+O0000576HOOLI     0528
+O0000525NEWCUST   0525widgets gadgets gizmos sprocke
+O0000518NEWCUST   0518widgets gadgets gizm
+O0000387MASSIVE   0511widgets gadgets gizmos sprocke
+O0000511NEWCUST   0511widgets ga
+O0000504NEWCUST   0504
+O0000497NEWCUST   0497widgets gadgets gizmos sprockets doohickeys thinga
+O0000764MASSIVE   0492widgets gadgets gizm
+O0000490NEWCUST   0490widgets gadgets gizmos sprockets doohick
+O0000483NEWCUST   0483widgets gadgets gizmos sprocke
+O0000009SOYLENT   0477widgets gadgets gizmos sprocke
+O0000476NEWCUST   0476widgets gadgets gizm
+O0000575UMBRELLA  0475widgets gadgets gizmos sprockets doohickeys thinga
+O0000469NEWCUST   0469widgets ga
+O0000386SOYLENT   0458widgets gadgets gizm
+O0000455NEWCUST   0455widgets gadgets gizmos sprockets doohickeys thinga
+O0000448NEWCUST   0448widgets gadgets gizmos sprockets doohick
+O0000197INITECH   0441widgets gadgets gizmos sprockets doohickeys thinga
+O0000441NEWCUST   0441widgets gadgets gizmos sprocke
+O0000434NEWCUST   0434widgets gadgets gizm
+O0000427NEWCUST   0427widgets ga
+O0000008CYBERDYNE 0424widgets gadgets gizm
+O0000420NEWCUST   0420
+O0000413NEWCUST   0413widgets gadgets gizmos sprockets doohickeys thinga
+O0000406NEWCUST   0406widgets gadgets gizmos sprockets doohick
+O0000399NEWCUST   0399widgets gadgets gizmos sprocke
+O0000392NEWCUST   0392widgets gadgets gizm
+O0000762CYBERDYNE 0386
+O0000378NEWCUST   0378
+O0000371NEWCUST   0371widgets gadgets gizmos sprockets doohickeys thinga
+O0000573GLOBEX    0369widgets gadgets gizmos sprocke
+O0000364NEWCUST   0364widgets gadgets gizmos sprockets doohick
+O0000357NEWCUST   0357widgets gadgets gizmos sprocke
+O0000384TYRELL    0352
+O0000350NEWCUST   0350widgets gadgets gizm
+O0000343NEWCUST   0343widgets ga
+O0000336NEWCUST   0336
+O0000195ACME      0335widgets gadgets gizmos sprocke
+O0000761TYRELL    0333widgets gadgets gizmos sprockets doohickeys thinga
+O0000329NEWCUST   0329widgets gadgets gizmos sprockets doohickeys thinga
+O0000322NEWCUST   0322widgets gadgets gizmos sprockets doohick
+O0000006WAYNE     0318
+O0000315NEWCUST   0315widgets gadgets gizmos sprocke
+O0000301NEWCUST   0301widgets ga
+O0000383WAYNE     0299widgets gadgets gizmos sprockets doohickeys thinga
+O0000294NEWCUST   0294
+O0000287NEWCUST   0287widgets gadgets gizmos sprockets doohickeys thinga
+O0000194WONKA     0282widgets gadgets gizm
+O0000760WAYNE     0280widgets gadgets gizmos sprockets doohick
+O0000280NEWCUST   0280widgets gadgets gizmos sprockets doohick
+O0000273NEWCUST   0273widgets gadgets gizmos sprocke
+O0000266NEWCUST   0266widgets gadgets gizm
+O0000005STARK     0265widgets gadgets gizmos sprockets doohickeys thinga
+O0000571WONKA     0263widgets ga
+O0000259NEWCUST   0259widgets ga
+O0000252NEWCUST   0252
+O0000382STARK     0246widgets gadgets gizmos sprockets doohick
+O0000245NEWCUST   0245widgets gadgets gizmos sprockets doohickeys thinga
+O0000238NEWCUST   0238widgets gadgets gizmos sprockets doohick
+O0000193VANDELAY  0229widgets ga
+O0000224NEWCUST   0224widgets gadgets gizm
+O0000217NEWCUST   0217widgets ga
+O0000004HOOLI     0212widgets gadgets gizmos sprockets doohick
+O0000570VANDELAY  0210
+O0000210NEWCUST   0210
+O0000203NEWCUST   0203widgets gadgets gizmos sprockets doohickeys thinga
+O0000196NEWCUST   0196widgets gadgets gizmos sprockets doohick
+O0000381HOOLI     0193widgets gadgets gizmos sprocke
+O0000189NEWCUST   0189widgets gadgets gizmos sprocke
+O0000182NEWCUST   0182widgets gadgets gizm
+O0000192MASSIVE   0176
+O0000175NEWCUST   0175widgets ga
+O0000758HOOLI     0174widgets gadgets gizm
+O0000168NEWCUST   0168
+O0000161NEWCUST   0161widgets gadgets gizmos sprockets doohickeys thinga
+O0000003UMBRELLA  0159widgets gadgets gizmos sprocke
+O0000569MASSIVE   0157widgets gadgets gizmos sprockets doohickeys thinga
+O0000147NEWCUST   0147widgets gadgets gizmos sprocke
+O0000380UMBRELLA  0140widgets gadgets gizm
+O0000140NEWCUST   0140widgets gadgets gizm
+O0000133NEWCUST   0133widgets ga
+O0000126NEWCUST   0126
+O0000191SOYLENT   0123widgets gadgets gizmos sprockets doohickeys thinga
+O0000757UMBRELLA  0121widgets ga
+O0000119NEWCUST   0119widgets gadgets gizmos sprockets doohickeys thinga
+O0000112NEWCUST   0112widgets gadgets gizmos sprockets doohick
+O0000002INITECH   0106widgets gadgets gizm
+O0000105NEWCUST   0105widgets gadgets gizmos sprocke
+O0000568SOYLENT   0104widgets gadgets gizmos sprockets doohick
+O0000098NEWCUST   0098widgets gadgets gizm
+O0000091NEWCUST   0091widgets ga
+O0000379INITECH   0087widgets ga
+O0000084NEWCUST   0084
+O0000190CYBERDYNE 0070widgets gadgets gizmos sprockets doohick
+O0000070NEWCUST   0070widgets gadgets gizmos sprockets doohick
+O0000063NEWCUST   0063widgets gadgets gizmos sprocke
+O0000056NEWCUST   0056widgets gadgets gizm
+O0000001GLOBEX    0053widgets ga
+O0000049NEWCUST   0049widgets ga
+O0000042NEWCUST   0042
+O0000035NEWCUST   0035widgets gadgets gizmos sprockets doohickeys thinga
+O0000028NEWCUST   0028widgets gadgets gizmos sprockets doohick
+O0000021NEWCUST   0021widgets gadgets gizmos sprocke
+O0000755GLOBEX    0015widgets gadgets gizmos sprockets doohickeys thinga
+O0000014NEWCUST   0014widgets gadgets gizm
+O0000007NEWCUST   0007widgets ga
+  $STATUS == "%X0001827A"
+@@ DKA100:[T.ACCEPTBACK]PARTS.DAT key 0
+F000LOC0020009part number 00009         
+F000LOC0040018part number 00018         
+F000LOC0060027part number 00027         
+F000LOC0010036part number 00036         
+F000LOC0030045part number 00045         
+F000LOC0050054part number 00054         
+F000LOC0000063part number 00063         
+F000LOC0020072part number 00072         
+F000LOC0040081part number 00081         
+F000LOC0060090part number 00090         
+F000LOC0010099part number 00099         
+F000LOC0030108part number 00108         
+F000LOC0000126part number 00126         
+F000LOC0020135part number 00135         
+F000LOC0040144part number 00144         
+F000LOC0060153part number 00153         
+F000LOC0010162part number 00162         
+F000LOC0030171part number 00171         
+F000LOC0050180part number 00180         
+F000LOC0000189part number 00189         
+F000LOC0020198part number 00198         
+F000LOC0040207part number 00207         
+F000LOC0060216part number 00216         
+F000LOC0010225part number 00225         
+F000LOC0050243part number 00243         
+F000LOC0000252part number 00252         
+F000LOC0020261part number 00261         
+F000LOC0040270part number 00270         
+F000LOC0060279part number 00279         
+F000LOC0010288part number 00288         
+F000LOC0030297part number 00297         
+F000LOC0050306part number 00306         
+F000LOC0000315part number 00315         
+F000LOC0020324part number 00324         
+F000LOC0040333part number 00333         
+F000LOC0060342part number 00342         
+F000LOC0030360part number 00360         
+F000LOC0050369part number 00369         
+F000LOC0000378part number 00378         
+F000LOC0020387part number 00387         
+F000LOC0040396part number 00396         
+F000LOC0060405part number 00405         
+F000LOC0010414part number 00414         
+F000LOC0030423part number 00423         
+F000LOC0050432part number 00432         
+F000LOC0000441part number 00441         
+F000LOC0020450part number 00450         
+F000LOC0040459part number 00459         
+F000LOC0010477part number 00477         
+F000LOC0030486part number 00486         
+F000LOC0050495part number 00495         
+F000LOC0000504part number 00504         
+F000LOC0020513part number 00513         
+F001LOC0010001part number 00001         
+F001LOC0030010part number 00010         
+F001LOC0050019part number 00019         
+F001LOC0000028part number 00028         
+F001LOC0020037part number 00037         
+F001LOC0040046part number 00046         
+F001LOC0060055part number 00055         
+F001LOC0010064part number 00064         
+F001LOC0030073part number 00073         
+F001LOC0050082part number 00082         
+F001LOC0020100part number 00100         
+F001LOC0040109part number 00109         
+F001LOC0060118part number 00118         
+F001LOC0010127part number 00127         
+F001LOC0030136part number 00136         
+F001LOC0050145part number 00145         
+F001LOC0000154part number 00154         
+F001LOC0020163part number 00163         
+F001LOC0040172part number 00172         
+F001LOC0060181part number 00181         
+F001LOC0010190part number 00190         
+F001LOC0030199part number 00199         
+F001LOC0000217part number 00217         
+F001LOC0020226part number 00226         
+F001LOC0040235part number 00235         
+F001LOC0060244part number 00244         
+F001LOC0010253part number 00253         
+F001LOC0030262part number 00262         
+F001LOC0050271part number 00271         
+F001LOC0000280part number 00280         
+F001LOC0020289part number 00289         
+F001LOC0040298part number 00298         
+F001LOC0060307part number 00307         
+F001LOC0010316part number 00316         
+F001LOC0050334part number 00334         
+F001LOC0000343part number 00343         
+F001LOC0020352part number 00352         
+F001LOC0040361part number 00361         
+F001LOC0060370part number 00370         
+F001LOC0010379part number 00379         
+F001LOC0030388part number 00388         
+F001LOC0050397part number 00397         
+F001LOC0000406part number 00406         
+F001LOC0020415part number 00415         
+F001LOC0040424part number 00424         
+F001LOC0060433part number 00433         
+F001LOC0030451part number 00451         
+F001LOC0050460part number 00460         
+F001LOC0000469part number 00469         
+F001LOC0020478part number 00478         
+F001LOC0040487part number 00487         
+F001LOC0060496part number 00496         
+F001LOC0010505part number 00505         
+F001LOC0030514part number 00514         
+F002LOC0020002part number 00002         
+F002LOC0040011part number 00011         
+F002LOC0060020part number 00020         
+F002LOC0010029part number 00029         
+F002LOC0030038part number 00038         
+F002LOC0050047part number 00047         
+F002LOC0000056part number 00056         
+F002LOC0040074part number 00074         
+F002LOC0060083part number 00083         
+F002LOC0010092part number 00092         
+F002LOC0030101part number 00101         
+F002LOC0050110part number 00110         
+F002LOC0000119part number 00119         
+F002LOC0020128part number 00128         
+F002LOC0040137part number 00137         
+F002LOC0060146part number 00146         
+F002LOC0010155part number 00155         
+F002LOC0030164part number 00164         
+F002LOC0050173part number 00173         
+F002LOC0020191part number 00191         
+F002LOC0040200part number 00200         
+F002LOC0060209part number 00209         
+F002LOC0010218part number 00218         
+F002LOC0030227part number 00227         
+F002LOC0050236part number 00236         
+F002LOC0000245part number 00245         
+F002LOC0020254part number 00254         
+F002LOC0040263part number 00263         
+F002LOC0060272part number 00272         
+F002LOC0010281part number 00281         
+F002LOC0030290part number 00290         
+F002LOC0000308part number 00308         
+F002LOC0020317part number 00317         
+F002LOC0040326part number 00326         
+F002LOC0060335part number 00335         
+F002LOC0010344part number 00344         
+F002LOC0030353part number 00353         
+F002LOC0050362part number 00362         
+F002LOC0000371part number 00371         
+F002LOC0020380part number 00380         
+F002LOC0040389part number 00389         
+F002LOC0060398part number 00398         
+F002LOC0010407part number 00407         
+F002LOC0050425part number 00425         
+F002LOC0000434part number 00434         
+F002LOC0020443part number 00443         
+F002LOC0040452part number 00452         
+F002LOC0060461part number 00461         
+F002LOC0010470part number 00470         
+F002LOC0030479part number 00479         
+F002LOC0050488part number 00488         
+F002LOC0000497part number 00497         
+F002LOC0020506part number 00506         
+F002LOC0040515part number 00515         
+F003LOC0030003part number 00003         
+F003LOC0050012part number 00012         
+F003LOC0000021part number 00021         
+F003LOC0020030part number 00030         
+F003LOC0060048part number 00048         
+F003LOC0010057part number 00057         
+F003LOC0030066part number 00066         
+F003LOC0050075part number 00075         
+F003LOC0000084part number 00084         
+F003LOC0020093part number 00093         
+F003LOC0040102part number 00102         
+F003LOC0060111part number 00111         
+F003LOC0010120part number 00120         
+F003LOC0030129part number 00129         
+F003LOC0050138part number 00138         
+F003LOC0000147part number 00147         
+F003LOC0040165part number 00165         
+F003LOC0060174part number 00174         
+F003LOC0010183part number 00183         
+F003LOC0030192part number 00192         
+F003LOC0050201part number 00201         
+F003LOC0000210part number 00210         
+F003LOC0020219part number 00219         
+F003LOC0040228part number 00228         
+F003LOC0060237part number 00237         
+F003LOC0010246part number 00246         
+F003LOC0030255part number 00255         
+F003LOC0050264part number 00264         
+F003LOC0020282part number 00282         
+F003LOC0040291part number 00291         
+F003LOC0060300part number 00300         
+F003LOC0010309part number 00309         
+F003LOC0030318part number 00318         
+F003LOC0050327part number 00327         
+F003LOC0000336part number 00336         
+F003LOC0020345part number 00345         
+F003LOC0040354part number 00354         
+F003LOC0060363part number 00363         
+F003LOC0010372part number 00372         
+F003LOC0030381part number 00381         
+F003LOC0000399part number 00399         
+F003LOC0020408part number 00408         
+F003LOC0040417part number 00417         
+F003LOC0060426part number 00426         
+F003LOC0010435part number 00435         
+F003LOC0030444part number 00444         
+F003LOC0050453part number 00453         
+F003LOC0000462part number 00462         
+F003LOC0020471part number 00471         
+F003LOC0040480part number 00480         
+F003LOC0060489part number 00489         
+F003LOC0010498part number 00498         
+F003LOC0050516part number 00516         
+F004LOC0040004part number 00004         
+F004LOC0010022part number 00022         
+F004LOC0030031part number 00031         
+F004LOC0050040part number 00040         
+F004LOC0000049part number 00049         
+F004LOC0020058part number 00058         
+F004LOC0040067part number 00067         
+F004LOC0060076part number 00076         
+F004LOC0010085part number 00085         
+F004LOC0030094part number 00094         
+F004LOC0050103part number 00103         
+F004LOC0000112part number 00112         
+F004LOC0020121part number 00121         
+F004LOC0060139part number 00139         
+F004LOC0010148part number 00148         
+F004LOC0030157part number 00157         
+F004LOC0050166part number 00166         
+F004LOC0000175part number 00175         
+F004LOC0020184part number 00184         
+F004LOC0040193part number 00193         
+F004LOC0060202part number 00202         
+F004LOC0010211part number 00211         
+F004LOC0030220part number 00220         
+F004LOC0050229part number 00229         
+F004LOC0000238part number 00238         
+F004LOC0040256part number 00256         
+F004LOC0060265part number 00265         
+F004LOC0010274part number 00274         
+F004LOC0030283part number 00283         
+F004LOC0050292part number 00292         
+F004LOC0000301part number 00301         
+F004LOC0020310part number 00310         
+F004LOC0040319part number 00319         
+F004LOC0060328part number 00328         
+F004LOC0010337part number 00337         
+F004LOC0030346part number 00346         
+F004LOC0050355part number 00355         
+F004LOC0020373part number 00373         
+F004LOC0040382part number 00382         
+F004LOC0060391part number 00391         
+F004LOC0010400part number 00400         
+F004LOC0030409part number 00409         
+F004LOC0050418part number 00418         
+F004LOC0000427part number 00427         
+F004LOC0020436part number 00436         
+F004LOC0040445part number 00445         
+F004LOC0060454part number 00454         
+F004LOC0010463part number 00463         
+F004LOC0030472part number 00472         
+F004LOC0000490part number 00490         
+F004LOC0020499part number 00499         
+F004LOC0040508part number 00508         
+F005LOC0050005part number 00005         
+F005LOC0000014part number 00014         
+F005LOC0020023part number 00023         
+F005LOC0040032part number 00032         
+F005LOC0060041part number 00041         
+F005LOC0010050part number 00050         
+F005LOC0030059part number 00059         
+F005LOC0050068part number 00068         
+F005LOC0000077part number 00077         
+F005LOC0020086part number 00086         
+F005LOC0040095part number 00095         
+F005LOC0010113part number 00113         
+F005LOC0030122part number 00122         
+F005LOC0050131part number 00131         
+F005LOC0000140part number 00140         
+F005LOC0020149part number 00149         
+F005LOC0040158part number 00158         
+F005LOC0060167part number 00167         
+F005LOC0010176part number 00176         
+F005LOC0030185part number 00185         
+F005LOC0050194part number 00194         
+F005LOC0000203part number 00203         
+F005LOC0020212part number 00212         
+F005LOC0060230part number 00230         
+F005LOC0010239part number 00239         
+F005LOC0030248part number 00248         
+F005LOC0050257part number 00257         
+F005LOC0000266part number 00266         
+F005LOC0020275part number 00275         
+F005LOC0040284part number 00284         
+F005LOC0060293part number 00293         
+F005LOC0010302part number 00302         
+F005LOC0030311part number 00311         
+F005LOC0050320part number 00320         
+F005LOC0000329part number 00329         
+F005LOC0040347part number 00347         
+F005LOC0060356part number 00356         
+F005LOC0010365part number 00365         
+F005LOC0030374part number 00374         
+F005LOC0050383part number 00383         
+F005LOC0000392part number 00392         
+F005LOC0020401part number 00401         
+F005LOC0040410part number 00410         
+F005LOC0060419part number 00419         
+F005LOC0010428part number 00428         
+F005LOC0030437part number 00437         
+F005LOC0050446part number 00446         
+F005LOC0020464part number 00464         
+F005LOC0040473part number 00473         
+F005LOC0060482part number 00482         
+F005LOC0010491part number 00491         
+F005LOC0030500part number 00500         
+F005LOC0050509part number 00509         
+F006LOC0060006part number 00006         
+F006LOC0010015part number 00015         
+F006LOC0030024part number 00024         
+F006LOC0050033part number 00033         
+F006LOC0000042part number 00042         
+F006LOC0020051part number 00051         
+F006LOC0040060part number 00060         
+F006LOC0060069part number 00069         
+F006LOC0030087part number 00087         
+F006LOC0050096part number 00096         
+F006LOC0000105part number 00105         
+F006LOC0020114part number 00114         
+F006LOC0040123part number 00123         
+F006LOC0060132part number 00132         
+F006LOC0010141part number 00141         
+F006LOC0030150part number 00150         
+F006LOC0050159part number 00159         
+F006LOC0000168part number 00168         
+F006LOC0020177part number 00177         
+F006LOC0040186part number 00186         
+F006LOC0010204part number 00204         
+F006LOC0030213part number 00213         
+F006LOC0050222part number 00222         
+F006LOC0000231part number 00231         
+F006LOC0020240part number 00240         
+F006LOC0040249part number 00249         
+F006LOC0060258part number 00258         
+F006LOC0010267part number 00267         
+F006LOC0030276part number 00276         
+F006LOC0050285part number 00285         
+F006LOC0000294part number 00294         
+F006LOC0020303part number 00303         
+F006LOC0060321part number 00321         
+F006LOC0010330part number 00330         
+F006LOC0030339part number 00339         
+F006LOC0050348part number 00348         
+F006LOC0000357part number 00357         
+F006LOC0020366part number 00366         
+F006LOC0040375part number 00375         
+F006LOC0060384part number 00384         
+F006LOC0010393part number 00393         
+F006LOC0030402part number 00402         
+F006LOC0050411part number 00411         
+F006LOC0000420part number 00420         
+F006LOC0040438part number 00438         
+F006LOC0060447part number 00447         
+F006LOC0010456part number 00456         
+F006LOC0030465part number 00465         
+F006LOC0050474part number 00474         
+F006LOC0000483part number 00483         
+F006LOC0020492part number 00492         
+F006LOC0040501part number 00501         
+F006LOC0060510part number 00510         
+F007LOC0000007part number 00007         
+F007LOC0020016part number 00016         
+F007LOC0040025part number 00025         
+F007LOC0060034part number 00034         
+F007LOC0010043part number 00043         
+F007LOC0050061part number 00061         
+F007LOC0000070part number 00070         
+F007LOC0020079part number 00079         
+F007LOC0040088part number 00088         
+F007LOC0060097part number 00097         
+F007LOC0010106part number 00106         
+F007LOC0030115part number 00115         
+F007LOC0050124part number 00124         
+F007LOC0000133part number 00133         
+F007LOC0020142part number 00142         
+F007LOC0040151part number 00151         
+F007LOC0060160part number 00160         
+F007LOC0030178part number 00178         
+F007LOC0050187part number 00187         
+F007LOC0000196part number 00196         
+F007LOC0020205part number 00205         
+F007LOC0040214part number 00214         
+F007LOC0060223part number 00223         
+F007LOC0010232part number 00232         
+F007LOC0030241part number 00241         
+F007LOC0050250part number 00250         
+F007LOC0000259part number 00259         
+F007LOC0020268part number 00268         
+F007LOC0040277part number 00277         
+F007LOC0010295part number 00295         
+F007LOC0030304part number 00304         
+F007LOC0050313part number 00313         
+F007LOC0000322part number 00322         
+F007LOC0020331part number 00331         
+F007LOC0040340part number 00340         
+F007LOC0060349part number 00349         
+F007LOC0010358part number 00358         
+F007LOC0030367part number 00367         
+F007LOC0050376part number 00376         
+F007LOC0000385part number 00385         
+F007LOC0020394part number 00394         
+F007LOC0060412part number 00412         
+F007LOC0010421part number 00421         
+F007LOC0030430part number 00430         
+F007LOC0050439part number 00439         
+F007LOC0000448part number 00448         
+F007LOC0020457part number 00457         
+F007LOC0040466part number 00466         
+F007LOC0060475part number 00475         
+F007LOC0010484part number 00484         
+F007LOC0030493part number 00493         
+F007LOC0050502part number 00502         
+F007LOC0000511part number 00511         
+F008LOC0010008part number 00008         
+F008LOC0030017part number 00017         
+F008LOC0000035part number 00035         
+F008LOC0020044part number 00044         
+F008LOC0040053part number 00053         
+F008LOC0060062part number 00062         
+F008LOC0010071part number 00071         
+F008LOC0030080part number 00080         
+F008LOC0050089part number 00089         
+F008LOC0000098part number 00098         
+F008LOC0020107part number 00107         
+F008LOC0040116part number 00116         
+F008LOC0060125part number 00125         
+F008LOC0010134part number 00134         
+F008LOC0050152part number 00152         
+F008LOC0000161part number 00161         
+F008LOC0020170part number 00170         
+F008LOC0040179part number 00179         
+F008LOC0060188part number 00188         
+F008LOC0010197part number 00197         
+F008LOC0030206part number 00206         
+F008LOC0050215part number 00215         
+F008LOC0000224part number 00224         
+F008LOC0020233part number 00233         
+F008LOC0040242part number 00242         
+F008LOC0060251part number 00251         
+F008LOC0030269part number 00269         
+F008LOC0050278part number 00278         
+F008LOC0000287part number 00287         
+F008LOC0020296part number 00296         
+F008LOC0040305part number 00305         
+F008LOC0060314part number 00314         
+F008LOC0010323part number 00323         
+F008LOC0030332part number 00332         
+F008LOC0050341part number 00341         
+F008LOC0000350part number 00350         
+F008LOC0020359part number 00359         
+F008LOC0040368part number 00368         
+F008LOC0010386part number 00386         
+F008LOC0030395part number 00395         
+F008LOC0050404part number 00404         
+F008LOC0000413part number 00413         
+F008LOC0020422part number 00422         
+F008LOC0040431part number 00431         
+F008LOC0060440part number 00440         
+F008LOC0010449part number 00449         
+F008LOC0030458part number 00458         
+F008LOC0050467part number 00467         
+F008LOC0000476part number 00476         
+F008LOC0020485part number 00485         
+F008LOC0060503part number 00503         
+F008LOC0010512part number 00512         
+  $STATUS == "%X0001827A"
+@@ DKA100:[T.ACCEPTBACK]PARTS.DAT key 1
+F008LOC0000161part number 00161         
+F006LOC0000042part number 00042         
+F005LOC0000203part number 00203         
+F003LOC0000084part number 00084         
+F000LOC0000126part number 00126         
+F007LOC0000007part number 00007         
+F006LOC0000168part number 00168         
+F004LOC0000049part number 00049         
+F003LOC0000210part number 00210         
+F007LOC0000133part number 00133         
+F005LOC0000014part number 00014         
+F004LOC0000175part number 00175         
+F002LOC0000056part number 00056         
+F008LOC0000098part number 00098         
+F005LOC0000140part number 00140         
+F003LOC0000021part number 00021         
+F000LOC0000063part number 00063         
+F006LOC0000105part number 00105         
+F003LOC0000147part number 00147         
+F001LOC0000028part number 00028         
+F000LOC0000189part number 00189         
+F007LOC0000070part number 00070         
+F004LOC0000112part number 00112         
+F001LOC0000154part number 00154         
+F008LOC0000035part number 00035         
+F007LOC0000196part number 00196         
+F005LOC0000077part number 00077         
+F002LOC0000119part number 00119         
+F008LOC0000413part number 00413         
+F001LOC0000280part number 00280         
+F006LOC0000483part number 00483         
+F008LOC0000350part number 00350         
+F001LOC0000217part number 00217         
+F006LOC0000420part number 00420         
+F008LOC0000287part number 00287         
+F004LOC0000490part number 00490         
+F006LOC0000357part number 00357         
+F008LOC0000224part number 00224         
+F004LOC0000427part number 00427         
+F006LOC0000294part number 00294         
+F002LOC0000497part number 00497         
+F006LOC0000231part number 00231         
+F002LOC0000434part number 00434         
+F004LOC0000301part number 00301         
+F000LOC0000504part number 00504         
+F002LOC0000371part number 00371         
+F004LOC0000238part number 00238         
+F000LOC0000441part number 00441         
+F002LOC0000308part number 00308         
+F007LOC0000511part number 00511         
+F000LOC0000378part number 00378         
+F002LOC0000245part number 00245         
+F007LOC0000448part number 00448         
+F000LOC0000315part number 00315         
+F007LOC0000385part number 00385         
+F000LOC0000252part number 00252         
+F007LOC0000322part number 00322         
+F005LOC0000392part number 00392         
+F007LOC0000259part number 00259         
+F003LOC0000462part number 00462         
+F005LOC0000329part number 00329         
+F003LOC0000399part number 00399         
+F005LOC0000266part number 00266         
+F001LOC0000469part number 00469         
+F003LOC0000336part number 00336         
+F001LOC0000406part number 00406         
+F008LOC0000476part number 00476         
+F001LOC0000343part number 00343         
+F002LOC0010092part number 00092         
+F008LOC0010134part number 00134         
+F006LOC0010015part number 00015         
+F005LOC0010176part number 00176         
+F003LOC0010057part number 00057         
+F000LOC0010099part number 00099         
+F006LOC0010141part number 00141         
+F004LOC0010022part number 00022         
+F003LOC0010183part number 00183         
+F001LOC0010064part number 00064         
+F007LOC0010106part number 00106         
+F004LOC0010148part number 00148         
+F002LOC0010029part number 00029         
+F001LOC0010190part number 00190         
+F008LOC0010071part number 00071         
+F005LOC0010113part number 00113         
+F002LOC0010155part number 00155         
+F000LOC0010036part number 00036         
+F008LOC0010197part number 00197         
+F003LOC0010120part number 00120         
+F001LOC0010001part number 00001         
+F000LOC0010162part number 00162         
+F007LOC0010043part number 00043         
+F006LOC0010204part number 00204         
+F004LOC0010085part number 00085         
+F001LOC0010127part number 00127         
+F008LOC0010008part number 00008         
+F005LOC0010050part number 00050         
+F005LOC0010239part number 00239         
+F003LOC0010309part number 00309         
+F008LOC0010512part number 00512         
+F001LOC0010379part number 00379         
+F003LOC0010246part number 00246         
+F008LOC0010449part number 00449         
+F001LOC0010316part number 00316         
+F008LOC0010386part number 00386         
+F001LOC0010253part number 00253         
+F006LOC0010456part number 00456         
+F008LOC0010323part number 00323         
+F006LOC0010393part number 00393         
+F004LOC0010463part number 00463         
+F006LOC0010330part number 00330         
+F004LOC0010400part number 00400         
+F006LOC0010267part number 00267         
+F002LOC0010470part number 00470         
+F004LOC0010337part number 00337         
+F002LOC0010407part number 00407         
+F004LOC0010274part number 00274         
+F000LOC0010477part number 00477         
+F002LOC0010344part number 00344         
+F004LOC0010211part number 00211         
+F000LOC0010414part number 00414         
+F002LOC0010281part number 00281         
+F007LOC0010484part number 00484         
+F002LOC0010218part number 00218         
+F007LOC0010421part number 00421         
+F000LOC0010288part number 00288         
+F005LOC0010491part number 00491         
+F007LOC0010358part number 00358         
+F000LOC0010225part number 00225         
+F005LOC0010428part number 00428         
+F007LOC0010295part number 00295         
+F003LOC0010498part number 00498         
+F005LOC0010365part number 00365         
+F007LOC0010232part number 00232         
+F003LOC0010435part number 00435         
+F005LOC0010302part number 00302         
+F001LOC0010505part number 00505         
+F003LOC0010372part number 00372         
+F005LOC0020023part number 00023         
+F004LOC0020184part number 00184         
+F008LOC0020107part number 00107         
+F005LOC0020149part number 00149         
+F003LOC0020030part number 00030         
+F002LOC0020191part number 00191         
+F000LOC0020072part number 00072         
+F006LOC0020114part number 00114         
+F001LOC0020037part number 00037         
+F000LOC0020198part number 00198         
+F007LOC0020079part number 00079         
+F004LOC0020121part number 00121         
+F002LOC0020002part number 00002         
+F001LOC0020163part number 00163         
+F008LOC0020044part number 00044         
+F007LOC0020205part number 00205         
+F005LOC0020086part number 00086         
+F002LOC0020128part number 00128         
+F000LOC0020009part number 00009         
+F008LOC0020170part number 00170         
+F006LOC0020051part number 00051         
+F003LOC0020093part number 00093         
+F000LOC0020135part number 00135         
+F007LOC0020016part number 00016         
+F006LOC0020177part number 00177         
+F004LOC0020058part number 00058         
+F001LOC0020100part number 00100         
+F007LOC0020142part number 00142         
+F007LOC0020268part number 00268         
+F003LOC0020471part number 00471         
+F003LOC0020408part number 00408         
+F005LOC0020275part number 00275         
+F001LOC0020478part number 00478         
+F003LOC0020345part number 00345         
+F005LOC0020212part number 00212         
+F001LOC0020415part number 00415         
+F003LOC0020282part number 00282         
+F008LOC0020485part number 00485         
+F001LOC0020352part number 00352         
+F003LOC0020219part number 00219         
+F008LOC0020422part number 00422         
+F001LOC0020289part number 00289         
+F006LOC0020492part number 00492         
+F008LOC0020359part number 00359         
+F001LOC0020226part number 00226         
+F008LOC0020296part number 00296         
+F004LOC0020499part number 00499         
+F006LOC0020366part number 00366         
+F008LOC0020233part number 00233         
+F004LOC0020436part number 00436         
+F006LOC0020303part number 00303         
+F002LOC0020506part number 00506         
+F004LOC0020373part number 00373         
+F006LOC0020240part number 00240         
+F002LOC0020443part number 00443         
+F004LOC0020310part number 00310         
+F000LOC0020513part number 00513         
+F002LOC0020380part number 00380         
+F000LOC0020450part number 00450         
+F002LOC0020317part number 00317         
+F000LOC0020387part number 00387         
+F002LOC0020254part number 00254         
+F007LOC0020457part number 00457         
+F000LOC0020324part number 00324         
+F007LOC0020394part number 00394         
+F000LOC0020261part number 00261         
+F005LOC0020464part number 00464         
+F007LOC0020331part number 00331         
+F005LOC0020401part number 00401         
+F007LOC0030115part number 00115         
+F004LOC0030157part number 00157         
+F002LOC0030038part number 00038         
+F001LOC0030199part number 00199         
+F008LOC0030080part number 00080         
+F005LOC0030122part number 00122         
+F003LOC0030003part number 00003         
+F002LOC0030164part number 00164         
+F000LOC0030045part number 00045         
+F008LOC0030206part number 00206         
+F006LOC0030087part number 00087         
+F003LOC0030129part number 00129         
+F001LOC0030010part number 00010         
+F000LOC0030171part number 00171         
+F004LOC0030094part number 00094         
+F001LOC0030136part number 00136         
+F008LOC0030017part number 00017         
+F007LOC0030178part number 00178         
+F005LOC0030059part number 00059         
+F002LOC0030101part number 00101         
+F006LOC0030024part number 00024         
+F005LOC0030185part number 00185         
+F003LOC0030066part number 00066         
+F000LOC0030108part number 00108         
+F006LOC0030150part number 00150         
+F004LOC0030031part number 00031         
+F003LOC0030192part number 00192         
+F001LOC0030073part number 00073         
+F000LOC0030297part number 00297         
+F005LOC0030500part number 00500         
+F007LOC0030367part number 00367         
+F005LOC0030437part number 00437         
+F007LOC0030304part number 00304         
+F005LOC0030374part number 00374         
+F007LOC0030241part number 00241         
+F003LOC0030444part number 00444         
+F005LOC0030311part number 00311         
+F001LOC0030514part number 00514         
+F003LOC0030381part number 00381         
+F005LOC0030248part number 00248         
+F001LOC0030451part number 00451         
+F003LOC0030318part number 00318         
+F001LOC0030388part number 00388         
+F003LOC0030255part number 00255         
+F008LOC0030458part number 00458         
+F008LOC0030395part number 00395         
+F001LOC0030262part number 00262         
+F006LOC0030465part number 00465         
+F008LOC0030332part number 00332         
+F006LOC0030402part number 00402         
+F008LOC0030269part number 00269         
+F004LOC0030472part number 00472         
+F006LOC0030339part number 00339         
+F004LOC0030409part number 00409         
+F006LOC0030276part number 00276         
+F002LOC0030479part number 00479         
+F004LOC0030346part number 00346         
+F006LOC0030213part number 00213         
+F004LOC0030283part number 00283         
+F000LOC0030486part number 00486         
+F002LOC0030353part number 00353         
+F004LOC0030220part number 00220         
+F000LOC0030423part number 00423         
+F002LOC0030290part number 00290         
+F007LOC0030493part number 00493         
+F000LOC0030360part number 00360         
+F002LOC0030227part number 00227         
+F007LOC0030430part number 00430         
+F001LOC0040046part number 00046         
+F000LOC0040207part number 00207         
+F007LOC0040088part number 00088         
+F002LOC0040011part number 00011         
+F001LOC0040172part number 00172         
+F008LOC0040053part number 00053         
+F005LOC0040095part number 00095         
+F002LOC0040137part number 00137         
+F000LOC0040018part number 00018         
+F008LOC0040179part number 00179         
+F006LOC0040060part number 00060         
+F003LOC0040102part number 00102         
+F000LOC0040144part number 00144         
+F007LOC0040025part number 00025         
+F006LOC0040186part number 00186         
+F004LOC0040067part number 00067         
+F001LOC0040109part number 00109         
+F007LOC0040151part number 00151         
+F005LOC0040032part number 00032         
+F004LOC0040193part number 00193         
+F002LOC0040074part number 00074         
+F008LOC0040116part number 00116         
+F005LOC0040158part number 00158         
+F002LOC0040200part number 00200         
+F000LOC0040081part number 00081         
+F006LOC0040123part number 00123         
+F004LOC0040004part number 00004         
+F003LOC0040165part number 00165         
+F002LOC0040326part number 00326         
+F000LOC0040396part number 00396         
+F002LOC0040263part number 00263         
+F007LOC0040466part number 00466         
+F000LOC0040333part number 00333         
+F000LOC0040270part number 00270         
+F005LOC0040473part number 00473         
+F007LOC0040340part number 00340         
+F005LOC0040410part number 00410         
+F007LOC0040277part number 00277         
+F003LOC0040480part number 00480         
+F005LOC0040347part number 00347         
+F007LOC0040214part number 00214         
+F003LOC0040417part number 00417         
+F005LOC0040284part number 00284         
+F001LOC0040487part number 00487         
+F003LOC0040354part number 00354         
+F001LOC0040424part number 00424         
+F003LOC0040291part number 00291         
+F001LOC0040361part number 00361         
+F003LOC0040228part number 00228         
+F008LOC0040431part number 00431         
+F001LOC0040298part number 00298         
+F006LOC0040501part number 00501         
+F008LOC0040368part number 00368         
+F001LOC0040235part number 00235         
+F006LOC0040438part number 00438         
+F008LOC0040305part number 00305         
+F004LOC0040508part number 00508         
+F006LOC0040375part number 00375         
+F008LOC0040242part number 00242         
+F004LOC0040445part number 00445         
+F002LOC0040515part number 00515         
+F004LOC0040382part number 00382         
+F006LOC0040249part number 00249         
+F002LOC0040452part number 00452         
+F004LOC0040319part number 00319         
+F002LOC0040389part number 00389         
+F004LOC0040256part number 00256         
+F000LOC0040459part number 00459         
+F003LOC0050138part number 00138         
+F001LOC0050019part number 00019         
+F000LOC0050180part number 00180         
+F007LOC0050061part number 00061         
+F004LOC0050103part number 00103         
+F001LOC0050145part number 00145         
+F007LOC0050187part number 00187         
+F005LOC0050068part number 00068         
+F002LOC0050110part number 00110         
+F008LOC0050152part number 00152         
+F006LOC0050033part number 00033         
+F005LOC0050194part number 00194         
+F003LOC0050075part number 00075         
+F006LOC0050159part number 00159         
+F004LOC0050040part number 00040         
+F003LOC0050201part number 00201         
+F001LOC0050082part number 00082         
+F007LOC0050124part number 00124         
+F005LOC0050005part number 00005         
+F004LOC0050166part number 00166         
+F002LOC0050047part number 00047         
+F008LOC0050089part number 00089         
+F005LOC0050131part number 00131         
+F003LOC0050012part number 00012         
+F002LOC0050173part number 00173         
+F000LOC0050054part number 00054         
+F006LOC0050096part number 00096         
+F004LOC0050355part number 00355         
+F006LOC0050222part number 00222         
+F002LOC0050425part number 00425         
+F004LOC0050292part number 00292         
+F000LOC0050495part number 00495         
+F002LOC0050362part number 00362         
+F004LOC0050229part number 00229         
+F000LOC0050432part number 00432         
+F007LOC0050502part number 00502         
+F000LOC0050369part number 00369         
+F002LOC0050236part number 00236         
+F007LOC0050439part number 00439         
+F000LOC0050306part number 00306         
+F005LOC0050509part number 00509         
+F007LOC0050376part number 00376         
+F000LOC0050243part number 00243         
+F005LOC0050446part number 00446         
+F007LOC0050313part number 00313         
+F003LOC0050516part number 00516         
+F005LOC0050383part number 00383         
+F007LOC0050250part number 00250         
+F003LOC0050453part number 00453         
+F005LOC0050320part number 00320         
+F005LOC0050257part number 00257         
+F001LOC0050460part number 00460         
+F003LOC0050327part number 00327         
+F001LOC0050397part number 00397         
+F003LOC0050264part number 00264         
+F008LOC0050467part number 00467         
+F001LOC0050334part number 00334         
+F008LOC0050404part number 00404         
+F001LOC0050271part number 00271         
+F006LOC0050474part number 00474         
+F008LOC0050341part number 00341         
+F006LOC0050411part number 00411         
+F008LOC0050278part number 00278         
+F006LOC0050348part number 00348         
+F008LOC0050215part number 00215         
+F004LOC0050418part number 00418         
+F006LOC0050285part number 00285         
+F002LOC0050488part number 00488         
+F006LOC0060069part number 00069         
+F003LOC0060111part number 00111         
+F000LOC0060153part number 00153         
+F007LOC0060034part number 00034         
+F004LOC0060076part number 00076         
+F001LOC0060118part number 00118         
+F007LOC0060160part number 00160         
+F005LOC0060041part number 00041         
+F004LOC0060202part number 00202         
+F002LOC0060083part number 00083         
+F008LOC0060125part number 00125         
+F006LOC0060006part number 00006         
+F005LOC0060167part number 00167         
+F003LOC0060048part number 00048         
+F002LOC0060209part number 00209         
+F000LOC0060090part number 00090         
+F006LOC0060132part number 00132         
+F003LOC0060174part number 00174         
+F001LOC0060055part number 00055         
+F007LOC0060097part number 00097         
+F004LOC0060139part number 00139         
+F002LOC0060020part number 00020         
+F001LOC0060181part number 00181         
+F008LOC0060062part number 00062         
+F002LOC0060146part number 00146         
+F000LOC0060027part number 00027         
+F008LOC0060188part number 00188         
+F006LOC0060384part number 00384         
+F008LOC0060251part number 00251         
+F004LOC0060454part number 00454         
+F006LOC0060321part number 00321         
+F004LOC0060391part number 00391         
+F006LOC0060258part number 00258         
+F002LOC0060461part number 00461         
+F004LOC0060328part number 00328         
+F002LOC0060398part number 00398         
+F004LOC0060265part number 00265         
+F002LOC0060335part number 00335         
+F000LOC0060405part number 00405         
+F002LOC0060272part number 00272         
+F007LOC0060475part number 00475         
+F000LOC0060342part number 00342         
+F007LOC0060412part number 00412         
+F000LOC0060279part number 00279         
+F005LOC0060482part number 00482         
+F007LOC0060349part number 00349         
+F000LOC0060216part number 00216         
+F005LOC0060419part number 00419         
+F003LOC0060489part number 00489         
+F005LOC0060356part number 00356         
+F007LOC0060223part number 00223         
+F003LOC0060426part number 00426         
+F005LOC0060293part number 00293         
+F001LOC0060496part number 00496         
+F003LOC0060363part number 00363         
+F005LOC0060230part number 00230         
+F001LOC0060433part number 00433         
+F003LOC0060300part number 00300         
+F008LOC0060503part number 00503         
+F001LOC0060370part number 00370         
+F003LOC0060237part number 00237         
+F008LOC0060440part number 00440         
+F001LOC0060307part number 00307         
+F006LOC0060510part number 00510         
+F001LOC0060244part number 00244         
+F006LOC0060447part number 00447         
+F008LOC0060314part number 00314         
+  $STATUS == "%X0001827A"
+@@ more
+%ANLRMS-I-ERRORS, <DKA200:[T.ACCEPTBACK]ORDERS.DAT;1> 0 errors
+  $STATUS == "%X103B8103"
+%ANLRMS-I-ERRORS, <DKA200:[T.ACCEPTBACK]PARTS.DAT;1> 0 errors
+  $STATUS == "%X103B8103"
