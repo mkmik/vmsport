@@ -1,12 +1,11 @@
-//! EDIT/FDL, the FDL editor's non-interactive part: with /NOINTERACTIVE
-//! and /ANALYSIS=fdl it writes the input FDL's design optimized for the
-//! data the analysis (ANALYZE/RMS_FILE/FDL's) describes (vms_rms::edf), to
-//! /OUTPUT or a new version of the input. Only indexed designs change; for
-//! others it writes nothing. What it says and returns is what VMS's FDL
-//! editor did (fixtures/edf/recorded/run1.log).
-//!
-//! ponytail: no interactive FDL editor; it says so.
+//! EDIT/FDL, the FDL editor. At a terminal it asks (vms_utils::fdl_editor);
+//! with /NOINTERACTIVE and /ANALYSIS=fdl it writes the input FDL's design
+//! optimized for the data the analysis (ANALYZE/RMS_FILE/FDL's) describes
+//! (vms_rms::edf), to /OUTPUT or a new version of the input. Only indexed
+//! designs change; for others it writes nothing. What it says and returns
+//! is what VMS's FDL editor did (fixtures/edf).
 
+use std::io::{IsTerminal, Write};
 use vms_cond::Cond;
 use vms_fao::Arg;
 use vms_filespec::FileSpec;
@@ -18,7 +17,8 @@ use vms_utils::{E, Util, inhibit, shr};
 const OPENFDL: Cond = Cond(0x00B4_808C);
 const UNPRIKW: Cond = Cond(0x00B4_80A2);
 const UNQUAKW: Cond = Cond(0x00B4_8328);
-const NOINTER: Cond = Cond(0x00B4_8354);
+/// EDF-F-DEVCLASS: the editor's questions want a terminal.
+const DEVCLASS: Cond = Cond(0x00B3_800C);
 /// STR-F-ILLSTRCLA: what VMS says of an analysis it can't parse.
 const ILLSTRCLA: Cond = Cond(0x0024_8054);
 const FDL: u32 = 180;
@@ -33,7 +33,10 @@ fn main() {
         u.exit(inhibit(c))
     };
     if u.present("INTERACTIVE") {
-        fail(u, NOINTER);
+        if !std::io::stdin().is_terminal() {
+            fail(u, DEVCLASS);
+        }
+        interactive(u);
     }
     let input_spec = u.value("FILE").unwrap_or_default();
     let analysis_spec = u.value("ANALYSIS").unwrap_or_default();
@@ -66,6 +69,106 @@ fn main() {
         Outcome::Nothing => {}
     }
     u.exit(Cond(1));
+}
+
+/// The editor at the terminal: the definition (a new one if the file isn't
+/// there), /SCRIPT, /ANALYSIS; EXIT writes /OUTPUT or a new version.
+fn interactive(mut u: Util) -> ! {
+    let input_spec = u.value("FILE").unwrap_or_default();
+    let output = u.value("OUTPUT").filter(|o| !o.is_empty());
+    let script = u.value("SCRIPT");
+    let analysis = match u.value("ANALYSIS").filter(|a| !a.is_empty()) {
+        Some(a) => match read(&u, &a).and_then(|t| parsed(&u, &t, Some(ILLSTRCLA))) {
+            Ok(f) => Some(f),
+            Err(st) => u.exit(st),
+        },
+        None => None,
+    };
+    let s = &u.img.session;
+    let spec = s.parse(&input_spec, ".FDL", "");
+    let shown = spec.as_ref().map_or(input_spec.clone(), |p| p.expanded());
+    let text = spec
+        .and_then(|p| s.find(&p))
+        .and_then(|(path, _)| libvms::files::Reader::open(&path))
+        .map(|mut r| {
+            std::iter::from_fn(|| r.get())
+                .map(|rec| String::from_utf8_lossy(&rec.data).into_owned() + "\n")
+                .collect::<String>()
+        })
+        .ok();
+    let help = libvms::help::library(s, "SYS$HELP:EDFHELP").unwrap_or_default();
+    let help = vms_help::Help {
+        libraries: vec![help],
+        width: libvms::help::width(),
+        instructions: false,
+    };
+    let now = vms_time::asctim(libvms::sys::now(), false);
+    let ending = vms_utils::fdl_editor::session(
+        &mut Tty,
+        &help,
+        vms_utils::fdl_editor::Start {
+            text: text.as_deref(),
+            shown: &shown,
+            script: script.as_deref(),
+            analysis,
+            now: &now[..now.len().min(20)],
+        },
+    );
+    if let vms_utils::fdl_editor::Ending::Exit(f) = ending {
+        let text = edf::text(&f);
+        match write(&u, &output.unwrap_or(input_spec), &text) {
+            Ok(written) => println!("\n{written}  {} lines", text.lines().count()),
+            Err(st) => u.exit(st),
+        }
+    }
+    u.exit(Cond(1));
+}
+
+/// The terminal: answers read raw, so that Ctrl/Z ends one as on VMS
+/// (echoed `*EXIT*`) rather than stopping the program.
+struct Tty;
+
+impl vms_utils::fdl_editor::Console for Tty {
+    fn say(&mut self, text: &str) {
+        print!("{text}");
+        let _ = std::io::stdout().flush();
+    }
+
+    fn ask(&mut self, prompt: &str) -> Option<String> {
+        use libvms::term::Key;
+        self.say(prompt);
+        let _raw = libvms::term::Raw::plain().ok()?;
+        let mut line = String::new();
+        let mut out = std::io::stdout();
+        for k in libvms::term::keys() {
+            match k {
+                Key::Return | Key::KpEnter => {
+                    let _ = write!(out, "\r\n");
+                    return Some(line);
+                }
+                Key::Ctrl('Z' | 'C' | 'Y') => {
+                    let _ = write!(out, "*EXIT*\r\n");
+                    return None;
+                }
+                Key::Ctrl('U') => {
+                    let _ = write!(out, "{}", "\x08 \x08".repeat(line.chars().count()));
+                    line.clear();
+                }
+                Key::Delete | Key::Backspace => {
+                    if line.pop().is_some() {
+                        let _ = write!(out, "\x08 \x08");
+                    }
+                }
+                Key::Char(ch) => {
+                    line.push(ch);
+                    let _ = write!(out, "{ch}");
+                }
+                _ => {}
+            }
+            let _ = out.flush();
+        }
+        None
+    }
 }
 
 /// An FDL file's text (default type .FDL), or FDL-F-OPENFDL's status.
@@ -109,8 +212,9 @@ fn parsed(u: &Util, text: &str, then: Option<Cond>) -> Result<fdl::Fdl, Cond> {
     Ok(fdl::parse(text).unwrap_or_default())
 }
 
-/// `text` as a new version of `spec` (default type .FDL), VAR records.
-fn write(u: &Util, spec: &str, text: &str) -> Result<(), Cond> {
+/// `text` as a new version of `spec` (default type .FDL), VAR records;
+/// the name it got.
+fn write(u: &Util, spec: &str, text: &str) -> Result<String, Cond> {
     let s = &u.img.session;
     let made = s.parse(spec, ".FDL", "").and_then(|sp| {
         s.new_version(&FileSpec {
@@ -118,6 +222,7 @@ fn write(u: &Util, spec: &str, text: &str) -> Result<(), Cond> {
             ..sp
         })
     });
+    let shown = made.as_ref().map_or(String::new(), |m| m.1.expanded());
     let r = made.and_then(|(path, _)| {
         let fab = Fab {
             rfm: Rfm::Var,
@@ -128,7 +233,7 @@ fn write(u: &Util, spec: &str, text: &str) -> Result<(), Cond> {
         text.lines()
             .try_for_each(|l| w.put(&Record::new(l.as_bytes().to_vec())))
     });
-    r.map_err(|e| {
+    r.map(|()| shown).map_err(|e| {
         let open = u.shared(shr::OPENOUT, E);
         u.msg(&[(open, vec![Arg::Str(spec)]), (e, vec![])]);
         inhibit(open)

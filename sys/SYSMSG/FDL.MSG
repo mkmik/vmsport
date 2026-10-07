@@ -20,6 +20,3 @@ WARNING		<parsed with warnings>
 	.SEVERITY	ERROR
 	.BASE		104
 FDLERROR	<error parsing FDL file>
-	.SEVERITY	FATAL
-	.BASE		106
-NOINTER		<the interactive FDL editor is not available; use /NOINTERACTIVE/ANALYSIS>

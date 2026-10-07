@@ -167,10 +167,20 @@ impl<R: Read> Iterator for Keys<R> {
 /// The terminal in raw mode, its keypad and cursor keys in application
 /// mode, until dropped. Reads return what came within 0.1 s, so a lone
 /// ESC ends a read.
-pub struct Raw(libc::termios);
+pub struct Raw(libc::termios, bool);
 
 impl Raw {
     pub fn new() -> std::io::Result<Raw> {
+        let raw = Raw::plain()?;
+        // Application keypad and cursor keys.
+        print!("\x1b=\x1b[?1h");
+        let _ = std::io::stdout().flush();
+        Ok(Raw(raw.0, true))
+    }
+
+    /// Raw mode, the keypad left as it is: for a program that reads lines
+    /// its own way (Ctrl/Z ends one, say).
+    pub fn plain() -> std::io::Result<Raw> {
         // SAFETY: tcgetattr/tcsetattr on stdin with a termios we own.
         let old = unsafe {
             let mut t: libc::termios = std::mem::zeroed();
@@ -186,17 +196,16 @@ impl Raw {
             libc::tcsetattr(0, libc::TCSANOW, &t);
             old
         };
-        // Application keypad and cursor keys.
-        print!("\x1b=\x1b[?1h");
-        let _ = std::io::stdout().flush();
-        Ok(Raw(old))
+        Ok(Raw(old, false))
     }
 }
 
 impl Drop for Raw {
     fn drop(&mut self) {
-        print!("\x1b>\x1b[?1l");
-        let _ = std::io::stdout().flush();
+        if self.1 {
+            print!("\x1b>\x1b[?1l");
+            let _ = std::io::stdout().flush();
+        }
         // SAFETY: restores the settings we saved.
         unsafe { libc::tcsetattr(0, libc::TCSANOW, &self.0) };
     }
