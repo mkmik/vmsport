@@ -525,20 +525,17 @@ impl Dcl {
             }
             _ => {
                 let how = Get {
-                    key: match value(r, "KEY") {
-                        Some(k) => Some((
-                            unquote(&k).into_bytes(),
-                            match value(r, "MATCH").as_deref() {
-                                Some("GE") => Match::Ge,
-                                Some("GT") => Match::Gt,
-                                Some("LE") => Match::Le,
-                                Some("LT") => Match::Lt,
-                                _ => Match::Eq,
-                            },
-                            value(r, "INDEX").and_then(|i| i.parse().ok()).unwrap_or(0),
-                        )),
-                        None => None,
-                    },
+                    key: value(r, "KEY").map(|k| {
+                        let m = match value(r, "MATCH").as_deref() {
+                            Some("GE") => Match::Ge,
+                            Some("GT") => Match::Gt,
+                            Some("LE") => Match::Le,
+                            Some("LT") => Match::Lt,
+                            _ => Match::Eq,
+                        };
+                        let index = value(r, "INDEX").and_then(|i| i.parse().ok());
+                        (unquote(&k).into_bytes(), m, index.unwrap_or(0))
+                    }),
                     delete: present(r, "DELETE"),
                     nolock: present(r, "NOLOCK"),
                 };
