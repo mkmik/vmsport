@@ -1,16 +1,16 @@
 
-Check RMS File Integrity                      7-OCT-2026 03:46:34.81   Page 1
+Check RMS File Integrity                      7-OCT-2026 04:16:01.88   Page 1
 DKA200:[T.IDXRT]RT1V.DAT;1
 
 
 FILE HEADER
 
 	File Spec: DKA200:[T.IDXRT]RT1V.DAT;1
-	File ID: (60,1,0)
+	File ID: (39,1,0)
 	Owner UIC: [1,4]
 	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
-	Creation Date:    7-OCT-2026 03:46:34.23
-	Revision Date:    7-OCT-2026 03:46:34.79, Number: 2
+	Creation Date:    7-OCT-2026 04:16:01.28
+	Revision Date:    7-OCT-2026 04:16:01.85, Number: 2
 	Expiration Date: none specified
 	Backup Date:     none posted
 	Contiguity Options:  none
@@ -26,7 +26,7 @@ RMS FILE ATTRIBUTES
 	Record Attributes:  carriage-return 
 	Maximum Record Size: 64
 	Longest Record: 64
-	Blocks Allocated: 192, Default Extend Size: 0
+	Blocks Allocated: 224, Default Extend Size: 0
 	Bucket Size: 1
 	File Monitoring: disabled
 	Global Buffer Count  pre-V8.3:          0
@@ -43,9 +43,9 @@ AREA DESCRIPTOR #0 (VBN 3, offset %X'0000')
 
 	Bucket Size: 1
 	Reclaimed Bucket VBN: 0
-	Current Extent Start: 177, Blocks: 16, Used: 1, Next: 178
+	Current Extent Start: 209, Blocks: 16, Used: 3, Next: 212
 	Default Extend Quantity: 12
-	Total Allocation: 182
+	Total Allocation: 218
 
 KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
 
@@ -53,12 +53,12 @@ KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
 	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
 	Root Level: 2
 	Index Bucket Size: 1, Data Bucket Size: 1
-	Root VBN: 123
+	Root VBN: 142
 	Key Flags:
 		(0)  KEY$V_DUPKEYS    0
 		(3)  KEY$V_IDX_COMPR  1
 
-Check RMS File Integrity                      7-OCT-2026 03:46:34.82   Page 2
+Check RMS File Integrity                      7-OCT-2026 04:16:01.89   Page 2
 DKA200:[T.IDXRT]RT1V.DAT;1
 
 
@@ -117,7 +117,7 @@ KEY DESCRIPTOR #2 (VBN 2, offset %X'0066')
 	Key Size: 8
 	Minimum Record Size: 34
 
-Check RMS File Integrity                      7-OCT-2026 03:46:34.87   Page 3
+Check RMS File Integrity                      7-OCT-2026 04:16:01.94   Page 3
 DKA200:[T.IDXRT]RT1V.DAT;1
 
 

@@ -1,16 +1,16 @@
 
-Check RMS File Integrity                      7-OCT-2026 03:46:32.78   Page 1
+Check RMS File Integrity                      7-OCT-2026 04:15:59.69   Page 1
 DKA200:[T.IDXRT]RT3.DAT;1
 
 
 FILE HEADER
 
 	File Spec: DKA200:[T.IDXRT]RT3.DAT;1
-	File ID: (22,1,0)
+	File ID: (17,1,0)
 	Owner UIC: [1,4]
 	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
-	Creation Date:    7-OCT-2026 03:46:06.94
-	Revision Date:    7-OCT-2026 03:46:06.94, Number: 1
+	Creation Date:    7-OCT-2026 04:15:59.00
+	Revision Date:    7-OCT-2026 04:15:59.01, Number: 1
 	Expiration Date: none specified
 	Backup Date:     none posted
 	Contiguity Options:  none
@@ -43,9 +43,9 @@ AREA DESCRIPTOR #0 (VBN 4, offset %X'0000')
 
 	Bucket Size: 1
 	Reclaimed Bucket VBN: 0
-	Current Extent Start: 113, Blocks: 16, Used: 12, Next: 125
+	Current Extent Start: 129, Blocks: 16, Used: 12, Next: 141
 	Default Extend Quantity: 16
-	Total Allocation: 128
+	Total Allocation: 144
 
 KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
 
@@ -58,7 +58,7 @@ KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
 		(0)  KEY$V_DUPKEYS    0
 		(3)  KEY$V_IDX_COMPR  0
 
-Check RMS File Integrity                      7-OCT-2026 03:46:32.79   Page 2
+Check RMS File Integrity                      7-OCT-2026 04:15:59.70   Page 2
 DKA200:[T.IDXRT]RT3.DAT;1
 
 
@@ -117,7 +117,7 @@ KEY DESCRIPTOR #2 (VBN 2, offset %X'0066')
 	Key Size: 4
 	Minimum Record Size: 10
 
-Check RMS File Integrity                      7-OCT-2026 03:46:32.82   Page 3
+Check RMS File Integrity                      7-OCT-2026 04:15:59.73   Page 3
 DKA200:[T.IDXRT]RT3.DAT;1
 
 
@@ -176,7 +176,7 @@ KEY DESCRIPTOR #4 (VBN 2, offset %X'0132')
 	Name: ""
 	First Data Bucket VBN: 13
 
-Check RMS File Integrity                      7-OCT-2026 03:46:32.83   Page 4
+Check RMS File Integrity                      7-OCT-2026 04:15:59.74   Page 4
 DKA200:[T.IDXRT]RT3.DAT;1
 
 
@@ -235,7 +235,7 @@ KEY DESCRIPTOR #7 (VBN 3, offset %X'0066')
 	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
 	Root Level: 1
 
-Check RMS File Integrity                      7-OCT-2026 03:46:32.84   Page 5
+Check RMS File Integrity                      7-OCT-2026 04:15:59.76   Page 5
 DKA200:[T.IDXRT]RT3.DAT;1
 
 
