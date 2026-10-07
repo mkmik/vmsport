@@ -1,0 +1,7 @@
+! The string routines' message EDIT/FDL gives for an analysis it can't
+! parse, with VMS's code (fixtures/edf: %X00248054).
+	.TITLE		STR	STR messages
+	.FACILITY	STR,36 /SYSTEM
+	.SEVERITY	FATAL
+	.BASE		10
+ILLSTRCLA	<illegal string class>

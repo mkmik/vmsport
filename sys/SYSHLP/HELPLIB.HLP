@@ -684,6 +684,84 @@ file-spec[,...]
 device-name[:]
 
  The device, as MOUNT named it (DKA100:).
+1 EDIT
+ vmsport's EDIT is only EDIT/FDL, and of the FDL editor only the part
+ that runs without a terminal: it takes an indexed file's design (an FDL)
+ and an analysis of data like the file's (what ANALYZE/RMS_FILE/FDL
+ writes), and writes the design again with the bucket sizes, areas,
+ allocations and extensions that suit that data. There are no text
+ editors and no interactive FDL editor.
+
+ Format
+
+   EDIT/FDL/NOINTERACTIVE/ANALYSIS=analysis-fdl input-fdl
+2 Parameters
+file-spec
+
+ With /FDL, the design to optimize.
+2 Qualifiers
+/FDL
+ Runs the FDL editor; see EDIT /FDL.
+2 /FDL
+ Optimizes an indexed file's design for the data an analysis describes.
+ A sequential or relative design is left alone and nothing is written;
+ an analysis of an indexed file with a design that isn't indexed says
+ so.
+
+ For each key it estimates the size of a record (or of an alternate
+ key's entry) from the analysis's compression figures, takes the bucket
+ size that gives the shallowest index, and sizes the data and the index;
+ areas group them as /GRANULARITY says.
+
+ Format
+
+   EDIT/FDL/NOINTERACTIVE/ANALYSIS=analysis-fdl [/OUTPUT=fdl] input-fdl
+3 Parameters
+input-fdl
+
+ The design, default type .FDL. Its attributes are kept, except those
+ the optimizing sets (areas, bucket sizes, the keys' areas and fill).
+3 Qualifiers
+/ANALYSIS
+
+    /ANALYSIS=analysis-fdl
+
+ The analysis to optimize for: ANALYZE/RMS_FILE/FDL's output for a file
+ holding the data, default type .FDL. Required.
+/EMPHASIS
+
+    /EMPHASIS=FLATTER_FILES
+    /EMPHASIS=SMALLER_BUFFERS
+
+ Accepted; without a terminal VMS's FDL editor designs the same either
+ way, and so does vmsport.
+/GRANULARITY
+
+    /GRANULARITY=n
+
+ How many areas the design has, 1 to 4 (default 3). With 1 everything
+ is in one area; with 2 the primary key's data has one and all the rest
+ another; with 3 the primary key's data, its index and the alternate
+ keys each have one; 4 also parts the alternate keys' data from their
+ index.
+/INTERACTIVE
+
+    /INTERACTIVE (default)
+    /NOINTERACTIVE
+
+ There is no interactive FDL editor: give /NOINTERACTIVE.
+/OUTPUT
+
+    /OUTPUT[=fdl]
+
+ Where the new design goes, default type .FDL; by default a new version
+ of the input.
+/SCRIPT
+
+    /SCRIPT=script-name
+
+ A script for the interactive editor; with /NOINTERACTIVE, DCL refuses
+ it, as on VMS.
 1 ELSE
  Starts the part of an IF block that runs when the condition is false.
  See IF.
