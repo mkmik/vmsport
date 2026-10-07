@@ -33,6 +33,7 @@ pub enum Rfm {
 pub mod analyze;
 /// Record attribute bits (`FAB$V_FTN` ...).
 mod blocks;
+pub mod edf;
 pub mod fdl;
 pub mod rel;
 pub mod status;
