@@ -23,9 +23,10 @@ The console log from the first command on goes to
 fixtures/AREA/recorded/NAME.log. run-vms.py boots a copy-on-write clone of
 the system image, logs in as SYSTEM, and throws the clone away.
 
-Environment: VAXPUNK (default ~/p/vaxpunk: its ods/vms/run-vms.py, and the
-AXPbox and SRM ROMs of its real_vms_playground), RUNVMS (another run-vms.py
-with --system), VMS_SYSTEM (the installed system's disk image).
+Environment: VAXPUNK (default ~/p/vaxpunk), RUNVMS (its run-vms.py, which
+has --system), VMS_SYSTEM (the installed system's disk image), AXPBOX (the
+emulator; default vaxpunk's real_vms_playground one, whose SRM ROMs are
+copied beside each run so that runs can go side by side).
 """
 import importlib.util, os, pathlib, re, shutil, signal, subprocess, sys, tempfile, time
 

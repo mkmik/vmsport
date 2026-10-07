@@ -1,0 +1,7 @@
+[package]
+name = "vms-edt"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+libvms = { path = "../libvms" }

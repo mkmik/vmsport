@@ -173,6 +173,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "vms-edt"
+version = "0.1.0"
+dependencies = [
+ "libvms",
+]
+
+[[package]]
 name = "vms-examples"
 version = "0.1.0"
 dependencies = [
@@ -236,6 +243,7 @@ dependencies = [
  "ods-image",
  "vms-cld",
  "vms-cond",
+ "vms-edt",
  "vms-fao",
  "vms-filespec",
  "vms-help",

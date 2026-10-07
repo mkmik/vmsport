@@ -1,0 +1,469 @@
+$ CREATE/DIRECTORY SYS$SYSDEVICE:[EDT3]
+$ SET DEFAULT SYS$SYSDEVICE:[EDT3]
+$ CREATE A.TXT
+one
+two
+three
+four
+five
+*EXIT*
+$ CREATE M.TXT
+aaa bbb aaa
+xx aa
+ccc
+*EXIT*
+$ CREATE Q.TXT
+alpha beta gamma delta epsilon
+zeta
+eta theta iota kappa lambda mu nu xi omicron pi rho
+
+sigma tau upsilon
+phi chi psi omega
+*EXIT*
+$ CREATE T.COM
+$ SET NOON
+$ WRITE SYS$OUTPUT "@@ subs"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND M.TXT
+S/aaa/X/
+TYPE WHOLE
+S/a/Y/ 2
+S/c/Z/ 3/BRIEF
+SUBSTITUTE NEXT /zz/q/
+SET SEARCH EXACT
+S/X/x/WHOLE
+S/x/W/WHOLE
+QUIT
+$ WRITE SYS$OUTPUT "@@ print"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND A.TXT
+PRINT P.LIS 2:3
+INSERT 3;inserted
+PRINT P2.LIS
+QUIT
+$ DUMP/RECORDS P.LIS
+$ DUMP/RECORDS P2.LIS
+$ WRITE SYS$OUTPUT "@@ numbers"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND A.TXT
+INSERT 2;a
+INSERT 2;b
+INSERT 2;c
+INSERT 2;d
+INSERT 2;e
+INSERT 2;f
+INSERT 2;g
+INSERT 2;h
+INSERT 2;i
+INSERT 2;j
+INSERT 2;k
+TYPE 1:2
+INSERT 1.95;between
+TYPE 1.9:2
+RESEQUENCE /SEQUENCE:10:5
+TYPE 1:30
+RESEQUENCE 10:20
+TYPE WHOLE
+QUIT
+$ WRITE SYS$OUTPUT "@@ search"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND A.TXT
+FIND 3
+TYPE -"three"
+TYPE "three"
+FIND 3
+TYPE -"t"
+TYPE "o"
+TYPE .+2
+TYPE BEGIN+1
+TYPE END-1
+TYPE "f"+1
+TYPE ALL "o" 2:5
+TYPE 2:5 ALL "o"
+TYPE ALL "zz"
+FIND END
+TYPE -"e"
+QUIT
+$ WRITE SYS$OUTPUT "@@ fill"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND Q.TXT
+SET WRAP 25
+FILL 1:3
+TYPE WHOLE
+FILL REST
+TYPE WHOLE
+QUIT
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND Q.TXT
+FILL WHOLE
+TYPE WHOLE
+QUIT
+$ WRITE SYS$OUTPUT "@@ buffers"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND A.TXT
+MOVE 1:2 TO =Y
+SHOW BUFFER
+TYPE =Y
+TYPE =Y WHOLE
+TYPE WHOLE
+FIND =MAIN
+TYPE WHOLE
+COPY =Y WHOLE TO =PASTE
+TYPE =PASTE WHOLE
+CLEAR PASTE
+SHOW BUFFER
+CLEAR MAIN
+SHOW BUFFER
+TYPE WHOLE
+QUIT/FOO
+QUIT
+$ WRITE SYS$OUTPUT "@@ misc"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND A.TXT
+
+TYPE
+SET TEXT END "<<END>>"
+TYPE END
+SET NONUMBERS
+TYPE 4:END
+SET NUMBERS
+SET TAB 4
+TAB ADJUST 3 2
+TAB ADJUST -1 2
+TYPE 2
+SHOW TAB
+SHOW ENTITY WORD
+SET ENTITY WORD '+-'
+SHOW ENTITY WORD
+DEFINE KEY CONTROL X AS "D+L."
+SHOW KEY CONTROL X
+SHOW KEY CONTROL Y
+DEFINE KEY FUNCTION 7 AS "ADV."
+DEFINE KEY GOLD CONTROL A AS "D+W."
+SHOW KEY GOLD CONTROL A
+DEFINE MACRO M1
+SHOW BUFFER
+COPY 1:2 TO END /DUPLICATE:2
+TYPE WHOLE
+EXIT ZZ.TXT
+$ TYPE ZZ.TXT
+$ WRITE SYS$OUTPUT "@@ insert"
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND A.TXT
+INSERT 2
+first inserted
+second inserted
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY A.TXT
+$ WRITE SYS$OUTPUT "@@ readonly"
+$ EDIT/EDT/READ_ONLY/NOCOMMAND A.TXT
+S/one/1/
+EXIT R.TXT
+$ TYPE R.TXT
+$ EDIT/EDT/NOJOURNAL/NOCOMMAND/OUTPUT=O.TXT A.TXT
+EXIT O2.TXT
+$ DIRECTORY O*.TXT
+$ WRITE SYS$OUTPUT "@@ end"
+*EXIT*
+$ @T
+@@ subs
+    1       aaa bbb aaa
+    1       X bbb aaa
+1 substitution
+    1       X bbb aaa
+    2       xx aa
+    3       ccc
+[EOB]
+    2       xx YY
+2 substitutions
+    3       ZZZ
+3 substitutions
+    1       x bbb aaa
+1 substitution
+    1       W bbb aaa
+    2       WW YY
+3 substitutions
+
+@@ print
+    1       one
+    3       three
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dump of file SYS$SYSDEVICE:[EDT3]P.LIS;1 on  7-OCT-2026 18:00:34.66
+File ID (9799,13982,0)   End of file block 1 / Allocated 16
+
+Record number 1 (00000001), 1 (0001) byte, RFA(0001,0000,0000)
+
+                                                                      0C ................................ 000000
+
+Record number 2 (00000002), 0 (0000) bytes, RFA(0001,0000,0004)
+
+
+Record number 3 (00000003), 0 (0000) bytes, RFA(0001,0000,0006)
+
+
+Record number 4 (00000004), 15 (000F) bytes, RFA(0001,0000,0008)
+
+                                       6F7774 20202020 20202032 20202020     2       two................. 000000
+
+Record number 5 (00000005), 17 (0011) bytes, RFA(0001,0000,001A)
+
+                                  65 65726874 20202020 20202033 20202020     3       three............... 000000
+
+
+
+
+Dump of file SYS$SYSDEVICE:[EDT3]P2.LIS;1 on  7-OCT-2026 18:00:34.71
+File ID (9800,13982,0)   End of file block 1 / Allocated 16
+
+Record number 1 (00000001), 1 (0001) byte, RFA(0001,0000,0000)
+
+                                                                      0C ................................ 000000
+
+Record number 2 (00000002), 0 (0000) bytes, RFA(0001,0000,0004)
+
+
+Record number 3 (00000003), 0 (0000) bytes, RFA(0001,0000,0006)
+
+
+Record number 4 (00000004), 15 (000F) bytes, RFA(0001,0000,0008)
+
+                                       656E6F 20202020 20202031 20202020     1       one................. 000000
+
+Record number 5 (00000005), 15 (000F) bytes, RFA(0001,0000,001A)
+
+                                       6F7774 20202020 20202032 20202020     2       two................. 000000
+
+Record number 6 (00000006), 20 (0014) bytes, RFA(0001,0000,002C)
+
+                            64657472 65736E69 20202020 20312E32 20202020     2.1     inserted............ 000000
+
+Record number 7 (00000007), 17 (0011) bytes, RFA(0001,0000,0042)
+
+                                  65 65726874 20202020 20202033 20202020     3       three............... 000000
+
+Record number 8 (00000008), 16 (0010) bytes, RFA(0001,0000,0056)
+
+                                     72756F66 20202020 20202034 20202020     4       four................ 000000
+
+Record number 9 (00000009), 16 (0010) bytes, RFA(0001,0000,0068)
+
+                                     65766966 20202020 20202035 20202020     5       five................ 000000
+@@ numbers
+    1       one
+    2       two
+    2       two
+    2       two
+    2       two
+    2       two
+    2       two
+    2       two
+    2       two
+    2       two
+    2       two
+    2       two
+    1       one
+    1.1     a
+    1.2     b
+    1.3     c
+    1.4     d
+    1.5     e
+    1.6     f
+    1.7     g
+    1.8     h
+    1.9     i
+    1.91    j
+    1.92    k
+    2       two
+    2       two
+    1.9     i
+    1.91    j
+    1.92    k
+    1.93    between
+    2       two
+17 lines resequenced
+   10       one
+   15       a
+   20       b
+   25       c
+   30       d
+3 lines resequenced
+    1       one
+    2       a
+    3       b
+   25       c
+   30       d
+   35       e
+   40       f
+   45       g
+   50       h
+   55       i
+   60       j
+   65       k
+   70       between
+   75       two
+   80       three
+   85       four
+   90       five
+[EOB]
+
+@@ search
+    1       one
+String was not found
+    3       three
+    3       three
+    2       two
+    2       two
+    4       four
+    2       two
+    5       five
+[EOB]
+              ^
+Unexpected characters after end of command
+    2       two
+    4       four
+[EOB]
+    5       five
+
+@@ fill
+    1       alpha beta gamma delta epsilon
+    0.1     alpha beta gamma delta
+    1.1     epsilon zeta eta theta
+    1.2     iota kappa lambda mu nu
+    2.2     xi omicron pi rho 
+    4       
+    5       sigma tau upsilon
+    6       phi chi psi omega
+[EOB]
+    0.1     alpha beta gamma delta
+    0.2     epsilon zeta eta theta
+    1.2     iota kappa lambda mu nu
+    2.2     xi omicron pi rho 
+    4       
+    5       sigma tau upsilon phi chi
+    6       psi omega 
+[EOB]
+
+    1       alpha beta gamma delta epsilon
+    1       alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu n
+u xi
+    2       omicron pi rho 
+    4       
+    5       sigma tau upsilon phi chi psi omega 
+[EOB]
+
+@@ buffers
+    1       one
+2 lines moved
+=Y      2       lines
+ MAIN   1*      lines
+ PASTE  No      lines
+    1       one
+    2       two
+[EOB]
+    1       one
+    2       two
+[EOB]
+    1       one
+    2       two
+[EOB]
+    3       three
+    4       four
+    5       five
+[EOB]
+2 lines copied
+    1       one
+    2       two
+[EOB]
+ Y      2       lines
+=MAIN   3       lines
+ PASTE  No      lines
+ Y      2       lines
+=MAIN   No      lines
+ PASTE  No      lines
+[EOB]
+      ^
+Unrecognized command option
+
+@@ misc
+    1       one
+    2       two
+    2       two
+<<END>>
+four
+five
+<<END>>
+    2           two
+tab size 4; tab level 1
+        <LF><VT><FF><CR>
++-
+D+L.
+No definition
+D+W.
+ M1     No      lines
+=MAIN   5       lines
+ PASTE  No      lines
+2 lines copied 2 times
+    1       one
+    2           two
+    3       three
+    4       four
+    5       five
+    6       one
+    7           two
+    8       one
+    9           two
+<<END>>
+SYS$SYSDEVICE:[EDT3]ZZ.TXT;1 9 lines
+one
+        two
+three
+four
+five
+one
+        two
+one
+        two
+@@ insert
+    1       one
+    2       two
+
+  $STATUS == "%X00000001"
+
+Directory SYS$SYSDEVICE:[EDT3]
+
+A.TXT;1             
+
+Total of 1 file.
+@@ readonly
+    1       one
+    1       1
+1 substitution
+SYS$SYSDEVICE:[EDT3]R.TXT;1 5 lines
+1
+two
+three
+four
+five
+    1       one
+SYS$SYSDEVICE:[EDT3]O2.TXT;1 5 lines
+
+Directory SYS$SYSDEVICE:[EDT3]
+
+O2.TXT;1            
+
+Total of 1 file.
+@@ end
+$ 
