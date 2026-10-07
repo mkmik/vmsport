@@ -175,7 +175,7 @@ fn read(path: &Path) -> Result<(Fab, Records), Cond> {
 
 enum OutKind {
     Seq(Writer),
-    Rms(rms::File),
+    Rms(Box<rms::File>),
 }
 
 fn main() {
@@ -449,9 +449,8 @@ fn main() {
             .map(|_| ())
             .and_then(|()| Writer::append(&path))
             .map(OutKind::Seq),
-        _ if existing.is_some() => {
-            rms::File::open(&path, rms::fab::PUT | rms::fab::GET, 0).map(OutKind::Rms)
-        }
+        _ if existing.is_some() => rms::File::open(&path, rms::fab::PUT | rms::fab::GET, 0)
+            .map(|f| OutKind::Rms(Box::new(f))),
         _ if relative => {
             // What the records need, in 16-block clusters as on the VMS
             // disk the fixtures come from.
@@ -475,7 +474,7 @@ fn main() {
                 ..files::fab(&path)
             };
             let _ = libvms::sys::set_xattr(&path, vms_rms::XATTR, fab0.to_string().as_bytes());
-            f.map(OutKind::Rms)
+            f.map(|f| OutKind::Rms(Box::new(f)))
         }
         _ => {
             let longest = records

@@ -29,7 +29,7 @@ const OPENFDL: Cond = Cond(0x00B4_808C);
 /// Where records go.
 enum Out {
     Seq(Writer),
-    Rms(rms::File),
+    Rms(Box<rms::File>),
 }
 
 impl Out {
@@ -196,7 +196,8 @@ fn main() {
             // Sequential files are written only at their end.
             Org::Seq if std::fs::metadata(&path).is_ok_and(|m| m.len() > 0) => Err(status::NEF),
             Org::Seq => Writer::append(&path).map(Out::Seq),
-            _ => rms::File::open(&path, rms::fab::PUT | rms::fab::GET, 0).map(Out::Rms),
+            _ => rms::File::open(&path, rms::fab::PUT | rms::fab::GET, 0)
+                .map(|f| Out::Rms(Box::new(f))),
         }
     } else {
         match fab.org {
@@ -217,7 +218,8 @@ fn main() {
                 for a in &mut d.areas {
                     a.allocation = a.allocation.max(1).next_multiple_of(16);
                 }
-                rms::File::create(&path, &d, rms::fab::PUT | rms::fab::GET, 0).map(Out::Rms)
+                rms::File::create(&path, &d, rms::fab::PUT | rms::fab::GET, 0)
+                    .map(|f| Out::Rms(Box::new(f)))
             }
         }
     };
