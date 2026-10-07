@@ -9,6 +9,8 @@ Each AREA is a directory under fixtures/ with a vms.txt that says what to do:
     in FILE              copy fixtures/AREA/FILE in, as [T.AREA]FILE (upcased)
     import DIR           copy the files of fixtures/AREA/DIR in as they are, with
                          the attributes its ods-manifest.json gives them
+    volume IMAGE         make fixtures/AREA/IMAGE (gzipped if .gz) the input
+                         volume rather than a new one: [T.AREA] may be on it
     run DCL-LINE         a line of DCL, run in DKA200:[T.AREA]
     text NAME DEST       copy [T.AREA]NAME out as text lines to fixtures/AREA/DEST
     blocks NAME DEST     copy it out as raw blocks, up to its highwater mark
@@ -26,7 +28,7 @@ SRM firmware, the OpenVMS CD and its console script (run-vms.py), and the
 `ods` tool for Files-11 images. Environment: VAXPUNK (default ~/p/vaxpunk),
 ODS (the ods binary, default `ods` on PATH).
 """
-import fcntl, fnmatch, json, os, pathlib, re, shutil, subprocess, sys, tempfile
+import fcntl, fnmatch, gzip, json, os, pathlib, re, shutil, subprocess, sys, tempfile
 
 FIX = pathlib.Path(__file__).resolve().parent.parent
 VAXPUNK = pathlib.Path(os.environ.get("VAXPUNK", "~/p/vaxpunk")).expanduser()
@@ -101,12 +103,19 @@ def record(run, areas):
     (run / "es40.cfg").write_text(CFG.format(run=run, iso=(PLAY / "alpha.iso").resolve()))
     img = run / "in.img"
     img.unlink(missing_ok=True)
-    ods("init", img, "--size", "100M", "--label", "VPTIN", "--ods5")
-    ods("mkdir", img, "[T]")
+    volume = [FIX / a / rest for a in areas for verb, rest in area_steps(a) if verb == "volume"]
+    if volume:
+        with (gzip.open if volume[0].suffix == ".gz" else open)(volume[0], "rb") as src, open(img, "wb") as dst:
+            shutil.copyfileobj(src, dst)
+    else:
+        ods("init", img, "--size", "100M", "--label", "VPTIN", "--ods5")
+    # A volume given may have them already.
+    mkdir = lambda spec: subprocess.run([ODS, "mkdir", img, spec], check=not volume, capture_output=bool(volume))
+    mkdir("[T]")
     com = ["$ SET NOON"]
     for area in areas:
         d = area.upper()
-        ods("mkdir", img, f"[T.{d}]")
+        mkdir(f"[T.{d}]")
         com.append(f"$ SET DEFAULT DKA200:[T.{d}]")
         for verb, rest in area_steps(area):
             if verb == "in":
