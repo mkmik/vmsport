@@ -1,0 +1,90 @@
+@@ system
+@@ ICONVMSG
+@@ SORTMSG
+001C8000 %SORT-W-MISS_KEY, OBS
+001C8008 %SORT-W-WORK_DEV, work file !AS must be on random-access local device
+001C8010 %SORT-W-NO_WRK, work files required, cannot do sort in memory as requested
+001C8018 %SORT-W-VM_FAIL, OBS
+001C8020 %SORT-W-WS_FAIL, OBS
+001C8028 %SORT-W-SORT_ON, sort or merge routines called in incorrect order
+001C8030 %SORT-W-BAD_KEY, invalid key specification
+001C8038 %SORT-W-NUM_KEY, too many keys specified
+001C8040 %SORT-W-BAD_LEN, OBS
+001C8048 %SORT-W-ONE_IN, OBS
+001C8050 %SORT-W-IND_OVR, indexed output file must already exist
+001C8058 %SORT-W-INCONSIS, OBS
+001C8060 %SORT-W-VAR_FIX, records may be truncated or padded in output file: !/	!AS
+001C8068 %SORT-W-BAD_TYPE, invalid sort process specified
+001C8070 %SORT-W-LRL_MISS, longest record length must be specified
+001C8078 %SORT-W-BAD_SPEC, ?invalid specification file record, field: !AS
+001C8080 %SORT-W-BAD_LRL, record length (!UL) greater than specified longest record length
+001C8088 %SORT-W-BAD_FILE, OBS
+001C8090 %SORT-W-BAD_ADR, OBS
+001C8098 %SORT-W-MAP, OBS
+001C80A0 %SORT-W-EXTEND, unable to extend work file for needed space
+001C80A8 %SORT-W-KEY_LEN, invalid key length, key number !SL, length !SL
+001C80B0 %SORT-W-CLEAN_UP, OBS
+001C80B8 %SORT-W-BAD_MERGE, number of work files must be between 0 and 10
+001C80C0 %SORT-W-BAD_ROUTIN, OBS
+001C80C8 %SORT-W-INP_FILES, too many input files specified
+001C80D0 %SORT-W-BAD_ORDER, merge input is out of order
+001C80D8 %SORT-W-DUP_OUTPUT, output file has already been specified
+001C80E0 %SORT-W-MISS_PARAM, a required subroutine parameter is missing
+001C80E8 %SORT-W-END_SORT, sort/merge terminated, context = !XL
+001C80F0 %SORT-W-KEYED, mismatch between sort/merge keys and primary file key
+001C80F8 %SORT-W-BAD_SRL, record length (!UL) is too short to contain keys
+001C8100 %SORT-W-NODUPEXC, equal-key routine and no-duplicates option cannot both be specified
+001C8108 %SORT-W-DELETE1, delete the first record from the sort
+001C8110 %SORT-W-DELETE2, delete the second record from the sort
+001C8118 %SORT-W-DELBOTH, delete both records from the sort
+001C8120 %SORT-W-NYI, functionality is not yet implemented
+001C8128 %SORT-W-RTNERROR, unexpected error status from user-written routine
+001C8130 %SORT-W-KEYAMBINC, key specification is ambiguous or inconsistent
+001C8138 %SORT-W-OBS_0, OBS
+001C8140 %SORT-W-ROPRAND, utility converted a reserved operand to a valid value
+001C8148 %SORT-W-UNDOPTION, undefined option flag was set
+001C8150 %SORT-W-STABLEEXC, equal-key routine and stable option cannot both be specified
+001C8158 %SORT-W-SRTIWA, insufficient space; specification file is too complex
+001C8160 %SORT-W-SPCOVR, overridden specification, at line !UL
+001C8168 %SORT-W-SPCMIS, invalid merge specification, at line !UL
+001C8170 %SORT-W-SPCSIS, invalid sort specification, at line !UL
+001C8178 %SORT-W-SPCIVP, invalid sort process, at line !UL
+001C8180 %SORT-W-SPCIVS, invalid specification, at line !UL
+001C8188 %SORT-W-SPCIVC, invalid collating sequence specification, at line !UL
+001C8190 %SORT-W-SPCIVF, invalid field specification, at line !UL
+001C8198 %SORT-W-SPCIVD, invalid data type, at line !UL
+001C81A0 %SORT-W-SPCIVX, invalid condition specification, at line !UL
+001C81A8 %SORT-W-SPCIVK, invalid key or data specification, at line !UL
+001C81B0 %SORT-W-SPCIVI, invalid include or omit specification, at line !UL
+001C81B8 %SORT-W-INCNOKEY, include specification references no keys, at line !UL
+001C81C0 %SORT-W-INCNODATA, include specification references no data, at line !UL
+001C81C8 %SORT-W-INVFOLD, FOLD has no meaning in this context, at line !UL
+001C81D0 %SORT-W-OPERFAIL, error requesting operator service
+001C81D8 %SORT-W-REQ_ALT, specify alternate !AC file (or nothing to simply try again)!/SORT> 
+001C81E0 %SORT-W-USE_ALT, using alternate !AC file !AS
+001C81E8 %SORT-W-COL_ADJ, 
+001C81F0 %SORT-W-COL_CMPLX, collating sequence is too complex
+001C81F8 %SORT-W-COL_CHAR, invalid character definition
+001C8200 %SORT-W-COL_PAD, invalid pad character
+001C8208 %SORT-W-COL_THREE, cannot define 3-byte collating values
+001C8210 %SORT-W-BADDTYPE, invalid or unsupported CDD data type
+001C8218 %SORT-W-BADLENOFF, length and offset must be multiples of 8 bits
+001C8220 %SORT-W-BADOCCURS, invalid OCCURS clause
+001C8228 %SORT-W-BADOVRLAY, invalid overlay structure
+001C8230 %SORT-W-BADPROTCL, node is an invalid CDD object
+001C8238 %SORT-W-CDDERROR, CDD error at node !AS
+001C8240 %SORT-W-ILLBASE, nondecimal base is invalid
+001C8248 %SORT-W-ILLLITERL, record containing symbolic literals is unsupported
+001C8250 %SORT-W-ILLSCALE, nonzero scale invalid for floating-point data item
+001C8258 %SORT-W-INCDIGITS, number of digits is not consistent with the type or length of item
+001C8260 %SORT-W-MISLENOFF, length and offset required
+001C8268 %SORT-W-MULTIDIM, invalid multidimensional OCCURS
+001C8270 %SORT-W-NOTRECORD, node !AS is a !AS, not a record definition
+001C8278 %SORT-W-SIGNCOMPQ, absolute date and time data type represented in 1-second units
+001C8280 %SORT-W-UNSUPLEVL, unsupported core level for record !AS
+001C8288 %SORT-W-ENDDIAGS, completed with diagnostics
+001C8290 %SORT-W-OPREPLY, operator reply is "!AS"
+001C8298 %SORT-W-CHKPNT, checkpoint taken at !%D
+001C82A0 %SORT-W-ODD_LEN, length must be a multiple of 2 bytes
+001C82A8 %SORT-W-HS_NYI, attempted to call a routine not available in HYPERSORT, use SORT32 instead
+@@ end

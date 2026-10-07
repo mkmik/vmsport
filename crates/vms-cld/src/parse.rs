@@ -622,7 +622,7 @@ impl Parser {
             // The qualifier that switched syntax: still in $LINE, gone from
             // the new parse.
             let start = c.i;
-            if c.eat('=') {
+            if c.eat('=') || c.eat(':') {
                 if c.eat('(') {
                     while c.peek().is_some_and(|ch| ch != ')') {
                         c.i += 1;
@@ -644,7 +644,8 @@ impl Parser {
         }
         let mut values = None;
         let mut typed_line = format!("/{name}");
-        if c.eat('=') {
+        // DCL takes a colon for the equals sign: /KEY=(POSITION:9,SIZE:4).
+        if c.eat('=') || c.eat(':') {
             let Some(v) = q.value.as_ref().filter(|_| !negated) else {
                 return Err(err("NOVALU", Some(format!("{name}="))));
             };
@@ -785,7 +786,7 @@ impl Parser {
             return Err(err("NOTNEG", Some(name)));
         }
         let mut values = Vec::new();
-        if c.eat('=') {
+        if c.eat('=') || c.eat(':') {
             let Some(v) = k.value.as_ref().filter(|_| !negated) else {
                 return Err(err("NOVALU", Some(format!("{name}="))));
             };

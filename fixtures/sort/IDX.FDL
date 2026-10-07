@@ -1,0 +1,18 @@
+FILE
+	ORGANIZATION		indexed
+RECORD
+	CARRIAGE_CONTROL	carriage_return
+	FORMAT			variable
+	SIZE			40
+KEY 0
+	CHANGES			no
+	DUPLICATES		yes
+	SEG0_LENGTH		8
+	SEG0_POSITION		0
+	TYPE			string
+KEY 1
+	CHANGES			yes
+	DUPLICATES		yes
+	SEG0_LENGTH		4
+	SEG0_POSITION		8
+	TYPE			string

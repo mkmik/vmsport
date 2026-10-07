@@ -219,6 +219,125 @@ logical-name
  Format
 
    CONTINUE
+1 CONVERT
+ Copies the records of one or more files into a file of the
+ organization and record format you choose: sequential, relative or
+ indexed, fixed, variable, controlled or stream. The output is described
+ by an FDL file, or else has the attributes of the first input. Records
+ that the output can't take (too long, too short, out of order, a
+ duplicate key that isn't allowed) are exceptions: each is reported with
+ a %CONVERT-I message, and the rest go on.
+
+ Format
+
+   CONVERT input-file-spec[,...] output-file-spec
+2 Parameters
+input-file-spec[,...]
+
+ The files whose records are copied, in order, of any organization.
+
+output-file-spec
+
+ The file the records go to: a new version unless /NOCREATE, /APPEND or
+ /MERGE say to use the one that exists.
+2 Qualifiers
+/FDL
+
+    /FDL=fdl-file-spec
+
+ Describes the output (its FILE, RECORD, AREA and KEY sections); the
+ default type is .FDL.
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ With /NOCREATE, the records go into the existing output, which keeps
+ its attributes. A sequential output can only take them when it is
+ empty: otherwise there is RMS-F-NEF.
+/APPEND
+ Adds the records at the end of an existing sequential output.
+/MERGE
+ Inserts the records among those of an existing indexed output, by key.
+/PAD
+
+    /PAD[=character]
+
+ Fills records too short for a fixed-length output, with NUL or the
+ character given (a letter, or %X2A and the like). Without /PAD they are
+ exceptions.
+/TRUNCATE
+ Cuts records longer than the output's maximum record size. Without it
+ they are exceptions.
+/EXCEPTIONS_FILE
+
+    /EXCEPTIONS_FILE[=file-spec]
+
+ Keeps the exception records, as they were read, in the file given
+ (default type .EXC), or shows them on SYS$OUTPUT when no file is given.
+/SORT
+
+    /SORT (default)
+    /NOSORT
+
+ Sorts the records by the primary key before loading an indexed output.
+ With /NOSORT (and when the input is itself indexed) records out of
+ order are exceptions.
+/FAST_LOAD
+
+    /FAST_LOAD (default)
+    /NOFAST_LOAD
+
+ Loads an indexed output from sorted records. With /NOFAST_LOAD each
+ record is put as a program would put it, and records too short for the
+ keys are reported as RMS reports them.
+/STATISTICS
+
+    /STATISTICS[=BRIEF|FULL]
+
+ Shows how many files, records and exceptions there were, and the time
+ taken.
+/KEY
+
+    /KEY=n
+
+ Accepted; records of an indexed input are read by the primary key.
+/EXIT
+ Accepted; vmsport goes on after exceptions.
+/FILL_BUCKETS
+ Accepted.
+/FIXED_CONTROL
+ Accepted.
+/PROLOG
+
+    /PROLOG=n
+
+ Accepted.
+/READ_CHECK
+ Accepted.
+/SECONDARY
+
+    /SECONDARY=n
+
+ Accepted.
+/SHARE
+ Accepted.
+/WORK_FILES
+
+    /WORK_FILES=n
+
+ Accepted; vmsport sorts in memory.
+/WRITE_CHECK
+ Accepted.
+2 Examples
+ 1.$ CONVERT/FDL=FIXED.FDL/PAD/TRUNCATE NOTES.TXT NOTES.DAT
+
+   Makes NOTES.DAT a file of the fixed-length records FIXED.FDL
+   describes, padding short lines and cutting long ones.
+
+ 2.$ CONVERT/FDL=PARTS.FDL PARTS.TXT PARTS.IDX
+
+   Loads an indexed file from a text file, sorted by its primary key.
 1 COPY
  Copies files, record by record, keeping their record attributes
  (record format and carriage control, in the vms.fab extended
@@ -998,6 +1117,97 @@ prompt-string
  Accepted; no logout message is shown.
 /FULL
  Accepted; no accounting is shown.
+1 MERGE
+ Merges files already in order by their keys into one file in that
+ order. Each input is checked: a record before the one that came before
+ it in the same input is reported (%SORT-W-BAD_ORDER) and still merged.
+
+ Format
+
+   MERGE input-file-spec,input-file-spec[,...] output-file-spec
+2 Parameters
+input-file-spec[,...]
+
+ The sorted files. When keys are equal, the record of the earlier input
+ comes first.
+
+output-file-spec
+
+ The file the merged records go to.
+2 Qualifiers
+/KEY
+
+    /KEY=(POSITION:n,SIZE:n[,type][,order][,NUMBER:n])
+
+ A key: where it starts in the record (POSITION, from 1) and how long it
+ is (SIZE: bytes, or digits for decimal keys). Give one /KEY for each
+ key; the first is the most significant, unless NUMBER says otherwise.
+ Without /KEY, the whole record is the key. The type is CHARACTER (the
+ default; a key past the end of a record is padded with NULs), BINARY
+ (an integer of 1, 2, 4 or 8 bytes, SIGNED by default or UNSIGNED),
+ DECIMAL or ZONED (one digit a byte, the sign overpunched on the last
+ unless LEADING_SIGN and SEPARATE_SIGN say otherwise) or PACKED_DECIMAL.
+ The order is ASCENDING (the default) or DESCENDING.
+/STABLE
+ Keeps records with equal keys in the order they were read. Without it
+ they come out in the order VMS's sort leaves them, which vmsport
+ follows for small files.
+/DUPLICATES
+
+    /DUPLICATES (default)
+    /NODUPLICATES
+
+ With /NODUPLICATES, only one record of each key value is kept.
+/STATISTICS
+ Shows the counts of records read, sorted and written, and the sizes the
+ sort worked with.
+/COLLATING_SEQUENCE
+
+    /COLLATING_SEQUENCE=sequence
+
+ Accepted; keys are compared as ASCII.
+/SPECIFICATION
+
+    /SPECIFICATION=file-spec
+
+ Accepted; vmsport takes keys from /KEY only.
+/FORMAT
+
+    /FORMAT=(FIXED:n | VARIABLE:n | CONTROLLED:n)
+
+ After the output: its record format and size. Longer records are cut,
+ and fixed-length ones are padded with NULs.
+/SEQUENTIAL
+ After the output: a sequential file (the default).
+/RELATIVE
+ After the output: a relative file.
+/INDEXED_SEQUENTIAL
+ After the output: an indexed file, which must exist (with /OVERLAY).
+/OVERLAY
+ After the output: write into the existing file, which keeps its
+ attributes, rather than a new version.
+/ALLOCATION
+
+    /ALLOCATION=n
+
+ After the output: accepted.
+/BUCKET_SIZE
+
+    /BUCKET_SIZE=n
+
+ After the output: accepted.
+/CONTIGUOUS
+ After the output: accepted.
+/CHECK_SEQUENCE
+
+    /CHECK_SEQUENCE (default)
+    /NOCHECK_SEQUENCE
+
+ Reports records out of order in an input.
+2 Examples
+ 1.$ MERGE/KEY=(POSITION:1,SIZE:8) JAN.TXT,FEB.TXT YEAR.TXT
+
+   Merges two files sorted by their first eight characters.
 1 MOUNT
  Makes a Files-11 disk image (ODS-2 or ODS-5, as INITIALIZE or the ods
  tool make it, or as copied from a VMS system) a device, so its files can
@@ -1554,6 +1764,102 @@ logical-name
 2 Logical_Names
  A device may be a logical name: SYS$LOGIN:NOTES.TXT. A name alone may
  be a logical name for a whole spec. See Logical_Names.
+1 SORT
+ Puts the records of one or more files in order by their keys and
+ writes them to a new file: sequential and like the first input by
+ default, or of the organization and format given after the output.
+ The inputs can be of any organization.
+
+ Format
+
+   SORT input-file-spec[,...] output-file-spec
+2 Parameters
+input-file-spec[,...]
+
+ The files whose records are sorted, together.
+
+output-file-spec
+
+ The file the sorted records go to.
+2 Qualifiers
+/KEY
+
+    /KEY=(POSITION:n,SIZE:n[,type][,order][,NUMBER:n])
+
+ A key: where it starts in the record (POSITION, from 1) and how long it
+ is (SIZE: bytes, or digits for decimal keys). Give one /KEY for each
+ key; the first is the most significant, unless NUMBER says otherwise.
+ Without /KEY, the whole record is the key. The type is CHARACTER (the
+ default; a key past the end of a record is padded with NULs), BINARY
+ (an integer of 1, 2, 4 or 8 bytes, SIGNED by default or UNSIGNED),
+ DECIMAL or ZONED (one digit a byte, the sign overpunched on the last
+ unless LEADING_SIGN and SEPARATE_SIGN say otherwise) or PACKED_DECIMAL.
+ The order is ASCENDING (the default) or DESCENDING.
+/STABLE
+ Keeps records with equal keys in the order they were read. Without it
+ they come out in the order VMS's sort leaves them, which vmsport
+ follows for small files.
+/DUPLICATES
+
+    /DUPLICATES (default)
+    /NODUPLICATES
+
+ With /NODUPLICATES, only one record of each key value is kept.
+/STATISTICS
+ Shows the counts of records read, sorted and written, and the sizes the
+ sort worked with.
+/COLLATING_SEQUENCE
+
+    /COLLATING_SEQUENCE=sequence
+
+ Accepted; keys are compared as ASCII.
+/SPECIFICATION
+
+    /SPECIFICATION=file-spec
+
+ Accepted; vmsport takes keys from /KEY only.
+/FORMAT
+
+    /FORMAT=(FIXED:n | VARIABLE:n | CONTROLLED:n)
+
+ After the output: its record format and size. Longer records are cut,
+ and fixed-length ones are padded with NULs.
+/SEQUENTIAL
+ After the output: a sequential file (the default).
+/RELATIVE
+ After the output: a relative file.
+/INDEXED_SEQUENTIAL
+ After the output: an indexed file, which must exist (with /OVERLAY).
+/OVERLAY
+ After the output: write into the existing file, which keeps its
+ attributes, rather than a new version.
+/ALLOCATION
+
+    /ALLOCATION=n
+
+ After the output: accepted.
+/BUCKET_SIZE
+
+    /BUCKET_SIZE=n
+
+ After the output: accepted.
+/CONTIGUOUS
+ After the output: accepted.
+/PROCESS
+
+    /PROCESS=RECORD|TAG|ADDRESS|INDEX
+
+ RECORD and TAG write the records. ADDRESS writes each record's RFA (6
+ bytes: block and byte offset), INDEX its RFA and keys.
+/WORK_FILES
+
+    /WORK_FILES=n
+
+ Accepted; vmsport sorts in memory.
+2 Examples
+ 1.$ SORT/KEY=(POSITION:9,SIZE:4,DESCENDING) PARTS.TXT BYQTY.TXT
+
+   Sorts PARTS.TXT by the four characters from column 9, largest first.
 1 SPAWN
  Runs a command, or a session of commands, in a DCL subprocess. The
  subprocess gets this process's symbols, process logical names and

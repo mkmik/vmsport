@@ -1,0 +1,21 @@
+! CONVERT's own messages, which it shows as CONVERT (its shared ones show
+! as CONV, the system's name for facility 178), and the FDL message it
+! uses. CREA_ERR and OPENFDL have VMS's numbers (fixtures/sort); the
+! others' numbers are vmsport's.
+	.TITLE		CONVERT	CONVERT messages
+	.FACILITY	CONVERT,178 /SYSTEM
+	.SEVERITY	FATAL
+	.BASE		14
+CREA_ERR	<error creating work file !AS> /FAO=1
+	.SEVERITY	INFORMATIONAL
+	.BASE		100
+RTS		<record too short for fixed record format file>
+RTL		<record longer than maximum record length>
+RSK		<record shorter than primary key>
+SEQ		<record not in order>
+DUP		<duplicate key encountered>
+RSZ		<invalid record size>
+	.FACILITY	FDL,180 /SYSTEM
+	.SEVERITY	FATAL
+	.BASE		17
+OPENFDL		<error opening !AS> /FAO=1

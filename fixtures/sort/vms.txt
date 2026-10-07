@@ -1,0 +1,79 @@
+# SORT, MERGE and CONVERT: keys, orders, formats and organizations of the
+# output, exceptions, statistics and errors; the output files' blocks and
+# attributes.
+in IN.TXT
+in B.TXT
+in NUM.TXT
+in FIX20.FDL
+in REL.FDL
+in SEQ.FDL
+in STM.FDL
+in IDX.FDL
+in IDXND.FDL
+in SORT.COM
+in CONVERT.COM
+in GEN.COM
+in STATS.COM
+in MSGS.COM
+run @SORT.COM/OUTPUT=SORT.LOG
+run @CONVERT.COM/OUTPUT=CONVERT.LOG
+run @STATS.COM/OUTPUT=STATS.LOG
+run @MSGS.COM/OUTPUT=MSGS.LOG
+text SORT.LOG recorded/SORT.log
+text CONVERT.LOG recorded/CONVERT.log
+text STATS.LOG recorded/STATS.log
+text MSGS.LOG recorded/MSGS.log
+text SG10.DAT recorded/SG10.txt
+text SG20.DAT recorded/SG20.txt
+text SG34.DAT recorded/SG34.txt
+text SG35.DAT recorded/SG35.txt
+text SG100.DAT recorded/SG100.txt
+text SG300.DAT recorded/SG300.txt
+text SG1K.DAT recorded/SG1K.txt
+text SH100.DAT recorded/SH100.txt
+text SK100.DAT recorded/SK100.txt
+text SG3.DAT recorded/SG3.txt
+text SG1.DAT recorded/SG1.txt
+text SG100S.DAT recorded/SG100S.txt
+text SG100N.DAT recorded/SG100N.txt
+text SG100D.DAT recorded/SG100D.txt
+text SG100K.DAT recorded/SG100K.txt
+text SG100W.DAT recorded/SG100W.txt
+text SG100B.DAT recorded/SG100B.txt
+text SG100Z.DAT recorded/SG100Z.txt
+text SG100T.DAT recorded/SG100T.txt
+text MM.DAT recorded/MM.txt
+text SID.DAT recorded/SID.txt
+text SIK.DAT recorded/SIK.txt
+text SIB.DAT recorded/SIB.txt
+text SIP.DAT recorded/SIP.txt
+blocks S1.DAT recorded/S1.DAT
+blocks S16.DAT recorded/S16.DAT
+blocks S17.DAT recorded/S17.DAT
+blocks S18.DAT recorded/S18.DAT
+blocks S19.DAT recorded/S19.DAT
+blocks S20.DAT recorded/S20.DAT
+blocks S21.DAT recorded/S21.DAT
+blocks S23.DAT recorded/S23.DAT
+blocks S14.DAT recorded/S14.DAT
+blocks S15.DAT recorded/S15.DAT
+blocks M3.DAT recorded/M3.DAT
+blocks C1.DAT recorded/C1.DAT
+blocks C3.DAT recorded/C3.DAT
+blocks C4.DAT recorded/C4.DAT
+blocks C5.EXC recorded/C5.EXC
+blocks C7.DAT recorded/C7.DAT
+blocks C8.DAT recorded/C8.DAT
+blocks C9.DAT recorded/C9.DAT
+blocks C10.DAT recorded/C10.DAT
+blocks C11.DAT recorded/C11.DAT
+blocks C12.DAT recorded/C12.DAT
+blocks C13.DAT recorded/C13.DAT
+blocks C15.DAT recorded/C15.DAT
+blocks C16.DAT recorded/C16.DAT
+blocks C17.DAT recorded/C17.DAT
+blocks C18.DAT recorded/C18.DAT
+blocks C19.DAT recorded/C19.DAT
+blocks C21.DAT recorded/C21.DAT
+blocks C22.DAT recorded/C22.DAT
+manifest *.* recorded/ods-manifest.json
