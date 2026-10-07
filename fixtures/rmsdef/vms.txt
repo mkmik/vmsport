@@ -1,0 +1,3 @@
+in RMSDEF.COM
+run @RMSDEF.COM/OUTPUT=RMSDEF.LOG
+text RMSDEF.LOG recorded/rmsdef.log

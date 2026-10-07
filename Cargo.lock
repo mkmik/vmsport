@@ -107,6 +107,9 @@ dependencies = [
 [[package]]
 name = "vms-rms"
 version = "0.1.0"
+dependencies = [
+ "vms-cond",
+]
 
 [[package]]
 name = "vms-time"

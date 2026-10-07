@@ -31,6 +31,11 @@ pub enum Rfm {
 }
 
 /// Record attribute bits (`FAB$V_FTN` ...).
+mod blocks;
+pub mod status;
+
+pub use blocks::{Area, Blocks, Design, KeyDesc, KeyType, Rfa, Segment};
+
 pub mod rat {
     pub const FTN: u8 = 1;
     pub const CR: u8 = 2;
