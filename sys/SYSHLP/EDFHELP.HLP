@@ -1,4 +1,4 @@
-1 Abstract
+1 ABSTRACT
 
      The FDL editor (EDIT/FDL) writes FDL files: the file definitions
      that CREATE/FDL and CONVERT/FDL make files from. You can edit a
@@ -22,7 +22,7 @@
      Format
 
        ADD
-2 Example
+2 EXAMPLE
 
      Main Editor Function: ADD
      Enter Desired Primary: FILE
@@ -36,7 +36,7 @@
      Format
 
        DELETE
-2 Example
+2 EXAMPLE
 
      Main Editor Function: DELETE
      Enter Desired Primary: FILE
@@ -50,7 +50,7 @@
      Format
 
        EXIT
-2 Example
+2 EXAMPLE
 
      Main Editor Function: EXIT
 1 HELP
@@ -61,7 +61,7 @@
      Format
 
        HELP
-2 Example
+2 EXAMPLE
 
      Main Editor Function: HELP
      Topic? INVOKE
@@ -88,7 +88,7 @@
      Format
 
        INVOKE
-2 Example
+2 EXAMPLE
 
      Main Editor Function: INVOKE
      Editing Script Title: INDEXED
@@ -99,32 +99,32 @@
      Format
 
        MODIFY
-2 Example
+2 EXAMPLE
 
      Main Editor Function: MODIFY
      Enter Desired Primary: RECORD
      Enter RECORD Attribute: SIZE
      Enter value for this Secondary: 80
-1 Operation
+1 OPERATION
 
      The editor asks one question at a time. Each shows what it takes
      (keywords, a range of numbers, Yes/No) and the answer Return gives,
      in brackets; [-] means there is no such answer and you must give
      one. Keywords can be shortened while they stay unambiguous.
-2 Files
+2 FILES
 
      The definition is read from the file named on the command line (a
      new one is started if it doesn't exist) and written there as a new
      version, or to /OUTPUT. /ANALYSIS names the output of
      ANALYZE/RMS_FILE/FDL for the OPTIMIZE script.
-2 Prompt-level
+2 PROMPT-LEVEL
 
      The questions come with short explanations when an answer isn't
      accepted.
-2 Question-format
+2 QUESTION-FORMAT
 
      Question                        (what it takes)[default]        :
-2 Control_Characters
+2 CONTROL_CHARACTERS
 
      Ctrl/Z at a question goes back to the main menu, dropping what a
      script had asked so far; at the main menu it is EXIT. "?" at a
@@ -136,7 +136,7 @@
      Format
 
        QUIT
-2 Example
+2 EXAMPLE
 
      Main Editor Function: QUIT
 1 SET
@@ -148,7 +148,7 @@
      Format
 
        SET
-2 Example
+2 EXAMPLE
 
      Main Editor Function: SET
      Editor characteristic: OUTPUT
@@ -159,6 +159,6 @@
      Format
 
        VIEW
-2 Example
+2 EXAMPLE
 
      Main Editor Function: VIEW

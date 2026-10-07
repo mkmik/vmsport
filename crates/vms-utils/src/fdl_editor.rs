@@ -471,13 +471,10 @@ impl Editor<'_> {
                 }
             });
             match f {
-                None => return self.exit(c),
+                None => return self.exit(c, false),
                 Some("VIEW") => self.view(c),
                 Some("HELP") => self.help(c),
-                Some("EXIT") => {
-                    c.say("\n");
-                    return self.exit(c);
-                }
+                Some("EXIT") => return self.exit(c, true),
                 Some("QUIT") => {
                     c.say("\n");
                     return Ending::Quit;
@@ -512,9 +509,16 @@ impl Editor<'_> {
         f
     }
 
-    fn exit(&self, c: &mut impl Console) -> Ending {
-        if self.fdl.sections.iter().all(|s| s.name == "IDENT") {
-            c.say("\n\t\x07Output not created - Current FDL Definition empty.\n");
+    /// EXIT (`command`) or Ctrl/Z at the main menu.
+    fn exit(&self, c: &mut impl Console, command: bool) -> Ending {
+        let empty = self.fdl.sections.iter().all(|s| s.name == "IDENT");
+        c.say(match (empty, command) {
+            (true, true) => "\n\n\t\x07Output not created - Current FDL Definition empty.\n",
+            (true, false) => "\t\x07Output not created - Current FDL Definition empty.\n",
+            (false, true) => "\n",
+            (false, false) => "",
+        });
+        if empty {
             return Ending::Empty;
         }
         let mut f = self.with_ident();

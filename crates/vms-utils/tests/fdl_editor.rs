@@ -431,3 +431,23 @@ fn optimize_add_key_touchup_delete_key() {
     replay_full(log, "/SCRIPT=ADD_KEY A1.FDL", 0, Some(IDX), None, false);
     replay_full(log, "/SCRIPT=TOUCHUP T1.FDL", 0, Some(IDX), None, false);
 }
+
+#[test]
+fn first_probe() {
+    let log = "recorded/probe3.log";
+    replay(log, " IDX.FDL", Some(IDX));
+    for cmd in [
+        "/SCRIPT=INDEXED S1.FDL",
+        "/SCRIPT=SEQUENTIAL S2.FDL",
+        "/SCRIPT=RELATIVE S3.FDL",
+    ] {
+        replay(log, cmd, None);
+    }
+    replay(log, "/SCRIPT=DELETE_KEY DK.FDL", Some(IDX));
+    // Scripts left with Ctrl/Z: VMS writes the areas they had begun.
+    let opt = "/SCRIPT=OPTIMIZE/ANALYSIS=IDXA.FDL OPT.FDL";
+    replay_full(log, opt, 0, Some(IDX), Some(IDXA), false);
+    for cmd in ["/SCRIPT=ADD_KEY AK.FDL", "/SCRIPT=TOUCHUP TU.FDL"] {
+        replay_full(log, cmd, 0, Some(IDX), None, false);
+    }
+}
