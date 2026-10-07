@@ -1,0 +1,6 @@
+! The FDL editor's messages (EDF). DEVCLASS has the code VMS returned
+! (fixtures/edf: %X00B3800C).
+	.TITLE		EDF	FDL editor messages
+	.FACILITY	EDF,179 /SYSTEM
+	.SEVERITY	FATAL
+DEVCLASS	<device class of SYS$INPUT must be terminal>

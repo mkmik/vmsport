@@ -1,0 +1,309 @@
+SET DEFAULT SYS$LOGIN
+CREATE/DIRECTORY [.EDP3]
+SET DEFAULT [.EDP3]
+CREATE IDX.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+@@CTRLZ
+CREATE SETUP.COM
+$ CREATE/FDL=IDX.FDL IDX.DAT
+$ OPEN/READ/WRITE f IDX.DAT
+$ n = 1
+$l:
+$ k = n * 37 - (n * 37 / 1009) * 1009
+$ WRITE f F$FAO("ID!6ZLCITY!6ZL!46AS", k, k - (k / 50) * 50, "x")
+$ n = n + 1
+$ IF n .LE. 1000 THEN GOTO l
+$ CLOSE f
+$ ANALYZE/RMS_FILE/FDL/OUTPUT=IDXA.FDL IDX.DAT
+$ COPY IDX.FDL OPT.FDL
+$ COPY IDX.FDL AK.FDL
+$ COPY IDX.FDL DK.FDL
+$ COPY IDX.FDL TU.FDL
+@@CTRLZ
+@SETUP
+@@KEY EDIT/FDL IDX.FDL
+@@KEY VIEW
+@@KEY HELP
+@@KEY Abstract
+@@KEY Operation
+@@KEY 
+@@KEY SET
+@@KEY 
+@@KEY MODIFY
+@@KEY 
+@@KEY ADD
+@@KEY 
+@@KEY DELETE
+@@KEY 
+@@KEY INVOKE
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL NEW.FDL
+@@KEY VIEW
+@@KEY EXIT
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL/SCRIPT=INDEXED S1.FDL
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL/SCRIPT=SEQUENTIAL S2.FDL
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL/SCRIPT=RELATIVE S3.FDL
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL/SCRIPT=OPTIMIZE/ANALYSIS=IDXA.FDL OPT.FDL
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL/SCRIPT=ADD_KEY AK.FDL
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL/SCRIPT=DELETE_KEY DK.FDL
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+@@KEY EDIT/FDL/SCRIPT=TOUCHUP TU.FDL
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY 
+@@KEY ^Z
+@@KEY ^Z
+SHOW SYMBOL $STATUS
+DIRECTORY
+TYPE S1.FDL;*
+TYPE S2.FDL;*
+TYPE S3.FDL;*
+TYPE OPT.FDL;*
+TYPE AK.FDL;*
+TYPE DK.FDL;*
+TYPE TU.FDL;*
+TYPE NEW.FDL;*
+TYPE IDX.FDL;*

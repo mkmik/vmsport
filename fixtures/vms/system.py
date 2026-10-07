@@ -17,7 +17,8 @@ For programs that want a terminal (the FDL editor refuses anything else),
 while. The program is started the same way (`@@KEY EDIT/FDL X.FDL`), and
 the next plain line goes to DCL again. `@@AUTO [VALUE...]` answers the FDL
 editor's questions up to its main menu: the VALUEs (then 1000) where there
-is no default, FD where a design asks for a parameter, Return elsewhere.
+is no default, FD where a design asks for a parameter, Return elsewhere;
+with stop=WORD it stops at the first question with WORD in it.
 
 The console log from the first command on goes to
 fixtures/AREA/recorded/NAME.log. run-vms.py boots a copy-on-write clone of
@@ -66,11 +67,12 @@ def drive(runvms, system, cmdfile, log):
         # finish a design; Return else. A question asked a third time in a
         # row gets Ctrl/Z.
         given = dict(v.split("=", 1) for v in line[6:].split())
+        stop = given.pop("stop", None)
         seen = []
         for _ in range(200):
             lines = self.buf.rstrip(" ").split("\n")
             prompt = lines[-1]
-            if "Main Editor Function" in prompt or prompt.endswith("$"):
+            if "Main Editor Function" in prompt or prompt.endswith("$") or stop and stop in prompt:
                 return
             seen = (seen + [prompt])[-3:]
             if len(seen) == 3 and len(set(seen)) == 1:
@@ -92,6 +94,9 @@ def drive(runvms, system, cmdfile, log):
                 typed(self, listed[1] if listed else "1000")
 
     m.Console.dcl = key
+    # A console that stops echoing (AXPbox's does now and then) fails the
+    # run in minutes, not an hour, and main() tries again.
+    m.CMD_TIMEOUT = 300
     # As run-vms.py's own main: a kill still stops the emulator and its clone.
     signal.signal(signal.SIGTERM, lambda *_: sys.exit("terminated"))
     m.run(pathlib.Path(cmdfile).read_text(encoding="utf-8").splitlines(), log, system)

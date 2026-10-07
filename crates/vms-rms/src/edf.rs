@@ -82,19 +82,9 @@ pub fn optimize(input: &Fdl, analysis: &Fdl, granularity: u8, now: &str) -> Outc
             };
             let rc = yes(key, "DATA_RECORD_COMPRESSION", true);
             let drc = percent(stats, "DATA_RECORD_COMPRESSION");
-            let rest = len.saturating_sub(klen);
-            let datapart = if rc {
-                (rest * (100 - drc)).div_ceil(100)
-            } else {
-                rest
-            };
-            let overhead =
-                9 + if kc { 2 } else { 0 } + if rc { 3 } else { 0 } + if var { 2 } else { 0 };
-            // A bucket holds the largest record, uncompressed.
-            let largest = size.max(len) + 9 + if var { 2 } else { 0 };
             (
-                keypart + datapart + overhead,
-                (largest + DATA_OVERHEAD).div_ceil(512),
+                record_size(klen, len, kc.then_some(dkc), rc.then_some(drc), var),
+                min_bucket(size.max(len), var),
                 rc,
             )
         } else {
@@ -104,7 +94,7 @@ pub fn optimize(input: &Fdl, analysis: &Fdl, granularity: u8, now: &str) -> Outc
                 true => num(Some(stats), "DUPLICATES_PER_SIDR").unwrap_or(0),
                 false => 0,
             };
-            ((22 * dps + keypart + 13).div_ceil(dps + 1), 1, false)
+            (sidr_size(keypart, dps), 1, false)
         };
         let plan = plan(entry, klen + 4, n, fill, bmin, cluster, adjust);
         parts.push((plan, fill));
@@ -205,6 +195,68 @@ pub fn optimize(input: &Fdl, analysis: &Fdl, granularity: u8, now: &str) -> Outc
     Outcome::Fdl(out)
 }
 
+/// The bytes EDF counts for a data record: the key and the rest of a
+/// record `len` long, each compressed by its percentage (`None`: no such
+/// compression), and the overheads.
+pub fn record_size(
+    klen: u32,
+    len: u32,
+    key_comp: Option<u32>,
+    rec_comp: Option<u32>,
+    var: bool,
+) -> u32 {
+    let squeeze = |n: u32, pct: Option<u32>| pct.map_or(n, |p| (n * (100 - p)).div_ceil(100));
+    let overhead = 9
+        + if key_comp.is_some() { 2 } else { 0 }
+        + if rec_comp.is_some() { 3 } else { 0 }
+        + if var { 2 } else { 0 };
+    squeeze(klen, key_comp) + squeeze(len.saturating_sub(klen), rec_comp) + overhead
+}
+
+/// An alternate key's SIDR entry: the key and a record pointer; with
+/// `dps` duplicates, as if each took 22 bytes and shared the key.
+pub fn sidr_size(keypart: u32, dps: u32) -> u32 {
+    (22 * dps + keypart + 13).div_ceil(dps + 1)
+}
+
+/// The smallest bucket holding the largest record, uncompressed.
+pub fn min_bucket(largest: u32, var: bool) -> u32 {
+    (largest + 9 + if var { 2 } else { 0 } + DATA_OVERHEAD).div_ceil(512)
+}
+
+/// The index levels `n` entries of `size` bytes make in buckets of
+/// `bks` blocks filled to `fill` percent, index entries `entry` bytes:
+/// `None` when such buckets don't hold them.
+pub fn depth(size: u32, entry: u32, n: u32, fill: u32, bks: u32) -> Option<u32> {
+    levels(size, entry, n, fill, bks).map(|l| l.0)
+}
+
+/// The SEQUENTIAL script's allocation and extension for `n` records of
+/// `mean` bytes in `format` (`variable`, `fixed`...).
+pub fn sequential_space(n: u64, format: &str, mean: u64) -> (u64, u64) {
+    let bytes = mean
+        + match format {
+            "variable" => 2,
+            _ => 0,
+        };
+    let alloc = (n * bytes + 256) / 512;
+    (alloc, alloc / 10)
+}
+
+/// The RELATIVE script's bucket size, allocation and extension for `n`
+/// records of at most `max` bytes in `format`, on a disk of `cluster`
+/// blocks: a bucket of 16 cells or so, cluster-sized; the prologue block.
+pub fn relative_space(n: u64, format: &str, max: u64, cluster: u32) -> (u32, u64, u64) {
+    let cell = 1 + max + if format == "fixed" { 0 } else { 2 };
+    let up = |x: u64, m: u64| x.div_ceil(m) * m;
+    let bks = up((16 * cell).div_ceil(512), cluster as u64).min(63) as u32;
+    let per = (u64::from(bks) * 512 / cell).max(1);
+    let buckets = n.div_ceil(per);
+    let alloc = up(buckets * u64::from(bks) + 1, cluster as u64);
+    let ext = up(buckets.div_ceil(4) * u64::from(bks), cluster as u64);
+    (bks, alloc, ext)
+}
+
 #[derive(Clone, Default)]
 struct Area {
     allocation: u32,
@@ -224,33 +276,35 @@ struct Plan {
 /// `entry` bytes at `fill` percent: the smallest with the fewest index
 /// levels (one level only up to FLAT_LIMIT blocks); then, if `adjust`,
 /// one up to half as big again whose multiple with the cluster is least.
+fn levels(size: u32, entry: u32, n: u32, fill: u32, b: u32) -> Option<(u32, Plan)> {
+    let usable = |overhead: u32| u64::from(512 * b - overhead) * u64::from(fill);
+    let per_bucket = (usable(DATA_OVERHEAD) / (100 * u64::from(size))) as u32;
+    let per_index = (usable(INDEX_OVERHEAD) / (100 * u64::from(entry))) as u32;
+    if per_bucket == 0 || per_index < 2 {
+        return None;
+    }
+    let data = n.div_ceil(per_bucket);
+    let (mut levels, mut index, mut x) = (0, 0, data);
+    loop {
+        x = x.div_ceil(per_index);
+        levels += 1;
+        index += x;
+        if x <= 1 {
+            break;
+        }
+    }
+    Some((
+        levels,
+        Plan {
+            bks: b,
+            data: data * b,
+            index: index * b,
+        },
+    ))
+}
+
 fn plan(size: u32, entry: u32, n: u32, fill: u32, bmin: u32, cluster: u32, adjust: bool) -> Plan {
-    let at = |b: u32| -> Option<(u32, Plan)> {
-        let usable = |overhead: u32| u64::from(512 * b - overhead) * u64::from(fill);
-        let per_bucket = (usable(DATA_OVERHEAD) / (100 * u64::from(size))) as u32;
-        let per_index = (usable(INDEX_OVERHEAD) / (100 * u64::from(entry))) as u32;
-        if per_bucket == 0 || per_index < 2 {
-            return None;
-        }
-        let data = n.div_ceil(per_bucket);
-        let (mut levels, mut index, mut x) = (0, 0, data);
-        loop {
-            x = x.div_ceil(per_index);
-            levels += 1;
-            index += x;
-            if x <= 1 {
-                break;
-            }
-        }
-        Some((
-            levels,
-            Plan {
-                bks: b,
-                data: data * b,
-                index: index * b,
-            },
-        ))
-    };
+    let at = |b: u32| levels(size, entry, n, fill, b);
     let options: Vec<(u32, Plan)> = (bmin.max(1)..=MAX_BUCKET)
         .filter_map(at)
         .filter(|(levels, p)| *levels > 1 || p.bks <= FLAT_LIMIT)

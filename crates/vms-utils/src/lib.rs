@@ -1,5 +1,6 @@
 //! What the utilities share: their command, file lists, messages.
 
+pub mod fdl_editor;
 pub mod sort;
 
 use libvms::image::Image;
