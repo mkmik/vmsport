@@ -147,3 +147,28 @@ fn hostname() -> String {
         String::from_utf8_lossy(&buf[..buf.iter().position(|&b| b == 0).unwrap_or(0)]).to_string();
     s.split('.').next().unwrap_or("").to_ascii_uppercase()
 }
+
+/// A line from stdin, read a byte at a time: whatever follows stays there
+/// for the images and subprocesses that share the input.
+pub fn read_line() -> Option<String> {
+    use std::io::Read;
+    // SAFETY: borrows descriptor 0, which we don't close.
+    let mut f = std::mem::ManuallyDrop::new(unsafe {
+        <std::fs::File as std::os::fd::FromRawFd>::from_raw_fd(0)
+    });
+    let mut buf = Vec::new();
+    let mut b = [0u8];
+    loop {
+        match f.read(&mut b) {
+            Ok(1) if b[0] == b'\n' => break,
+            Ok(1) => buf.push(b[0]),
+            _ if buf.is_empty() => return None,
+            _ => break,
+        }
+    }
+    Some(
+        String::from_utf8_lossy(&buf)
+            .trim_end_matches('\r')
+            .to_string(),
+    )
+}

@@ -43,6 +43,11 @@ fn main() {
             }
             st
         }
+        // A Unix path works too: dcl ~/bin/backup.com
+        Some(file) if file.contains('/') => {
+            let spec = libvms::vms_spec(std::path::Path::new(file));
+            dcl.execute(&spec, &args[1..])
+        }
         Some(file) => dcl.execute(file, &args[1..]),
         None => {
             login(&mut dcl);

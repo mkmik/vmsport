@@ -82,6 +82,11 @@ impl Topic {
         self.key.starts_with('/')
     }
 
+    /// All its subtopics are qualifiers: a `Qualifiers` topic.
+    fn holds_qualifiers(&self) -> bool {
+        !self.subtopics.is_empty() && self.subtopics.iter().all(Topic::is_qualifier)
+    }
+
     /// Qualifier keys under this topic: its own, and those under a
     /// subtopic that holds them (`2 Qualifiers`).
     fn qualifiers(&self) -> Vec<&Topic> {
@@ -208,12 +213,10 @@ impl Help {
         let mut names: Vec<&str> = Vec::new();
         for t in topics.iter().filter(|t| !t.is_qualifier()) {
             names.push(&t.key);
-            names.extend(
-                t.subtopics
-                    .iter()
-                    .filter(|q| q.is_qualifier())
-                    .map(|q| q.key.as_str()),
-            );
+            // A Qualifiers topic's qualifiers follow it.
+            if t.holds_qualifiers() {
+                names.extend(t.subtopics.iter().map(|q| q.key.as_str()));
+            }
         }
         names.extend(
             topics
@@ -262,14 +265,17 @@ impl Help {
         } else {
             out.push(String::new());
             t.text.iter().for_each(|l| out.push(indent(2 * d, l)));
-            for q in t.subtopics.iter().filter(|q| q.is_qualifier()) {
-                out.push(indent(2 * d, &q.key));
-                q.text.iter().for_each(|l| out.push(indent(2 * d, l)));
+            // A Qualifiers topic shows its qualifiers in full.
+            if t.holds_qualifiers() {
+                for q in &t.subtopics {
+                    out.push(indent(2 * d, &q.key));
+                    q.text.iter().for_each(|l| out.push(indent(2 * d, l)));
+                }
             }
         }
         out.push(String::new());
-        let subs: Vec<&Topic> = t.subtopics.iter().filter(|s| !s.is_qualifier()).collect();
-        if list && !subs.is_empty() {
+        if list && !t.subtopics.is_empty() && !t.holds_qualifiers() {
+            let subs: Vec<&Topic> = t.subtopics.iter().collect();
             self.available(out, 2 * d, &subs, "Additional information available:");
         }
     }
@@ -387,13 +393,10 @@ impl Help {
     }
 
     /// `TOPIC...`: the topic and everything under it, without lists.
-    fn everything<'a>(&self, out: &mut Out, path: &[&'a Topic]) {
+    fn everything(&self, out: &mut Out, path: &[&Topic]) {
         self.display(out, path, false);
-        for s in path[path.len() - 1]
-            .subtopics
-            .iter()
-            .filter(|s| !s.is_qualifier())
-        {
+        let t = path[path.len() - 1];
+        for s in t.subtopics.iter().filter(|_| !t.holds_qualifiers()) {
             let mut p = path.to_vec();
             p.push(s);
             self.everything(out, &p);

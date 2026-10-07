@@ -402,6 +402,13 @@ impl Image {
             }
         };
         let tables = vms_cld::compile(&tables).expect("command tables");
+        if let Some(lines) = crate::help::for_command(&session, &tables, &line) {
+            lines.iter().for_each(|l| println!("{l}"));
+            if let Some(c) = ctx {
+                c.finish(Cond(1));
+            }
+            std::process::exit(0);
+        }
         let command = match vms_cld::parse(&tables, &line) {
             Ok(c) => c,
             Err(e) => {
@@ -440,6 +447,12 @@ impl Image {
 pub fn shell_line(t: &vms_cld::Tables) -> String {
     let mut line = t.verbs.first().map_or(String::new(), |v| v.name.clone());
     for a in std::env::args().skip(1) {
+        // Unix habit: --help and -h are /HELP.
+        let a = if a == "--help" || a == "-h" {
+            "/HELP".to_string()
+        } else {
+            a
+        };
         line.push(' ');
         if !a.contains(char::is_whitespace) {
             line.push_str(&a);

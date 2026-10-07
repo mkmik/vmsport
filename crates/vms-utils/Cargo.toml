@@ -12,6 +12,7 @@ vms-filespec = { path = "../vms-filespec" }
 vms-msg = { path = "../vms-msg" }
 vms-rms = { path = "../vms-rms" }
 vms-time = { path = "../vms-time" }
+vms-help = { path = "../vms-help" }
 
 [dev-dependencies]
 vmsportd = { path = "../vmsportd" }

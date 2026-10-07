@@ -14,3 +14,4 @@ vms-cld = { path = "../vms-cld" }
 vms-time = { path = "../vms-time" }
 vmsportd = { path = "../vmsportd" }
 vms-fao = { path = "../vms-fao" }
+vms-help = { path = "../vms-help" }

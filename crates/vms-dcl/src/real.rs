@@ -43,30 +43,7 @@ impl RecordFile for Io {
 
 struct Terminal;
 
-/// A line from stdin, read a byte at a time: whatever follows stays there
-/// for the images and subprocesses that share the input.
-pub fn read_line() -> Option<String> {
-    use std::io::Read;
-    // SAFETY: borrows descriptor 0, which we don't close.
-    let mut f = std::mem::ManuallyDrop::new(unsafe {
-        <std::fs::File as std::os::fd::FromRawFd>::from_raw_fd(0)
-    });
-    let mut buf = Vec::new();
-    let mut b = [0u8];
-    loop {
-        match f.read(&mut b) {
-            Ok(1) if b[0] == b'\n' => break,
-            Ok(1) => buf.push(b[0]),
-            _ if buf.is_empty() => return None,
-            _ => break,
-        }
-    }
-    Some(
-        String::from_utf8_lossy(&buf)
-            .trim_end_matches('\r')
-            .to_string(),
-    )
-}
+pub use libvms::sys::read_line;
 
 struct Stderr;
 
@@ -359,6 +336,10 @@ impl Host for RealHost {
                 _ => {}
             }
         }
+    }
+
+    fn command_help(&mut self, tables: &vms_cld::Tables, line: &str) -> Option<Vec<String>> {
+        libvms::help::for_command(&self.session, tables, line)
     }
 
     fn dcl_path(&mut self, verb: &str) -> Option<(String, bool)> {

@@ -10,7 +10,7 @@ mod cld;
 mod parse;
 
 pub use cld::compile;
-pub use parse::{Error, ParseResult, parse};
+pub use parse::{Error, ParseResult, find_verb, parse};
 
 use vms_cond::Cond;
 

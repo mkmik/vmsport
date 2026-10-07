@@ -116,6 +116,8 @@ pub trait Host {
     fn start(&mut self, what: Child, launch: Launch) -> Result<libvms::image::Child, Cond>;
     /// Applies the process logical names a child changed.
     fn apply(&mut self, changes: &[Change]);
+    /// What a command with /HELP shows (`None`: no /HELP in it).
+    fn command_help(&mut self, tables: &vms_cld::Tables, line: &str) -> Option<Vec<String>>;
     /// DCL$PATH: where an unknown verb might be, a procedure or a program.
     fn dcl_path(&mut self, verb: &str) -> Option<(String, bool)>;
 

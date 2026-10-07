@@ -248,7 +248,9 @@ pub fn parse(tables: &Tables, line: &str) -> Result<ParseResult, Error> {
     Err(err("IVQUAL", None))
 }
 
-fn find_verb<'t>(tables: &'t Tables, typed: &str) -> Result<&'t Syntax, Error> {
+/// The verb `typed` names: exactly, or by its first four characters (or
+/// fewer, if unique), as DCL finds verbs.
+pub fn find_verb<'t>(tables: &'t Tables, typed: &str) -> Result<&'t Syntax, Error> {
     let t = typed.to_ascii_uppercase();
     let names = || {
         tables.verbs.iter().flat_map(|v| {

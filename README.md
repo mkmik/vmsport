@@ -12,6 +12,8 @@ target/debug/dcl LOGIN.COM P1 P2                  # @LOGIN.COM
 target/debug/directory /size '[.crates]'          # a utility, from zsh
 target/debug/vmsport path SYS\$LOGIN:NOTES.TXT     # VMS spec to host path
 target/debug/lnm DATA=HOST:[tmp.data.]            # a job logical name
+target/debug/help directory /size                 # HELP, from zsh too
+target/debug/directory --help                     # any command's /HELP
 ```
 
 The first program to need logical names starts `vmsportd`, the per-user
@@ -34,14 +36,15 @@ device `HOST:`; `SYS$LOGIN` is your home directory.
 | `vmsportd` | the daemon and its client |
 | `libvms` | the host side: specs to paths, versions, `$SEARCH`, files, images |
 | `vms-dcl` | DCL, and the `dcl` binary |
-| `vms-utils` | `directory`, `type`, `copy`, `delete`, `purge`, `search` |
+| `vms-help` | help libraries (`.HLP`), HELP's lookups, pages and prompts |
+| `vms-utils` | `directory`, `type`, `copy`, `delete`, `purge`, `search`, `help` |
 | `vmsport` | `vmsport path`/`spec`/`cdu`, and `lnm` |
 | `vms-c` | the C ABI: `libvms` with `cli$present`, `lib$get_symbol`, ... and `include/` ([docs/design/m2.md](docs/design/m2.md)) |
 | `vms-examples` | `greet`: one CLD, a Rust and a C program (`examples/greet`) |
 
 The `vms-*` cores are pure (no host I/O). `sys/` holds what VMS keeps in
-SYS$SYSROOT: the command tables (`SYSLIB/DCLTABLES`) and the system messages
-(`SYSMSG`).
+SYS$SYSROOT: the command tables (`SYSLIB/DCLTABLES`), the system messages
+(`SYSMSG`) and the help library (`SYSHLP/HELPLIB.HLP`).
 
 `cargo test` checks the crates against [fixtures](fixtures/README.md)
 recorded on OpenVMS Alpha V8.4-2L1, among them DCL procedures whose output

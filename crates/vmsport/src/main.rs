@@ -71,19 +71,5 @@ fn path(spec: &str) -> Result<String, String> {
 }
 
 fn spec(p: &Path) -> String {
-    let abs = std::path::absolute(p).unwrap_or_else(|_| p.to_path_buf());
-    if abs.is_dir() {
-        return vmsportd::host_dir(&abs, false);
-    }
-    let dir = vmsportd::host_dir(abs.parent().unwrap_or(Path::new("/")), false);
-    let file = abs
-        .file_name()
-        .map(|f| f.to_string_lossy().to_string())
-        .unwrap_or_default();
-    let (name, typ, ver) = libvms::split_host(&file);
-    format!(
-        "{dir}{}.{};{ver}",
-        vms_filespec::escape(&name),
-        vms_filespec::escape(&typ)
-    )
+    libvms::vms_spec(p)
 }

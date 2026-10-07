@@ -853,6 +853,13 @@ impl Dcl {
     }
 
     fn command_line(&mut self, line: &str) -> Result<Option<Cond>, DclError> {
+        // Any command with /HELP shows its help instead.
+        if let Some(lines) = self.host.command_help(&self.tables, line) {
+            for l in lines {
+                self.print(&l);
+            }
+            return Ok(Some(NORMAL));
+        }
         let r = match vms_cld::parse(&self.tables, line) {
             Ok(r) => r,
             // Not a verb: DCL$PATH may have a procedure or program for it.

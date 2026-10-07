@@ -7,6 +7,7 @@
 
 pub mod cli;
 pub mod files;
+pub mod help;
 pub mod image;
 pub mod sys;
 
@@ -580,6 +581,26 @@ pub fn wild(s: &str, pat: &str) -> bool {
     m(
         &s.chars().collect::<Vec<_>>(),
         &pat.chars().collect::<Vec<_>>(),
+    )
+}
+
+/// The VMS spec of a host path: `HOST:[Users.mkm]NOTES.TXT;3` (a
+/// directory as `HOST:[Users.mkm.src]`).
+pub fn vms_spec(p: &Path) -> String {
+    let abs = std::path::absolute(p).unwrap_or_else(|_| p.to_path_buf());
+    if abs.is_dir() {
+        return vmsportd::host_dir(&abs, false);
+    }
+    let dir = vmsportd::host_dir(abs.parent().unwrap_or(Path::new("/")), false);
+    let file = abs
+        .file_name()
+        .map(|f| f.to_string_lossy().to_string())
+        .unwrap_or_default();
+    let (name, typ, ver) = split_host(&file);
+    format!(
+        "{dir}{}.{};{ver}",
+        vms_filespec::escape(&name),
+        vms_filespec::escape(&typ)
     )
 }
 

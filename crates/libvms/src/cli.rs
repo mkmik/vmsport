@@ -76,6 +76,14 @@ pub fn dcl_parse(command: Option<&str>, tables: &str) -> Cond {
             ),
             (None, None) => shell_line(&t),
         };
+        // From a shell, /HELP (or --help) shows the command's help and ends.
+        if s.ctx.is_none()
+            && let Ok(session) = crate::Session::new()
+            && let Some(lines) = crate::help::for_command(&session, &t, &line)
+        {
+            lines.iter().for_each(|l| println!("{l}"));
+            std::process::exit(0);
+        }
         match vms_cld::parse(&t, &line) {
             Ok(r) => {
                 s.command = Some(r);
