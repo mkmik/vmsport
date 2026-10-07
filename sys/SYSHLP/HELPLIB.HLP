@@ -720,8 +720,11 @@ file-spec
  than in a new version of the one edited.
 /READ_ONLY
  Shows the file in the editor and saves nothing.
+/HOST
+ Edits in the host's editor ($VISUAL, $EDITOR or vi), whatever EDIT's
+ default.
 /TPU
- Accepted: vmsport has no EVE or TPU of its own, and uses the host's
+ Accepted: vmsport has no EVE or TPU of its own yet, and uses the host's
  editor.
 /EDT
  Accepted, as /TPU.

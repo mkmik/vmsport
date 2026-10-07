@@ -13,6 +13,7 @@ pub mod image;
 pub mod mount;
 pub mod rms;
 pub mod sys;
+pub mod term;
 
 use std::path::{Path, PathBuf};
 use vms_cond::Cond;
