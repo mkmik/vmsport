@@ -18,6 +18,8 @@
 //! FLAGS some of `a` (no_alias), `c` (confine), `t` (table); each EQUIV
 //! `FLAGS:text` with `c` (concealed) and `t` (terminal).
 
+pub mod locks;
+
 use std::cell::RefCell;
 use std::io::{self, BufRead, BufReader, Write};
 use std::os::unix::fs::DirBuilderExt;
@@ -179,6 +181,30 @@ fn system_names(tables: &mut Vec<Table>) {
 }
 
 /// One request against the shared tables. `None` for `stop`.
+/// `enq MODE RESOURCE [noqueue]`, `cvt ID MODE [noqueue]`, `deq ID`:
+/// answered `ok ID %Xstatus` or `err %Xstatus`. `None`: not a lock request.
+fn lock_request(m: &locks::Manager, owner: u64, line: &str) -> Option<String> {
+    let f: Vec<&str> = line.split('\t').collect();
+    let noqueue = f.last() == Some(&"noqueue");
+    let reply = |r: Result<(u32, Cond), Cond>| match r {
+        Ok((id, st)) => format!("ok\t{id}\t%X{:08X}\n", st.0),
+        Err(st) => format!("err\t%X{:08X}\n", st.0),
+    };
+    let mode = |s: &str| locks::Mode::parse(s).ok_or(Cond(0x14));
+    Some(match f[..] {
+        ["enq", md, res, ..] => reply(mode(md).and_then(|md| m.enq(owner, &unescape(res), md, noqueue))),
+        ["cvt", id, md, ..] => {
+            let id: u32 = id.parse().unwrap_or(0);
+            reply(mode(md).and_then(|md| m.convert(owner, id, md, noqueue)).map(|st| (id, st)))
+        }
+        ["deq", id] => {
+            let id: u32 = id.parse().unwrap_or(0);
+            reply(m.deq(owner, id).map(|st| (id, st)))
+        }
+        _ => return None,
+    })
+}
+
 fn handle(tables: &Mutex<Vec<Table>>, line: &str) -> Option<String> {
     let f: Vec<&str> = line.split('\t').collect();
     let mut t = tables.lock().unwrap();
@@ -231,15 +257,29 @@ pub fn serve(dir: &Path) -> io::Result<()> {
     let mut tables = vms_lnm::system_tables();
     system_names(&mut tables);
     let tables = Arc::new(Mutex::new(tables));
-    for conn in listener.incoming() {
+    let locks = Arc::new(locks::Manager::default());
+    for (owner, conn) in (1u64..).zip(listener.incoming()) {
         let Ok(conn) = conn else { continue };
         let tables = tables.clone();
+        let locks = locks.clone();
         let sock = sock.clone();
         std::thread::spawn(move || {
             let mut w = conn.try_clone().unwrap();
+            // The process's locks go with its connection.
+            struct Release(Arc<locks::Manager>, u64);
+            impl Drop for Release {
+                fn drop(&mut self) {
+                    self.0.release(self.1);
+                }
+            }
+            let _release = Release(locks.clone(), owner);
             for line in BufReader::new(conn).lines() {
                 let Ok(line) = line else { return };
-                match handle(&tables, &line) {
+                let resp = match lock_request(&locks, owner, &line) {
+                    Some(r) => Some(r),
+                    None => handle(&tables, &line),
+                };
+                match resp {
                     Some(resp) => {
                         if w.write_all(format!("{resp}\n").as_bytes()).is_err() {
                             return;
@@ -371,6 +411,36 @@ impl Client {
             }
         }
         Ok((job, group))
+    }
+
+    fn lock(&self, line: &str) -> Result<(u32, Cond), Cond> {
+        let resp = self.request(line).map_err(|_| SS_ABORT)?;
+        let f: Vec<&str> = resp.first().map(|l| l.split('\t').collect()).unwrap_or_default();
+        let code = |c: &str| u32::from_str_radix(c.trim_start_matches("%X"), 16).map(Cond);
+        match f[..] {
+            ["ok", id, c] => Ok((id.parse().map_err(|_| SS_ABORT)?, code(c).map_err(|_| SS_ABORT)?)),
+            ["err", c] => Err(code(c).map_err(|_| SS_ABORT)?),
+            _ => Err(SS_ABORT),
+        }
+    }
+
+    /// `$ENQW`: a lock on `resource` in `mode`, waiting for it unless
+    /// `noqueue` (then SS$_NOTQUEUED). The lock lasts until [`Client::deq`]
+    /// or this connection closes. Returns its ID and SS$_SYNCH or SS$_NORMAL.
+    pub fn enq(&self, resource: &str, mode: locks::Mode, noqueue: bool) -> Result<(u32, Cond), Cond> {
+        let nq = if noqueue { "\tnoqueue" } else { "" };
+        self.lock(&format!("enq\t{mode:?}\t{}{nq}", escape(resource)))
+    }
+
+    /// `$ENQW` with LCK$M_CONVERT.
+    pub fn convert(&self, id: u32, mode: locks::Mode, noqueue: bool) -> Result<Cond, Cond> {
+        let nq = if noqueue { "\tnoqueue" } else { "" };
+        self.lock(&format!("cvt\t{id}\t{mode:?}{nq}")).map(|r| r.1)
+    }
+
+    /// `$DEQ`.
+    pub fn deq(&self, id: u32) -> Result<Cond, Cond> {
+        self.lock(&format!("deq\t{id}")).map(|r| r.1)
     }
 
     /// Asks the daemon to exit.

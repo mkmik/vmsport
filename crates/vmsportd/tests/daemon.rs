@@ -97,3 +97,28 @@ fn concurrent_clients_start_one_daemon() {
     c.stop().unwrap();
     let _ = std::fs::remove_dir_all(&d);
 }
+
+#[test]
+fn locks_between_processes() {
+    use vmsportd::locks::{self, Mode::*};
+    let d = dir("locks");
+    let a = connect(&d);
+    let b = connect(&d);
+    let (_, st) = a.enq("VPT$FILE", PR, false).unwrap();
+    assert_eq!(st, locks::SYNCH);
+    assert_eq!(b.enq("VPT$FILE", EX, true), Err(locks::NOTQUEUED));
+    let (rb, _) = b.enq("VPT$FILE", CR, false).unwrap();
+    assert_eq!(b.convert(rb, PW, true), Err(locks::NOTQUEUED));
+    // b waits for EX; a going away lets it through.
+    let waiter = std::thread::spawn(move || {
+        let st = b.convert(rb, EX, false);
+        (b, st)
+    });
+    std::thread::sleep(std::time::Duration::from_millis(50));
+    drop(a);
+    let (b, st) = waiter.join().unwrap();
+    assert_eq!(st, Ok(locks::NORMAL));
+    assert_eq!(b.deq(rb), Ok(locks::NORMAL));
+    assert_eq!(b.deq(rb), Err(locks::IVLOCKID));
+    b.stop().unwrap();
+}
