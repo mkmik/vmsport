@@ -301,7 +301,9 @@ output-file-spec
 
     /KEY=n
 
- Accepted; records of an indexed input are read by the primary key.
+ Reads an indexed input in the order of its key n (0, the primary
+ key, by default). An indexed input isn't sorted again: loaded into an
+ indexed output by another key, records out of order are exceptions.
 /EXIT
  Accepted; vmsport goes on after exceptions.
 /FILL_BUCKETS

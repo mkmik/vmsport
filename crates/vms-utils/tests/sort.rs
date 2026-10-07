@@ -11,18 +11,22 @@ fn fixtures() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fixtures/sort")
 }
 
-/// Sections that differ, and why.
-const KNOWN: &[(&str, &str)] = &[
-    // VMS drops duplicates inside its sort tree, keeping others.
-    ("SORT noduplicates", ""),
-    // The tree VMS sizes for decimal keys; a key no record holds.
-    ("SORT decimal", ""),
-    // CREATE/FDL, and indexed files.
-    ("SORT overlay", ""),
-    ("CONVERT indexed", ""),
-    ("CONVERT merge", ""),
-    ("CONVERT statistics", ""),
-];
+/// Sections that differ: VMS drops duplicates inside its sort tree,
+/// keeping others; it sizes the tree otherwise for decimal keys.
+const KNOWN: &[&str] = &["SORT noduplicates", "SORT decimal"];
+
+/// Which of two records with equal keys CONVERT keeps in a file that
+/// takes no duplicates: the order its sort leaves them in (C13, C14).
+fn mask_duplicates(s: &str) -> String {
+    [
+        "apple   0100 a",
+        "apple   0007 d",
+        "banana  0012 b",
+        "banana  0012 f",
+    ]
+    .iter()
+    .fold(s.to_string(), |s, r| s.replace(r, &r[..8]))
+}
 
 /// `@@ name` sections of a log.
 fn sections(log: &str) -> Vec<(String, String)> {
@@ -52,12 +56,11 @@ fn mask(s: &str) -> String {
     for f in fields {
         let mut done = 0;
         while let Some(i) = out[done..].find(f) {
+            // The value and the blanks that align it.
             let start = done + i + f.len();
             let end = out[start..]
                 .find(|c: char| !(c.is_ascii_digit() || " \t:.".contains(c)))
                 .map_or(out.len(), |e| start + e);
-            // Keep the tab before a next field.
-            let end = out[start..end].rfind('\t').map_or(end, |t| start + t);
             out.replace_range(start..end, " *");
             done = start;
         }
@@ -143,13 +146,18 @@ fn sort_and_convert_as_vms() {
             String::from_utf8_lossy(&got),
         );
         let (want, got) = (sections(&mask(&want)), sections(&mask(&got)));
+        let fix = |n: &str, t: &str| match n {
+            "indexed" if name == "CONVERT" => mask_duplicates(t),
+            _ => t.to_string(),
+        };
         assert_eq!(
             want.iter().map(|s| &s.0).collect::<Vec<_>>(),
             got.iter().map(|s| &s.0).collect::<Vec<_>>(),
             "{name} sections"
         );
         for ((n, w), (_, g)) in want.iter().zip(&got) {
-            if w != g && !KNOWN.iter().any(|k| k.0 == format!("{name} {n}")) {
+            let (w, g) = (fix(n, w), fix(n, g));
+            if w != g && !KNOWN.contains(&format!("{name} {n}").as_str()) {
                 failures.push(format!("{name} @@ {n}:\n--- VMS\n{w}--- vmsport\n{g}"));
             }
         }
@@ -189,8 +197,134 @@ fn sort_and_convert_as_vms() {
             failures.push(format!("{name}: attributes {ours:?}, VMS {vms:?}"));
         }
     }
+    // Indexed files: VMS's records in every key's order, and its prologue
+    // byte for byte (ponytail: the buckets differ where vms_rms::idx lays
+    // them out otherwise: fast loads, duplicate keys, fixed records'
+    // compression). C13 keeps the other duplicates (see above).
+    const RFMS: [Rfm; 7] = [
+        Rfm::Udf,
+        Rfm::Fix,
+        Rfm::Var,
+        Rfm::Vfc,
+        Rfm::Stm,
+        Rfm::Stmlf,
+        Rfm::Stmcr,
+    ];
+    for name in [
+        "C10", "C11", "C12", "C13", "C14", "C15", "C16", "C19", "C21", "S21",
+    ] {
+        // The file VMS checked (fixtures/sortback).
+        let ours = dir.join(format!("{name}.DAT;1"));
+        let got = std::fs::read(&ours).unwrap_or_default();
+        let back = fixtures().join(format!("../sortback/ours/{name}.DAT"));
+        if std::fs::read(&back).ok().as_ref() != Some(&got) {
+            failures.push(format!(
+                "{name}: not the file VMS checked (fixtures/sortback)"
+            ));
+        }
+        // VMS's own (not recorded for C14).
+        if name == "C14" {
+            continue;
+        }
+        let e = manifest.entry(&format!("{name}.DAT"));
+        let vms = tmp.join(format!("VMS{name}.DAT;1"));
+        let want = std::fs::read(fixtures().join(format!("recorded/{name}.DAT"))).unwrap();
+        std::fs::write(&vms, &want).unwrap();
+        let fab = Fab {
+            org: vms_rms::Org::Idx,
+            rfm: RFMS[e.rtype as usize & 15],
+            rat: e.rattrib,
+            mrs: e.maxrec,
+            lrl: e.rsize,
+            fsz: e.vfcsize,
+            bks: e.bktsize,
+            deq: 0,
+        };
+        libvms::sys::set_xattr(&vms, vms_rms::XATTR, fab.to_string().as_bytes()).unwrap();
+        // C13's records are compared by their keys alone.
+        let n = if name == "C13" { 8 } else { usize::MAX };
+        let cut = |r: Vec<Vec<u8>>| -> Vec<Vec<u8>> {
+            r.into_iter()
+                .map(|r| r[..n.min(r.len())].to_vec())
+                .collect()
+        };
+        for key in 0..2 {
+            if cut(records(&ours, key)) != cut(records(&vms, key)) {
+                failures.push(format!("{name}: records by key {key} differ"));
+            }
+        }
+        if name != "C13" && got.get(..1536) != want.get(..1536) {
+            failures.push(format!("{name}: prologue differs"));
+        }
+    }
     let _ = std::fs::remove_dir_all(&tmp);
     assert!(failures.is_empty(), "{}", failures.join("\n"));
+}
+
+/// What VMS made of the indexed files SORT and CONVERT made here
+/// (fixtures/sortback, which `sort_and_convert_as_vms` checks they still
+/// are): ANALYZE/RMS_FILE/CHECK found no errors, and DCL read the records
+/// vmsport reads, by every key.
+#[test]
+fn vms_checks_our_indexed_files() {
+    let back = fixtures().join("../sortback");
+    let log = std::fs::read(back.join("recorded/SORTBACK.log")).unwrap();
+    let log = String::from_utf8_lossy(&log);
+    for (name, body) in log.split("@@ ").skip(1).filter_map(|s| s.split_once('\n')) {
+        if name == "end" {
+            continue;
+        }
+        let chk = std::fs::read_to_string(back.join(format!("recorded/{name}.CHK"))).unwrap();
+        assert!(chk.contains("The analysis uncovered NO errors."), "{name}");
+        let path =
+            std::env::temp_dir().join(format!("vpt-back-{}-{name}.DAT;1", std::process::id()));
+        std::fs::copy(back.join(format!("ours/{name}.DAT")), &path).unwrap();
+        let attrs = std::fs::read_to_string(back.join("ours/ods-manifest.json")).unwrap();
+        let e = serde_like::Manifest::of(attrs).entry(&format!("{name}.DAT"));
+        let rfm = [Rfm::Udf, Rfm::Fix, Rfm::Var, Rfm::Vfc][e.rtype as usize & 15];
+        let fab = Fab {
+            org: vms_rms::Org::Idx,
+            rfm,
+            rat: e.rattrib,
+            mrs: e.maxrec,
+            lrl: e.rsize,
+            bks: e.bktsize,
+            ..Fab::default()
+        };
+        libvms::sys::set_xattr(&path, vms_rms::XATTR, fab.to_string().as_bytes()).unwrap();
+        for (k, keyed) in body.split("@ key ").skip(1).enumerate() {
+            let vms: Vec<&str> = keyed
+                .lines()
+                .skip(1)
+                .filter(|l| !l.starts_with('%'))
+                .collect();
+            // READ/KEY=" "/MATCH=GE starts past keys below a blank (the
+            // keys at 0 and 8 of IDX.FDL and IDXND.FDL).
+            let at = [0, 8][k];
+            let ours: Vec<String> = records(&path, k as u8)
+                .iter()
+                .filter(|r| r.get(at).is_none_or(|b| *b >= b' '))
+                .map(|r| String::from_utf8_lossy(r).into_owned())
+                .collect();
+            assert_eq!(ours, vms, "{name} by key {k}");
+        }
+        let _ = std::fs::remove_file(&path);
+    }
+}
+
+/// An indexed file's records in the order of `key` (none if it has no
+/// such key).
+fn records(path: &Path, key: u8) -> Vec<Vec<u8>> {
+    let fab = libvms::files::fab(path);
+    let b = libvms::rms::HostBlocks::new(std::fs::File::open(path).unwrap()).unwrap();
+    let mut f = vms_rms::idx::File::new(b, fab.rfm == Rfm::Fix, fab.mrs);
+    let mut out = Vec::new();
+    let mut at = f.first(key);
+    while let Ok(found) = at {
+        out.push(found.record.clone());
+        at = f.next(&found.at);
+    }
+    out
 }
 
 /// The orders VMS's sort gave equal keys (fixtures/sort/recorded/S*.txt),
@@ -246,6 +380,10 @@ mod serde_like {
     }
 
     impl Manifest {
+        pub fn of(text: String) -> Manifest {
+            Manifest(text)
+        }
+
         pub fn entry(&self, name: &str) -> Entry {
             let at = self
                 .0
