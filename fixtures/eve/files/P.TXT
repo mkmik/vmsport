@@ -1,0 +1,5 @@
+This is a paragraph
+of short lines that
+FILL should join.
+
+Second paragraph here.

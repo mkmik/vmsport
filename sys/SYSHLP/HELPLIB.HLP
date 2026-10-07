@@ -685,12 +685,14 @@ device-name[:]
 
  The device, as MOUNT named it (DKA100:).
 1 EDIT
- Edits a text file in the host's editor: $VISUAL, else $EDITOR, else vi.
- What the editor leaves is saved as a new version of the file; if
- nothing changed, nothing is written. A file that isn't plain (stream_LF)
- text is edited as its records, one per line, and saved in its record
- format.
+ Edits a text file in EVE, the editor EDIT runs on VMS (EDIT/TPU): a
+ screen with the text above a status line, keys for moving and editing,
+ and commands typed after the Do key. Exiting saves what changed as a new
+ version of the file; quitting saves nothing. Press Help in EVE for its
+ keys.
 
+ EDIT/HOST edits in the host's editor instead ($VISUAL, $EDITOR or vi);
+ put EDIT :== EDIT/HOST in your LOGIN.COM to make that the default.
  EDIT/FDL is the FDL editor, of which vmsport has only the part that runs
  without a terminal (see EDIT /FDL).
 
@@ -710,22 +712,77 @@ file-spec
     /CREATE (default)
     /NOCREATE
 
- Edits a new file when the one named doesn't exist; with /NOCREATE that
- is an error.
+ Edits a new file when the one named doesn't exist; with /NOCREATE EVE
+ says the file isn't there and ends.
 /OUTPUT
 
     /OUTPUT=file-spec
 
- Saves what the editor leaves in this file (a new version of it) rather
- than in a new version of the one edited.
+ Saves the edited file in this file (a new version of it) rather than in
+ a new version of the one edited.
 /READ_ONLY
- Shows the file in the editor and saves nothing.
+ Shows the file and lets nothing change it: the same as /NOWRITE
+ /NOMODIFY.
+/WRITE
+
+    /WRITE (default)
+    /NOWRITE
+
+ With /NOWRITE, exiting doesn't save the file (the status line says
+ Read-only); it can still be changed.
+/MODIFY
+
+    /MODIFY (default)
+    /NOMODIFY
+
+ With /NOMODIFY the file can't be changed (Unmodifiable).
+/DISPLAY
+
+    /DISPLAY (default)
+    /NODISPLAY
+
+ With /NODISPLAY there is no screen: EVE runs the initialization file's
+ commands, says what they say, and exits, saving what changed. That makes
+ EVE usable from command procedures.
+/INITIALIZATION
+
+    /INITIALIZATION[=file-spec]
+    /NOINITIALIZATION
+
+ EVE commands to run at the start, one per line (default type .EVE); by
+ default, the file the logical name EVE$INIT names, if there is one.
+/JOURNAL
+
+    /JOURNAL[=file-spec]
+
+ Keeps every key typed in a journal file (by default the file's name
+ with type .TJL), deleted when the session ends normally. After a crash,
+ /RECOVER types those keys again.
+/RECOVER
+ Types the keys of the journal file (see /JOURNAL) again, then goes on
+ from there.
+/START_POSITION
+
+    /START_POSITION=(line,column)
+
+ Where the cursor starts.
+/COMMAND
+
+    /COMMAND=file-spec
+    /NOCOMMAND
+
+ A TPU program to run at the start. vmsport's EVE has no TPU language: it
+ says so and goes on without it (a missing file is an error, as on VMS).
+/SECTION
+
+    /SECTION=file-spec
+    /NOSECTION
+
+ A TPU section file: as /COMMAND, not used.
 /HOST
- Edits in the host's editor ($VISUAL, $EDITOR or vi), whatever EDIT's
- default.
+ Edits in the host's editor ($VISUAL, $EDITOR or vi) instead of EVE.
 /TPU
- Accepted: vmsport has no EVE or TPU of its own yet, and uses the host's
- editor.
+ EVE, the default.
 /EDT
  Edits with EDT, the line and keypad editor; see EDIT /EDT.
 2 /EDT
@@ -808,8 +865,8 @@ file-spec
  Edits an empty buffer when the file doesn't exist; with /NOCREATE,
  that is an error.
 2 /HOST
- Edits a text file in the host's editor ($VISUAL, $EDITOR or vi), as
- EDIT does now, whatever EDIT's default becomes.
+ Edits a text file in the host's editor ($VISUAL, $EDITOR or vi)
+ instead of EVE.
 
  Format
 

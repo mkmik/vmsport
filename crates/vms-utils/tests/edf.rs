@@ -198,11 +198,11 @@ fn edit_text_through_dcl() {
         assert!(st.success(), "{cmd}");
     };
     let add = format!("sh {}", tmp.join("ADD.SH").display());
-    edit(&add, "EDIT NOTES.TXT");
-    edit("true", "EDIT NOTES.TXT");
-    edit(&add, "EDIT/READ_ONLY NOTES.TXT");
-    edit("true", "EDIT NEW.TXT");
-    edit(&add, "EDIT V.DAT");
+    edit(&add, "EDIT/HOST NOTES.TXT");
+    edit("true", "EDIT/HOST NOTES.TXT");
+    edit(&add, "EDIT/HOST/READ_ONLY NOTES.TXT");
+    edit("true", "EDIT/HOST NEW.TXT");
+    edit(&add, "EDIT/HOST V.DAT");
     let mut names: Vec<String> = std::fs::read_dir(&tmp)
         .unwrap()
         .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())

@@ -1,0 +1,2155 @@
+This is serial port #0 on AXPbox Alpha Emulator
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU0: unexpected exception/interrupt through vector 440
+process idle, pcb = 001AAD60
+
+ pc: 00000000 001A7C98  ps: 00000000 00000000
+ r2: 00000000 001A168C  r5: 00000000 00000000
+ r3: 00000000 0002A350  r6: 00000000 00000003
+ r4: 00000000 00000000  r7: 00000000 00000000
+
+exception context saved starting at 001ABCC0
+
+GPRs:
+  0: 00000000 00000000  16: FFFFFFFF FFFFFFFE
+  1: 00000000 00000000  17: 00000000 00000000
+  2: 00000000 00162448  18: 00000000 00000000
+  3: 00000000 00000000  19: 00000016 BCC35B40
+  4: 00000000 0003CA00  20: 00000000 00000000
+  5: 00000000 0003CA00  21: 00000000 0000000D
+  6: 00000000 00000003  22: 00000000 001ABE08
+  7: 00000000 00000000  23: 00000000 00000000
+  8: 00000000 001ABE1C  24: 00000000 00000001
+  9: CCCCCCCC CCCCCCCD  25: 00000000 00000003
+ 10: 00000000 00000001  26: 00000000 00068C10
+ 11: 00000000 0003C338  27: 00000000 001A84F0
+ 12: 00000000 0003C338  28: FFFFFFFF FFFFFE00
+ 13: 00000000 001AAD60  29: 00000000 001ABE00
+ 14: 00000000 001898B0  30: 00000000 001ABE00
+ 15: 00000000 0003C448
+
+dump of active call frames:
+
+PC  =  001A7C94
+PD  =  00162448
+FP  =  001ABE00
+SP  =  001ABE00
+
+R2 R3 R4 R5 R6 R7 R8 R9 R29 saved starting at 001ABE28
+
+R2  =  0015FF60
+R3  =  001AAE80
+R4  =  0003C338
+R5  =  001A0A78
+R6  =  0003C8F0
+R7  =  00000001
+R8  =  0003C300
+R9  =  00189888
+R29 =  001ABEC0
+
+PC  =  0005BCD4
+PD  =  0015FF60
+FP  =  001ABEC0
+SP  =  001ABE80
+
+R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15 R29 saved starting at 001ABEC8
+
+R2  =  00001000
+R3  =  001A1D20
+R4  =  001ABF50
+R5  =  001AF520
+R6  =  000001F0
+R7  =  00000000
+R8  =  00000000
+R9  =  001ABF50
+R10 =  00000000
+R11 =  00000000
+R12 =  00000000
+R13 =  00000000
+R14 =  00000000
+R15 =  00000000
+R29 =  00000000
+
+breakpoint at PC 1a0cb0 desired, XDELTA not loaded
+Initializing...
+
+
+OpenVMS PALcode V1.98-104, Tru64 UNIX PALcode V1.92-105
+
+starting console on CPU 0
+initialized idle PCB
+initializing semaphores
+initializing heap
+initial heap 240c0
+memory low limit = 1b0000 heap = 240c0, 17fc0
+initializing driver structures
+initializing idle process PID
+initializing file system
+initializing hardware
+initializing timer data structures
+lowering IPL
+CPU 0 speed is 800 MHz
+create dead_eater
+create poll
+create timer
+create powerup
+access NVRAM
+Memory size 512 MB
+testing memory
+..
+probe I/O subsystem
+probing hose 1, PCI
+probing hose 0, PCI
+probing PCI-to-ISA bridge, bus 1
+bus 0, slot 3 -- pka -- NCR 53C810
+bus 0, slot 15 -- dqa -- Acer Labs M1543C IDE
+bus 0, slot 15 -- dqb -- Acer Labs M1543C IDE
+starting drivers
+entering idle loop
+*** system serial number not set. use set sys_serial_num command.
+Partition 0, Memory base: 000000000, size: 020000000
+initializing GCT/FRU at 1c8000
+Initializing pka dqa dqb 
+Memory Testing and Configuration Status
+  Array       Size       Base Address    Intlv Mode
+---------  ----------  ----------------  ----------
+    0        512Mb     0000000000000000    4-Way
+
+     512 MB of System Memory
+Testing the System
+Testing the Disks (read only)
+AlphaServer ES40 Console V7.3-1, built on Feb 27 2007 at 12:57:47
+P00>>>show device
+dka0.0.0.3.0               DKA0                           RZ58  2000
+dva0.0.0.1000.0            DVA0                               
+pka0.7.0.3.0               PKA0                  SCSI Bus ID 7
+P00>>>boot dka0
+(boot dka0.0.0.3.0 -flags 0)
+block 0 of dka0.0.0.3.0 is a valid boot block
+reading 1230 blocks from dka0.0.0.3.0
+bootstrap code read in
+base = 200000, image_start = 0, image_bytes = 99c00(629760)
+initializing HWRPB at 2000
+initializing page table at 1ff56000
+initializing machine state
+setting affinity to the primary CPU
+jumping to bootstrap code
+
+
+    OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+                    Copyright 2016 VMS Software, Inc.
+
+%DECnet-I-LOADED, network base image loaded, version = 05.17.02
+
+%DECnet-W-NOOPEN, could not open SYS$SYSROOT:[SYSEXE]NET$CONFIG.DAT
+
+%STDRV-I-STARTUP, OpenVMS startup begun at  7-OCT-2026 18:52:58.18
+%RUN-S-PROC_ID, identification of created process is 00000204
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:03.78  %%%%%%%%%%%
+Operator _PUNK$OPA0: has been enabled, username SYSTEM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:03.79  %%%%%%%%%%%
+Operator status for operator _PUNK$OPA0:
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:03.79  %%%%%%%%%%%
+Logfile has been initialized by operator _PUNK$OPA0:
+Logfile is PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:03.80  %%%%%%%%%%%
+Operator status for operator PUNK::SYS$SYSROOT:[SYSMGR]OPERATOR.LOG;15
+CENTRAL, PRINTER, TAPES, DISKS, DEVICES, CARDS, NETWORK, CLUSTER, SECURITY,
+LICENSE, OPER1, OPER2, OPER3, OPER4, OPER5, OPER6, OPER7, OPER8, OPER9, OPER10,
+OPER11, OPER12
+
+%SET-I-NEWAUDSRV, identification of new audit server process is 0000020A
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:03.95  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%JBC-E-OPENERR, error opening SYS$COMMON:[SYSEXE]QMAN$MASTER.DAT;
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:03.95  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+-RMS-E-FNF, file not found
+
+%RUN-S-PROC_ID, identification of created process is 0000020D
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:05.66  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:05.66  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-E-NOPROXYDB, cannot find proxy database file NET$PROXY.DAT
+%RMS-E-FNF, file not found
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:05.68  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIACRECLUDB, security server created cluster intrusion database
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:05.68  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-SERVERSTARTINGU, security server starting up
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:05.69  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SECSRV-I-CIASTARTINGUP, breakin detection and evasion processing now starting u
+p
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:06.73  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%ACME-I-SERVERSTART, ACME_SERVER starting
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:12.90  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+TDF-I-SETTDF TDF set new timezone differential
+
+Copyright 2015 VMS Software, Inc.
+%NET$STARTUP-W-NONETCONFIG, this node has not been configured to run DECnet-Plus
+ for OpenVMS
+        use SYS$MANAGER:NET$CONFIGURE.COM if you wish to configure DECnet
+%NET$STARTUP-I-OPERSTATUS, DECnet-Plus for OpenVMS operational status is OFF
+%DECdtm-F-NODECnet, the TP_SERVER process was not started because either:
+
+o  DECnet-Plus is not started or is not configured, or
+
+o  The SYS$NODE_FULLNAME logical name is not defined
+
+   This could be because when you installed DECnet-Plus and were prompted 
+   for the system's full name, you specified a local name instead of a 
+   DECdns or Domain name.
+
+If you want to use DECdtm services, make sure that DECnet-Plus is started and 
+configured and that SYS$NODE_FULLNAME is defined, then use the following 
+command to start the TP_SERVER process:
+
+    $ @SYS$STARTUP:DECDTM$STARTUP.COM
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:13.97  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+
+
+%LICENSE-E-NOAUTH, VSI OPENVMS-ALPHA use is not authorized on this node
+-LICENSE-F-NOLICENSE, no license is active for this software product
+-LICENSE-I-SYSMGR, please see your system manager
+Startup processing continuing...
+
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:14.14  %%%%%%%%%%%
+Message from user AUDIT$SERVER on PUNK
+Security alarm (SECURITY) and security audit (SECURITY) on PUNK, system id: 42
+Auditable event:          Audit server starting up
+Event time:                7-OCT-2026 18:53:14.12
+PID:                      00000203        
+Username:                 SYSTEM          
+
+%STARTUP-I-AUDITCONTINUE, audit server initialization complete
+
+The OpenVMS system is now executing the site-specific startup commands.
+
+%MOUNT-F-NOSUCHDEV, no such device available
+%SET-I-INTSET, login interactive limit = 64, current interactive value = 0
+%RUN-S-PROC_ID, identification of created process is 00000217
+%%%%%%%%%%%  OPCOM   7-OCT-2026 18:53:15.63  %%%%%%%%%%%
+Message from user SYSTEM on PUNK
+%SMHANDLER-S-STARTUP, server management event handler startup
+
+  SYSTEM       job terminated at  7-OCT-2026 18:53:21.80
+
+  Accounting information:
+  Buffered I/O count:               3925      Peak working set size:       6736
+  Direct I/O count:                 1673      Peak virtual size:         186640
+  Page faults:                      4875      Mounted volumes:                0
+  Charged CPU time:        0 00:00:07.14      Elapsed time:       0 00:00:23.68
+
+ Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+
+Username: SYSTEM
+Password: 
+%LICENSE-I-NOLICENSE, no license is active for this software product
+%LOGIN-S-LOGOPRCON, login allowed from OPA0:
+   Welcome to OpenVMS (TM) Alpha Operating System, Version V8.4-2L1
+    Last interactive login on Tuesday, 29-SEP-2026 17:13:08.23[c\Z[0c
+%SET-W-NOTSET, error modifying OPA0:
+-SET-I-UNKTERM, unknown terminal type7[999;999H[6n8
+$ SET TERMINAL/EIGHTBIT/WIDTH=132
+$ SET DEFAULT SYS$SYSDEVICE:[000000]
+$ CREATE/DIRECTORY [EVE]
+$ SET DEFAULT SYS$SYSDEVICE:[EVE]
+$ CREATE P.ORI
+This is a paragraph
+of short lines that
+FILL should join.
+
+Second paragraph here.
+*EXIT*
+$ CREATE T.ORI
+line one
+line two
+the third line
+*EXIT*
+$ CREATE W.ORI
+short
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyzzzzzzzzzzzzzzzzzzzz
+a       b       c
+*EXIT*
+$ CREATE WD.ORI
+alpha beta  gamma, delta.epsilon
+  indented words here
+last
+*EXIT*
+$ CREATE I0.EVE
+top
+find "two"
+erase line
+write file
+exit
+*EXIT*
+$ CREATE I1.EVE
+bottom
+line 2
+uppercase word
+move right
+*EXIT*
+$ CREATE I2.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I3.EVE
+line 1
+capitalize word
+*EXIT*
+$ CREATE I4.EVE
+line 99
+top
+erase word
+show buffers
+frobnicate
+bottom
+*EXIT*
+$ CREATE I5.EVE
+include file P.TXT
+bottom
+center line
+fill
+*EXIT*
+$ CREATE I6.EVE
+replace line row all
+replace "line" "row"
+*EXIT*
+$ CREATE I7.EVE
+e
+bottom
+*EXIT*
+$ CREATE I8.EVE
+line 2
+uppercase word
+*EXIT*
+$ CREATE I11.EVE
+dcl show default
+buffer new.txt
+include file T.TXT
+*EXIT*
+$ CREATE MKL.COM
+$ OPEN/WRITE f L.ORI
+$ n = 1
+$ l:
+$ WRITE f "line ", n
+$ n = n + 1
+$ IF n .LE. 60 THEN GOTO l
+$ CLOSE f
+*EXIT*
+$ @MKL
+$ SET TERMINAL/DEVICE=VT200/NOEIGHTBIT/WIDTH=80/PAGE=24
+[?3l>$ DELETE/NOLOG *.TXT;*
+%DELETE-W-SEARCHFAIL, error searching for SYS$SYSDEVICE:[EVE]*.TXT;*
+-RMS-E-FNF, file not found
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ open_exit"
+@@ open_exit
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h>[?7h[4l[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ new_file"
+@@ new_file
+$ EDIT/TPU NEW.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K[;7mEditing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW.TXT;[mEditing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW.TXT;[21;80H[1J[;H[End of file][K[22;H[;7m Buffer: NEW.TXT                                     | Write | Insert | Forward [m
+[K[K[22Aa[K
+[End of file][K[1;2Hbc
+[K
+[End of file][K[2;Hdef[24;H2 lines written to file SYS$SYSDEVICE:[EVE]NEW.TXT;1[K[2;4H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ type_down"
+@@ type_down
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4hHello
+World[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;11H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ overstrike"
+@@ overstrike
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22;H[;7m Buffer: T.TXT                                   | Write | Overstrike | Forward [m[;HXY[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;3H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ overstrike_f14"
+@@ overstrike_f14
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[C[4l[22;H[;7m Buffer: T.TXT                                   | Write | Overstrike | Forward [m[1;2HXY[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[1;4H[4hZ[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;5H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ return_split"
+@@ return_split
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[4l[K[2;5r
+M beta  gamma, delta.epsilon[4h[27C[3;6r[2BM[4l[22;H[;7m Buffer: WD.TXT                                  | Write | Overstrike | Forward [m[3;H[3;7r[2BM
+X[24;H6 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[4;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ delete_key"
+@@ delete_key
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h
+[4l[1;33H  indented words here[2;4r[3B
+[1;33H[4h[4l[D  indented words here[K[21D[4h[C[C[C[4l[Dndented words here[K[18D[4h[4l[24;H2 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[1;34H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+%SYSTEM-F-ACCVIO, access violation, reason mask=00, virtual address=000000000007
+0104, PC=000000007AFA3324, PS=0000001B
+
+  Improperly handled condition, image exit forced.
+    Signal arguments:   Number = 0000000000000005
+                        Name   = 000000000000000C
+                                 0000000000000000
+                                 0000000000070104
+                                 000000007AFA3324
+                                 000000000000001B
+
+    Register dump:
+    R0  = 0000000000070000  R1  = 0000000000010C04  R2  = 000000007AEF88C8
+    R3  = 000000007AE277C0  R4  = 000000000002004C  R5  = 000000007FFCF93C
+    R6  = 0000000000000000  R7  = 000000007AE9B3C0  R8  = 000000007FF9CDE8
+    R9  = 000000007AE279B0  R10 = 000000007AE277C0  R11 = 000000007FFCDC18
+    R12 = 000000007FFCDA98  R13 = 000000007AF00398  R14 = 0000000000000000
+    R15 = 000000007AEFC9F0  R16 = 000000007AE279B8  R17 = 000000007AE277C0
+    R18 = 000000007AE279A8  R19 = 0000000000000000  R20 = 00010C0400000007
+    R21 = 0000000000000007  R22 = 000000007AEF8C20  R23 = 000000007AEF8C20
+    R24 = 000000007AE279B8  R25 = 0000000000000003  R26 = 000000007AFA2784
+    R27 = 000000007AEF88C8  R28 = 000000007AFA2728  R29 = 000000007AE27740
+    SP  = 000000007AE27740  PC  = 000000007AFA3324  PS  = 000000000000001B
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ past_eol"
+@@ past_eol
+$ EDIT/TPU W.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]W.TXT;1[21;80H[1J[;Hshort[K
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy`[2;80H
+a       b       c[K
+[End of file][K[22;H[;7m Buffer: W.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[C[C[C[4l[3D   X[24;H3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2[1;10H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ down_to_short"
+@@ down_to_short
+$ EDIT/TPU W.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]W.TXT;1[21;80H[1J[;Hshort[K
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy`[2;80H
+a       b       c[K
+[End of file][K[22;H[;7m Buffer: W.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+[C[C[C[C[C[C[C[C[C[CM[4l[5D     X[24;H3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2[1;12H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ left_at_start"
+@@ left_at_start
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+X[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ up_at_top"
+@@ up_at_top
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4hX[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ down_at_end"
+@@ down_at_end
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+
+
+
+
+[4l[2A[K
+[K
+X[K
+[End of file][K[6;2H[24;H6 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[6;2H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ erase_word"
+@@ erase_word
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: erase word
+[K[23;20H[K[22Abeta  gamma, delta.epsilon[K[4h[C[C[C[C[C[4l[23;HCommand: erase word[K[1;6Hdelta.epsilon[K[13D[4h[C[C[C[4l[23;HCommand: erase word[K[1;5H[K[C
+[4h[4l[23;HCommand: erase word[K[2;3Hwords here[K[10D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[2;3H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ ctrl_j"
+@@ ctrl_j
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[C[C[4l[Dgamma, delta.epsilon[K[20D[4h[C[C[C[C[4l[4Ddelta.epsilon[K[13D[4h
+[4l[4Dwords here[K[10D[4h[10C[4l last
+[End of file]
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[2;14H[4h[4l[24;H2 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[2;14H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ erase_char_line"
+@@ erase_char_line
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[4l[23;HCommand: erase character
+[K[23;25H[K[1;6Hbeta  gamma, delta.epsilon[K[26D[4h[C[C[C[4la  gamma, delta.epsilon[K[4h[4l[22BCommand: erase line[K[;4r[3B
+[3A[4h[4l[23;HCommand: erase start of line[K[22A[4h[4l[24;H2 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[;H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ erase_prev_word"
+@@ erase_prev_word
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[C[C[C[4l[23;HCommand: erase previous word
+[K[23;29H[K[1;7Hgamma, delta.epsilon[K[20D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[1;7H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ restore"
+@@ restore
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: erase word
+[K[23;20H[K[22Abeta  gamma, delta.epsilon[K[4h
+[4l[21BCommand: restore[K[21Aalpha   indented words here[21D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[2;7H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ f11_f12_f14"
+@@ f11_f12_f14
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[C[C[C[C[C[4l[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Reverse [m[1;8H[4hXYZ[4l[22;H[;7m Buffer: WD.TXT                                  | Write | Overstrike | Reverse [m[1;2HW[24;H3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[1;3H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ f12_forward"
+@@ f12_forward
+$ EDIT/TPU WD.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]WD.TXT;1[21;80H[1J[;Halpha beta  gamma, delta.epsilon[K
+  indented words here[K
+last[K
+[End of file][K[22;H[;7m Buffer: WD.TXT                                      | Write | Insert | Forward [m
+[K[K[22A[4h[C[C[30CX[2;22HY[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2[2;23H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ ctrl_e_h"
+@@ ctrl_e_h
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[8CE
+H[4l[24;H[K[2;2H\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[2J[21;80H[1J[;Hline oneE
+Hline two
+the third line
+[End of file][22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K
+[J[2;2H[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ find_far"
+@@ find_far
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [Kline 55[21;80H[1J[;H[mline 41
+line 42
+line 43
+line 44
+line 45
+line 46
+line 47
+line 48
+line 49
+line 50
+line 51
+line 52
+line 53
+line 54
+line 55
+line 56
+line 57
+line 58
+line 59
+line 60
+[End of file][15;H[;1mline 55[23;H[K[K[8A[mX[;1mline 55[7D[24;H[;7mFile format is being converted to a supported type[15;2H[24;H[mFile format is being converted to a supported type[15;2H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[15;2H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ find_next"
+@@ find_next
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [Kline[2;H[;1mline[23;H[K[K[21A[21B[K[;7mForward Find: [K
+Nothing to find.[2;H[22B[mNothing to find.[2;H[21B[K[K[21AX[;1mline[m two[8D[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;2H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ find_none"
+@@ find_none
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [Kzzz
+Could not find: zzz[;H[23B[mCould not find: zzz[;H[22B[K[K[22A[4h>[?7h[4l[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ find_nothing"
+@@ find_nothing
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [K
+Nothing to find.[;H[23B[mNothing to find.[;H[22B[K[K[22A[4h>[?7h[4l[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ find_case"
+@@ find_case
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [KLINE
+Could not find: LINE[;H[23B[mCould not find: LINE[;H[22B[K[K[22A[4h[4l[23B[K[23A[22B[K[;7mForward Find: [KLine
+Could not find: Line[;H[23B[mCould not find: Line[;H[4h>[?7h[4l[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ find_reverse"
+@@ find_reverse
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: bottom
+[K[23;16H[K[19A[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Reverse [m[4;H[19B[K[;7mReverse Find: [Kline[3;11H[m[;1mline[23;H[K[K[3;11H[mX[;1mline[4D[24;H[m3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;12H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ wildcard"
+@@ wildcard
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: wildcard find t*d
+[K[23;27H[K[22A[2B[;1mthe third[mX[;1mthe third[m line[14D[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ replace_yna"
+@@ replace_yna
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: replace line row
+[K[23;26H[K[22A[;7mline[22B[KReplace? Type Yes, No, All, Last, or Quit: [Ky[;H[mrow one[K[4D
+[;7mline[21B[KReplace? Type Yes, No, All, Last, or Quit: [Kn[2;H[mline[3;11H[;7mline[4D[23;H[KReplace? Type Yes, No, All, Last, or Quit: [Ka[3;11H[mrow[K[24;HReplacing all occurrences of: line[3;14H[23;H[K[;7mFound in reverse direction (may have already replaced).  Go there [N]? [K
+[mReplaced 2 occurrences.[K[3;14H[23;H[K[K[3;14H[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;14H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ replace_all"
+@@ replace_all
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: replace line row
+[K[23;26H[K[22A[;7mline[22B[KReplace? Type Yes, No, All, Last, or Quit: [Ka[;H[mrow one[K[4D[24;HReplacing all occurrences of: line[1;4H[24;HReplaced 3 occurrences.[K[1;4H
+row two[K[3;11Hrow[K[23;H[K[K[1;4H[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;4H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ replace_quit"
+@@ replace_quit
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: replace line row
+[K[23;26H[K[22A[;7mline[22B[KReplace? Type Yes, No, All, Last, or Quit: [Kq[;H[mline[23;H[K[K[1;5H[24;HReplaced 0 occurrences.[1;5H[4h>[?7h[4l[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ replace_last"
+@@ replace_last
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: replace line row
+[K[23;26H[K[22A[;7mline[22B[KReplace? Type Yes, No, All, Last, or Quit: [Kn[;H[mline
+[;7mline[21B[KReplace? Type Yes, No, All, Last, or Quit: [Kl[2;H[mrow two[K[4D[23;H[K[K[2;4H[24;HReplaced 1 occurrence.[2;4H[4h[4l[K[3;5r[2BM two[4h[4l[24;H4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ replace_prompts"
+@@ replace_prompts
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: replace
+[K[23;17H[K[K[;7mOld String: [Kline[KNew String: [Krow[;Hline[22B[KReplace? Type Yes, No, All, Last, or Quit: [Ka[;H[mrow one[K[4D[24;HReplacing all occurrences of: line[1;4H[24;HReplaced 3 occurrences.[K[1;4H
+row two[K[3;11Hrow[K[23;H[K[K[1;4H[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;4H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ select_remove"
+@@ select_remove
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23BMove the text cursor to select text.[K[;H[;7mlli[Din[Dne[De [24;H[mRemove completed.[K[1;6Hone[K[4h
+[4lline line two[8D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;6H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ select_store"
+@@ select_store
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23BMove the text cursor to select text.[K[;H[;7mlli[Din[Dne[23;H[mCommand: store text
+[K[23;20H[K
+Copy completed.[1;5Hline[4h
+[4lline two[4D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;9H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ select_cancel"
+@@ select_cancel
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23BMove the text cursor to select text.[K[;H[;7ml[24;H[mSelection canceled.[K[1;2Hl[4h>[?7h[4l[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ remove_none"
+@@ remove_none
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23B[;7mNo selection active.[K[;H[23B[mNo selection active.[;H[4h>[?7h[4l[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ select_shown"
+@@ select_shown
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[23BMove the text cursor to select text.[K[;H[;7mlli[Dine one
+li>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ case_words"
+@@ case_words
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: uppercase word
+[K[23;24H[K[22ALINE o[D[4h
+[4l[23;HCommand: capitalize word[K[2;6HTwo
+[4h[C[C[4l[23;HCommand: lowercase word[K[3;11Hline[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;15H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ center"
+@@ center
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+
+[4l[20BCommand: center line
+[K[23;21H[K[20A                               the third line[14D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;32H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ fill"
+@@ fill
+$ EDIT/TPU P.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K5 lines read from file SYS$SYSDEVICE:[EVE]P.TXT;1[21;80H[1J[;HThis is a paragraph[K
+of short lines that[K
+FILL should join.[K
+[K
+Second paragraph here.[K
+[End of file][K[22;H[;7m Buffer: P.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: fill
+[K[23;14H[K[22AThis is a paragraph of short lines that FILL should join.[2;6r[5B
+
+[1;58H[24;H3 lines written to file SYS$SYSDEVICE:[EVE]P.TXT;2[1;58H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ fill_range"
+@@ fill_range
+$ EDIT/TPU P.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K5 lines read from file SYS$SYSDEVICE:[EVE]P.TXT;1[21;80H[1J[;HThis is a paragraph[K
+of short lines that[K
+FILL should join.[K
+[K
+Second paragraph here.[K
+[End of file][K[22;H[;7m Buffer: P.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+[4l[22BMove the text cursor to select text.[K[2;H[;7mof short lines that
+FILL should join.
+
+[18B[mCommand: fill range
+[K[23;20H[K[21A[;7mof short lines that FILL should join.[3;6r[5B
+[3A[2;H[mof short lines that FILL should join.
+[24;H4 lines written to file SYS$SYSDEVICE:[EVE]P.TXT;2[3;H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ wrap"
+@@ wrap
+$ EDIT/TPU NEW2.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K[;7mEditing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW2.TXT;[mEditing new file.  Could not find: SYS$SYSDEVICE:[EVE]NEW2.TXT;[21;80H[1J[;H[End of file][K[22;H[;7m Buffer: NEW2.TXT                                    | Write | Insert | Forward [m
+[K[K[22A[22BCommand: set right margin 20
+[K[23;29H[K
+Right margin set to: 20[;H[22BCommand: set wrap
+[K[23;18H[K
+Text in this buffer will wrap at the right margin.[;Ha[K
+[End of file][K[1;2Haa bbb ccc ddd eee [D[K
+f[K
+[End of file][K[2;2Hff ggg hhh iii[24;H2 lines written to file SYS$SYSDEVICE:[EVE]NEW2.TXT;1[2;16H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ left_margin"
+@@ left_margin
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: set left margin 5
+[K[23;27H[K
+Left margin set to: 5[;H[4h[8C[2;5r
+M[4l[4Cnew[3;6r[2BM[4C[24;H5 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;5H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ tab_in"
+@@ tab_in
+$ EDIT/TPU W.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]W.TXT;1[21;80H[1J[;Hshort[K
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy`[2;80H
+a       b       c[K
+[End of file][K[22;H[;7m Buffer: W.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+
+[C[C[C[4l[2D  X    b       c[13D[24;H3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2[3;5H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+%SYSTEM-F-ACCVIO, access violation, reason mask=00, virtual address=000000000007
+0104, PC=000000007AFA3324, PS=0000001B
+
+  Improperly handled condition, image exit forced.
+    Signal arguments:   Number = 0000000000000005
+                        Name   = 000000000000000C
+                                 0000000000000000
+                                 0000000000070104
+                                 000000007AFA3324
+                                 000000000000001B
+
+    Register dump:
+    R0  = 0000000000070000  R1  = 0000000000010C04  R2  = 000000007AEF88C8
+    R3  = 000000007AE277C0  R4  = 000000000002004C  R5  = 000000007FFCF93C
+    R6  = 0000000000000000  R7  = 000000007AE9B3C0  R8  = 000000007FF9CDE8
+    R9  = 000000007AE279B0  R10 = 000000007AE277C0  R11 = 000000007FFCDC18
+    R12 = 000000007FFCDA98  R13 = 000000007AF00398  R14 = 0000000000000000
+    R15 = 000000007AEFC9F0  R16 = 000000007AE279B8  R17 = 000000007AE277C0
+    R18 = 000000007AE279A8  R19 = 0000000000000000  R20 = 00010C0400000007
+    R21 = 0000000000000007  R22 = 000000007AEF8C20  R23 = 000000007AEF8C20
+    R24 = 000000007AE279B8  R25 = 0000000000000003  R26 = 000000007AFA2784
+    R27 = 000000007AEF88C8  R28 = 000000007AFA2728  R29 = 000000007AE27740
+    SP  = 000000007AE27740  PC  = 000000007AFA3324  PS  = 000000000000001B
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ set_tabs"
+@@ set_tabs
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: set tabs every 4
+[K[23;26H[K
+ Tab stops set every 4 columns.[;H[21;80H[1J[;Hline one
+line two
+the third line
+[End of file][22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[;H[4h[4l    line one[8D[4hx[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;6H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ scroll_down"
+@@ scroll_down
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[;21r[20B
+[4lline 22[4h
+[4lline 23[4h
+[4lline 24[4h
+[4lline 25[4h
+[4lline 26[4hX[4l[24;H[;7mFile format is being converted to a supported type[21;2H[24;H[mFile format is being converted to a supported type[21;2H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[21;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ line_far"
+@@ line_far
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: line 40
+[K[23;17H[K[;21r[20B
+line 22
+line 23
+line 24
+line 25
+line 26
+line 27
+line 28
+line 29
+line 30
+line 31
+line 32
+line 33
+line 34
+line 35
+line 36
+line 37
+line 38
+line 39
+line 40[4hX[4l[24;H[;7mFile format is being converted to a supported type[21;2H[24;H[mFile format is being converted to a supported type[21;2H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[21;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ line_near"
+@@ line_near
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: line 15
+[K[23;17H[K[8A[4hX[4l[24;H[;7mFile format is being converted to a supported type[15;2H[24;H[mFile format is being converted to a supported type[15;2H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[15;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ screens"
+@@ screens
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[;21r[20B
+[4lline 22
+line 23
+line 24
+line 25
+line 26
+line 27
+line 28
+line 29
+line 30
+line 31
+line 32
+line 33
+line 34
+line 35
+line 36
+line 37
+line 38
+line 39
+line 40[;H[4h[20B
+[4lline 41
+line 42
+line 43
+line 44
+line 45
+line 46
+line 47
+line 48
+line 49
+line 50
+line 51
+line 52
+line 53
+line 54
+line 55
+line 56
+line 57
+line 58
+line 59[;H[4hM[4lline 38Mline 37Mline 36Mline 35Mline 34Mline 33Mline 32Mline 31Mline 30Mline 29Mline 28Mline 27Mline 26Mline 25Mline 24Mline 23Mline 22Mline 21Mline 20[4hX[4l[24;H[;7mFile format is being converted to a supported type[1;2H[24;H[mFile format is being converted to a supported type[1;2H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[1;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ next_screen_end"
+@@ next_screen_end
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[;21r[20B
+[4lline 22
+line 23
+line 24
+line 25
+line 26
+line 27
+line 28
+line 29
+line 30
+line 31
+line 32
+line 33
+line 34
+line 35
+line 36
+line 37
+line 38
+line 39
+line 40[;H[4h[20B
+[4lline 41
+line 42
+line 43
+line 44
+line 45
+line 46
+line 47
+line 48
+line 49
+line 50
+line 51
+line 52
+line 53
+line 54
+line 55
+line 56
+line 57
+line 58
+line 59[;H[4h[20B
+[4lline 60
+[End of file][18;H[4h[3B[4lX[K[24;H[;7mFile format is being converted to a supported type[21;2H[24;H[mFile format is being converted to a supported type[21;2H[24;H61 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[21;2H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ bottom_up"
+@@ bottom_up
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: bottom
+[K[23;16H[K[21;80H[1J[;Hline 41
+line 42
+line 43
+line 44
+line 45
+line 46
+line 47
+line 48
+line 49
+line 50
+line 51
+line 52
+line 53
+line 54
+line 55
+line 56
+line 57
+line 58
+line 59
+line 60
+[End of file]M[4hMMMMMMMMMMMMMMMMMMM[;21rM[4lline 40[4hM[4lline 39[4hM[4lline 38[4hM[4lline 37[4hM[4lline 36[4hX[4l[24;H[;7mFile format is being converted to a supported type[1;2H[24;H[mFile format is being converted to a supported type[1;2H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[1;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ long_line"
+@@ long_line
+$ EDIT/TPU W.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]W.TXT;1[21;80H[1J[;Hshort[K
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy`[2;80H
+a       b       c[K
+[End of file][K[22;H[;7m Buffer: W.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2;80H[2;80H[2;80H[2;80H[2;80H[2;80H[2;80H[2;80H[2;80H[2;80H[4l[2;80H`[2;80H[2;80H[24;H3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2[2;80H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ top_bottom"
+@@ top_bottom
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: top
+[K[23;13H[K
+[;7mYou are already at the top of the buffer.[;H[23B[mYou are already at the top of the buffer.[;H[4h[4l[22BCommand: bottom
+[K[23;16H[K[19A[19BCommand: bottom[K
+[;7mYou are already at the bottom of the buffer.[4;H[20B[mYou are already at the bottom of the buffer.[4;H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ line_past_end"
+@@ line_past_end
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: line 99
+[K[23;17H[K
+[;7mBuffer has only 3 lines.  (Now going to End of Buffer).[;H[23B[mBuffer has only 3 lines.  (Now going to End of Buffer).[;H[3BX[K
+[End of file][K[4;2H[24;H4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[K[4;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ what_line"
+@@ what_line
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+
+[4l[20BCommand: what line
+[K[23;19H[K
+You are on line 3 out of 60 (5%).[3;H[4h>[?7h[4l[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+%SYSTEM-F-ACCVIO, access violation, reason mask=00, virtual address=000000000007
+0104, PC=000000007AFA3324, PS=0000001B
+
+  Improperly handled condition, image exit forced.
+    Signal arguments:   Number = 0000000000000005
+                        Name   = 000000000000000C
+                                 0000000000000000
+                                 0000000000070104
+                                 000000007AFA3324
+                                 000000000000001B
+
+    Register dump:
+    R0  = 0000000000070000  R1  = 0000000000010C04  R2  = 000000007AEF88C8
+    R3  = 000000007AE277C0  R4  = 000000000002004C  R5  = 000000007FFCF93C
+    R6  = 0000000000000000  R7  = 000000007AE9B3C0  R8  = 000000007FF9CDE8
+    R9  = 000000007AE279B0  R10 = 000000007AE277C0  R11 = 000000007FFCDC18
+    R12 = 000000007FFCDA98  R13 = 000000007AF00398  R14 = 0000000000000000
+    R15 = 000000007AEFC9F0  R16 = 000000007AE279B8  R17 = 000000007AE277C0
+    R18 = 000000007AE279A8  R19 = 0000000000000000  R20 = 00010C0400000007
+    R21 = 0000000000000007  R22 = 000000007AEF8C20  R23 = 000000007AEF8C20
+    R24 = 000000007AE279B8  R25 = 0000000000000003  R26 = 000000007AFA2784
+    R27 = 000000007AEF88C8  R28 = 000000007AFA2728  R29 = 000000007AE27740
+    SP  = 000000007AE27740  PC  = 000000007AFA3324  PS  = 000000000000001B
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ mark_goto"
+@@ mark_goto
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+
+
+[4l[19BCommand: mark here
+[K[23;19H[K
+Current position marked as: here[4;H[4h[4l[19BCommand: bottom
+[K[23;16H[K[21;80H[1J[;Hline 41
+line 42
+line 43
+line 44
+line 45
+line 46
+line 47
+line 48
+line 49
+line 50
+line 51
+line 52
+line 53
+line 54
+line 55
+line 56
+line 57
+line 58
+line 59
+line 60
+[End of file][2BCommand: go to here[K[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10
+line 11
+line 12
+line 13
+line 14
+line 15
+line 16
+line 17
+line 18
+line 19
+line 20
+line 21[K[4;H[20BGoing to mark: here[4;H[4hX[4l[24;H[;7mFile format is being converted to a supported type[4;2H[24;H[mFile format is being converted to a supported type[4;2H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[4;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ two_windows"
+@@ two_windows
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: two windows
+[K[23;21H[K[11;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[9Aline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m[12;H[11BCommand: other window[K[22A[22BCommand: bottom[K[10;80H[1J[;Hline 52
+line 53
+line 54
+line 55
+line 56
+line 57
+line 58
+line 59
+line 60
+[End of file]X[K[24;H[;7mFile format is being converted to a supported type[10;2H[24;H[mFile format is being converted to a supported type[10;2H[24;H61 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[10;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ split_one"
+@@ split_one
+$ EDIT/TPU L.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K60 lines read from file SYS$SYSDEVICE:[EVE]L.TXT;1[21;80H[1J[;Hline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K
+line 8[K
+line 9[K
+line 10[K
+line 11[K
+line 12[K
+line 13[K
+line 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: split window 3
+[K[23;24H[K[7;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K
+[K
+[K
+[K
+[K
+[K[5Aline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K[14;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m
+[K
+[K
+[K
+[K
+[K
+[K
+[K[6Aline 1[K
+line 2[K
+line 3[K
+line 4[K
+line 5[K
+line 6[K
+line 7[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m[15;H[14AAline 1[8;HAline 1[15;HAline 1[6D[23;HCommand: next window[K[1;2HBline 1[8;2HBline 1[15;2HBline 1[1;3H[23;HCommand: delete window[K[;13r[12B
+line 7
+line 8
+line 9
+line 10
+line 11
+line 12
+line 13[;HABline 1[K
+line 2
+line 3
+line 4
+line 5
+line 6[14;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m[1;3HCline 1[15;3HCline 1[1;4H[23;HCommand: one window[K[9Aline 14[K
+line 15[K
+line 16[K
+line 17[K
+line 18[K
+line 19[K
+line 20[K
+line 21[K[22;H[;7m Buffer: L.TXT                                       | Write | Insert | Forward [m[1;4H[4hD[4l[24;H[;7mFile format is being converted to a supported type[1;5H[24;H[mFile format is being converted to a supported type[1;5H[24;H60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2[1;5H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ buffers"
+@@ buffers
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: buffer foo
+[K[23;20H[K[21;80H[1J[;H[End of file][K[22;H[;7m Buffer: FOO                                         | Write | Insert | Forward [m[;Hx[K
+[End of file][K[1;2Hyz[23;HCommand: buffer t.txt[K[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[;H[4h[4l[22BCommand: show buffers[K[21;80H[1J[;H Buffer name                   Lines  Attributes[K
+[K
+  [;1mT.TXT                            3[K
+[m  FOO                              1  Modified[K
+[K[22;H[;7m Buffer: BUFFER LIST             Use SELECT to view or REMOVE to delete buffers [m[3;3H[23;H[K[;7mWrite Buffer FOO? [K>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ get_file"
+@@ get_file
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: get file P.TXT
+[K[23;24H[K
+5 lines read from file SYS$SYSDEVICE:[EVE]P.TXT;1[;H[21;80H[1J[;HThis is a paragraph[K
+of short lines that[K
+FILL should join.[K
+[K
+Second paragraph here.[K
+[End of file][K[22;H[;7m Buffer: P.TXT                                       | Write | Insert | Forward [m[;H[4h[4l[22BCommand: get file T.TXT
+[K[23;24H[K[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[;H[4h>[?7h[4l[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+%SYSTEM-F-ACCVIO, access violation, reason mask=00, virtual address=000000000007
+0104, PC=000000007AFA3324, PS=0000001B
+
+  Improperly handled condition, image exit forced.
+    Signal arguments:   Number = 0000000000000005
+                        Name   = 000000000000000C
+                                 0000000000000000
+                                 0000000000070104
+                                 000000007AFA3324
+                                 000000000000001B
+
+    Register dump:
+    R0  = 0000000000070000  R1  = 0000000000010C04  R2  = 000000007AEF88C8
+    R3  = 000000007AE277C0  R4  = 000000000002004C  R5  = 000000007FFCF93C
+    R6  = 0000000000000000  R7  = 000000007AE9B3C0  R8  = 000000007FF9CDE8
+    R9  = 000000007AE279B0  R10 = 000000007AE277C0  R11 = 000000007FFCDC18
+    R12 = 000000007FFCDA98  R13 = 000000007AF00398  R14 = 0000000000000000
+    R15 = 000000007AEFC9F0  R16 = 000000007AE279B8  R17 = 000000007AE277C0
+    R18 = 000000007AE279A8  R19 = 0000000000000000  R20 = 00010C0400000007
+    R21 = 0000000000000007  R22 = 000000007AEF8C20  R23 = 000000007AEF8C20
+    R24 = 000000007AE279B8  R25 = 0000000000000003  R26 = 000000007AFA2784
+    R27 = 000000007AEF88C8  R28 = 000000007AFA2728  R29 = 000000007AE27740
+    SP  = 000000007AE27740  PC  = 000000007AFA3324  PS  = 000000000000001B
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ include_file"
+@@ include_file
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h
+[C[C[4l[23;HCommand: include file P.TXT
+[K[23;28H[K
+5 lines read from file SYS$SYSDEVICE:[EVE]P.TXT;1[2;3H[2;9r
+MSecond paragraph here.MMFILL should join.Mof short lines thatMThis is a paragraph[7;3H[4h[4l[24;H8 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[7;3H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ write_save"
+@@ write_save
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4hX[4l[23;HCommand: write file W2.TXT
+[K[23;27H[K
+3 lines written to file SYS$SYSDEVICE:[EVE]W2.TXT;1[1;2H[4hY[4l[23;HCommand: save file
+[K[23;19H[K
+3 lines written to file SYS$SYSDEVICE:[EVE]W2.TXT;2[1;3H[4h>[?7h[4l[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ dcl"
+@@ dcl
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: dcl show default
+[K[23;26H[K
+Creating DCL subprocess...[;H[23BSubprocess activated[K[;H[11;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[9Aline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[12;H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[9A[K
+show default[K
+[K[22;H[;7m Buffer: DCL                                     | Read-only | Insert | Forward [m[13;13H
+  SYS$SYSDEVICE:[EVE]
+[K[14A[4h>[?7h[4l[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ quit_plain"
+@@ quit_plain
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: quit
+[K[23;14H[K[22A>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF59"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ quit_yes"
+@@ quit_yes
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4hX[4l[23;HCommand: quit
+[K[23;14H[K[1;2H[23;H[K[;7mBuffer modifications will not be saved, continue quitting [Yes]? [Ky>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF59"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ quit_no"
+@@ quit_no
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4hX[4l[23;HCommand: quit
+[K[23;14H[K[1;2H[23;H[K[;7mBuffer modifications will not be saved, continue quitting [Yes]? [Kn[K[K[1;2H[4h[m[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ exit_unnamed"
+@@ exit_unnamed
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: buffer foo
+[K[23;20H[K[21;80H[1J[;H[End of file][K[22;H[;7m Buffer: FOO                                         | Write | Insert | Forward [m[;Ha[K
+[End of file][K[1;2Hbc[23;H[K[;7mType filename for buffer FOO (press RETURN to not write it): [KFOO.TXT
+[m1 line written to file SYS$SYSDEVICE:[EVE]FOO.TXT;1[1;4H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ read_only"
+@@ read_only
+$ EDIT/TPU/READ_ONLY T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                             | Read-only | Unmodifiable | Forward [m
+[K[K[22A[23B[;7mAttempt to change unmodifiable buffer T.TXT[K[;H[23B[mAttempt to change unmodifiable buffer T.TXT[;H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ start_position"
+@@ start_position
+$ EDIT/TPU/START_POSITION=(2,3) T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[2;3H[23;H[K[K[2;3H[4hX[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;4H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ learn"
+@@ learn
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: learn
+[K[23;15H[K
+Press keystrokes to be learned.  Press CTRL/R to remember these keystrokes.[;H[4hab[4l[24;H[K[1;3H[23;H[K[;7mPress the key you want to use to do what was just learned: [K
+[mKey sequence remembered.[1;3H[23;H[K[K[1;3H[4h[4labline one[8D[4h[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;5H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ define_key"
+@@ define_key
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: define key
+[K[23;20H[K[K[;7mEVE command: [Kbottom[KPress the key you want to define: [K
+[mKey defined.[;H[22B[K[K[22A[4h[3B[4lX[K
+[End of file][K[4;2H[24;H4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[4;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ repeat"
+@@ repeat
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: repeat 3
+[K[23;18H[K
+Will repeat next command 3 times.[;H[23B[K[23Aaaaline one[8D[4hb[4l[23;HCommand: repeat 2[K
+Will repeat next command 2 times.[1;5H[24;H[K[1;5H[2B[4hX[4l[24;H3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[3;6H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ ambiguous"
+@@ ambiguous
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: q
+[K[23;11H
+Ambiguous command name: q[;H[16B[K
+[K
+[K
+[K
+[K[4A Quit                                   Quote[K
+[K[22;H[;7m Buffer: $CHOICES$                                                              [m[17;H[16;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[23;HCommand: q>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ ambiguous_then"
+@@ ambiguous_then
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: mo
+[K[23;12H
+Ambiguous command name: mo[;H[16B[K
+[K
+[K
+[K
+[K[4A Move by word   Move by line   Move down      Move right     Move left[K
+ Move up        Move by page   [K
+[K[22;H[;7m Buffer: $CHOICES$                                                              [m[17;H[16;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[23;HCommand: mo[21;80H[1J[;Hline one
+line two
+the third line
+[End of file][22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[23;12H
+[K[23;12H
+Ambiguous command name: mo[;H[16B[K
+[K
+[K
+[K
+[K[4A Move by word   Move by line   Move down      Move right     Move left[K
+ Move up        Move by page   [K
+[K[22;H[;7m Buffer: $CHOICES$                                                              [m[17;H[16;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[23;HCommand: mobottom[21;80H[1J[;Hline one
+line two
+the third line
+[End of file][22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m[23;18H
+[K[23;18H
+[;7mDon't understand command: mobottom[;H[23B[mDon't understand command: mobottom[;H[22B[K[22A[4h>[?7h[4l[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ unknown"
+@@ unknown
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: frob
+[K[23;14H
+[;7mDon't understand command: frob[;H[23B[mDon't understand command: frob[;H[22B[K[22A[4hX[4l[K[2;5r
+Mline one[4h[4l[23;HCommand: top
+[K[23;13H[K[;H[4hY[4l[24;H4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[1;2H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ keypad_edt"
+@@ keypad_edt
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4l[22BCommand: set keypad edt
+[K[23;24H[K
+EDT keypad defined (for more information, see help on EDT DIFFERENCES).[;H[4h[5C[4lline two[2;4r[3B
+[1;6H[4h[4l[24;H2 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[K[1;6H>[?7h[0'z[;r[m[24;H
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ DELETE/NOLOG *.TXT;*
+$ COPY/NOLOG *.ORI *.TXT
+$ WRITE SYS$OUTPUT "@@ ctrl_l"
+@@ ctrl_l
+$ EDIT/TPU T.TXT
+\[0m[20l)0[m[2J[?3l[;24r[4l=[?6l[?7l[?8h[1;2'z[1;3'{[24;H[J[K3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1[21;80H[1J[;Hline one[K
+line two[K
+the third line[K
+[End of file][K[22;H[;7m Buffer: T.TXT                                       | Write | Insert | Forward [m
+[K[K[22A[4h[4lc[K[2;5r
+Mline one[4h[4l[24;H4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2[2;H>[?7h[0'z[;r[m[24;H
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X13F2AF01"
+$ WRITE SYS$OUTPUT "@@ end"
+@@ end
+$ 

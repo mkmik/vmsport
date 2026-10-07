@@ -1,0 +1,16 @@
+# EVE without a screen (EDIT/TPU/NODISPLAY): name, the EDIT command, its
+# initialization file's lines (" | " between them, "-" for none), the
+# files to TYPE afterwards. Every case starts from files/ as version 1.
+init_exit	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE T.TXT	top | find "two" | erase line | write file | exit	T.TXT;*
+init_end	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE T.TXT	bottom | line 2 | uppercase word | move right	T.TXT;0
+output	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE/OUTPUT=O.TXT T.TXT	line 1 | capitalize word	O.TXT;0
+read_only	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE/READ_ONLY T.TXT	line 1 | capitalize word	T.TXT;*
+errors	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE T.TXT	line 99 | top | erase word | show buffers | frobnicate | bottom	T.TXT;0
+include_fill	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE T.TXT	include file P.TXT | bottom | center line | fill	T.TXT;0
+replace	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE T.TXT	replace line row all | replace "line" "row"	T.TXT;0
+ambiguous	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE T.TXT	e | bottom	T.TXT;0
+eve_init	EDIT/TPU/NODISPLAY T.TXT	line 2 | uppercase word	T.TXT;0
+no_init	EDIT/TPU/NODISPLAY/INITIALIZATION=NOSUCH.EVE T.TXT	-	T.TXT;*
+nocreate	EDIT/TPU/NODISPLAY/NOCREATE NOPE.TXT	-	-
+new_file	EDIT/TPU/NODISPLAY/INITIALIZATION=I.EVE NEW.TXT	dcl show default | buffer new.txt | include file T.TXT	NEW.TXT;*
+command	EDIT/TPU/NODISPLAY/COMMAND=NOSUCH.TPU T.TXT	-	-
