@@ -234,6 +234,292 @@ impl<B: Blocks> File<B> {
     }
 }
 
+/// `part` of `whole` in percent, as ANALYZE gives it: truncated.
+fn percent(part: i64, whole: i64) -> i64 {
+    if whole == 0 { 0 } else { part * 100 / whole }
+}
+
+/// `a / b` rounded.
+fn mean(a: u64, b: u64) -> i64 {
+    (a + b / 2).checked_div(b).unwrap_or(0) as i64
+}
+
+/// An FDL attribute line.
+fn attr(name: &str, value: i64) -> String {
+    format!("\t{name:<24}{value}\n")
+}
+
+fn type_name(typ: KeyType, descending: bool) -> String {
+    let t = match typ {
+        KeyType::String => "string",
+        KeyType::Int2 => "signed word",
+        KeyType::Bin2 => "unsigned word",
+        KeyType::Int4 => "signed longword",
+        KeyType::Bin4 => "unsigned longword",
+        KeyType::Decimal => "packed decimal",
+        KeyType::Int8 => "signed quadword",
+        KeyType::Bin8 => "unsigned quadword",
+        KeyType::Collated => "collated",
+    };
+    if descending {
+        format!("descending {t}")
+    } else {
+        t.to_string()
+    }
+}
+
+impl<B: Blocks> File<B> {
+    /// ANALYZE/RMS_FILE/FDL's sections after the file's design, as FDL
+    /// text: ANALYSIS_OF_AREA for each area, ANALYSIS_OF_KEY for each key.
+    pub fn analysis(&mut self) -> Result<String, Cond> {
+        let p = self.prologue()?;
+        let mut sections = Vec::new();
+        for (i, a) in p.areas.iter().enumerate() {
+            let reclaimed = if a.reclaimed == 0 {
+                0
+            } else {
+                a.bucket_size as i64
+            };
+            sections.push(format!(
+                "ANALYSIS_OF_AREA {i}\n{}",
+                attr("RECLAIMED_SPACE", reclaimed)
+            ));
+        }
+        for (ki, k) in p.keys.iter().enumerate() {
+            if k.empty {
+                sections.push(format!(
+                    "ANALYSIS_OF_KEY {ki}\n\t! This index is uninitialized - there are no records.\n"
+                ));
+                continue;
+            }
+            let (_, s) = self.audit(ki)?;
+            let primary = ki == 0;
+            let data_used = s.data_bytes + 15 * s.data_buckets as u64;
+            let index_used = s.index_bytes + (HDR + IDX_TAIL) as u64 * s.index_buckets as u64;
+            let index_full = s.index_records * (k.len() as u64 + 2);
+            let mut a: Vec<(&'static str, i64)> = vec![
+                (
+                    "DATA_FILL",
+                    percent(data_used as i64, s.data_blocks as i64 * BLK as i64),
+                ),
+                (
+                    "DATA_KEY_COMPRESSION",
+                    percent(
+                        s.key_bytes.0 as i64 - s.key_bytes.1 as i64,
+                        s.key_bytes.0 as i64,
+                    ),
+                ),
+            ];
+            if primary {
+                a.push((
+                    "DATA_RECORD_COMPRESSION",
+                    percent(
+                        s.rest_bytes.0 as i64 - s.rest_bytes.1 as i64,
+                        s.rest_bytes.0 as i64,
+                    ),
+                ));
+            }
+            a.push(("DATA_RECORD_COUNT", s.data_records as i64));
+            a.push(("DATA_SPACE_OCCUPIED", s.data_blocks as i64));
+            a.push(("DEPTH", s.depth as i64));
+            if !primary {
+                a.push((
+                    "DUPLICATES_PER_SIDR",
+                    mean(s.pointers.saturating_sub(s.data_records), s.data_records),
+                ));
+            }
+            a.push((
+                "INDEX_COMPRESSION",
+                percent(index_full as i64 - s.index_bytes as i64, index_full as i64),
+            ));
+            a.push((
+                "INDEX_FILL",
+                percent(index_used as i64, s.index_blocks as i64 * BLK as i64),
+            ));
+            a.push(("INDEX_SPACE_OCCUPIED", s.index_blocks as i64));
+            a.push(("LEVEL1_RECORD_COUNT", s.level1_records as i64));
+            if primary {
+                a.push(("MEAN_DATA_LENGTH", mean(s.data_length, s.data_records)));
+            } else {
+                a.push(("MEAN_DATA_LENGTH", mean(s.data_bytes, s.data_records)));
+            }
+            a.push(("MEAN_INDEX_LENGTH", k.len() as i64 + 2));
+            if primary {
+                a.push(("LONGEST_RECORD_LENGTH", s.longest as i64));
+            }
+            let a: String = a.into_iter().map(|(n, v)| attr(n, v)).collect();
+            sections.push(format!("ANALYSIS_OF_KEY {ki}\n{a}"));
+        }
+        Ok(sections.join("\n"))
+    }
+
+    /// ANALYZE/RMS_FILE/CHECK's lines after the RMS FILE ATTRIBUTES of an
+    /// indexed file: the fixed prologue, the area and key descriptors, and
+    /// what is wrong in the buckets. Returns them and the number of errors.
+    pub fn check_report(&mut self) -> Result<(Vec<String>, usize), Cond> {
+        let p = self.prologue()?;
+        let first = p
+            .blocks
+            .iter()
+            .find(|b| b.0 == 1)
+            .map(|b| b.1.clone())
+            .ok_or(status::BUG)?;
+        let mut o: Vec<String> = vec![
+            String::new(),
+            String::new(),
+            "FIXED PROLOG".into(),
+            String::new(),
+            format!(
+                "\tNumber of Areas: {}, VBN of First Descriptor: {}",
+                first[PLG_AMAX], first[PLG_AVBN]
+            ),
+            format!("\tProlog Version: {}", u16_at(&first, PLG_VER)),
+        ];
+        for (i, a) in p.areas.iter().enumerate() {
+            o.extend([
+                String::new(),
+                format!(
+                    "AREA DESCRIPTOR #{i} (VBN {}, offset %X'{:04X}')",
+                    a.at.0, a.at.1
+                ),
+                String::new(),
+                format!("\tBucket Size: {}", a.bucket_size),
+                format!("\tReclaimed Bucket VBN: {}", a.reclaimed),
+                format!(
+                    "\tCurrent Extent Start: {}, Blocks: {}, Used: {}, Next: {}",
+                    a.start, a.blocks, a.used, a.next
+                ),
+                format!("\tDefault Extend Quantity: {}", a.extension),
+                format!("\tTotal Allocation: {}", a.total),
+            ]);
+        }
+        let mut errors = Vec::new();
+        for (ki, k) in p.keys.iter().enumerate() {
+            let raw = &p
+                .blocks
+                .iter()
+                .find(|b| b.0 == k.at.0)
+                .ok_or(status::BUG)?
+                .1[k.at.1..k.at.1 + KEY_SIZE];
+            let d = &k.desc;
+            o.extend([
+                String::new(),
+                format!(
+                    "KEY DESCRIPTOR #{ki} (VBN {}, offset %X'{:04X}')",
+                    k.at.0, k.at.1
+                ),
+                String::new(),
+            ]);
+            if u32_at(raw, 0) != 0 {
+                o.push(format!(
+                    "\tNext Key Descriptor VBN: {}, Offset: %X'{:04X}'",
+                    u32_at(raw, 0),
+                    u16_at(raw, 4)
+                ));
+            }
+            o.push(format!(
+                "\tIndex Area: {}, Level 1 Index Area: {}, Data Area: {}",
+                d.index_area, d.level1_index_area, d.data_area
+            ));
+            o.push(format!("\tRoot Level: {}", k.root_level));
+            o.push(format!(
+                "\tIndex Bucket Size: {}, Data Bucket Size: {}",
+                k.index_bucket, k.data_bucket
+            ));
+            if !k.empty {
+                o.push(format!("\tRoot VBN: {}", k.root));
+            }
+            o.push("\tKey Flags:".into());
+            let flags = raw[0x10];
+            let bits: &[(u8, &str)] = if ki == 0 {
+                &[
+                    (0, "DUPKEYS"),
+                    (3, "IDX_COMPR"),
+                    (4, "INITIDX"),
+                    (6, "KEY_COMPR"),
+                    (7, "REC_COMPR"),
+                ]
+            } else {
+                &[
+                    (0, "DUPKEYS"),
+                    (1, "CHGKEYS"),
+                    (2, "NULKEYS"),
+                    (3, "IDX_COMPR"),
+                    (4, "INITIDX"),
+                    (6, "KEY_COMPR"),
+                ]
+            };
+            for (bit, name) in bits {
+                o.push(format!(
+                    "\t\t({bit})  {:<17}{}",
+                    format!("KEY$V_{name}"),
+                    flags >> bit & 1
+                ));
+            }
+            o.push(format!("\tKey Segments: {}", d.segments.len()));
+            if d.null_key {
+                o.push(format!("\tNull Character: %X'{:02X}'", d.null_value));
+            }
+            o.push(format!("\tKey Size: {}", k.len()));
+            o.push(format!("\tMinimum Record Size: {}", k.min_size));
+            o.push(format!(
+                "\tIndex Fill Quantity: {}, Data Fill Quantity: {}",
+                d.index_fill, d.data_fill
+            ));
+            let row = |name: &str, first: usize, v: Vec<u16>| {
+                let mut s = format!("\t{name}:");
+                for (i, x) in v.iter().enumerate() {
+                    let w = if i == 0 { first } else { 6 };
+                    s.push_str(&format!("{x:>w$}"));
+                }
+                s
+            };
+            o.push(row(
+                "Segment Positions",
+                8,
+                d.segments.iter().map(|s| s.position).collect(),
+            ));
+            o.push(row(
+                "Segment Sizes",
+                12,
+                d.segments.iter().map(|s| s.length).collect(),
+            ));
+            o.push(format!("\tData Type: {}", type_name(d.typ, d.descending)));
+            o.push(format!("\tName: \"{}\"", d.name));
+            if !k.empty {
+                o.push(format!("\tFirst Data Bucket VBN: {}", k.first));
+            }
+            errors.extend(self.audit(ki)?.0);
+        }
+        let n = errors.len();
+        o.extend(errors);
+        Ok((o, n))
+    }
+}
+
+/// `report` (its first page's heading already there: a form feed, the
+/// title, the file spec and two blank lines) broken into pages as
+/// ANALYZE/RMS_FILE/CHECK breaks it: 54 lines under each heading, each
+/// next page's heading saying `now` and its number.
+pub fn paginate(report: &str, now: &str, spec: &str) -> String {
+    let lines: Vec<&str> = report.split('\n').collect();
+    let first = lines.len().min(59);
+    let mut out: Vec<String> = lines[..first].iter().map(|s| s.to_string()).collect();
+    for (i, chunk) in lines[first..].chunks(54).enumerate() {
+        out.push("\x0c".to_string());
+        out.push(format!(
+            "{:<45}{now}   Page {}",
+            "Check RMS File Integrity",
+            i + 2
+        ));
+        out.push(spec.to_string());
+        out.push(String::new());
+        out.push(String::new());
+        out.extend(chunk.iter().map(|s| s.to_string()));
+    }
+    out.join("\n")
+}
+
 #[cfg(test)]
 impl<B: Blocks> File<B> {
     /// Records whose stored rest differs from what `pack` makes of them.

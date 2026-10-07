@@ -337,3 +337,44 @@ fn audits_find_nothing() {
         }
     }
 }
+
+/// A cursor finds its place again after the record it is at goes, and
+/// after records go and come elsewhere: reading a key's order while
+/// deleting each record read, and putting others, visits each record that
+/// was there once.
+#[test]
+fn cursors_find_their_place_again() {
+    for key in [0u8, 1, 2, 3] {
+        let mut f = rt1();
+        let mut want = order(&mut f, key);
+        want.sort();
+        let mut got = Vec::new();
+        let mut r = f.first(key);
+        let mut n = 0;
+        while let Ok(hit) = r {
+            got.push(hit.record[..16].to_vec());
+            f.delete(hit.rfa).unwrap();
+            if n % 7 == 0 {
+                // A newcomer, after everything in every key's order.
+                put(
+                    &mut f,
+                    format!(
+                        "IX{n:06}ZZZZZZZZZZ..9999......9999......\u{7f}999...................."
+                    ),
+                );
+            }
+            n += 1;
+            r = f.next(&hit.at);
+        }
+        assert_eq!(r.unwrap_err(), vms_rms::status::EOF);
+        let fresh: Vec<_> = got
+            .iter()
+            .filter(|r| r.starts_with(b"IX"))
+            .cloned()
+            .collect();
+        got.retain(|r| !r.starts_with(b"IX"));
+        got.sort();
+        assert_eq!(got, want, "key {key}");
+        assert!(fresh.len() <= n / 7 + 1);
+    }
+}
