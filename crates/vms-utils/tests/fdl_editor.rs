@@ -99,6 +99,42 @@ impl Console for Replay<'_> {
     fn say(&mut self, text: &str) {
         self.put(text);
     }
+
+    /// No file but the analysis is there; what the image says of the
+    /// one it can't open (its messages) is taken as VMS's.
+    fn read(&mut self, _spec: &str) -> Option<String> {
+        let rest = &self.want[self.got.len()..];
+        let n: usize = rest
+            .split_inclusive('\n')
+            .take_while(|l| l.starts_with('%') || l.starts_with('-'))
+            .map(str::len)
+            .sum();
+        self.got += &rest[..n];
+        self.col = 0;
+        None
+    }
+}
+
+/// VMS's console with the blank lines after a design's plot, as many as
+/// its screen handling happened to write (3 to 25), made 3.
+fn screens(log: &str) -> String {
+    let mut out = String::new();
+    let mut blank = 0;
+    for l in log.split_inclusive('\n') {
+        if l == "\n" {
+            blank += 1;
+            continue;
+        }
+        let keep = if blank > 3 && out.ends_with("Bucket Size (number of blocks)\n") {
+            3
+        } else {
+            blank
+        };
+        out.extend(std::iter::repeat_n('\n', keep));
+        blank = 0;
+        out += l;
+    }
+    out + &"\n".repeat(blank)
 }
 
 /// The sessions of a recorded log: what came after each `$ EDIT/FDL...`
@@ -141,7 +177,23 @@ fn replay(log: &str, cmd: &str, file: Option<&str>) {
 
 /// Replays the `n`th session `cmd` started.
 fn replay_nth(log: &str, cmd: &str, n: usize, file: Option<&str>) {
-    let all = sessions(&std::fs::read_to_string(fixtures().join(log)).unwrap());
+    replay_full(log, cmd, n, file, None, true)
+}
+
+/// Replays the `n`th session `cmd` started, with the definition `file`
+/// and the analysis `analysis` given; and, if `check`, checks the file
+/// it wrote.
+fn replay_full(
+    log: &str,
+    cmd: &str,
+    n: usize,
+    file: Option<&str>,
+    analysis: Option<&str>,
+    check: bool,
+) {
+    let all = sessions(&screens(
+        &std::fs::read_to_string(fixtures().join(log)).unwrap(),
+    ));
     let (_, want) = all
         .iter()
         .filter(|(c, _)| c == cmd)
@@ -180,7 +232,7 @@ fn replay_nth(log: &str, cmd: &str, n: usize, file: Option<&str>) {
             text: file,
             shown,
             script,
-            analysis: None,
+            analysis: analysis.map(|a| vms_rms::fdl::parse(a).unwrap()),
             now: &now,
         },
     );
@@ -188,6 +240,9 @@ fn replay_nth(log: &str, cmd: &str, n: usize, file: Option<&str>) {
         panic!("{why}");
     }
     // What the image says once it has written the file.
+    if !check {
+        return;
+    }
     if let Ending::Exit(f, _) = &ending {
         let text = vms_rms::edf::text(f);
         let rest = &want[r.got.len()..];
@@ -327,4 +382,15 @@ fn add_tables_and_values() {
         replay(log, &format!(" {m}.FDL"), Some(IDX));
     }
     replay(log, " M8.FDL", Some("FILE\n  ORGANIZATION sequential\n"));
+}
+
+#[test]
+fn indexed_script() {
+    for i in 1..=6 {
+        replay(
+            "recorded/indexed.log",
+            &format!("/SCRIPT=INDEXED I{i}.FDL"),
+            None,
+        );
+    }
 }

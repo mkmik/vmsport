@@ -6,7 +6,7 @@ use super::{
 use vms_rms::fdl::{Fdl, Section};
 
 /// The prompt after a line is changed.
-const MENU: &str = "\t Press RETURN or ^Z for Main Menu         ";
+pub(super) const MENU: &str = "\t Press RETURN or ^Z for Main Menu         ";
 const RETURN: &str = "\t Press RETURN to continue (^Z for Main Menu)    ";
 
 /// The primary attributes ADD offers.
@@ -179,7 +179,7 @@ impl Editor<'_> {
         }
     }
 
-    fn emphasis(&self, c: &mut impl Console) -> Option<&'static str> {
+    pub(super) fn emphasis(&self, c: &mut impl Console) -> Option<&'static str> {
         let q = Q::new(
             "Emphasis for Default Bucket_Size",
             Takes::Keyword {

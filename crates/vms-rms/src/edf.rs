@@ -65,6 +65,26 @@ impl Key {
         levels(self.entry, self.klen + 4, self.n, self.fill, b)
     }
 
+    /// The blocks the key's data and index take with buckets of `b`
+    /// blocks, as the area holding them is allocated and extended.
+    pub fn space(&self, b: u32, cluster: u32) -> (u32, u32) {
+        let p = self.levels(b).map_or(
+            Plan {
+                bks: b,
+                data: self.n * b,
+                index: b,
+            },
+            |l| l.1,
+        );
+        let m = lcm(b, cluster);
+        [p.data, p.index].iter().fold((0, 0), |(a, e), &blocks| {
+            (
+                a + blocks.div_ceil(m) * m,
+                e + (blocks / 4).max(b).div_ceil(m) * m,
+            )
+        })
+    }
+
     /// The bucket size for the flattest index (FLATTER_FILES).
     pub fn flatter(&self, cluster: u32) -> u32 {
         self.plan(cluster).bks

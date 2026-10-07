@@ -7,6 +7,7 @@
 //! files.
 
 mod functions;
+mod indexed;
 mod scripts;
 
 use vms_help::Help;
@@ -219,7 +220,11 @@ fn question_text(text: &str) -> String {
     let mut out: String = lines.iter().map(|l| format!("\t{l}\n")).collect();
     out += &format!("\t{last}");
     if !last.ends_with('\t') {
-        out += &"\t".repeat(40usize.saturating_sub(8 + last.len()).div_ceil(8));
+        let col = last.chars().fold(
+            8,
+            |col, ch| if ch == '\t' { col / 8 * 8 + 8 } else { col + 1 },
+        );
+        out += &"\t".repeat(40usize.saturating_sub(col).div_ceil(8));
     }
     out
 }
@@ -560,7 +565,7 @@ fn menu_table() -> String {
 /// The plot a design shows: index depth (rows 9 down to 1, `*` above) at
 /// each bucket size 1 to 32 (`None`: such buckets don't hold the records).
 pub fn plot(depths: &[Option<u32>; 32]) -> String {
-    let mut out = String::from("\n\n");
+    let mut out = String::new();
     for row in (1..=10u32).rev() {
         let label = match row {
             10 => '*',
@@ -576,16 +581,22 @@ pub fn plot(depths: &[Option<u32>; 32]) -> String {
             if let Some(d) = d.filter(|d| (*d).min(10) == row) {
                 let col = 15 + 2 * (i + 1);
                 line.extend(std::iter::repeat_n(' ', col - line.len()));
-                line.push(if d >= 10 {
-                    '*'
-                } else {
-                    char::from_digit(d, 10).unwrap()
-                });
+                line.push(digit(d));
             }
         }
         out += &line;
         out.push('\n');
     }
+    out + &axis()
+}
+
+/// A depth as the plots show it: `*` from 10 on.
+fn digit(d: u32) -> char {
+    char::from_digit(d, 10).unwrap_or('*')
+}
+
+/// The plots' bucket-size axis and its labels.
+fn axis() -> String {
     let mut axis = String::from("              +-");
     for b in 1..=32 {
         axis.push(' ');
@@ -595,10 +606,29 @@ pub fn plot(depths: &[Option<u32>; 32]) -> String {
             '-'
         });
     }
-    out += &axis;
-    out += "\n                 1       5        10        15        20        25        30  32\n";
-    out += "                               Bucket Size (number of blocks)\n\n\n";
-    out
+    axis + "\n                 1       5        10        15        20        25        30  32\n                               Bucket Size (number of blocks)\n"
+}
+
+/// A surface plot: for each of 13 rows of a quantity (`rows`, the top
+/// first, labelled every other one, `names` down the side), the depth at
+/// each bucket size, `\` before the flattest and the third suggestion.
+pub fn surface(rows: &[(u64, [Option<u32>; 32], u32, u32)], names: &[(usize, &str)]) -> String {
+    let mut out = String::new();
+    for (i, (v, depths, flat, third)) in rows.iter().enumerate() {
+        let name = names.iter().find(|n| n.0 == i).map_or("", |n| n.1);
+        let mut line = match i % 2 {
+            0 => format!("{v:>14}|"),
+            _ => format!("{name:<14}|"),
+        };
+        line.push(' ');
+        for (b, d) in (1..).zip(depths) {
+            line.push(if b == *flat || b == *third { '\\' } else { ' ' });
+            line.push(d.map_or(' ', digit));
+        }
+        out += line.trim_end();
+        out.push('\n');
+    }
+    out + &axis()
 }
 
 #[cfg(test)]
@@ -611,7 +641,7 @@ mod tests {
         let mut d = [Some(1); 32];
         d[0] = Some(2);
         d[1] = Some(2);
-        let want = "\n\n             *|\n             9|\n             8|\nIndex        7|\n             6|\nDepth        5|\n             4|\n             3|\n             2|  2 2\n             1|      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n              +- + - - - + - - - - + - - - - + - - - - + - - - - + - - - - + - +\n                 1       5        10        15        20        25        30  32\n                               Bucket Size (number of blocks)\n\n\n";
+        let want = "             *|\n             9|\n             8|\nIndex        7|\n             6|\nDepth        5|\n             4|\n             3|\n             2|  2 2\n             1|      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n              +- + - - - + - - - - + - - - - + - - - - + - - - - + - - - - + - +\n                 1       5        10        15        20        25        30  32\n                               Bucket Size (number of blocks)\n";
         assert_eq!(plot(&d), want);
     }
 }

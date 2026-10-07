@@ -46,7 +46,7 @@ pub const TYPES: [&str; 18] = [
 ];
 pub const TYPE_LIST: &str = "\t(Bin2  Bin4  Bin8  Int2  Int4  Int8  Decimal  String  Collated\n\t Dbin2 Dbin4 Dbin8 Dint2 Dint4 Dint8 Ddecimal Dstring Dcollated)\n";
 
-const RETURN: &str = "\t Press RETURN to continue (^Z for Main Menu)    ";
+pub(super) const RETURN: &str = "\t Press RETURN to continue (^Z for Main Menu)    ";
 
 impl Editor<'_> {
     /// INVOKE: which script, then it.
@@ -102,13 +102,30 @@ impl Editor<'_> {
         let designed = match script {
             "SEQUENTIAL" => self.sequential(c),
             "RELATIVE" => self.relative(c),
-            _ => None,
+            "INDEXED" => self.indexed(c),
+            "ADD_KEY" => self.add_key(c),
+            "TOUCHUP" => self.touchup(c),
+            "OPTIMIZE" => self.optimize(c),
+            _ => self.delete_key(c),
         };
         self.scripting = false;
         if let Some(f) = designed {
             self.fdl = f;
             c.say("\n");
         }
+    }
+
+    /// DELETE_KEY: the last key goes.
+    fn delete_key(&mut self, c: &mut impl Console) -> Option<Fdl> {
+        let k = self.key_sections().len().checked_sub(1)?;
+        c.say(&format!("\n\tDeleting KEY {k:>2} primary section.\n"));
+        self.press_return(c, RETURN)?;
+        let mut f = self.fdl.clone();
+        f.sections
+            .retain(|s| !(s.name == "KEY" && s.value.trim() == k.to_string()));
+        c.say("\n\tEnd of Delete_Key_Indexed Script.\n");
+        self.press_return(c, super::functions::MENU)?;
+        Some(f)
     }
 
     pub(super) fn empty(&self) -> bool {
