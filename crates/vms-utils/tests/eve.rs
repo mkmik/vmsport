@@ -80,6 +80,19 @@ fn eve_through_dcl() {
     );
     assert!(!tmp.join("T.TJL;1").exists());
 
+    // TPU's and EVE's messages (sys/SYSMSG/TPU.MSG, from VMS's TPUMSG.EXE):
+    // EXIT's status, and one of EVE's.
+    let out = dcl(
+        &tmp,
+        &run,
+        "WRITE SYS$OUTPUT F$MESSAGE(%X13F2AF01), \" / \", F$MESSAGE(%X02248020)",
+        b"",
+    );
+    assert_eq!(
+        out.trim_end(),
+        "%TPU-S-EXITING, editor exiting / %EVE-W-EXECINITCMDS, Executing commands in initialization file: !AS"
+    );
+
     if let Ok(c) = vmsportd::Client::connect_in(&run, Path::new("/nonexistent")) {
         let _ = c.stop();
     }

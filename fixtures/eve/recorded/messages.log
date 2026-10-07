@@ -1,0 +1,1185 @@
+$ SET DEFAULT SYS$SYSDEVICE:[000000]
+$ DIRECTORY/NOHEADING/NOTRAILING SYS$MESSAGE:*TPU*.EXE,*EVE*.EXE
+SYS$COMMON:[SYSMSG]TPUMSG.EXE;1
+$ CREATE TPUMSG.COM
+$! Prints TPU's (1010) and EVE's (548) messages, code and F$MESSAGE text,
+$! with each message file of SYS$MESSAGE that names TPU or EVE, and then
+$! TPU's shareable image.
+$ SET NOON
+$files:
+$ f = F$SEARCH("SYS$MESSAGE:*.EXE")
+$ IF f .EQS. "" THEN GOTO share
+$ name = F$PARSE(f,,,"NAME")
+$ IF F$LOCATE("TPU", name) .EQ. F$LENGTH(name) .AND. -
+        F$LOCATE("EVE", name) .EQ. F$LENGTH(name) THEN GOTO files
+$ CALL try 'f'
+$ GOTO files
+$share:
+$ CALL try SYS$SHARE:TPUSHR.EXE
+$ EXIT 1
+$try: SUBROUTINE
+$ WRITE SYS$OUTPUT "@@ file ", P1
+$ SET MESSAGE 'P1'
+$ CALL scan 1010
+$ CALL scan 548
+$ ENDSUBROUTINE
+$scan: SUBROUTINE
+$ n = 0
+$loop:
+$ code = F$INTEGER(P1) * %X10000 + %X8000 + n * 8
+$ msg = F$MESSAGE(code)
+$ IF F$LOCATE("-NOMSG,", msg) .EQ. F$LENGTH(msg) THEN -
+        WRITE SYS$OUTPUT F$FAO("!XL", code), " ", msg
+$ n = n + 1
+$ IF n .LT. 4096 THEN GOTO loop
+$ ENDSUBROUTINE
+*EXIT*
+$ @TPUMSG
+@@ file SYS$COMMON:[SYSMSG]TPUMSG.EXE;1
+03F2AEE0 %TPU-W-$BLANKLINE,  
+03F2AEE8 %TPU-W-$BUFFERS,  !UL System buffer!%S and !UL User buffer!%S
+03F2AEF0 %TPU-W-DEBUG, breakpoint at line !UL
+03F2AF00 %TPU-W-EXITING, editor exiting
+03F2AF08 %TPU-W-FILEIN, !UL line!%S read from file !AS
+03F2AF10 %TPU-W-FILEOUT, !UL line!%S written to file !AS
+03F2AF18 %TPU-W-$INPUTFILE, Input  file: !AS
+03F2AF20 %TPU-W-$JOURNALFILE, Journal file: !AS
+03F2AF28 %TPU-W-NEEDFILENAME, Type filename for buffer !AS (press RETURN to not write it): 
+03F2AF30 %TPU-W-NOENDOFLINE, returning a range of text with no end of line
+03F2AF38 %TPU-W-$OUTPUTFILE, Output file: !AS
+03F2AF40 %TPU-W-PRESSRET, Press RETURN to continue... 
+03F2AF48 %TPU-W-PROCESSBEG, subprocess activated
+03F2AF50 %TPU-W-PROCESSEND, subprocess terminated
+03F2AF58 %TPU-W-QUITTING, editor quitting
+03F2AF60 %TPU-W-REALLYQUIT, Buffer modifications will not be saved, continue quitting (Y or N)? 
+03F2AF68 %TPU-W-RECOVERBEG, recovery started
+03F2AF70 %TPU-W-RECOVEREND, recovery complete
+03F2AF80 %TPU-W-SECTSAVED, !UL procedure!%S, !UL variable!%S, !UL key!%S saved
+03F2AF88 %TPU-W-$SECTIONFILE, Section file name: !AS  Ident: !AS  Date: !17%D
+03F2AF90 %TPU-W-$SHOWBUFFER1, Buffer: !AS!AS
+03F2AF98 %TPU-W-$SHOWBUFFER2, Name: !AS       Mapped to !UL window!%S
+03F2AFA0 %TPU-W-$SHOWBUFFER3, Contains !UL line!%S  Max_lines: !UL  Maximum line size: !UL character!%S
+03F2AFA8 %TPU-W-$SHOWBUFFER4, Left Margin: !UL  Right Margin: !UL  Tabs every !UL !AS!%S
+03F2AFB0 %TPU-W-$SHOWBUFFER5, Left Margin: !UL  Right Margin: !UL  Tabs at: !#(6UL)
+03F2AFB8 %TPU-W-$SHOWBUFFER6, !#(#AS)
+03F2AFC0 %TPU-W-$SHOWSCREEN1, Terminal: !AS     Type: !AS
+03F2AFC8 %TPU-W-$SHOWSCREEN2, Width: !UL        Page Length: !UL
+03F2AFD0 %TPU-W-$SHOWSCREEN3, !AS  !AS  !AS  !AS  Screen Updater: !AS
+03F2AFD8 %TPU-W-$SHOWSCREEN4, Visible cursor is at row !UL column !UL
+03F2AFE0 %TPU-W-$SHOWSCREEN5, Previous cursor position was row !UL column !UL
+03F2AFE8 %TPU-W-$SHOWWINDOW1, Window: !AS!AS
+03F2AFF0 %TPU-W-$SHOWWINDOW2, Visible window number: !UL
+03F2AFF8 %TPU-W-$SHOWWINDOW3, Not Visible
+03F2B000 %TPU-W-$SHOWWINDOW4, Buffer: Not Mapped
+03F2B008 %TPU-W-$SHOWWINDOW5, Video: !#(#AS)
+03F2B010 %TPU-W-$SHOWWINDOW6, Status_line: !#AS   Text: !#AS   Pad: !#AS
+03F2B018 %TPU-W-$SHOWWINDOW7, Most recent visible cursor was at row !UL column !UL
+03F2B020 %TPU-W-$SHOWWINDOW8, Most recent visible cursor was UNKNOWN
+03F2B028 %TPU-W-$SHOWWINDOW9, Visible_ Top: !UL   Bottom: !UL              Original_ Top: !UL  Bottom: !UL
+03F2B030 %TPU-W-$SHOWWINDOW10, Scroll_  Top: !UL   Bottom: !UL   Amount: !UL
+03F2B038 %TPU-W-$SHOWWINDOW11, Width: !UL     Shift_amount: !UL
+03F2B040 %TPU-W-$SPRTEXT1, Fatal DECTPU internal error, please submit an SPR including:
+03F2B048 %TPU-W-$SPRTEXT2,      1.  A description of the actions that revealed the bug
+03F2B050 %TPU-W-$SPRTEXT3,      2.  The versions of DECTPU and the operating system you are running
+03F2B058 %TPU-W-$SPRTEXT4,      3.  Machine-readable media containing:
+03F2B060 %TPU-W-$SPRTEXT5,          - The source files of your DECTPU section and command files
+03F2B068 %TPU-W-$SPRTEXT6,          - Copies of the data files used during the session
+03F2B070 %TPU-W-$SPRTEXT7,          - The keystroke journal file if one exists
+03F2B078 %TPU-W-$SPRTEXT8,      4.  Your terminal characteristics, if applicable
+03F2B080 %TPU-W-$SPRTEXT9,      5.  A description of the command used to invoke DECTPU
+03F2B088 %TPU-W-$SPRTEXT10, Shareable base: !XL  Ident: !AC
+03F2B090 %TPU-W-SUCCESS, successful completion
+03F2B098 %TPU-W-$TIMERMSG, Timer Message: !AS
+03F2B0A0 %TPU-W-$VERSIONUPD,  !AC
+03F2B0A8 %TPU-W-COMPILED, compilation completed without errors
+03F2B0B8 %TPU-W-JOURNALCLOSE, journal file successfully closed, journaling stopped
+03F2B0C0 %TPU-W-REALLYRECOVER, Continue recovering (Y or N)? 
+03F2B0C8 %TPU-W-$SECTION_ENG,        Created by: !AS
+03F2B0D0 %TPU-W-$SHOWKEYMAPS1, Defined key maps:
+03F2B0D8 %TPU-W-$SHOWKEYMAPS2,     !40AS  (!UL key!%S defined)
+03F2B0E0 %TPU-W-$SHOWKEYMAPS3, Total of !UL key map!%S defined
+03F2B0E8 %TPU-W-$SHOWKEYMPLSTS1, Defined key map lists:
+03F2B0F0 %TPU-W-$SHOWKEYMPLSTS2,     !#* !AS contains the following:
+03F2B0F8 %TPU-W-$SHOWKEYMPLSTS3,         !#* !40AS  (!UL key!%S defined)
+03F2B100 %TPU-W-$SHOWKEYMPLSTS4, Total of !UL key map list!%S defined
+03F2B108 %TPU-W-$SHOWBUFFER7, Key Map List: !AS
+03F2B110 %TPU-W-CREATED, File !AS created
+03F2B128 %TPU-W-$COORDINATE, coordinate
+03F2B130 %TPU-W-$COLUMN, column
+03F2B138 %TPU-W-$INTERP_TRAP, interpreter trap of signal vector at !XL
+03F2B140 %TPU-W-$ZAP_ALL_REFS, zap all references to location !XL, count in !XL
+03F2B148 %TPU-W-$SHOWSCREEN6, Screen information not available in NODISPLAY mode
+03F2B150 %TPU-W-$BLANK_TABS, Blank_tabs
+03F2B158 %TPU-W-$GRAPHIC_TABS, Graphic_tabs
+03F2B160 %TPU-W-$NO_TRANSLATE, No_translate
+03F2B168 %TPU-W-$ON, On
+03F2B170 %TPU-W-$OFF, Off
+03F2B178 %TPU-W-$NONE, None
+03F2B180 %TPU-W-$REVERSE, Reverse
+03F2B188 %TPU-W-$BOLD, Bold
+03F2B190 %TPU-W-$BLINK, Blink
+03F2B198 %TPU-W-$UNDERLINE, Underline
+03F2B1A0 %TPU-W-$VK100, VK100
+03F2B1A8 %TPU-W-$VT100, VT100
+03F2B1B0 %TPU-W-$VT102, VT102
+03F2B1B8 %TPU-W-$VT125, VT125
+03F2B1C0 %TPU-W-$VT131, VT131
+03F2B1C8 %TPU-W-$VT200, VT200
+03F2B1D0 %TPU-W-$UNKNOWN, UNKNOWN
+03F2B1D8 %TPU-W-$ANSI_CRT, ANSI_CRT
+03F2B1E0 %TPU-W-$CRT2_SCROLL, DEC_CRT2-Scroll
+03F2B1E8 %TPU-W-$CRT_SCROLL, DEC_CRT-Scroll
+03F2B1F0 %TPU-W-$NO_SCROLL, No Scroll
+03F2B1F8 %TPU-W-$AVO, Advanced Video
+03F2B200 %TPU-W-$NO_AVO, No Advanced Video
+03F2B208 %TPU-W-$EDIT, Edit
+03F2B210 %TPU-W-$NO_EDIT, No Edit
+03F2B218 %TPU-W-$EIGHTBIT, Eightbit
+03F2B220 %TPU-W-$NO_EIGHTBIT, No Eightbit
+03F2B228 %TPU-W-$SPRTEXT11, Updater base:   !XL  Ident: !AC
+03F2B230 %TPU-W-$DECODE_ADDRESS, decode formal/local: address !XL, procedure !XL
+03F2B238 %TPU-W-$SHOWSTRING, Variable is a string with value "!AS"
+03F2B240 %TPU-W-$SHOWERROR, No Information Available
+03F2B248 %TPU-W-$PERMANENT, Permanent
+03F2B250 %TPU-W-$SYSTEM, System
+03F2B258 %TPU-W-$READ_ONLY, Read_Only
+03F2B260 %TPU-W-$INSERT, Insert
+03F2B268 %TPU-W-$OVERSTRIKE, Overstrike
+03F2B270 %TPU-W-$B_FORWARD, Forward
+03F2B278 %TPU-W-$B_REVERSE, Reverse
+03F2B280 %TPU-W-$MODIFIED, Modified
+03F2B288 %TPU-W-$NOT_HANDLED, request not handled; try someone else
+03F2B290 %TPU-W-$DEBUG_INFO, debug information to address !XL
+03F2B298 %TPU-W-$NONAME, <noname>
+03F2B2A0 %TPU-W-$DEFSTATLINE,    Buffer : !AS   File : !AS
+03F2B2A8 %TPU-W-$EOF, <end-of-file>
+03F2B2B8 %TPU-W-$SHOWBUF3NL, Contains !UL line!%S  Max_lines: No limit  Maximum line size: !UL character!%S
+03F2B2C0 %TPU-W-$SECTION_ACT,    Activated from: !AS
+03F2B2C8 %TPU-W-$SECTION_MAP,       Mapped from: !AS
+03F2B2D0 %TPU-W-$WORKING,         working
+03F2B2D8 %TPU-W-$JOU_NO_TERM, journaled string is not followed by a terminator
+03F2B2E0 %TPU-W-$VT300, VT300
+03F2B2E8 %TPU-W-$SPRTEXT12, Updater file:   !AS
+03F2B2F0 %TPU-W-DICADD, '!AS' has been added to a dictionary as '!AS'
+03F2B2F8 %TPU-W-DICDEL, '!AS' has been removed from '!AS' of a dictionary
+03F2B300 %TPU-W-$DICFILE, Dictionary file: !AS
+03F2B308 %TPU-W-$EXTENSION1, Extension: !AS  Ident: !AS
+03F2B310 %TPU-W-$EXTENSION2, Extension: !AS  Ident: !AS  Not loaded
+03F2B318 %TPU-W-$DECWINDOWS, DECwindows
+03F2B320 %TPU-W-RECOVERBUFBEG, recovery started for buffer !AS
+03F2B328 %TPU-W-RECOVERBUFEND, recovery complete for buffer !AS
+03F2B330 %TPU-W-RECOVERBUFFILE1, can not recover from file !AS 
+03F2B338 %TPU-W-RECOVERBUFFILE2, Type new specification for original input file: 
+03F2B340 %TPU-W-$MOTIF, Motif
+03F2B348 %TPU-W-$SPRTEXTULT1,          - The core file if one exists
+03F2B350 %TPU-W-RECOVERBUFFILE3, Type new specification for inserted file: 
+03F2B358 %TPU-W-RECOVERBUFFILE4, can not find inserted file !AS 
+03F2BE80 %TPU-W-BOTLINETRUNC, calculated new last line !SL, changed to !UL
+03F2BE88 %TPU-W-EXPECTED, one of the following symbols was expected:
+03F2BE90 %TPU-W-JOURNALBEG, journal of edit session started
+03F2BE98 %TPU-W-REVERSECASE, CASE limits were reversed
+03F2BEA0 %TPU-W-SECTRESTORED, !UL procedure!%S, !UL variable!%S, !UL key!%S restored
+03F2BEA8 %TPU-W-STATOOLONG, truncating status line to !UL character!%S
+03F2BEB0 %TPU-W-PROCSUPERSEDED, definition of procedure !AS!AS superseded
+03F2BEB8 %TPU-W-TOPLINETRUNC, calculated new first line !SL, changed to 1
+03F2BEC0 %TPU-W-TEXT, !AS
+03F2BEC8 %TPU-W-YES, YES
+03F2BED0 %TPU-W-NO, NO
+03F2BED8 %TPU-W-SAVEUNDEFPROC, saving undefined procedure !AS!AS
+03F2BEE0 %TPU-W-ATLINE, at line !UL
+03F2BEE8 %TPU-W-ATPROCLINE, at line !UL of procedure !AS
+03F2BEF0 %TPU-W-FROMLINE, called from line !UL
+03F2BEF8 %TPU-W-FROMPROCLINE, called from line !UL of procedure !AS
+03F2BF00 %TPU-W-OCCLUDED, built-in/keyword !AS occluded by declaration
+03F2BF08 %TPU-W-SOURCELINE, at source line !UL
+03F2BF10 %TPU-W-HIDDEN, global variable !AS hidden by declaration
+03F2BF18 %TPU-W-INBUILTIN, occurred in built-in !AS!AS
+03F2BF20 %TPU-W-FROMBUILTIN, called from built-in !AS!AS
+03F2BF28 %TPU-W-UNREACHABLE, unreachable code
+03F2BF30 %TPU-W-KEYSUPERSEDED, definition of key !AS!AS superseded
+03F2BF38 %TPU-W-ADJSCROLLREG, scrolling parameters altered to top: !UL, bottom: !UL, amount: !UL
+03F2BF40 %TPU-W-SAVEAMBIGSYM, saving ambiguous symbol !AS!AS
+03F2BF48 %TPU-W-AMBIGSYMUSED, ambiguous symbol !AS!AS used as procedure parameter
+03F2BF60 %TPU-W-ROUND, FORWARD was rounded to the top
+03F2BF68 %TPU-W-JRNLBUFBEG, journaling started for buffer !AS
+03F2BF70 %TPU-W-READLINEHELP, DECTPU is executing the READ_LINE built-in function, enter text or cancel
+03F2BF78 %TPU-W-BUILTOBSOLETE, built-in no longer supported
+03F2CE20 %TPU-W-BADBUFWRITE, error occurred writing buffer !AS
+03F2CE28 %TPU-W-BADFIRSTLINE, first line = !SL, must be between !UL and !UL
+03F2CE30 %TPU-W-BADMARGINS, margins specified incorrectly
+03F2CE38 %TPU-W-BADREQUEST, request "!AS!AS" of !AS!AS is not understood
+03F2CE40 %TPU-W-BADWINDADJUST, attempt to make window less than 1 line long, no adjustment
+03F2CE48 %TPU-W-BADWINDLEN, window length = !SL, must be between !UL and !UL
+03F2CE50 %TPU-W-BEGOFBUF, attempt to move past the beginning of buffer !AS
+03F2CE58 %TPU-W-CANCELQUIT, QUIT canceled by request
+03F2CE60 %TPU-W-COMPILEFAIL, compilation aborted
+03F2CE68 %TPU-W-CREATEFAIL, unable to activate subprocess
+03F2CE70 %TPU-W-DELETEFAIL, unable to terminate subprocess
+03F2CE78 %TPU-W-DUPBUFNAME, buffer !AS already exists
+03F2CE80 %TPU-W-ENDOFBUF, attempt to move past the end of buffer !AS
+03F2CE88 %TPU-W-EXECUTEFAIL, execution aborted
+03F2CE90 %TPU-W-EXITFAIL, attempt to EXIT was unsuccessful
+03F2CE98 %TPU-W-FACTOOLONG, facility name, !AS, exceeds maximum length !UL
+03F2CEA0 %TPU-W-FLAGTRUNC, value of message flags exceeds maximum value 15, truncated
+03F2CEA8 %TPU-W-INVBUFDELETE, cannot delete a permanent buffer
+03F2CEB0 %TPU-W-INVFAOPARAM, FAO parameter !UL must be string or integer
+03F2CEB8 %TPU-W-INVTABSPEC, tabs specification incorrect, not changed
+03F2CEC0 %TPU-W-LINETOOLONG, line is maximum length, cannot add text to it
+03F2CEC8 %TPU-W-MAXMAPPEDBUF, a single buffer can be mapped to at most !UL window!%S
+03F2CED0 %TPU-W-MAXVALUE, maximum value is !SL
+03F2CED8 %TPU-W-MINVALUE, minimum value is !SL
+03F2CEE0 %TPU-W-MULTIPLENAMES, there is more than one name matching, all are returned
+03F2CEE8 %TPU-W-MUSTBEONE, string must be 1 character long
+03F2CEF0 %TPU-W-NOCOPYBUF, cannot COPY a buffer to itself
+03F2CEF8 %TPU-W-NOCURRENTBUF, no buffer has been selected as default
+03F2CF00 %TPU-W-NODEFINITION, key !AS!AS currently has no definition
+03F2CF08 %TPU-W-NOEOBSTR, cannot return a string at end of buffer
+03F2CF10 %TPU-W-NOJOURNAL, editing session is not being journaled
+03F2CF18 %TPU-W-NONAMES, there are no names matching the one requested
+03F2CF28 %TPU-W-NOPARENT, there is no parent process to attach to
+03F2CF30 %TPU-W-NOPROCESS, no subprocess to interact with
+03F2CF38 %TPU-W-NOSELECT, no select active
+03F2CF48 %TPU-W-NOSHOWBUF, variable SHOW_BUFFER does not exist or is not a buffer
+03F2CF50 %TPU-W-NOTDEFINABLE, that key is not definable
+03F2CF58 %TPU-W-NOTLEARNING, you have not begun a learn sequence
+03F2CF68 %TPU-W-NOTSAMEBUF, the markers are not in the same buffer
+03F2CF70 %TPU-W-ONELEARN, cannot start a learn sequence while one is active
+03F2CF78 %TPU-W-ONESELECT, select already active, maximum 1 per buffer
+03F2CF80 %TPU-W-RECURLEARN, learn sequence replay halted due to recursion
+03F2CF88 %TPU-W-REPLAYFAIL, an inconsistency has been discovered, halting execution
+03F2CF90 %TPU-W-REPLAYWARNING, an inconsistency has been discovered, continuing execution
+03F2CF98 %TPU-W-SELRANGEZERO, select range has 0 length
+03F2CFA0 %TPU-W-SENDFAIL, unable to send to subprocess
+03F2CFA8 %TPU-W-STRNOTFOUND, string not found
+03F2CFB0 %TPU-W-TRUNCATE, line truncated to !UL character!%S
+03F2CFB8 %TPU-W-WINDNOTMAPPED, the window is not mapped to a buffer
+03F2CFC0 %TPU-W-WINDNOTVIS, built-in cannot operate on an invisible window
+03F2D018 %TPU-W-DUPKEYMAP, attempt to define a duplicate key map !AS
+03F2D020 %TPU-W-DUPKEYMAPLIST, attempt to define a duplicate key-map list !AS
+03F2D028 %TPU-W-NOKEYMAP, attempt to access an undefined key map !AS
+03F2D030 %TPU-W-NOKEYMAPLIST, attempt to access an undefined key-map list !AS
+03F2D038 %TPU-W-KEYMAPNOTFND, key map !AS not found in key-map list !AS
+03F2D040 %TPU-W-EMPTYKMLIST, key-map list !AS does not contain any key maps
+03F2D048 %TPU-W-JOURNALEOF, end of journal file found unexpectedly
+03F2D050 %TPU-W-BADSTRCNT, invalid string count found in journal file
+03F2D058 %TPU-W-BADJOUCHAR, expected character in journal file
+03F2D060 %TPU-W-BADJOUKEY, expected key in journal file
+03F2D068 %TPU-W-BADJOUSTR, expected string in journal file
+03F2D070 %TPU-W-RECOVERABORT, recovery aborted by journal file inconsistency, journal file closed
+03F2D078 %TPU-W-ASYNCACTIVE, journal file prohibited with asynchronous handlers declared
+03F2D080 %TPU-W-JNLACTIVE, asynchronous actions prohibited when journal file open
+03F2D088 %TPU-W-UKNFACILITY, unknown facility code specified
+03F2D090 %TPU-W-PARSEFAIL, error parsing !AS
+03F2D098 %TPU-W-SEARCHFAIL, error searching for !AS
+03F2D0A0 %TPU-W-BADKEY, !AS!AS is an invalid keyword
+03F2D0A8 %TPU-W-MSGNOTFND, message was not found; the default message has been returned
+03F2D0B0 %TPU-W-MSGBUFSET, attempt to change modifiable setting of message buffer
+03F2D0B8 %TPU-W-NOTMODIFIABLE, attempt to change unmodifiable buffer !AS
+03F2D0C0 %TPU-W-MOVETOCOPY, move from unmodifiable buffer !AS changed to copy
+03F2D0C8 %TPU-W-NOWINDOW, attempt to position the cursor outside all of the mapped windows
+03F2D0D0 %TPU-W-MOUSEINV, mouse location information is invalid
+03F2D0D8 %TPU-W-INVTIME, invalid time interval
+03F2D0E8 %TPU-W-INVRANGE, invalid range enclosure specified
+03F2D110 %TPU-W-SECTUNDEFPROC, saved !UL undefined procedure!%S, !UL ambiguous symbol!%S
+03F2D118 %TPU-W-CAPTIVE, unable to create a subprocess in a captive account
+03F2D120 %TPU-W-NOBREAKPOINT, no breakpoint is active
+03F2D128 %TPU-W-NULLSTRING, null string used
+03F2D130 %TPU-W-INVNUMSTR, invalid numeric string
+03F2D138 %TPU-W-NOTYET, not yet implemented
+03F2D140 %TPU-W-REFRESH_NEEDED, screen refresh needed
+03F2D148 %TPU-W-INPUT_CANCELED, input request canceled
+03F2D150 %TPU-W-NOTARRAY, indexed variable is not an array
+03F2D158 %TPU-W-INDEXTYPE, array index data type, !AS!AS, unsupported
+03F2D168 %TPU-W-UNARYOPER, operand combination !AS !AS!AS unsupported
+03F2D170 %TPU-W-BINARYOPER, operand combination !AS!AS !AS !AS!AS unsupported
+03F2D178 %TPU-W-UNKESCAPE, unknown escape sequence read
+03F2D180 %TPU-W-INCKWDCOM, inconsistent keyword combination
+03F2D188 %TPU-W-CALLUSERFAIL, CALL_USER routine failed with status %X!XL
+03F2D190 %TPU-W-ILLREQUEST, request "!AS!AS" is invalid
+03F2D198 %TPU-W-ILLSEVERITY, illegal severity of !SL specified, error severity used
+03F2D1A0 %TPU-W-ERRSYMACTIVE, special error symbol already active
+03F2D1A8 %TPU-W-OVERLAPRANGE, overlapping ranges, operation terminated
+03F2D1B0 %TPU-W-BADPROMPTLEN, prompt area length = !SL, must be between !UL and !UL
+03F2D1B8 %TPU-W-NODIC, no dictionary available in this editing session
+03F2D1C0 %TPU-W-NODICENT, no entry found in a dictionary
+03F2D1C8 %TPU-W-NODICUPD, the dictionary is restricted updating
+03F2D1D0 %TPU-W-NOCLA, no conversion source has been specified yet
+03F2D1E8 %TPU-W-NOGBLSELDATA, no global selection data
+03F2D1F0 %TPU-W-INVGBLSELDATA, the selected data cannot be processed
+03F2D1F8 %TPU-W-UNDWIDCLA, undefined widget class specified
+03F2D200 %TPU-W-GBLSELOWNER, you are the global selection owner
+03F2D208 %TPU-W-CLIPBOARDLOCKED, clipboard is locked by another process
+03F2D210 %TPU-W-CLIPBOARDNODATA, clipboard does not contain the requested data
+03F2D218 %TPU-W-CLIPBOARDFAIL, unexpected clipboard failure
+03F2D220 %TPU-W-CLIPBOARDZERO, clipboard data has 0 length
+03F2D228 %TPU-W-BADWIDTHCHANGE, terminal will not support change of width
+03F2D230 %TPU-W-NOGBLSELOWNER, there is no global selection owner
+03F2D238 %TPU-W-TIMEOUT, built-in timed out
+03F2D240 %TPU-W-REGWIDDUP, registration string already associated with a different widget
+03F2D248 %TPU-W-READABORTED, READ_CHAR, READ_KEY, or READ_LINE built-in was aborted
+03F2D250 %TPU-W-NOCHARREAD, no character was read by the READ_CHAR built-in
+03F2D258 %TPU-W-BADDISPVAL, display value = !SL, must be between !UL and !UL
+03F2D260 %TPU-W-LINENOTMOD, attempt to change unmodifiable line(s)
+03F2D268 %TPU-W-MOVETOCOPYTEXT, moving unmodifiable line(s) from buffer !AS changed to copy
+03F2D270 %TPU-W-JRNLOPEN, journal file already open for buffer !AS
+03F2D278 %TPU-W-JRNLNOTSAFE, buffer !AS is not safe for journaling
+03F2D280 %TPU-W-BADLENGTHCHANGE, terminal will not support change of length
+03F2D288 %TPU-W-BADSCREENWIDTH, terminal must be wider than widest window, !UL columns
+03F2D290 %TPU-W-NOFOCUSOWNER, there is no input focus owner
+03F2D298 %TPU-W-FENCEPOST, no visible record found in specified range
+03F2D2A0 %TPU-W-NOTSUBCLASS, object is not a subclass of WindowObjClass
+03F2D2A8 %TPU-W-RECOVERQUIT, no file name specified, nothing recovered
+03F2D2B0 %TPU-W-TYPEREDEFINE, widget resource type "!AS" redefined to data type "!AS"
+03F2D2B8 %TPU-W-UNKCSCOMP, ignoring unknown compound string component
+03F2D2C0 %TPU-W-INVCHARSET, unrecognized character set; using default character set DEC_MCS
+03F2DDC8 %TPU-W-ARGMISMATCH, parameter !UL's data type, !AS!AS, unsupported
+03F2DDD0 %TPU-W-BADASSIGN, target of the assignment cannot be a function/keyword
+03F2DDE0 %TPU-W-BADCASELIMIT, CASE constant outside CASE limits
+03F2DDE8 %TPU-W-BADCHAR, unrecognized character in input
+03F2DDF0 %TPU-W-BADDELETE, cannot modify constant integer, keyword, or string
+03F2DDF8 %TPU-W-BADEXITIF, EXITIF occurs outside a LOOP
+03F2DE08 %TPU-W-BADJOUFILE, operation terminated due to error in journal file access
+03F2DE10 %TPU-W-BADPROCNAME, variable used as a procedure
+03F2DE30 %TPU-W-BADUSERDESC, descriptor from user routine invalid or memory inaccessible
+03F2DE38 %TPU-W-BADVALUE, integer value !SL is outside specified limits
+03F2DE50 %TPU-W-CONTROLC, operation aborted by CTRL/C
+03F2DE58 %TPU-W-DIVBYZERO, divide by zero
+03F2DE60 %TPU-W-FILECONVERTED, file format is being converted to a supported type
+03F2DE68 %TPU-W-GETMEM, memory allocation failure (Insufficient virtual memory)
+03F2DE70 %TPU-W-INVIOCODE, invalid Operation Code passed to an I/O operation
+03F2DE78 %TPU-W-INVPARAM, parameter !UL's data type, !AS!AS, illegal; expected !AS!AS
+03F2DE80 %TPU-W-KEYWORDPARAM, keyword !AS!AS used as procedure/variable/constant
+03F2DE88 %TPU-W-MISSINGQUOTE, missing quote
+03F2DE90 %TPU-W-MIXEDTYPES, operator with mixed or unsupported data types
+03F2DEA0 %TPU-W-NEEDTOASSIGN, built-in must return a value
+03F2DEB0 %TPU-W-NOCACHE, insufficient virtual memory to allocate a new cache
+03F2DEB8 %TPU-W-NOCALLUSER, could not find a routine for CALL_USER to invoke
+03F2DEC0 %TPU-W-NOFILEACCESS, unable to access file !AS
+03F2DEC8 %TPU-W-NONANSICRT, SYS$INPUT must be supported CRT
+03F2DED0 %TPU-W-NOREDEFINE, built-in procedure !AS!AS cannot be redefined
+03F2DED8 %TPU-W-PARSEOVER, parser stack overflow
+03F2DEE8 %TPU-W-PREMATUREEOF, premature end-of-file detected
+03F2DEF0 %TPU-W-RECOVERFAIL, recovery terminated abnormally, journal file inconsistency
+03F2DEF8 %TPU-W-RESTOREFAIL, error during RESTORE operation
+03F2DF00 %TPU-W-SAVEERROR, error during SAVE operation
+03F2DF08 %TPU-W-STACKOVER, stack overflow during compilation
+03F2DF10 %TPU-W-STRTOOLARGE, string greater than 65535 characters
+03F2DF18 %TPU-W-SYNTAXERROR, syntax error
+03F2DF20 %TPU-W-TOOFEW, too few arguments
+03F2DF28 %TPU-W-TOOMANY, too many arguments
+03F2DF30 %TPU-W-TOOMANYPARAM, too many formal parameters/local variables
+03F2DF38 %TPU-W-UNDEFINEDPROC, undefined procedure call !AS!AS
+03F2DF48 %TPU-W-UNKKEYWORD, an unknown keyword has been used as an argument
+03F2DF50 %TPU-W-UNKOPCODE, unknown opcode !XB
+03F2DF58 %TPU-W-UNKTYPE, unknown data type !XB
+03F2DF60 %TPU-W-CLOSEIN, error closing input file !AS
+03F2DF68 %TPU-W-CLOSEOUT, error closing output file !AS
+03F2DF70 %TPU-W-OPENIN, error opening !AS as input
+03F2DF78 %TPU-W-OPENOUT, error opening !AS as output
+03F2DF80 %TPU-W-READERR, error reading !AS
+03F2DF90 %TPU-W-SYSERROR, system service error
+03F2DF98 %TPU-W-WRITEERR, error writing !AS
+03F2DFA0 %TPU-W-JNLNOTOPEN, journal file not open, recovery aborted
+03F2DFA8 %TPU-W-MUSTBECONST, expression must be a compile-time constant
+03F2DFB0 %TPU-W-ILLEGALTYPE, illegal data type
+03F2DFB8 %TPU-W-MULTIDEF, parameter/local/constant !AS multiply defined
+03F2DFC0 %TPU-W-CONTRADEF, contradictory definition for variable or constant !AS!AS
+03F2DFC8 %TPU-W-EXPCOMPLEX, expression too complex
+03F2DFD0 %TPU-W-BADCASERANGE, invalid CASE range
+03F2DFD8 %TPU-W-BADSECTION, bad section file
+03F2DFE0 %TPU-W-BADSYMTAB, bad symbol table
+03F2DFE8 %TPU-W-MISSYMTAB, missing symbol table
+03F2DFF0 %TPU-W-UNKWNDESC, unknown descriptor type
+03F2DFF8 %TPU-W-NOASSIGNMENT, expression without assignment
+03F2E000 %TPU-W-ILLPATAS, pattern assignment target only valid in procedure !AS!AS
+03F2E008 %TPU-W-BADJOUTERM, journaled terminal type was !AS, recovering with !AS
+03F2E010 %TPU-W-BADJOUPAGE, journaled page length was !UL, recovering with !UL
+03F2E018 %TPU-W-BADJOUWIDTH, journaled width was !UL, recovering with !UL
+03F2E020 %TPU-W-BADJOUEDIT, journaled edit mode was !AS, recovering with !AS
+03F2E028 %TPU-W-BADJOUEIGHT, journaled eightbit was !AS, recovering with !AS
+03F2E030 %TPU-W-BADJOULINE, journaled line editing was !AS, recovering with !AS
+03F2E038 %TPU-W-BADJOUSEC, journaled section file was !AS, recovering with !AS
+03F2E040 %TPU-W-BADJOUCOM, journaled command file was !AS, recovering with !AS
+03F2E048 %TPU-W-BADJOUINPUT, journaled input file was !AS, recovering with !AS
+03F2E050 %TPU-W-BADJOULPOS, journaled starting line was !UL, recovering with !UL
+03F2E058 %TPU-W-BADJOUCPOS, journaled starting character was !UL, recovering with !UL
+03F2E060 %TPU-W-BADJOUINIT, journaled init file was !AS, recovering with !AS
+03F2E068 %TPU-W-SCANADVANCE, *** Scanner advanced to "!AS" ***
+03F2E070 %TPU-W-SYMREPLACE, *** Error symbol replaced by "!AS" ***
+03F2E078 %TPU-W-SYMINSERT, *** "!AS" inserted before error symbol ***
+03F2E080 %TPU-W-SYMDELETE, *** Error symbol deleted ***
+03F2E088 %TPU-W-CONSTRTOOLARGE, constant string too large
+03F2E090 %TPU-W-NOTERRORKEYWORD, error handler selector is not an error keyword
+03F2E098 %TPU-W-MULTISELECT, multiple identical CASE selectors
+03F2E0A0 %TPU-W-NORETURNVALUE, built-in does not return a value
+03F2E0A8 %TPU-W-EXTNOTFOUND, extension !AS not found
+03F2E0B0 %TPU-W-JNLOPEN, journal file already open
+03F2E0B8 %TPU-W-$FILEIO_ERROR, file I/O error
+03F2E0C0 %TPU-W-SYMTBLFUL, all symbol tables are full
+03F2E0C8 %TPU-W-CLOSEDIC, error closing the dictionary file
+03F2E0D0 %TPU-W-DICUPDERR, error updating dictionary file
+03F2E0D8 %TPU-W-OPENDIC, error opening the dictionary file
+03F2E0E0 %TPU-W-STRTOOLNG, string is too long for a conversion source
+03F2E0E8 %TPU-W-CNVERR, error occurred in the conversion routine
+03F2E0F0 %TPU-W-BUILTININV, built-in is invalid at this time
+03F2E0F8 %TPU-W-REQUIRESDECW, feature requires the DECwindows screen updater
+03F2E100 %TPU-W-CANNOTUNSEL, cannot unselect item from unselect action routine
+03F2E108 %TPU-W-REQARGSMISSING, one or more required arguments missing
+03F2E110 %TPU-W-EXTRANEOUSARGS, one or more extraneous arguments specified
+03F2E118 %TPU-W-FAILURE_STATUS, facility !AS returned failure status of !XL
+03F2E120 %TPU-W-WIDMISMATCH, parameter !UL's class, !AS, unsupported
+03F2E128 %TPU-W-MODRANGEMARKS, MODIFY_RANGE requires either two marks or none
+03F2E130 %TPU-W-REQUIRESTERM, feature requires a terminal
+03F2E138 %TPU-W-NOTIMPLEMENTED, built-in compiled by !AS is not implemented by !AS
+03F2E140 %TPU-W-UNKLEXICAL, unknown lexical element
+03F2E148 %TPU-W-ILLCONDIT, illegal compilation conditional
+03F2E150 %TPU-W-NOTJOURNAL, File !AS is not a journal file
+03F2E158 %TPU-W-RECJNLOPEN, journal file is open, recovery status unchanged
+03F2E160 %TPU-W-TOOMANYRECS, too many records
+03F2E168 %TPU-W-INVSYSRECMODE, invalid default system record mode
+03F2E170 %TPU-W-JRNLOPENERR, error opening or locking journal file !AS
+03F2E178 %TPU-W-BACKUPERR, error making backup copy of !AS
+03F2E180 %TPU-W-UNLINKWORKERR, error unlinking work file
+03F2E188 %TPU-W-ONOROFF, parameter !UL must be ON, OFF, true or false
+03F2E190 %TPU-W-REQUIRESVMS, feature not available on this operating system
+03F2E198 %TPU-W-REQUIRESULTRIX, feature not available on this operating system
+03F2E1A8 %TPU-W-REQUIRESMOTIF, feature requires the Motif screen updater
+03F2E1B0 %TPU-W-WORKFILEFAIL, error opening the work file
+03F2E1B8 %TPU-W-INVINTERFACE, unrecognized interface
+03F2E1C0 %TPU-W-INVWIDGETCLASS, the widget class cannot be defined
+03F2E1C8 %TPU-W-UIDICONERR, could not read icon !AS from UID file
+03F2E1D0 %TPU-W-BITMAPREADERR, could not read bitmap file !AS
+03F2E1D8 %TPU-W-ICONNAMERDERR, could not read the application icon name
+03F2E1E0 %TPU-W-UIDWIDGETERR, could not read widget !AS from UID file
+03F2E1E8 %TPU-W-UIDOPENERR, could not open the specified UID file(s)
+03F2E1F0 %TPU-W-BADHIERARCHY, invalid hierarchy identifier specified
+03F2ED78 %TPU-W-FAILURE, internal TPU failure detected at PC !XL
+03F2ED80 %TPU-W-FREEMEM, memory deallocation failure
+03F2ED88 %TPU-W-IDMISMATCH, section NOT restored, section file must be rebuilt
+03F2ED90 %TPU-W-INVACCESS, invalid file access specified
+03F2EDA0 %TPU-W-INVITEMCODE, invalid item code specified in list
+03F2EDB0 %TPU-W-NOFILEROUTINE, no routine specified to perform FILE I/O
+03F2EDD0 %TPU-W-ONDELRECLIST, attempt to access a record on the deleted list
+03F2EE08 %TPU-W-BADLOGIC, internal logic error detected
+03F2EE10 %TPU-W-INSVIRMEM, insufficient virtual memory
+03F2EE18 %TPU-W-ACCVIO, access violation, reason mask=!XB, virtual address=!XL, PC=!XL, PSL=!XL
+03F2EE20 %TPU-W-BADSTATUS, return status !XL different from last signal !XL
+03F2EE28 %TPU-W-BADREFCNT, ref count: !SL, zap count: !SL, address: !XL
+03F2EE30 %TPU-W-INVDEVTYPE, invalid device type
+03F2EE38 %TPU-W-NOLICENSE, DECTPU license validation failed
+02248008 %EVE-W-COPYCOMPL, Copy completed.
+02248010 %EVE-W-DONETRIM, Trimming completed.
+02248018 %EVE-W-ENLARGEWINDOW, Window is enlarged !SL line!%S.
+02248020 %EVE-W-EXECINITCMDS, Executing commands in initialization file: !AS
+02248028 %EVE-W-EXTENDED, Editor extended.
+02248030 %EVE-W-EXTENDEDBY, Editor extended by: !AS
+02248038 %EVE-W-MOUSEREMMED, Key sequence remembered.
+02248040 %EVE-W-REMCOMPL, Remove completed.
+02248048 %EVE-W-REMCOMPLAPP, Remove completed.  Appended to previous paste buffer.
+02248050 %EVE-W-SELCAN, Selection canceled.
+02248058 %EVE-W-SELSTART, Move the text cursor to select text.
+02248060 %EVE-W-SHIFTREM, GOLD key canceled.
+02248068 %EVE-W-SHIFTSET, GOLD key set.
+02248070 %EVE-W-SHRINKWINDOW, Window is shrunk !SL line!%S.
+02248078 %EVE-W-SPELLDONE, Spelling correction complete. Buffer !AS contains text before correction.
+02248080 %EVE-W-TABINSERT, Tab mode set to insert a TAB character.
+02248088 %EVE-W-TABINVISIBLE, Tabs will no longer be visible.
+02248090 %EVE-W-TABSPACES, Tab mode set to insert spaces.
+02248098 %EVE-W-TABMOVE, Tab mode set to move to the next tab position.
+022480A0 %EVE-W-TABSET, Tab stops set.
+022480A8 %EVE-W-TABVISIBLE, TAB characters will now be visible.
+022480B0 %EVE-W-WHATLINE, You are on line !SL out of !SL (!SL%).
+022480B8 %EVE-W-KEYDEF, Key defined.
+022480C0 %EVE-W-GOLDRESTORED, GOLD key restored to !AS in the !AS keypad.
+022480C8 %EVE-W-KEYUNDEF, Key undefined.
+022480D0 %EVE-W-REMCLIPBOARD, Remove completed.  Appended to clipboard.
+022480D8 %EVE-W-SHIFTRESTORED, GOLD key restored to !AS.
+022480E0 %EVE-W-SUBSTITUTE, !AS replaced with !AS.
+022480E8 %EVE-W-BOXSELCAN, Box selection canceled.
+022480F0 %EVE-W-BOXSELACTIVE, Box select behavior is now active.
+022480F8 %EVE-W-DEFSELACTIVE, Default select behavior is now active.
+02248100 %EVE-W-BOXPADMODE, Box operations will now overstrike your buffer.
+02248108 %EVE-W-BOXNOPADMODE, Box operations will now match the buffer mode (insert/overstrike).
+02248110 %EVE-W-BOXSELSTART, Move the text cursor to select a box of text.
+02248118 %EVE-W-QUICKCAN, Quick transfer canceled.
+02248120 %EVE-W-QUICKSTART, Move the text cursor to select text for quick transfer.
+02248128 %EVE-W-BACKUPON, Existing files will be backed up before being overwritten.
+02248130 %EVE-W-BACKUPOFF, Existing files will no longer be backed up.
+02248138 %EVE-W-SPELLDONEULT, Spelling check complete.
+02249000 %EVE-W-BUFDELED, Deleted buffer: !AS
+02249008 %EVE-W-CMDAGAIN, Doing previous command: !AS
+02249010 %EVE-W-CREATEDCL, Creating DCL subprocess...
+02249018 %EVE-W-CURSORBOUND, The cursor is now bound to the flow of your text.
+02249020 %EVE-W-CURSORFREE, The cursor will now move freely about the screen.
+02249028 %EVE-W-EDTON, EDT keypad defined (for more information, see help on EDT DIFFERENCES).
+02249030 %EVE-W-EDTOFF, EDT keypad undefined.  (For keypad diagram, press HELP.)
+02249038 %EVE-W-EXTENDING, Extending editor...
+02249040 %EVE-W-FINDINGPROC, Searching for procedure !AS...
+02249048 %EVE-W-FINDPREV, Finding previous string: !AS
+02249050 %EVE-W-GOINGTO, Going to mark: !AS
+02249058 %EVE-W-INVOKINGSPELL, Invoking spelling corrector...
+02249060 %EVE-W-ISGOLDKEY, !AS is the GOLD key.
+02249068 %EVE-W-KEYDESCR, !AS is defined as '!AS' in the !AS keypad.
+02249070 %EVE-W-LEFTSETTO, Left margin set to: !SL
+02249078 %EVE-W-MARKEDAS, Current position marked as: !AS
+02249080 %EVE-W-NEWTABS, New tab stops have been applied to your entire document.
+02249088 %EVE-W-NOKEY, !AS is an undefined key.
+02249090 %EVE-W-NUMPADDEF, Numeric keypad defined.  (For keypad diagram, press HELP.)
+02249098 %EVE-W-SHIFTCOUNT, Window shifted right by !SL column!%S.
+022490A0 %EVE-W-REPLALL, Replacing all occurrences of: !AS
+022490A8 %EVE-W-REPLCOUNT, Replaced !SL occurrence!%S.
+022490B0 %EVE-W-RIGHTSETTO, Right margin set to: !SL
+022490B8 %EVE-W-RULERRECALLED, Recalled ruler number: !UL
+022490C0 %EVE-W-RULERSAVED, Ruler stored as ruler number: !UL
+022490C8 %EVE-W-SCROLLSET, Scroll margins set.  Top = !UL%, Bottom = !UL%
+022490D0 %EVE-W-SEQREMMED, Key sequence remembered.
+022490D8 %EVE-W-SHIFTCOUNTNOW, Window now shifted right !SL column!%S.
+022490E0 %EVE-W-TRIMMING, Trimming buffer...
+022490E8 %EVE-W-USEFILL, Use FILL commands to reformat text according to new margins.
+022490F0 %EVE-W-VT100DEF, EVE VT100 keypad defined.  (For keypad diagram, press PF2.)
+022490F8 %EVE-W-WILLRPT, Will repeat next command !SL times.
+02249100 %EVE-W-WIDSET, Window width set to: !SL
+02249108 %EVE-W-WIDSETTO, Window width set to: !SL
+02249110 %EVE-W-WPSON, WPS keypad defined (for more information, see help on WPS DIFFERENCES).
+02249118 %EVE-W-WPSOFF, WPS keypad undefined.  (For keypad diagram, press HELP).
+02249120 %EVE-W-WRITEBUF, Write Buffer !AS? 
+02249128 %EVE-W-REPLCTRLC, Replaced !SL occurrence!%S before CTRL/C.
+02249130 %EVE-W-WINDOWSREBLT, Windows rebuilt.
+02249138 %EVE-W-FINDPREVWILD, Finding previous wildcard pattern: !AS
+02249140 %EVE-W-BUFWRITENABLED, Buffer !AS is write enabled.
+02249148 %EVE-W-BUFWRITELOCKED, Buffer !AS is write locked.
+02249150 %EVE-W-BUFMODIFIABLE, Buffer !AS is modifiable.
+02249158 %EVE-W-BUFUNMODIFIABLE, Buffer !AS is unmodifiable.
+02249160 %EVE-W-NOPINDENT, Paragraph indent disabled for this buffer.
+02249168 %EVE-W-PINDENTSETTO, Paragraph indent set to: !SL (from left margin).
+02249170 %EVE-W-NOPINDENTSET, Paragraph indent not set.
+02249178 %EVE-W-NOWCLIPBOARD, Clipboard will now be used.
+02249180 %EVE-W-NOWPASTE, Paste buffer will now be used.
+02249188 %EVE-W-NOTSPLIT, Window not split.
+02249190 %EVE-W-FINDEXACT, FIND will now match only exact upper/lower case occurrences.
+02249198 %EVE-W-FINDNOEXACT, FIND will now use EVE's default case sensitivity.
+022491A0 %EVE-W-NOGLOBALCHNG, No global attributes changed.
+022491A8 %EVE-W-NOBUFFERCHNG, No buffer attributes changed for this buffer.
+022491B0 %EVE-W-CURRENTWILD, (Currently using !AS-style wildcards.)
+022491B8 %EVE-W-NOBUFSETCHNG, No buffer settings changed.
+022491C0 %EVE-W-PENDINGDELON, Select ranges will be deleted by SELECT or by typing text.
+022491C8 %EVE-W-PENDINGDELOFF, Pending delete disabled.
+022491D0 %EVE-W-WRAPON, Text in this buffer will wrap at the right margin.
+022491D8 %EVE-W-WRAPOFF, Wrapping at the right margin disabled in this buffer.
+022491E0 %EVE-W-REPLALLON, All occurrences of old-string will be replaced.
+022491E8 %EVE-W-REPLALLOFF, Replace all disabled.
+022491F0 %EVE-W-DECWFUNCON, DECwindows function keys defined.
+022491F8 %EVE-W-DECWFUNCOFF, DECwindows function keys undefined.
+02249200 %EVE-W-DEFSECTION, Default section file is !AS 
+02249208 %EVE-W-DEFCOMMAND, Default command file is !AS 
+02249210 %EVE-W-NODEFSECTION, Default section file is undefined.
+02249218 %EVE-W-NODEFCOMMAND, Default command file is undefined.
+02249220 %EVE-W-NOSECTIONPRMT, Prompting for section file disabled.
+02249228 %EVE-W-SECTIONPRMT, Prompting for section file enabled.
+02249230 %EVE-W-DEFAULTUSED, Default will be used.
+02249238 %EVE-W-RECOVERALL, Recovering from all journal files...
+02249240 %EVE-W-BUFRECOVERED, Buffer !AS recovered.
+02249248 %EVE-W-JOURNALINGON, Buffer journaling turned on.
+02249250 %EVE-W-JOURNALINGOFF, Buffer journaling turned off.  Journal files not deleted.
+02249258 %EVE-W-NOBUFNAME, No buffer name given.
+02249260 %EVE-W-BUFJOURNALON, Buffer journaling enabled for buffer: !AS
+02249268 %EVE-W-BUFJOURNALOFF, Buffer journaling disabled for buffer: !AS
+02249270 %EVE-W-SELPENDELETED, Selection deleted.  To reinsert the text, use RESTORE SELECTION.
+02249278 %EVE-W-CONVTOJOURNAME, Converting !AS to a journal file name.
+02249280 %EVE-W-WILDCARDVMS, VMS wildcards enabled. Use SHOW WILDCARDS for a list of patterns.
+02249288 %EVE-W-WILDCARDULTRIX, ULTRIX wildcards enabled.  Use SHOW WILDCARDS for a list of patterns.
+02249290 %EVE-W-FINDWHITE, Find commands will now treat spaces, tabs, and a line break as whitespace.
+02249298 %EVE-W-FINDNOWHITE, FIND commands will now match spaces and tabs exactly.
+022492A0 %EVE-W-BOXSELPENDEL, Box selection deleted.  To reinsert the text, use RESTORE BOX SELECTION.
+022492A8 %EVE-W-CREATECHILD, Creating child process...
+022492B0 %EVE-W-MOTIFFUNCON, Motif function keys defined.
+022492B8 %EVE-W-MOTIFFUNCOFF, Motif function keys undefined.
+022492C0 %EVE-W-FOCUSBASED, EVE will grab primary selection when it gets input focus.
+022492C8 %EVE-W-SELECTBASED, EVE will grab primary selection when it creates a selection.
+022492D0 %EVE-W-USEDEFBACKUP, Using default file backup control string of: 
+022492D8 %EVE-W-NOBACKUPSTR, No file backup control string entered.
+022492E0 %EVE-W-BACKUPSET, File backup control string set to: !AS
+022492E8 %EVE-W-SHOWBACKUP, File backup control string: !AS
+022492F0 %EVE-W-GOINGBUF, Positioning to buffer: !AS
+022492F8 %EVE-W-FILLTAGS, FILL commands will fill RUNOFF commands and DOCUMENT tags.
+02249300 %EVE-W-NOFILLTAGS, FILL commands will not fill RUNOFF commands and DOCUMENT tags.
+02249308 %EVE-W-SCROLLING, Scrolling is enabled.
+02249310 %EVE-W-NOSCROLLING, Scrolling is disabled.
+02249318 %EVE-W-SMOOTHSCROLL, Scrolled text will slide smoothly to its new position in your window.
+02249320 %EVE-W-JUMPSCROLL, Scrolled text will jump to its new position in your window.
+02249328 %EVE-W-WILLRPTCMD, Will repeat !SL times the command: !AS
+0224A000 %EVE-W-ALREDIT, You are already editing file: !AS
+0224A008 %EVE-W-ALRHELP, You are already viewing help on topic: !AS
+0224A010 %EVE-W-ALRLISTCMD, You are already viewing the List of Topics.
+0224A018 %EVE-W-ALRPROMPTING, Could not perform that function -- already prompting for something else.
+0224A020 %EVE-W-ALRTWO, There are already two windows on screen.
+0224A028 %EVE-W-ATBOTTOM, You are already at the bottom of the buffer.
+0224A030 %EVE-W-ATEOL, You are already at the end of a line.
+0224A038 %EVE-W-ATSOL, You are already at the start of a line.
+0224A040 %EVE-W-ATTOP, You are already at the top of the buffer.
+0224A048 %EVE-W-BADBOTSCROLL, Invalid bottom scroll margin = !AS
+0224A050 %EVE-W-BADTOPSCROLL, Invalid top scroll margin = !AS
+0224A058 %EVE-W-BADSHIFTKEY, You may press only a single key when setting the GOLD key.
+0224A060 %EVE-W-BEFORESPECINS, Press the GOLD key, then type a number before using SPECINS.
+0224A068 %EVE-W-BUFEMPTY, Buffer is empty.
+0224A070 %EVE-W-BUFNOTSWITCH, Buffer not switched.
+0224A078 %EVE-W-CANTDIVWINDOW, You cannot split this window that much.
+0224A080 %EVE-W-CANTDELWINDOW, Cannot delete a window when it's the only one.
+0224A088 %EVE-W-CANTEXIT, Cannot EXIT until you complete the current prompting function.
+0224A090 %EVE-W-CANTHELP, Cannot get help -- already prompting for something else.
+0224A098 %EVE-W-CANTSHIFTWINDOW, You cannot shift this window boundary.
+0224A0A0 %EVE-W-CANTSHOW, Cannot SHOW -- already prompting for something else.
+0224A0A8 %EVE-W-CANTIMPLSELECT, You cannot use a implied select range in this buffer.
+0224A0B0 %EVE-W-CURSINTEXT, Cursor has been moved to a text window.  Try command again.
+0224A0B8 %EVE-W-FILENOTFOUND, Editing new file.  Could not find: !AS
+0224A0C0 %EVE-W-INBUFF, You are already in buffer: !AS
+0224A0C8 %EVE-W-LEFTNOTCHNG, Left margin not changed.
+0224A0D0 %EVE-W-LESSLINES, !AS has less than !UL line!%S.
+0224A0D8 %EVE-W-NOOVERLAP, Margins cannot overlap.
+0224A0E0 %EVE-W-NOREPEATZERO, Command not executed.  Repeat count was zero.
+0224A0E8 %EVE-W-NOBUFFCREA, No new buffer created.
+0224A0F0 %EVE-W-NODCLCMD, No DCL command given.
+0224A0F8 %EVE-W-NODEFDIR, Default directory does not exist: !AS
+0224A100 %EVE-W-NOEVECMD, No command given.
+0224A108 %EVE-W-NOFILEINCL, No file included.
+0224A110 %EVE-W-NOFILESPEC, No file specified.
+0224A118 %EVE-W-NOFILL, Nothing to fill (no paragraph or selected range).
+0224A120 %EVE-W-NOFIND, Nothing to find.
+0224A128 %EVE-W-NOINSUSEREM, Nothing to insert (no text previously removed or copied).
+0224A130 %EVE-W-NOINSUSESEL, Nothing to insert.  Use Select to select a range of text.
+0224A138 %EVE-W-NOKEYDEF, No key defined.
+0224A140 %EVE-W-NOLINNO, No line number given.
+0224A148 %EVE-W-NOLINES, No lines given.
+0224A150 %EVE-W-NOMARK, No marker name given.
+0224A158 %EVE-W-NOMORE, No more commands to recall.
+0224A160 %EVE-W-NOPRECEDTEXT, No text preceding: !AS
+0224A168 %EVE-W-NOPREVCMD, No previous command given.
+0224A170 %EVE-W-NOPREVTARG, No previous string to find.
+0224A178 %EVE-W-NOREMEM, Nothing to remember.
+0224A180 %EVE-W-NOREPLSTR, No string to replace.
+0224A188 %EVE-W-NOREST, Nothing to restore (no text previously erased).
+0224A190 %EVE-W-NOSETTAB, No SET TAB function entered.
+0224A198 %EVE-W-NOTEXTEND, Editor not extended.
+0224A1A0 %EVE-W-NOTINCMD, The cursor is not in the Command Window.
+0224A1A8 %EVE-W-NOTMARKED, Current position not marked.
+0224A1B0 %EVE-W-NOTPUCMD, No TPU statement given.
+0224A1B8 %EVE-W-NOTRPT, Will not repeat next command.
+0224A1C0 %EVE-W-NOTSAVED, Status not saved (section file not created).
+0224A1C8 %EVE-W-NOTSHIFT, No columns shifted.
+0224A1D0 %EVE-W-ONLYONE, There is only one window on screen.
+0224A1D8 %EVE-W-RETEXITSRULER, Press RETURN to exit the ruler.
+0224A1E0 %EVE-W-RIGHTNOTCHNG, Right margin not changed.
+0224A1E8 %EVE-W-SEQNOTREM, Key sequence not remembered.
+0224A1F0 %EVE-W-SCROLLNOTCHNG, Scroll margins not changed.
+0224A1F8 %EVE-W-TABNOTCHNG, Tab settings not changed.
+0224A200 %EVE-W-UNIMPLWILDFIND, Unimplemented wildcard function: !AS
+0224A208 %EVE-W-UNRECWILDFIND1, Unrecognized wildcard function: !AS
+0224A210 %EVE-W-UNRECWILDFIND2, Unrecognized wildcard function: !AS!AS
+0224A218 %EVE-W-WIDNOTCHNG, Window width not changed.
+0224A220 %EVE-W-ENLARGERROR, Window is enlarged only !UL line!%S.
+0224A228 %EVE-W-SHRINKERROR, Window is shrunk only !UL line!%S.
+0224A230 %EVE-W-CANTDIVIDENEG, You cannot divide a window into !SL part!%S.
+0224A238 %EVE-W-WHATEOBLINE, You are at the End of Buffer.  The last line is !SL.
+0224A240 %EVE-W-NOFILESPECEXIT, No file specified.  Buffer !AS will be lost when exit completes.
+0224A248 %EVE-W-NOTMODIFIABLE, Attempt to change unmodifiable buffer: !AS
+0224A250 %EVE-W-REMEMBERCTRLR, Use CTRL/R to remember the learn sequence.
+0224A258 %EVE-W-REMEMBERKEY, Press a key defined as REMEMBER to end the learn sequence.
+0224A260 %EVE-W-ENDLEARNCTRLR, Press CTRL/R to end the current learn sequence before starting another.
+0224A268 %EVE-W-ENDLEARN, First press a key defined as REMEMBER to end the current learn sequence.
+0224A270 %EVE-W-NOLRNREMEMBER, You cannot define the REMEMBER key for a learn sequence.
+0224A278 %EVE-W-NOTGOLDKEY, The GOLD key is currently the !AS key.
+0224A280 %EVE-W-NODOVT100, Key defined.  (No DO key defined on a VT100).
+0224A288 %EVE-W-INVGLDKEY, Invalid GOLD key structure.  Expected STRING or KEYWORD.
+0224A290 %EVE-W-UNDEFDOVT100, Key undefined.  (No DO key defined on a VT100).
+0224A298 %EVE-W-NOGOLDUNDEF, You cannot undefine the GOLD key.  Use SET NOGOLD.
+0224A2A0 %EVE-W-NODECSPELL, DECspell is not available on your system.
+0224A2A8 %EVE-W-BADPASTENUM, Paste buffer numbers must be from 1 through 9.
+0224A2B0 %EVE-W-REBLDWINDOWS, CTRL/C during window teardown; rebuilding windows.
+0224A2B8 %EVE-W-ILLQUALCOMB, Illegal qualifier combination: !AS !AS
+0224A2C0 %EVE-W-SHOW_MAXLINES, Max lines: !SL
+0224A2C8 %EVE-W-RESETUPWINDOWS, CTRL/C during window set-up; restarting set-up...
+0224A2D0 %EVE-W-NOITEMSELECTED, No item selected.
+0224A2D8 %EVE-W-SELECTACTIVE, A selection is already active.
+0224A2E0 %EVE-W-NOPENDINGDEL, Nothing to insert (no previous pending deletion).
+0224A2E8 %EVE-W-SHIFTOBSOLETE, The term "Shift key" is obsolete. Please use "Gold Key".
+0224A2F0 %EVE-W-NOOTHERBUFFERS, No other buffers.
+0224A2F8 %EVE-W-PINDENTTOOBIG, Paragraph indent cannot exceed the right margin (currently !SL)
+0224A300 %EVE-W-PINDENTSMALL, Paragraph indent cannot be less than 1.
+0224A308 %EVE-W-BADWIDGETMAP, Illegal widget map passed to load procedure: !AS
+0224A310 %EVE-W-DUPWIDGETMAP, Already loaded widget map: !AS
+0224A318 %EVE-W-CLIPBDREADLOCK, Clipboard is locked, cannot read from the clipboard.
+0224A320 %EVE-W-CLIPBDWRITLOCK, Clipboard is locked, cannot write to the clipboard.
+0224A328 %EVE-W-NOCHOICE, No item chosen.
+0224A330 %EVE-W-NOOLDCHOICE, No old choice to replace.
+0224A338 %EVE-W-NOINDICATOR, Indicator "!AS" currently has no definition.
+0224A340 %EVE-W-NOCCTCLIPBD, Clipboard not available for character cell editor.
+0224A348 %EVE-W-ILLEGALWIDGET, Illegal widget constant = !UL passed to !AS.
+0224A350 %EVE-W-ILLEGALEVENT, Illegal event for widget number: !UL, widget: !AS
+0224A358 %EVE-W-MARGINSNOTCHNG, Left and right margins not changed.
+0224A360 %EVE-W-NOMOUSEINPROMPT, The mouse is not supported during this prompt.
+0224A368 %EVE-W-NODEFINEM1, You cannot define any M1 keys.
+0224A370 %EVE-W-NOLEARNM1, You cannot define an M1 key for a learn sequence.
+0224A378 %EVE-W-MOUSEOUTWINDOW, You cannot define a mouse key outside a user window.
+0224A380 %EVE-W-ILLEGAL2NDARG, Illegal second argument passed to: !AS
+0224A388 %EVE-W-NOMOREENT, No more menu entries.
+0224A390 %EVE-W-NOENTRYUNDEF, No menu entry undefined.
+0224A398 %EVE-W-NOENTRYDEF, No menu entry defined.
+0224A3A0 %EVE-W-NOENTRY, Menu entry !AS does not exist.
+0224A3A8 %EVE-W-ENTRYDEF, Menu entry !AS defined.
+0224A3B0 %EVE-W-ENTRYNOTDEF, Menu entry !AS not defined.
+0224A3B8 %EVE-W-ENTRYUNDEF, Menu entry !AS undefined.
+0224A3C0 %EVE-W-ATTRNOTSAVED, Attributes were not saved.
+0224A3C8 %EVE-W-ENTRYALDEF, Menu entry !AS is already defined.
+0224A3D0 %EVE-W-CHECKATTR, Editor will check for modified attributes on exit.
+0224A3D8 %EVE-W-NOCHECKATTR, Editor will not check for modified attributes on exit.
+0224A3E0 %EVE-W-NOMENU, Menu !AS does not exist.
+0224A3E8 %EVE-W-MESSTOOBIG, You cannot make the message window that big.
+0224A3F0 %EVE-W-MESSTOOSMALL, Message window size must be at least 1.
+0224A3F8 %EVE-W-COMMTOOBIG, You cannot make the command window that big.
+0224A400 %EVE-W-COMMTOOSMALL, Command window size must be at least 1.
+0224A408 %EVE-W-NOWINDOWS, EVE windows restored after finding no current window.
+0224A410 %EVE-W-SYNCDETACHED, Cursor is detached.  Moving the editing point to the cursor.
+0224A418 %EVE-W-MOVETOVISIBLE, Moving down to next visible line.
+0224A420 %EVE-W-ILLSCRATCHRES, Illegal attempt to reserve $SCRATCH$ buffer (already reserved).
+0224A428 %EVE-W-NOUSERMOUSEUP, No user mouse button defined, completing the default release action.
+0224A430 %EVE-W-NOUSERCLICKN, No user mouse button defined, completing the default click action.
+0224A438 %EVE-W-IGNUSERM1DOWN, User M1DOWN definition being ignored.
+0224A440 %EVE-W-BADCODE, Invalid TPU statement: !AS
+0224A448 %EVE-W-NOJRNLDECW, You cannot do keystroke journaling using the DECwindows screen updater.
+0224A450 %EVE-W-NORECOVSYSBUF, Will not recover the !AS system buffer.
+0224A458 %EVE-W-SETJRNLERROR, Error setting journaling on buffer !AS.  Continue [Yes]? 
+0224A460 %EVE-W-NOJOURNALINGON, Journaling not started on any user buffers (may already be on).
+0224A468 %EVE-W-NOJOURNALSYSBUF, You cannot set journaling on a system buffer.
+0224A470 %EVE-W-NOBUFMATCH, No buffer name matches: !AS
+0224A478 %EVE-W-BUFNOTRECOVERED, Buffer !AS not recovered.
+0224A480 %EVE-W-BUFNOTSAFE, Buffer !AS is not safe to journal (please write it out).
+0224A488 %EVE-W-OPENMULTILINE, You cannot open a selection that spans multiple lines.
+0224A490 %EVE-W-BADSETBUFFUNC, Invalid SET BUFFER function entered: !AS
+0224A498 %EVE-W-NOCOPYSELF, You cannot put part of a range or buffer into the same range or buffer.
+0224A4A0 %EVE-W-BADKEYBDTYPE, Keyboard type (!AS) unknown.  Using best guess.
+0224A4A8 %EVE-W-NOSHELLCMD, No shell command given.
+0224A4B0 %EVE-W-INVBACKUPSTR, Invalid file backup control string: !AS
+0224A4B8 %EVE-W-BACKUPOFFWARN, Existing files will not be backed up. Keystroke recovery may fail.
+0224A4C0 %EVE-W-MULTIAMBIG, No more than one ambiguous file name is allowed on the input command line.
+0224A4C8 %EVE-W-MULTIOUTPUT, The output file specification has been applied to more than one input file.
+0224A4D0 %EVE-W-DISABLEQUALIFS, File related qualifiers will no longer be applied to input files.
+0224A4D8 %EVE-W-IGNOREAMBIGS, Ignoring all but the first ambiguous file name.
+0224A4E0 %EVE-W-NOFILLINDENT, Range must start at left margin with a non-zero paragraph indent.
+0224B000 %EVE-W-AMBBUF, Ambiguous buffer name: !AS
+0224B008 %EVE-W-AMBCMD, Ambiguous command name: !AS
+0224B010 %EVE-W-AMBCMDINIT, Ambiguous initialization file command: !AS
+0224B018 %EVE-W-AMBFILE, Ambiguous file name: !AS
+0224B020 %EVE-W-AMBINFO, Ambiguous informational topic: !AS
+0224B028 %EVE-W-AMBKEYNAM, Ambiguous or unrecognized keyname: !AS
+0224B030 %EVE-W-AMBMARK, Ambiguous marker name: !AS
+0224B038 %EVE-W-AMBPROC, Ambiguous procedure name: !AS
+0224B040 %EVE-W-AMBTABARG, Ambiguous argument.  Enter either Insert or Invisible.
+0224B048 %EVE-W-BADARGTYP, Argument type !AS must be "integer" or "string".
+0224B050 %EVE-W-BADMARKNAME, You cannot use !AS as a marker name.
+0224B058 %EVE-W-BADMSGTYP, Message error -- unknown message type.
+0224B060 %EVE-W-BADREPEATUSE, Improper repeat pattern usage.
+0224B068 %EVE-W-BADRULERNUM, Ruler numbers must be from 0 through 9.
+0224B070 %EVE-W-BADTABFUNC, Invalid SET TABS function entered: !AS
+0224B078 %EVE-W-BADTOPIC_SELONE, Don't understand topic: !AS.  Choose one from list above.
+0224B080 %EVE-W-BOSNOTFOUND, Could not find beginning of sentence.
+0224B088 %EVE-W-BUFEXIST, Buffer !AS already exists.
+0224B090 %EVE-W-BUFHASONLY, Buffer has only !SL line!%S.  (Now going to End of Buffer).
+0224B098 %EVE-W-BUFINUSE, Buffer name !AS is in use.
+0224B0A0 %EVE-W-CANTDELMAIN, You cannot delete MAIN when it's the only buffer.
+0224B0A8 %EVE-W-CANTSHIFTLNEG, You cannot shift left by a negative amount.
+0224B0B0 %EVE-W-CANTCHNGTABS, Could not change tab stops as specified.
+0224B0B8 %EVE-W-CANTCREADCL, Could not create DCL subprocess.
+0224B0C0 %EVE-W-CANTCREASPELL, Could not create SPELL subprocess.
+0224B0C8 %EVE-W-CANTCREATE, Could not create file: !AS
+0224B0D0 %EVE-W-CANTNESTEXECFIL, Cannot execute an initialization file from within another one.
+0224B0D8 %EVE-W-CANTINCLFILE, Could not include file: !AS
+0224B0E0 %EVE-W-CANTMOVE, Cannot move to line: !SL
+0224B0E8 %EVE-W-CANTREPT, You cannot repeat that key.
+0224B0F0 %EVE-W-CANTREPEATWILD, You cannot repeat a wildcard pattern.
+0224B0F8 %EVE-W-CANTSETWID, Cannot set width to: !SL
+0224B100 %EVE-W-CANTSHIFTRNEG, You cannot shift right by a negative amount.
+0224B108 %EVE-W-CANTWRITE, Will not exit.  Could not write buffer: !AS
+0224B110 %EVE-W-CANTWRITEDELBUF, Will not delete buffer.  Could not write buffer: !AS
+0224B118 %EVE-W-CTRLTOOBIG, CTRL keynames must be a single character.
+0224B120 %EVE-W-DONTUNDER, Don't understand: !AS
+0224B128 %EVE-W-DONTUNDERCMD, Don't understand command: !AS
+0224B130 %EVE-W-DONUNDERCMDINI, Don't understand initialization file command: !AS
+0224B138 %EVE-W-DONUNDERCMDINIT, Don't understand initialization file name: !AS
+0224B140 %EVE-W-DONTUNDERFILE, Don't understand file name: !AS
+0224B148 %EVE-W-DONTUNDERJOUR, Don't understand journal file name: !AS
+0224B150 %EVE-W-DONTUNDEROUT, Don't understand output file name: !AS
+0224B158 %EVE-W-DONTUNDERYN, Don't understand !AS.  Please answer Yes or No.
+0224B160 %EVE-W-EDTNOTNO, EDT keypad not on.  Current keypad setting is: !AS
+0224B168 %EVE-W-EOSNOTFOUND, Could not find end of sentence.
+0224B170 %EVE-W-EXPECTNUM, !AS expects a number for argument number: !SL
+0224B178 %EVE-W-FINDFAIL, Did not find another occurrence in current direction.
+0224B180 %EVE-W-FORMATNOSUPORT, Ruler setting !AS is not supported in this editor.
+0224B188 %EVE-W-ILLKEYNAM, Illegal keyname: !AS
+0224B190 %EVE-W-KEYNOTCOPY, The !AS keypad !AS key cannot be copied because it is not defined.
+0224B198 %EVE-W-LEARNABORT, Learn sequence did not finish.
+0224B1A0 %EVE-W-LEARNABORTBIG, Learn sequence did not finish.  Look in message buffer to see why.
+0224B1A8 %EVE-W-LEFTGTONE, Left margin must be at least 1.
+0224B1B0 %EVE-W-LEFTLESSRIGHT, Left margin must be less than right margin (currently set to !SL).
+0224B1B8 %EVE-W-MARKNOTSET, Marker !AS not set.
+0224B1C0 %EVE-W-NOBUFDELED, No buffer deleted.
+0224B1C8 %EVE-W-NOCTRLKEY, No CTRL keyname given.
+0224B1D0 %EVE-W-NODEFDO, You cannot define the only DO key.
+0224B1D8 %EVE-W-NODEFTYP, You cannot define a typing key.
+0224B1E0 %EVE-W-$NODOCMSG, Sorry, no documentation on
+0224B1E8 %EVE-W-NOFILMATCH, No files matching: !AS
+0224B1F0 %EVE-W-NOINITFILMATCH, No initialization file matching: !AS
+0224B1F8 %EVE-W-NOGOLDKEY, There is no user GOLD key currently set.
+0224B200 %EVE-W-NOGOLDKEYNAME, No GOLD keyname given.
+0224B208 %EVE-W-NOHELPON, Sorry, no help available on the !AS topic: !AS
+0224B210 %EVE-W-NOINSERT, Nothing to insert (no text previously removed or copied).
+0224B218 %EVE-W-NOKEYNAM, No keyname given.
+0224B220 %EVE-W-NOLRNDO, You cannot define the DO key for a learn sequence.
+0224B228 %EVE-W-NOLRNTYP, You cannot define a typing key for a learn sequence.
+0224B230 %EVE-W-NONEXTPAGE, No next page found.  Now at bottom of buffer.
+0224B238 %EVE-W-NOPREVPAGE, No previous page found.  Now at top of buffer.
+0224B240 %EVE-W-NOPROCEDURE, You are not in a procedure.
+0224B248 %EVE-W-NORECURS, That key was already used in the learn sequence.
+0224B250 %EVE-W-NOSELECT, No selection active.
+0224B258 %EVE-W-NOSHIFTDO, You cannot make the DO key the GOLD key.
+0224B260 %EVE-W-NOSHIFTMOUSE, You cannot make a mouse key the GOLD key.
+0224B268 %EVE-W-NOSHIFTRETURN, You cannot make the RETURN key the GOLD key.
+0224B270 %EVE-W-NOSHIFTTYP, You cannot make a typing key the GOLD key.
+0224B278 %EVE-W-NOSUBPROC, You are not running editor in a subprocess.
+0224B280 %EVE-W-NOSUCHBUF, No such buffer: !AS
+0224B288 %EVE-W-NOSUCHFILE, Input file does not exist: !AS
+0224B290 %EVE-W-NOTCOMPILE, Error in compiling.  Editor not extended.
+0224B298 %EVE-W-NOTINBUFLIST, Not in the BUFFER LIST.
+0224B2A0 %EVE-W-NOTON100, Numeric keypad available only on VT200s.
+0224B2A8 %EVE-W-NOTRPTABLE, Cannot repeat that key.
+0224B2B0 %EVE-W-NOTSHOWBUFS, Cursor is not positioned on a buffer.
+0224B2B8 %EVE-W-NUMTOOBIG, Number too large.  Please re-enter.
+0224B2C0 %EVE-W-PROCNOTFOUND, Could not find procedure: !AS
+0224B2C8 %EVE-W-REPEATSTOP, REPEAT did not finish due to error.
+0224B2D0 %EVE-W-RIGHTGTLEFT, Right margin must be greater than left margin (currently set to !SL).
+0224B2D8 %EVE-W-RULERNOTSAVED, Ruler #!UL has not been saved.
+0224B2E0 %EVE-W-SELFIRST, You must first use SELECT to create a range.
+0224B2E8 %EVE-W-SELRNGEMPTY, The select range is empty.
+0224B2F0 %EVE-W-SELSAMEBUF, The select range is in another buffer.
+0224B2F8 %EVE-W-STRNOTFOUND, Could not find: !AS
+0224B300 %EVE-W-TABSNOTEQ, Tab stops must be set at least 1 space apart.
+0224B308 %EVE-W-TABTOOBIG, Cannot set tab stops at or beyond the right margin.
+0224B310 %EVE-W-TABTOOSMALL, You cannot set a tab stop in column 1.
+0224B318 %EVE-W-TAKESNOARGS, !AS does not take any arguments.
+0224B320 %EVE-W-TAKESONLY, !AS takes only !SL argument!%S.
+0224B328 %EVE-W-TOOMANYTOK, Too many command tokens.
+0224B330 %EVE-W-UNRECCMD, Unrecognized command: !AS
+0224B338 %EVE-W-UNRECKEY, Unrecognized keyname: !AS
+0224B340 %EVE-W-WILDFILENAME, Wildcard file names not allowed.
+0224B348 %EVE-W-WPSNOTNO, WPS keypad not on.  Current keypad setting is: !AS
+0224B350 %EVE-W-NOMARKSPACES, Marker names cannot contain any spaces or tabs.
+0224B358 %EVE-W-CANTSYSTEMBUF, You cannot perform that command in a system buffer.
+0224B360 %EVE-W-CANTCMDWINDOW, You cannot perform that command in the command window.
+0224B368 %EVE-W-NOKEYUNDEF, Cannot undefine a key that is not in the user key map.
+0224B370 %EVE-W-ORIGREPIGNOR, Original repeat count ignored.
+0224B378 %EVE-W-FINDSAMEBUF, The found range is in another buffer.
+0224B380 %EVE-W-BADSTARTCHAR, Illegal starting character position = !SL
+0224B388 %EVE-W-BADSTARTREC, Illegal starting record position = !SL
+0224B390 %EVE-W-NOWIDGETNAME, No widget name provided in call to procedure: !AS
+0224B398 %EVE-W-NODECWCMD, The !AS command is disabled in the DECwindows environment.
+0224B3A0 %EVE-W-READABORTED, Prompt terminated.
+0224B3A8 %EVE-W-BADLEFTPINDENT, Cannot set left margin to !SL with paragraph indent set to !SL.
+0224B3B0 %EVE-W-ATFILEABORT, Did not finish executing initialization file: !AS
+0224B3B8 %EVE-W-BADDELIMITER, Command file has a beginning but not an ending delimiter.
+0224B3C0 %EVE-W-COMMANDSTOP, Command did not finish due to internal error.
+0224B3C8 %EVE-W-EVEINTERROR, EVE internal error.
+0224B3D0 %EVE-W-FINDMULTILINE, You cannot find a selection that spans multiple lines.
+0224B3D8 %EVE-W-TARGETTOOBIG, Find target too big when converted into a search pattern.
+0224B3E0 %EVE-W-AMBRECOVFILE, Cannot recover using ambiguous input file name: !AS
+0224B3E8 %EVE-W-RECOVERYABORT, Recovery aborted.
+0224B3F0 %EVE-W-BADCLOSURE, Can define a menu entry with closure only of type INTEGER.
+0224B3F8 %EVE-W-BADLANGIDTYPE, Lanugage id argument for !AS must be a string.
+0224B400 %EVE-W-BADLANGID, The language id !AS is not yet defined or is misspelled.
+0224B408 %EVE-W-BADMODIFIER, Attempt to define an unknown keyword as a language key modifier.
+0224B410 %EVE-W-BADARGUMENT, Invalid argument type !AS.  Expected !AS.
+0224B418 %EVE-W-BADKEYSYNONYM, Illegal character found in key synonym: !AS
+0224B420 %EVE-W-CANTDELBUF, You cannot delete !AS when it's the only buffer.
+0224B428 %EVE-W-NOSETBOXIFSEL, Cannot SET BOX [NO]SELECT while a selection is active.
+0224B430 %EVE-W-NOBOXSELECT, No box selection active.
+0224B438 %EVE-W-NOBOXIFSELALL, Box operations are disabled while SELECT ALL is active.
+0224B440 %EVE-W-NODELSELECTALL, Will not delete the selection while SELECT ALL is active.
+0224B448 %EVE-W-CANTCREASHELL, Could not create child process.
+0224B450 %EVE-W-NOQUICKSEL, No selection active for a quick transfer.
+0224B458 %EVE-W-NOSPELLTEXT, Spelling not corrected. The spelling checker returned no text.
+0224B460 %EVE-W-DUPLSYNONYM, Synonym '!AS' for key !AS is already used for another key.
+0224B468 %EVE-W-RECOVERBUFBUSY, You cannot recover a buffer already in use.
+0224B470 %EVE-W-NOSPELLTEXTULT, The spelling checker returned no text.
+0224B478 %EVE-W-NOSUCHINFILES, Input file or files do not exist: !AS
+0224B480 %EVE-W-AMBKEYPAD, Ambiguous keypad name: !AS
+0224B488 %EVE-W-NOKEYPADMATCH, No keypad matching: !AS
+0224BE80 %EVE-W-SCREENTOOSMALL, Terminal page length is too small for editor.
+0224C000 %EVE-W-ASKPF4, Your PF4 is not DO.  Redefine PF4 as DO? 
+0224C008 %EVE-W-BOTSCROLLPROMPT, Enter bottom scroll margin (N lines or N% or RETURN for current value): 
+0224C010 %EVE-W-BUFNAM, Buffer name: 
+0224C018 %EVE-W-CMDPROMPT, Command: 
+0224C020 %EVE-W-DCLPROMT, DCL command: 
+0224C028 %EVE-W-DELBUFPROMPT, Delete buffer: 
+0224C030 %EVE-W-DOFORMORE, Press DO for more information; RETURN to resume editing: 
+0224C038 %EVE-W-ENLARGEPROMPT, Number of lines to enlarge window: 
+0224C040 %EVE-W-EVECMDPROMPT, EVE command: 
+0224C048 %EVE-W-FINDPROMPT, Forward Find: 
+0224C050 %EVE-W-WILDFINDPROMPT, Forward Wildcard Find: 
+0224C058 %EVE-W-FOUNDFORWARD, Found in forward direction.  Go there? 
+0224C060 %EVE-W-FOUNDREVERSE, Found in reverse direction.  Go there? 
+0224C068 %EVE-W-GETFILEPROMPT, File to get: 
+0224C070 %EVE-W-GOTOPROMPT, Go to: 
+0224C078 %EVE-W-HELPKEYHELP, Press the key that you want help on (HELP for keypad, Return to exit help): 
+0224C080 %EVE-W-HELPKEYRET, Press the key that you want help on (RETURN to exit help): 
+0224C088 %EVE-W-HELPPROMPT, Type the topic you want help on (press RETURN if done): 
+0224C090 %EVE-W-HELPPROMPT2, Type a topic name or ? for list (press RETURN if done): 
+0224C098 %EVE-W-INCLPROMPT, File to include: 
+0224C0A0 %EVE-W-INITFILEPROMPT, EVE initialization file to execute: 
+0224C0A8 %EVE-W-KEYCOPYPROMPT, Enter keyname to copy from the !AS keypad: 
+0224C0B0 %EVE-W-KEYFORSHIFT, Press the key you want to use as GOLD: 
+0224C0B8 %EVE-W-KEYTODEF, Press the key you want to define: 
+0224C0C0 %EVE-W-KEYTODESCR, Press the key you want to show: 
+0224C0C8 %EVE-W-KEYTOLEARN, Press the key you want to use to do what was just learned: 
+0224C0D0 %EVE-W-LEARNPROMPT, Press keystrokes to be learned.  Press CTRL/R to remember these keystrokes.
+0224C0D8 %EVE-W-LEFTPROMPT, Set Left Margin To: 
+0224C0E0 %EVE-W-LINENO, Line number: 
+0224C0E8 %EVE-W-MARKPROMPT, Mark Name: 
+0224C0F0 %EVE-W-NEWBUFPROMPT, Type a new buffer name or press RETURN to cancel: 
+0224C0F8 %EVE-W-NEWPROMPT, New String: 
+0224C100 %EVE-W-REALLYDELBUF, That's a !AS buffer.  Type Delete_only, Write_first, or Quit: 
+0224C108 %EVE-W-RELEASEMOUSE, Please release the mouse button...
+0224C110 %EVE-W-REPLACEFWD, Found in forward direction.  Go there [Y]? 
+0224C118 %EVE-W-REPLACEREV, Found in reverse direction.  Go there [Y]? 
+0224C120 %EVE-W-REPLACEFWDAGAIN, Found in forward direction (may have already replaced).  Go there [N]? 
+0224C128 %EVE-W-REPLACEREVAGAIN, Found in reverse direction (may have already replaced).  Go there [N]? 
+0224C130 %EVE-W-SHIFTLEFTPROMPT, Number of columns to shift left: 
+0224C138 %EVE-W-SHIFTRTPROMPT, Number of columns to shift right: 
+0224C140 %EVE-W-RPTPROMPT, Number of times to repeat: 
+0224C148 %EVE-W-OLDPROMPT, Old String: 
+0224C150 %EVE-W-PROCPROMPT, Procedure Name: 
+0224C158 %EVE-W-QUOTEPROMPT, Press the key to be added: 
+0224C160 %EVE-W-REPLPROMPT, Replace? Type Yes, No, All, Last, or Quit: 
+0224C168 %EVE-W-RESUMEPROMPT, Press any key to resume editing: 
+0224C170 %EVE-W-REVPROMPT, Reverse Find: 
+0224C178 %EVE-W-WILDREVPROMPT, Reverse Wildcard Find: 
+0224C180 %EVE-W-RIGHTPROMPT, Set Right Margin To: 
+0224C188 %EVE-W-RULERNUM, Type a number to store ruler under (0 through 9): 
+0224C190 %EVE-W-SAVEPROMPT, File to save in: 
+0224C198 %EVE-W-SHRINKPROMPT, Number of lines to shrink window: 
+0224C1A0 %EVE-W-SETTABPROMPT, Type SET TAB option (AT,EVERY,INSERT,SPACES,MOVE,[IN]VISIBLE): 
+0224C1A8 %EVE-W-TABATPROMPT, Set tabs at: 
+0224C1B0 %EVE-W-TABEVERYPROMPT, Set tabs every: 
+0224C1B8 %EVE-W-TOPSCROLLPROMPT, Enter top scroll margin (N lines or N% or RETURN for current value): 
+0224C1C0 %EVE-W-TPUPROMPT, TPU statement: 
+0224C1C8 %EVE-W-UNAMBFILEPROMPT, Enter unambiguous file name: 
+0224C1D0 %EVE-W-WIDTHPROMPT, Set Width To: 
+0224C1D8 %EVE-W-WRITEDELPROMPT, Type filename for buffer !AS (press RETURN to not delete): 
+0224C1E0 %EVE-W-WRITEFILEPROMPT, Type filename for buffer !AS (press RETURN to not write it): 
+0224C1E8 %EVE-W-ISGOLDPROMPT, That key is the GOLD key.  Do you want to redefine it [Y]? 
+0224C1F0 %EVE-W-KEYTOUNDEF, Press the key that you want to undefine: 
+0224C1F8 %EVE-W-FINDPROMPT2, Forward Find (Find Next is in Reverse direction): 
+0224C200 %EVE-W-WILDFINDPROMPT2, Forward Wildcard Find (Find Next is in Reverse direction): 
+0224C208 %EVE-W-REVPROMPT2, Reverse Find (Find Next is in Forward direction): 
+0224C210 %EVE-W-WILDREVPROMPT2, Reverse Wildcard Find (Find Next is in Forward direction): 
+0224C218 %EVE-W-FILENAMEPROMPT, Type filename for writing buffer !AS: 
+0224C220 %EVE-W-REALLYQUIT, Buffer modifications will not be saved, continue quitting [Yes]? 
+0224C228 %EVE-W-REPLACEFWD2, Found in forward direction.  Go there? 
+0224C230 %EVE-W-REPLACEREV2, Found in reverse direction.  Go there? 
+0224C238 %EVE-W-REPLACEFWDAGIN2, Found in forward direction (may have already replaced).  Go there? 
+0224C240 %EVE-W-REPLACEREVAGIN2, Found in reverse direction (may have already replaced).  Go there? 
+0224C248 %EVE-W-LEARNPROMPTKEY, Press keystrokes to be learned.  Press the REMEMBER key to remember them.
+0224C250 %EVE-W-SETBUFPROMPT, Type SET BUFFER option (READ_ONLY,WRITE,MODIFIABLE,UNMODIFIABLE): 
+0224C258 %EVE-W-MENUPROMPT, Type menu name: 
+0224C260 %EVE-W-LABELPROMPT, Type menu entry label: [!AS] 
+0224C268 %EVE-W-SEPARATORPROMPT, Add a separator widget above menu entry [N]? 
+0224C270 %EVE-W-ATTRPROMPT, Attributes were changed.  Save them [YES]? 
+0224C278 %EVE-W-ATTRSECTION, Save attribute settings in a section file [YES]? 
+0224C280 %EVE-W-ATTRCOMMAND, Save attribute settings in a command file [YES]? 
+0224C288 %EVE-W-FILEPROMPTDEF, Enter file name: [!AS] 
+0224C290 %EVE-W-FILEPROMPT, Enter file name: 
+0224C298 %EVE-W-REALLYEXIT, Attributes will not be saved, continue exiting [Yes]? 
+0224C2A0 %EVE-W-LABELDELPROMPT, Type menu entry label to delete: 
+0224C2A8 %EVE-W-RECOVFILEPROMPT, File name to use to recover a buffer: 
+0224C2B0 %EVE-W-RECOVBUFPROMPT, Recover this buffer?  Type Yes, No. [Y] ? 
+0224C2B8 %EVE-W-RECOVQUITPROMPT, Recover this buffer?  Type Yes, No, Quit. [Y] ? 
+0224C2C0 %EVE-W-JRNLONPROMPT, User buffer to start journaling on: 
+0224C2C8 %EVE-W-JRNLOFFPROMPT, User buffer to stop journaling on: 
+0224C2D0 %EVE-W-RECOVLOWVERSION, Cannot recover journal file !AS. Recover next lower version [Y]? 
+0224C2D8 %EVE-W-DELMODBUFFER, Buffer !AS already exists and is modified. Delete it [Y]? 
+0224C2E0 %EVE-W-SHELLPROMPT, Shell command: 
+0224C2E8 %EVE-W-BACKUPPROMPT, FAO control string for file backups: 
+0224C2F0 %EVE-W-SPELLPROMPT, Write modified buffer !AS before spell checking [Y]? 
+0224D000 %EVE-W-YES, yes
+0224D008 %EVE-W-NO, no
+0224D010 %EVE-W-ALL, all
+0224D018 %EVE-W-LAST, last
+0224D020 %EVE-W-QUIT, quit
+0224D028 %EVE-W-AT, at
+0224D030 %EVE-W-COMMANDS, commands
+0224D038 %EVE-W-CTRL, CTRL
+0224D040 %EVE-W-DELETE_ONLY, delete_only
+0224D048 %EVE-W-EVERY, every
+0224D050 %EVE-W-FORWARD, Forward
+0224D058 %EVE-W-GOLD, GOLD
+0224D060 %EVE-W-INSERT, Insert
+0224D068 %EVE-W-INVISIBLE, invisible
+0224D070 %EVE-W-KEYPAD, keypad
+0224D078 %EVE-W-VT100_KEYPAD, vt100_keypad
+0224D080 %EVE-W-VT200_KEYPAD, vt200_keypad
+0224D088 %EVE-W-VT200_MINI_PAD, vt200_mini_pad
+0224D090 %EVE-W-KEYS, keys
+0224D098 %EVE-W-MODIFIED, Modified
+0224D0A0 %EVE-W-MOVEMENT, movement
+0224D0A8 %EVE-W-NONE, none
+0224D0B0 %EVE-W-NOTMODIFIED, Not modified
+0224D0B8 %EVE-W-NO_WRITE, No-write
+0224D0C0 %EVE-W-OPTIONS,  Options: 
+0224D0C8 %EVE-W-OVERSTRIKE, Overstrike
+0224D0D0 %EVE-W-PERMANENT, Permanent
+0224D0D8 %EVE-W-REVERSE, Reverse
+0224D0E0 %EVE-W-SEQUENCE, Sequence
+0224D0E8 %EVE-W-SHIFT, SHIFT
+0224D0F0 %EVE-W-SPACES, spaces
+0224D0F8 %EVE-W-SYSTEM, System
+0224D100 %EVE-W-TYPING, typing
+0224D108 %EVE-W-UNKNOWN, unknown
+0224D110 %EVE-W-UNMODIFIED, Unmodified
+0224D118 %EVE-W-UNMODIFIABLE, Unmodifiable
+0224D120 %EVE-W-VISIBLE, visible
+0224D128 %EVE-W-VT100PADHELP, eve_vt100
+0224D130 %EVE-W-VT200PADHELP, eve_vt200
+0224D138 %EVE-W-WRITE_FIRST, write_first
+0224D140 %EVE-W-SHIFT_KEY, shift_key
+0224D148 %EVE-W-READ_ONLY, Read-only
+0224D150 %EVE-W-OLDGOLDKEY, old_gold_key
+0224D158 %EVE-W-MODIFIABLE, Modifiable
+0224D160 %EVE-W-NOWRITE, Nowrite
+0224D168 %EVE-W-WRITE, Write
+0224D170 %EVE-W-BUFFERSETTINGS, Settings For Buffer: !AS
+0224D178 %EVE-W-EVENAME, - the Extensible Versatile Editor, 
+0224D180 %EVE-W-NEXTSCREEN, Next Screen
+0224D188 %EVE-W-PREVSCREEN, Previous Screen
+0224D190 %EVE-W-PREVEVESCREEN, Prev Screen
+0224D198 %EVE-W-ATTACH, Attach
+0224D1A0 %EVE-W-SPAWN, Spawn
+0224D1A8 %EVE-W-SPELL, Spell
+0224D1B0 %EVE-W-EXTEND, Extend
+0224D1B8 %EVE-W-GOLDKEY, gold key
+0224D1C0 %EVE-W-OFF, off
+0224D1C8 %EVE-W-ON, on
+0224D1D0 %EVE-W-ATTR_TITLE, Save Attributes
+0224D1D8 %EVE-W-ATTR_SYS_TITLE, Save System Attributes
+0224E000 %EVE-W-ANYINSETABC, Anything in the set abc
+0224E008 %EVE-W-ANYINSET123, Anything in the set 123456789
+0224E010 %EVE-W-ANYNOTINSET123, Anything not in the set 123456789
+0224E018 %EVE-W-ARBCHARACTER, An arbitrary character
+0224E020 %EVE-W-ARBTEXTLINE, An arbitrary amount of text (within a line)
+0224E028 %EVE-W-ARBTEXTCROSLINE, An arbitrary amount of text, crossing lines
+0224E030 %EVE-W-MAYQUOTEANY, May be used to quote any of '!AS'
+0224E038 %EVE-W-ARBWHITESPC, An arbitrary amount of whitespace, including up to 1 line break
+0224E040 %EVE-W-DECIMALDIG, A decimal digit
+0224E048 %EVE-W-OCTALDIG, An octal digit
+0224E050 %EVE-W-HEXDIG, A hexadecimal digit
+0224E058 %EVE-W-ALPHAINCLSUPPL, An alphabetic character (including supplemental)
+0224E060 %EVE-W-ALPHANUMCHAR, An alphanumeric character (letter or decimal digit)
+0224E068 %EVE-W-SYMBOLCONSTIT, A symbol constituent (alphanumeric, $, or _)
+0224E070 %EVE-W-LOWERCASELETTER, A lowercase letter (forces case exact searches)
+0224E078 %EVE-W-UPPERCASELETTER, An uppercase letter (forces case exact searches)
+0224E080 %EVE-W-PUNCTUATIONCHAR, Punctuation character
+0224E088 %EVE-W-FORMATCHAR, Formatting character
+0224E090 %EVE-W-CONTROLCHAR, Control character
+0224E098 %EVE-W-BIT7SET, Any character with bit 7 set
+0224E0A0 %EVE-W-ANYORBOLEOL, Any character or BOL or EOL
+0224E0A8 %EVE-W-OPENPAREN, Open parenthesis (for grouping)
+0224E0B0 %EVE-W-CLOSEPAREN, Close parenthesis (for grouping)
+0224E0B8 %EVE-W-PREVNEXTPATTERN, Previous pattern or next
+0224E0C0 %EVE-W-BOTTOMFILE, Bottom of file
+0224E0C8 %EVE-W-BEGINLINE, Beginning of line
+0224E0D0 %EVE-W-ENDOFLINE, End of line
+0224E0D8 %EVE-W-$STATUSLINE,  Buffer: !#AS!AS | !AS | !AS 
+0224E0E0 %EVE-W-STATUSFIELD,  | !AS
+0224E0E8 %EVE-W-CHOICESSTATUS,  Choices
+0224E0F0 %EVE-W-CHOICESSTATUSNP,  Choices           Press Next Screen or Prev Screen to see other choices
+0224E0F8 %EVE-W-$DCLSTATUS,  Buffer: DCL
+0224E100 %EVE-W-$HELPSTATUS,  Buffer: HELP
+0224E108 %EVE-W-$HELPSTATUSN,  Buffer: HELP      Press Next Screen to see more help
+0224E110 %EVE-W-$HELPSTATUSNP,  Buffer: HELP      Press Next Screen or Prev Screen to see more help
+0224E118 %EVE-W-$HELPSTATUSP,  Buffer: HELP      Press Prev Screen to see more help
+0224E120 %EVE-W-$HELPSTATUSDOWN,  Buffer: HELP      Press Down arrow to see more help
+0224E128 %EVE-W-$HELPSTATUSUPDN,  Buffer: HELP      Press Up arrow or Down arrow to see more help
+0224E130 %EVE-W-$HELPSTATUSUP,  Buffer: HELP      Press Up arrow to see more help
+0224E138 %EVE-W-REPPATTZERO, Repeat previous pattern (zero or more, including original)
+0224E140 %EVE-W-REPPATTATONCE, Repeat previous pattern (at least once, including original)
+0224E148 %EVE-W-$SHOWSTATUS,  Buffer: SHOW      (!AS)
+0224E150 %EVE-W-SHOWBUFPATTERN,   !AS patterns recognized by WILDCARD FIND.
+0224E158 %EVE-W-$SHOWBUFSSTATUS,  Buffer: BUFFER LIST      Use SELECT to view or REMOVE to delete buffers
+0224E160 %EVE-W-SYSSTATUS,  Buffer: !AS
+0224E168 %EVE-W-EOBINIT, [End of Initialization]
+0224E170 %EVE-W-EOBTEXT, [End of file]
+0224E178 %EVE-W-PATTMATCHES,   Pattern    Matches...
+0224E180 %EVE-W-PASTEEOBTEXT, [End of Insert Here buffer]
+0224E188 %EVE-W-GOLDPREFIX, GOLD/!AS
+0224E190 %EVE-W-UNKCONTROL, CTRL(!UL)
+0224E198 %EVE-W-UNKFUNCTION, FUNC(!UL)
+0224E1A0 %EVE-W-UNKKEYPAD, KEYPAD(!UL)
+0224E1A8 %EVE-W-CHOICESTATVT100,  Choices           Press Up arrow or Down arrow to see other choices
+0224E1B0 %EVE-W-$PATSTATBIGUPDN,  Buffer: SHOW      Press Up arrow or Down arrow to see more patterns
+0224E1B8 %EVE-W-PATSTATSMALL,  Buffer: SHOW
+0224E1C0 %EVE-W-$PATSTATBIG,  Buffer: SHOW      Press Next Screen or Prev Screen to see more patterns
+0224E1C8 %EVE-W-PATTERN, Pattern:  !AS
+0224E1D0 %EVE-W-UPDOWNMORE, Press Up arrow or Down arrow to see more.
+0224E1D8 %EVE-W-EOBHELP, [End of help]
+0224E1E0 %EVE-W-BACKUPFAO, !AS!AS.!SL
+0224F000 %EVE-W-SHOW_HEADER,  Information about buffer !AS
+0224F008 %EVE-W-SHOW_INPUTFILE,  Input file:   !AS
+0224F010 %EVE-W-SHOW_OUTPUTFILE,  Output file:  !AS
+0224F018 %EVE-W-SHOW_MODE, Mode: !AS
+0224F020 %EVE-W-SHOW_FIELD,      !25AS  
+0224F028 %EVE-W-SHOW_DIRECTION, Direction: !AS
+0224F030 %EVE-W-SHOW_LINES, !SL line!%S
+0224F038 %EVE-W-SHOW_TABSETAT,  Tab stops set at columns !AS
+0224F040 %EVE-W-SHOW_TABEVERY,  Tab stops set every !SL columns.
+0224F048 %EVE-W-SHOW_KEYMAPLIST,  Key map list: !AS
+0224F050 %EVE-W-SHOW_NOKEYMAP,  No key map list
+0224F058 %EVE-W-SHOW_MARKS,  Marks: 
+0224F060 %EVE-W-SHOW_NOMARKS,  No marks
+0224F068 %EVE-W-SHOWBUF_HEAD,  Buffer name                   Lines  Attributes
+0224F070 %EVE-W-SHOWBUF_ENTRY,   !#AS  !8UL  !8AS  !8AS  !3AS  !4AS  !8AS
+0224F078 %EVE-W-SHOWBUF_ENTRY2,   !AS -!8UL  !8AS  !8AS  !4AS  !5AS  !8AS
+0224F080 %EVE-W-SHOWBUF_ENTRY3,   !#*   
+0224F088 %EVE-W-SHOWSUM_HEAD,   Module Name     Ident
+0224F090 %EVE-W-SHOWSUM_HEAD2,   -----------     -----
+0224F098 %EVE-W-HELP_LEGENDTOP, Use the DO key to enter
+0224F0A0 %EVE-W-HELP_LEGENDBOT, advanced commands
+0224F0A8 %EVE-W-HELP_LEGENDTOP2, Synonyms for the DO key:
+0224F0B0 %EVE-W-HELP_BANNER, GOLD key functions are shown in reverse.
+0224F0B8 %EVE-W-HELP_KEYHEAD,  Key         Function
+0224F0C0 %EVE-W-HELP_KEYFAO,  !11AS !24AS
+0224F0C8 %EVE-W-HELP_GOLDHEAD,  Gold sequence    Function
+0224F0D0 %EVE-W-HELP_GOLDFAO,  !16AS !25AS
+0224F0D8 %EVE-W-HELP_GOLDIS,   (GOLD = !AS)
+0224F0E0 %EVE-W-HELP_ENABLEGOLD,    (Enable these with SET GOLD)
+0224F0E8 %EVE-W-HELP_GOLDIGITS, GOLD/0-9 
+0224F0F0 %EVE-W-HELP_BLDKEYS, Creating list of all defined keys...
+0224F0F8 %EVE-W-HELP_BLDKEYPAD, Building keypad diagram...
+0224F100 %EVE-W-INVOKEEVEHELP, For help on the editor, type EVE and press RETURN.
+0224F108 %EVE-W-INVOKETPUHELP, For help on TPU builtins, type TPU and press RETURN.
+0224F110 %EVE-W-INVOKEKEYHELP, For a keypad diagram, press HELP.
+0224F118 %EVE-W-NONDEFLEFTACT,  Non-default left margin action (default = none)
+0224F120 %EVE-W-NONDEFRIGHTACT,  Non-default right margin action
+0224F128 %EVE-W-SYMBOLPROMPT,  Symbols:
+0224F130 %EVE-W-RECOVERENTRY,   !#<!AS !>!AS
+0224F138 %EVE-W-RECOVEDITTIME, Editing session start date and time: 
+0224F140 %EVE-W-RECOVJRNLTIME, Journal file creation date and time: 
+0224F148 %EVE-W-RECOVINPUTFILE, Original input file: 
+0224F150 %EVE-W-RECOVSRCFILE, Source file for recovery: 
+0224F158 %EVE-W-SHOWCAPTION, To go back use RESET or DO 
+0224F160 %EVE-W-SYSTEMCAPTION, To see more, use:
+0224F168 %EVE-W-SHOWJOURNALFILE,  Journal file: !AS
+0224F170 %EVE-W-SHOW_PARAINDENT, Paragraph indent: !AS
+0224F178 %EVE-W-SHOW_WPSWRAP, WPS word wrap indent: !AS
+0224F180 %EVE-W-SHOW_NOMAXLINES, Max lines: no limit
+0224F188 %EVE-W-SHOW_EOBTEXT,  EOB text: !AS
+0224F190 %EVE-W-SHOW_WRAP,  Word wrap: !AS
+0224F198 %EVE-W-SHOWBUFSTATUS, Use SELECT to view or REMOVE to delete buffers
+@@ file SYS$SHARE:TPUSHR.EXE
+%SYSTEM-F-IVSECIDCTL, invalid section identification match control
+$ 
