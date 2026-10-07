@@ -39,7 +39,8 @@ device `HOST:`; `SYS$LOGIN` is your home directory.
 | `libvms` | the host side: specs to paths, versions, `$SEARCH`, files, images; RMS record streams shared through the lock manager; images mounted as devices |
 | `vms-dcl` | DCL, and the `dcl` binary |
 | `vms-help` | help libraries (`.HLP`), HELP's lookups, pages and prompts |
-| `vms-utils` | `directory`, `type`, `copy`, `delete`, `purge`, `search`, `help`, `create`, `analyze` (/RMS_FILE), `edf` (EDIT/FDL/NOINTERACTIVE), `convert`, `sort` (and MERGE), `mount`, `dismount` |
+| `vms-utils` | `directory`, `type`, `copy`, `delete`, `purge`, `search`, `help`, `create`, `analyze` (/RMS_FILE), `tpu` (EDIT: EVE), `edt` (EDIT/EDT), `edf` (EDIT/FDL), `hostedit` (EDIT/HOST: your $EDITOR), `convert`, `sort` (and MERGE), `mount`, `dismount` |
+| `vms-eve`, `vms-edt` | the EVE and EDT editors' cores: buffers, commands, keypads, screens |
 | `vmsport` | `vmsport path`/`spec`/`cdu`, and `lnm` |
 | `vms-c` | the C ABI: `libvms` with `cli$present`, `lib$get_symbol`, ..., RMS (`sys$open` ... with FAB, RAB, XABs, NAM) and `sys$enqw`/`sys$deq`, and `include/` |
 | `vms-examples` | `greet`: one CLD, a Rust and a C program (`examples/greet`); `examples/rms`: RMS and locks from C |
