@@ -306,7 +306,6 @@ pub fn to_design(fdl: &Fdl) -> Result<Design, Error> {
     };
     let mut keys = Vec::new();
     for (n, k) in fdl.numbered("KEY")? {
-        let alt = n != 0;
         let t = k.word("TYPE").unwrap_or_else(|| "string".into());
         let descending = t.starts_with('d') && !t.starts_with("dec");
         let typ = keyword(
@@ -334,8 +333,9 @@ pub fn to_design(fdl: &Fdl) -> Result<Design, Error> {
             typ,
             descending,
             segments,
-            duplicates: k.yes("DUPLICATES")?.unwrap_or(alt),
-            changes: k.yes("CHANGES")?.unwrap_or(alt),
+            // Not said: no, alternate keys too (fixtures/fdlutil).
+            duplicates: k.yes("DUPLICATES")?.unwrap_or(false),
+            changes: k.yes("CHANGES")?.unwrap_or(false),
             null_key: k.yes("NULL_KEY")?.unwrap_or(false),
             null_value: k.num("NULL_VALUE")?.unwrap_or(0) as u8,
             data_area,

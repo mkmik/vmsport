@@ -17,6 +17,26 @@ pub trait Blocks {
     fn grow(&mut self, n: u32) -> Result<u32, Cond>;
 }
 
+/// A borrowed store, for an [`idx::File`](crate::idx::File) over blocks
+/// the caller keeps.
+impl<B: Blocks + ?Sized> Blocks for &mut B {
+    fn read(&mut self, vbn: u32, buf: &mut [u8]) -> Result<(), Cond> {
+        (**self).read(vbn, buf)
+    }
+
+    fn write(&mut self, vbn: u32, buf: &[u8]) -> Result<(), Cond> {
+        (**self).write(vbn, buf)
+    }
+
+    fn allocated(&self) -> u32 {
+        (**self).allocated()
+    }
+
+    fn grow(&mut self, n: u32) -> Result<u32, Cond> {
+        (**self).grow(n)
+    }
+}
+
 impl Blocks for Vec<u8> {
     fn read(&mut self, vbn: u32, buf: &mut [u8]) -> Result<(), Cond> {
         let at = (vbn as usize - 1) * BLOCK;

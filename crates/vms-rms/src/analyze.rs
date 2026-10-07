@@ -1,10 +1,10 @@
-//! ANALYZE/RMS_FILE's /FDL and /CHECK reports for sequential and relative
-//! files, as OpenVMS prints them (fixtures/rms, fixtures/rmsrel,
-//! fixtures/rmsback).
+//! ANALYZE/RMS_FILE's /FDL and /CHECK reports, as OpenVMS prints them
+//! (fixtures/rms, fixtures/rmsrel, fixtures/rmsback); an indexed file's
+//! own parts come from [`idx::analyze`](crate::idx::analyze).
 
 use crate::fdl::{Fdl, Section, from_design};
 use crate::rel::{DELETED, PRESENT, Prologue};
-use crate::{Area, BLOCK, Blocks, Design, Fab, Org, Rfm, rat};
+use crate::{Area, BLOCK, Blocks, Design, Fab, Org, Rfm, rat, status};
 use std::fmt::Write;
 use vms_cond::Cond;
 
@@ -76,8 +76,25 @@ fn prologue(fab: &Fab, b: &mut impl Blocks) -> Result<Option<Prologue>, Cond> {
 /// ANALYZE/RMS_FILE/FDL's output. `now` is the time as VMS shows it, as in
 /// [`Header`]'s dates.
 pub fn fdl(fab: &Fab, h: &Header, b: &mut impl Blocks, now: &str) -> Result<Fdl, Cond> {
-    let p = prologue(fab, b)?;
-    let mut f = from_design(&design(fab, h, p.map_or(0, |p| p.mrn)));
+    let mut f = match fab.org {
+        Org::Idx => {
+            let mut file = crate::idx::File::new(&mut *b, fab.rfm == Rfm::Fix, fab.mrs);
+            let mut d = file.design(*fab)?;
+            if let Some(a) = d.areas.first_mut() {
+                a.contiguous = h.contiguous;
+                a.best_try_contiguous = h.best_try_contiguous;
+            }
+            let mut f = from_design(&d);
+            // ANALYSIS_OF_AREA and ANALYSIS_OF_KEY after the design.
+            let analysis = crate::fdl::parse(&file.analysis()?).map_err(|_| status::PLG)?;
+            f.sections.extend(analysis.sections);
+            f
+        }
+        _ => {
+            let p = prologue(fab, b)?;
+            from_design(&design(fab, h, p.map_or(0, |p| p.mrn)))
+        }
+    };
     let file = &mut f.sections[0];
     file.set("CLUSTER_SIZE", h.cluster);
     file.set("FILE_MONITORING", "no");
@@ -143,10 +160,18 @@ pub fn check(
     command: &str,
 ) -> Result<(String, usize), Cond> {
     let p = prologue(fab, b)?;
+    // An indexed file's prologue, descriptors and errors, in lines.
+    let indexed = match fab.org {
+        Org::Idx => {
+            Some(crate::idx::File::new(&mut *b, fab.rfm == Rfm::Fix, fab.mrs).check_report()?)
+        }
+        _ => None,
+    };
     let errors = match &p {
         Some(p) => errors(fab, b, p)?,
         None => Vec::new(),
     };
+    let found = errors.len() + indexed.as_ref().map_or(0, |i| i.1);
     let mut o = String::new();
     let [s, ow, g, w] = access(h.protection);
     let contiguity = match (h.contiguous, h.best_try_contiguous) {
@@ -258,17 +283,18 @@ pub fn check(
             p.dvbn, p.mrn, p.eof
         );
     }
-    for e in &errors {
+    for e in errors.iter().chain(indexed.iter().flat_map(|i| &i.0)) {
         let _ = writeln!(o, "{e}");
     }
     o.push_str("\n\n");
-    match errors.len() {
+    match found {
         0 => o.push_str("The analysis uncovered NO errors.\n"),
         1 => o.push_str("The analysis uncovered 1 error.\n"),
         n => {
             let _ = writeln!(o, "The analysis uncovered {n} errors.");
         }
     }
-    let _ = writeln!(o, "\n\n{command}");
-    Ok((o, errors.len()))
+    let _ = write!(o, "\n\n{command}");
+    let o = crate::idx::analyze::paginate(&o, now, &h.spec) + "\n";
+    Ok((o, found))
 }
