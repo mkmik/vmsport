@@ -2,3 +2,7 @@
 # the user's own git settings (an https-to-ssh rewrite, say).
 [net]
 git-fetch-with-cli = true
+
+# `cargo run` of any binary first builds the rest: see scripts/cargo-runner.
+[target.'cfg(all())']
+runner = "scripts/cargo-runner"

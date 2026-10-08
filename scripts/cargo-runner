@@ -1,0 +1,9 @@
+#!/bin/sh
+# Cargo's runner (.cargo/config.toml). `cargo run --bin dcl` builds only dcl,
+# but dcl starts vmsportd and runs the utilities from beside itself: when a
+# workspace binary is run (not a test, which lives in deps/), build them all.
+case "$(basename "$(dirname "$1")")" in
+deps | examples) ;;
+*) "${CARGO:-cargo}" build --workspace --quiet || exit ;;
+esac
+exec "$@"
