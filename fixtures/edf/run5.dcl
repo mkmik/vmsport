@@ -1,0 +1,340 @@
+SET DEFAULT SYS$LOGIN
+CREATE/DIRECTORY [.EDF5]
+SET DEFAULT [.EDF5]
+CREATE D1A.FDL
+FILE
+  CLUSTER_SIZE 1
+  ORGANIZATION indexed
+@@CTRLZ
+CREATE FN.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+  DATA_KEY_COMPRESSION no
+  DATA_RECORD_COMPRESSION no
+@@CTRLZ
+CREATE FK.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+  DATA_KEY_COMPRESSION yes
+  DATA_RECORD_COMPRESSION no
+@@CTRLZ
+CREATE E1.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+@@CTRLZ
+CREATE E2.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 4
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+@@CTRLZ
+CREATE E3.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 32
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+@@CTRLZ
+CREATE E4.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES no
+  CHANGES no
+@@CTRLZ
+CREATE E7.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+  DATA_FILL 70
+@@CTRLZ
+CREATE RUN.COM
+$ SET NOON
+$ SET TERMINAL/TAB
+$ GOSUB base
+$ n0 = 23742
+$ CALL case R00 D1A.FDL FN.FDL "" 1
+$ GOSUB base
+$ n0 = 24016
+$ CALL case R01 D1A.FDL FN.FDL "" 1
+$ GOSUB base
+$ n0 = 2781
+$ CALL case R02 D1A.FDL FK.FDL "" 1
+$ GOSUB base
+$ n0 = 7439
+$ CALL case R03 D1A.FDL FK.FDL "" 1
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 0
+$ mdl1 = 10
+$ CALL case S00 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 0
+$ mdl1 = 50
+$ CALL case S01 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 0
+$ mdl1 = 500
+$ CALL case S02 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 10
+$ CALL case S03 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 50
+$ CALL case S04 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 500
+$ CALL case S05 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 1
+$ mdl1 = 10
+$ CALL case S06 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 1
+$ mdl1 = 500
+$ CALL case S07 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 1000000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 106
+$ CALL case S08 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 10000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 106
+$ CALL case S09 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 1
+$ mdl1 = 106
+$ CALL case S10 D1A.FDL E2.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 3
+$ mdl1 = 106
+$ CALL case S11 D1A.FDL E2.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 1
+$ mdl1 = 106
+$ CALL case S12 D1A.FDL E3.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 3
+$ mdl1 = 106
+$ CALL case S13 D1A.FDL E3.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 106
+$ dkc1 = 0
+$ CALL case S14 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 106
+$ dkc1 = 75
+$ CALL case S15 D1A.FDL E1.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 9
+$ mdl1 = 106
+$ CALL case S16 D1A.FDL E4.FDL "/GRANULARITY=4" 2
+$ GOSUB base
+$ n0 = 100000
+$ n1 = 100000
+$ dps1 = 0
+$ mdl1 = 106
+$ CALL case S17 D1A.FDL E7.FDL "/GRANULARITY=4" 2
+$ WRITE SYS$OUTPUT "@@ end"
+$ EXIT
+$base:
+$ n0 = 1000
+$ df0 = 72
+$ dkc0 = 49
+$ drc0 = 73
+$ dso0 = 94
+$ dep0 = 1
+$ ic0 = 28
+$ if0 = 34
+$ iso0 = 2
+$ l10 = 47
+$ mdl0 = 64
+$ mil0 = 10
+$ lrl0 = 64
+$ n1 = 50
+$ df1 = 66
+$ dkc1 = 56
+$ dso1 = 16
+$ dep1 = 1
+$ dps1 = 19
+$ ic1 = 44
+$ if1 = 6
+$ iso1 = 2
+$ l11 = 8
+$ mdl1 = 106
+$ mil1 = 12
+$ n2 = 50
+$ df2 = 66
+$ dkc2 = 56
+$ dso2 = 16
+$ dep2 = 1
+$ dps2 = 19
+$ ic2 = 44
+$ if2 = 6
+$ iso2 = 2
+$ l12 = 8
+$ mdl2 = 106
+$ mil2 = 12
+$ n3 = 50
+$ df3 = 66
+$ dkc3 = 56
+$ dso3 = 16
+$ dep3 = 1
+$ dps3 = 19
+$ ic3 = 44
+$ if3 = 6
+$ iso3 = 2
+$ l13 = 8
+$ mdl3 = 106
+$ mil3 = 12
+$ RETURN
+$case: SUBROUTINE
+$ SET NOON
+$ OPEN/WRITE t T.TMP
+$ WRITE t ""
+$ WRITE t "ANALYSIS_OF_AREA 0"
+$ WRITE t "  RECLAIMED_SPACE 0"
+$ CALL aok 0
+$ IF P5 .GT. 1 THEN CALL aok 1
+$ IF P5 .GT. 2 THEN CALL aok 2
+$ IF P5 .GT. 3 THEN CALL aok 3
+$ CLOSE t
+$ COPY 'P2'+T.TMP 'P1'A.FDL
+$ DELETE T.TMP;*
+$ EDIT/FDL/NOINTERACTIVE/ANALYSIS='P1'A.FDL/OUTPUT='P1'O.FDL'P4' 'P3'
+$ st = $STATUS
+$ WRITE SYS$OUTPUT "@@ ", P1, " ", P3, " ", P4, " ", F$FAO("!XL", F$INTEGER(st))
+$ TYPE 'P1'A.FDL
+$ WRITE SYS$OUTPUT "@@ ", P1, " output"
+$ TYPE 'P1'O.FDL
+$ ENDSUBROUTINE
+$aok: SUBROUTINE
+$ WRITE t ""
+$ WRITE t "ANALYSIS_OF_KEY ", P1
+$ WRITE t "  DATA_FILL ", df'P1'
+$ WRITE t "  DATA_KEY_COMPRESSION ", dkc'P1'
+$ IF P1 .EQ. 0 THEN WRITE t "  DATA_RECORD_COMPRESSION ", drc0
+$ WRITE t "  DATA_RECORD_COUNT ", n'P1'
+$ WRITE t "  DATA_SPACE_OCCUPIED ", dso'P1'
+$ WRITE t "  DEPTH ", dep'P1'
+$ IF P1 .GT. 0 THEN WRITE t "  DUPLICATES_PER_SIDR ", dps'P1'
+$ WRITE t "  INDEX_COMPRESSION ", ic'P1'
+$ WRITE t "  INDEX_FILL ", if'P1'
+$ WRITE t "  INDEX_SPACE_OCCUPIED ", iso'P1'
+$ WRITE t "  LEVEL1_RECORD_COUNT ", l1'P1'
+$ WRITE t "  MEAN_DATA_LENGTH ", mdl'P1'
+$ WRITE t "  MEAN_INDEX_LENGTH ", mil'P1'
+$ IF P1 .EQ. 0 THEN WRITE t "  LONGEST_RECORD_LENGTH ", lrl0
+$ ENDSUBROUTINE
+@@CTRLZ
+@RUN

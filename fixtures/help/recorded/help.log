@@ -1,0 +1,732 @@
+@@ top
+
+HELP
+
+   HELP is how you read this library. The text of a library's HELP topic
+   is what HELP shows when it is given no topic.
+
+
+  Additional information available:
+
+  ALPHA      BETA       BETTER     DELTA      E          EPSILON    ETA        GAMMA_LONGNAME        HELP       IOTA       KAPPA
+  LAMBDA     MU         NOTEXT     NU         OMICRON    PI         RHO        THETA      XI         ZETA
+
+status 00000001
+@@ topic
+
+ALPHA
+
+   The ALPHA topic, written for vmsport to record how HELP lays out
+   text, subtopics and prompts. It has subtopics.
+
+   Format
+
+     ALPHA [file-spec]
+
+
+  Additional information available:
+
+  Parameters Qualifiers
+  /LOG       /COUNT     /CONFIRM
+  Examples   SUBTOPIC_ONE          SUBTOPIC_TWO
+
+status 00000001
+@@ abbreviation
+
+ALPHA
+
+   The ALPHA topic, written for vmsport to record how HELP lays out
+   text, subtopics and prompts. It has subtopics.
+
+   Format
+
+     ALPHA [file-spec]
+
+
+  Additional information available:
+
+  Parameters Qualifiers
+  /LOG       /COUNT     /CONFIRM
+  Examples   SUBTOPIC_ONE          SUBTOPIC_TWO
+
+status 00000001
+@@ ambiguous
+
+BETA
+
+   The BETA topic has no subtopics.
+
+
+BETTER
+
+   BETTER starts like BETA.
+
+status 00000001
+@@ exact beats longer
+
+BETA
+
+   The BETA topic has no subtopics.
+
+status 00000001
+@@ one letter
+
+E
+
+   A one-letter topic.
+
+status 00000001
+@@ subtopic
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+     Text of the first subtopic.
+
+
+    Additional information available:
+
+    DEEPER     DEEPEST_NAME_THAT_IS_RATHER_LONG
+
+status 00000001
+@@ level three
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+    DEEPER
+
+       Text at level three.
+
+status 00000001
+@@ qualifier
+
+ALPHA
+
+  /LOG
+
+      /LOG
+      /NOLOG (default)
+
+   Shows each file as ALPHA works on it.
+
+status 00000001
+@@ qualifier spaced
+
+ALPHA
+
+  /COUNT
+
+      /COUNT=n
+
+   How many times.
+
+status 00000001
+@@ two qualifiers
+
+/LOG
+  Sorry, no documentation on ALPHA /LOG /CONFIRM
+
+
+  Additional information available:
+
+  Parameters Qualifiers
+  /LOG       /COUNT     /CONFIRM
+  Examples   SUBTOPIC_ONE          SUBTOPIC_TWO
+
+status 00000001
+@@ qualifiers topic
+
+ALPHA
+
+  Qualifiers
+
+     Text of the Qualifiers subtopic itself.
+    /LOG
+
+        /LOG
+        /NOLOG (default)
+
+     Shows each file as ALPHA works on it.
+    /COUNT
+
+        /COUNT=n
+
+     How many times.
+    /CONFIRM
+     Asks first.
+
+status 00000001
+@@ parameters
+
+ALPHA
+
+  Parameters
+
+     file-spec
+
+     The file ALPHA works on.
+
+status 00000001
+@@ wildcard top
+
+ALPHA
+
+   The ALPHA topic, written for vmsport to record how HELP lays out
+   text, subtopics and prompts. It has subtopics.
+
+   Format
+
+     ALPHA [file-spec]
+
+
+  Additional information available:
+
+  Parameters Qualifiers
+  /LOG       /COUNT     /CONFIRM
+  Examples   SUBTOPIC_ONE          SUBTOPIC_TWO
+
+
+BETA
+
+   The BETA topic has no subtopics.
+
+
+BETTER
+
+   BETTER starts like BETA.
+
+
+DELTA
+
+   Delta text.
+
+
+  Additional information available:
+
+  ONE        TWO
+
+
+E
+
+   A one-letter topic.
+
+
+EPSILON
+
+   Epsilon text.
+
+
+ETA
+
+   Eta text.
+
+
+GAMMA_LONGNAME
+
+   A topic with a long name, to see the columns.
+
+
+HELP
+
+   HELP is how you read this library. The text of a library's HELP topic
+   is what HELP shows when it is given no topic.
+
+
+  Additional information available:
+
+  Sub
+
+
+IOTA
+
+   Iota text.
+
+
+KAPPA
+
+   Kappa text.
+
+
+LAMBDA
+
+   Lambda text.
+
+
+MU
+
+   Mu text.
+
+
+NOTEXT
+
+
+
+  Additional information available:
+
+  FIRST      SECOND
+
+
+NU
+
+   Nu text.
+
+
+OMICRON
+
+   Omicron text.
+
+
+PI
+
+   Pi text.
+
+
+RHO
+
+   Rho text.
+
+
+THETA
+
+   Theta text.
+
+
+XI
+
+   Xi text.
+
+
+ZETA
+
+   Zeta text.
+
+status 00000001
+@@ wildcard sub
+
+ALPHA
+
+  Parameters
+
+     file-spec
+
+     The file ALPHA works on.
+
+
+ALPHA
+
+  Qualifiers
+
+     Text of the Qualifiers subtopic itself.
+    /LOG
+
+        /LOG
+        /NOLOG (default)
+
+     Shows each file as ALPHA works on it.
+    /COUNT
+
+        /COUNT=n
+
+     How many times.
+    /CONFIRM
+     Asks first.
+
+
+ALPHA
+
+  Examples
+
+     1.$ ALPHA X.TXT
+
+       Works on X.TXT.
+
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+     Text of the first subtopic.
+
+
+    Additional information available:
+
+    DEEPER     DEEPEST_NAME_THAT_IS_RATHER_LONG
+
+
+ALPHA
+
+  SUBTOPIC_TWO
+
+     Text of the second subtopic.
+
+status 00000001
+@@ percent
+
+BETA
+
+   The BETA topic has no subtopics.
+
+status 00000001
+@@ ellipsis
+
+DELTA
+
+   Delta text.
+
+
+DELTA
+
+  ONE
+
+     One.
+
+
+DELTA
+
+  TWO
+
+     Two.
+
+status 00000001
+@@ ellipsis missing
+  Sorry, no documentation on NOSUCH
+
+status 00000001
+@@ no such topic
+  Sorry, no documentation on NOSUCH
+
+
+  Additional information available:
+
+  ALPHA      BETA       BETTER     DELTA      E          EPSILON    ETA        GAMMA_LONGNAME        HELP       IOTA       KAPPA
+  LAMBDA     MU         NOTEXT     NU         OMICRON    PI         RHO        THETA      XI         ZETA
+
+status 00000001
+@@ no such subtopic
+
+ALPHA
+  Sorry, no documentation on ALPHA NOSUCH
+
+
+  Additional information available:
+
+  Parameters Qualifiers
+  /LOG       /COUNT     /CONFIRM
+  Examples   SUBTOPIC_ONE          SUBTOPIC_TWO
+
+status 00000001
+@@ two topics
+
+BETA
+  Sorry, no documentation on BETA GAMMA
+
+status 00000001
+@@ two topics found
+
+BETA
+  Sorry, no documentation on BETA DELTA
+
+status 00000001
+@@ qualifier abbreviation
+
+ALPHA
+
+  /LOG
+
+      /LOG
+      /NOLOG (default)
+
+   Shows each file as ALPHA works on it.
+
+status 00000001
+@@ negated qualifier
+
+ALPHA
+  Sorry, no documentation on ALPHA /NOLOG
+
+
+  Additional information available:
+
+  Parameters Qualifiers
+  /LOG       /COUNT     /CONFIRM
+  Examples   SUBTOPIC_ONE          SUBTOPIC_TWO
+
+status 00000001
+@@ no text
+
+NOTEXT
+
+
+
+  Additional information available:
+
+  FIRST      SECOND
+
+status 00000001
+@@ long name
+
+GAMMA_LONGNAME
+
+   A topic with a long name, to see the columns.
+
+status 00000001
+@@ one letter exact
+
+E
+
+   A one-letter topic.
+
+status 00000001
+@@ ellipsis found
+
+ALPHA
+
+   The ALPHA topic, written for vmsport to record how HELP lays out
+   text, subtopics and prompts. It has subtopics.
+
+   Format
+
+     ALPHA [file-spec]
+
+
+ALPHA
+
+  Parameters
+
+     file-spec
+
+     The file ALPHA works on.
+
+
+ALPHA
+
+  Qualifiers
+
+     Text of the Qualifiers subtopic itself.
+    /LOG
+
+        /LOG
+        /NOLOG (default)
+
+     Shows each file as ALPHA works on it.
+    /COUNT
+
+        /COUNT=n
+
+     How many times.
+    /CONFIRM
+     Asks first.
+
+
+ALPHA
+
+  Examples
+
+     1.$ ALPHA X.TXT
+
+       Works on X.TXT.
+
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+     Text of the first subtopic.
+
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+    DEEPER
+
+       Text at level three.
+
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+    DEEPEST_NAME_THAT_IS_RATHER_LONG
+
+       A long subtopic name.
+
+
+ALPHA
+
+  SUBTOPIC_TWO
+
+     Text of the second subtopic.
+
+status 00000001
+@@ help topic
+
+HELP
+
+   HELP is how you read this library. The text of a library's HELP topic
+   is what HELP shows when it is given no topic.
+
+
+  Additional information available:
+
+  Sub
+
+status 00000001
+@@ qualifier wildcard
+
+ALPHA
+
+  /LOG
+
+      /LOG
+      /NOLOG (default)
+
+   Shows each file as ALPHA works on it.
+
+
+ALPHA
+
+  /COUNT
+
+      /COUNT=n
+
+   How many times.
+
+
+ALPHA
+
+  /CONFIRM
+   Asks first.
+
+status 00000001
+@@ lowercase
+
+ALPHA
+
+  SUBTOPIC_TWO
+
+     Text of the second subtopic.
+
+status 00000001
+@@ noinstructions
+
+  Information available:
+
+  ALPHA      BETA       BETTER     DELTA      E          EPSILON    ETA        GAMMA_LONGNAME        HELP       IOTA       KAPPA
+  LAMBDA     MU         NOTEXT     NU         OMICRON    PI         RHO        THETA      XI         ZETA
+
+status 00000001
+@@ prompting
+
+HELP
+
+   HELP is how you read this library. The text of a library's HELP topic
+   is what HELP shows when it is given no topic.
+
+
+  Additional information available:
+
+  ALPHA      BETA       BETTER     DELTA      E          EPSILON    ETA        GAMMA_LONGNAME        HELP       IOTA       KAPPA
+  LAMBDA     MU         NOTEXT     NU         OMICRON    PI         RHO        THETA      XI         ZETA
+
+
+ALPHA
+
+   The ALPHA topic, written for vmsport to record how HELP lays out
+   text, subtopics and prompts. It has subtopics.
+
+   Format
+
+     ALPHA [file-spec]
+
+
+  Additional information available:
+
+  Parameters Qualifiers
+  /LOG       /COUNT     /CONFIRM
+  Examples   SUBTOPIC_ONE          SUBTOPIC_TWO
+
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+     Text of the first subtopic.
+
+
+    Additional information available:
+
+    DEEPER     DEEPEST_NAME_THAT_IS_RATHER_LONG
+
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+     Text of the first subtopic.
+
+
+    Additional information available:
+
+    DEEPER     DEEPEST_NAME_THAT_IS_RATHER_LONG
+
+
+ALPHA
+
+  SUBTOPIC_ONE
+
+    DEEPER
+
+       Text at level three.
+
+  Sorry, no documentation on NOSUCH
+
+
+  Additional information available:
+
+  ALPHA      BETA       BETTER     DELTA      E          EPSILON    ETA        GAMMA_LONGNAME        HELP       IOTA       KAPPA
+  LAMBDA     MU         NOTEXT     NU         OMICRON    PI         RHO        THETA      XI         ZETA
+
+
+DELTA
+
+   Delta text.
+
+
+  Additional information available:
+
+  ONE        TWO
+
+
+DELTA
+
+  ONE
+
+     One.
+
+%DCL-W-SKPDAT, image data (records not beginning with "$") ignored
+status 00038120
+@@ prompting from a topic
+
+BETA
+
+   The BETA topic has no subtopics.
+
+
+GAMMA_LONGNAME
+
+   A topic with a long name, to see the columns.
+
+@@ output file
+
+BETA
+
+   The BETA topic has no subtopics.
+
+@@ no library
+%HELP-E-OPENIN, error opening SYS$COMMON:[SYSHLP]NOSUCH.HLB; as input
+-RMS-E-FNF, file not found
+status 1076109A

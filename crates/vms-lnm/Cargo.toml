@@ -1,0 +1,8 @@
+[package]
+name = "vms-lnm"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+vms-cond = { path = "../vms-cond" }
+vms-filespec = { path = "../vms-filespec" }

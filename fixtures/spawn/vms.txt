@@ -1,0 +1,6 @@
+in SPAWN.COM
+in PIPE.COM
+run @SPAWN.COM/OUTPUT=SPAWN.LOG
+run @PIPE.COM/OUTPUT=PIPE.LOG
+text SPAWN.LOG recorded/SPAWN.log
+text PIPE.LOG recorded/PIPE.log

@@ -1,0 +1,23 @@
+[package]
+name = "vms-utils"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+libvms = { path = "../libvms" }
+vms-cld = { path = "../vms-cld" }
+vms-cond = { path = "../vms-cond" }
+vms-fao = { path = "../vms-fao" }
+vms-filespec = { path = "../vms-filespec" }
+vms-msg = { path = "../vms-msg" }
+vms-rms = { path = "../vms-rms" }
+vms-time = { path = "../vms-time" }
+vms-help = { path = "../vms-help" }
+vms-lnm = { path = "../vms-lnm" }
+vms-eve = { path = "../vms-eve" }
+libc = "0.2"
+vms-edt = { path = "../vms-edt" }
+
+[dev-dependencies]
+vmsportd = { path = "../vmsportd" }
+ods-image = { git = "https://github.com/mkmik/vaxpunk", rev = "4073d2cd1050c992e335029788c938a12f70399a" }

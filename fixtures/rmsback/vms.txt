@@ -1,0 +1,23 @@
+import ours
+in rmsback.com
+run @RMSBACK.COM/OUTPUT=RMSBACK.LOG
+text RMSBACK.LOG recorded/rmsback.log
+text RGAPS.ANL recorded/RGAPS.ANL
+text RGAPS.CHK recorded/RGAPS.CHK
+text RFIXG.ANL recorded/RFIXG.ANL
+text RFIXG.CHK recorded/RFIXG.CHK
+text RVFCG.ANL recorded/RVFCG.ANL
+text RVFCG.CHK recorded/RVFCG.CHK
+text SFTN.ANL recorded/SFTN.ANL
+text SFTN.CHK recorded/SFTN.CHK
+text SCRBLK.ANL recorded/SCRBLK.ANL
+text SCRBLK.CHK recorded/SCRBLK.CHK
+text RBADLEN.ANL recorded/RBADLEN.ANL
+text RBADLEN.CHK recorded/RBADLEN.CHK
+text RBADCTL.ANL recorded/RBADCTL.ANL
+text RBADCTL.CHK recorded/RBADCTL.CHK
+text SBAD.ANL recorded/SBAD.ANL
+text SBAD.CHK recorded/SBAD.CHK
+text RGAPSV.CHK recorded/RGAPSV.CHK
+blocks RGAPS.DAT recorded/RGAPS.DAT
+manifest *.DAT recorded/ods-manifest.json

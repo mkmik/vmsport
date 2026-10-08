@@ -1,0 +1,472 @@
+#define LIB$_FACILITY 21
+#define LIB$_NORMAL 1409025
+#define LIB$_STRTRU 1409041
+#define LIB$_ONEENTQUE 1409049
+#define LIB$_KEYALRINS 1409057
+#define LIB$_ERRROUCAL 1409065
+#define LIB$_RESTART 1409073
+#define LIB$_BADSTA 1409540
+#define LIB$_FATERRLIB 1409548
+#define LIB$_INSVIRMEM 1409556
+#define LIB$_INPSTRTRU 1409564
+#define LIB$_INVSTRDES 1409572
+#define LIB$_INTLOGERR 1409580
+#define LIB$_INVARG 1409588
+#define LIB$_AMBKEY 1409596
+#define LIB$_UNRKEY 1409604
+#define LIB$_PUSSTAOVE 1409612
+#define LIB$_USEFLORES 1409620
+#define LIB$_SIGNO_ARG 1409628
+#define LIB$_BADBLOADR 1409636
+#define LIB$_BADBLOSIZ 1409644
+#define LIB$_NOTFOU 1409652
+#define LIB$_ATTCONSTO 1409660
+#define LIB$_SYNTAXERR 1409668
+#define LIB$_INVTYPE 1409676
+#define LIB$_INSEF 1409684
+#define LIB$_EF_ALRFRE 1409692
+#define LIB$_EF_ALRRES 1409700
+#define LIB$_EF_RESSYS 1409708
+#define LIB$_INSLUN 1409716
+#define LIB$_LUNALRFRE 1409724
+#define LIB$_LUNRESSYS 1409732
+#define LIB$_SCRBUFOVF 1409740
+#define LIB$_INVSCRPOS 1409748
+#define LIB$_SECINTFAI 1409756
+#define LIB$_INVCHA 1409764
+#define LIB$_QUEWASEMP 1409772
+#define LIB$_STRIS_INT 1409780
+#define LIB$_KEYNOTFOU 1409788
+#define LIB$_INVCVT 1409796
+#define LIB$_INVDTYDSC 1409804
+#define LIB$_INVCLADSC 1409812
+#define LIB$_INVCLADTY 1409820
+#define LIB$_INVNBDS 1409828
+#define LIB$_DESSTROVF 1409836
+#define LIB$_INTOVF 1409844
+#define LIB$_DECOVF 1409852
+#define LIB$_FLTOVF 1409860
+#define LIB$_FLTUND 1409868
+#define LIB$_ROPRAND 1409876
+#define LIB$_WRONUMARG 1409884
+#define LIB$_NOSUCHSYM 1409892
+#define LIB$_INSCLIMEM 1409900
+#define LIB$_AMBSYMDEF 1409908
+#define LIB$_NOCLI 1409916
+#define LIB$_UNECLIERR 1409924
+#define LIB$_INVSYMNAM 1409932
+#define LIB$_ATTREQREF 1409940
+#define LIB$_INVFILSPE 1409948
+#define LIB$_INVXAB 1409956
+#define LIB$_NO_STRACT 1409964
+#define LIB$_BADTAGVAL 1409972
+#define LIB$_INVOPEZON 1409980
+#define LIB$_PAGLIMEXC 1409988
+#define LIB$_NOTIMP 1409996
+#define LIB$_BADZONE 1410004
+#define LIB$_IVTIME 1410012
+#define LIB$_ONEDELTIM 1410020
+#define LIB$_NEGTIM 1410028
+#define LIB$_INVARGORD 1410036
+#define LIB$_ABSTIMREQ 1410044
+#define LIB$_DELTIMREQ 1410052
+#define LIB$_INVOPER 1410060
+#define LIB$_REENTRANCY 1410068
+#define LIB$_UNRFORCOD 1410076
+#define LIB$_ILLINISTR 1410084
+#define LIB$_NUMELEMENTS 1410092
+#define LIB$_ELETOOLON 1410100
+#define LIB$_ILLCOMPONENT 1410108
+#define LIB$_AMBDATTIM 1410116
+#define LIB$_INCDATTIM 1410124
+#define LIB$_ILLFORMAT 1410132
+#define LIB$_UNSUPVER 1410140
+#define LIB$_BADFORMAT 1410148
+#define LIB$_NODTOOLNG 1410156
+#define LIB$_NOHOSNAM 1410164
+#define LIB$_OUTSTRTRU 1413120
+#define LIB$_FILFAIMAT 1413128
+#define LIB$_NEGANS 1413136
+#define LIB$_QUIPRO 1413144
+#define LIB$_QUICONACT 1413152
+#define LIB$_ENGLUSED 1413160
+#define LIB$_DEFFORUSE 1413168
+#define LIB$_MEMALRFRE 1413176
+#define LIB$_BADCCC 1425408
+#define LIB$_EOMERROR 1425416
+#define LIB$_EOMFATAL 1425424
+#define LIB$_EOMWARN 1425432
+#define LIB$_GSDTYP 1425440
+#define LIB$_ILLFMLCNT 1425448
+#define LIB$_ILLMODNAM 1425456
+#define LIB$_ILLPSCLEN 1425464
+#define LIB$_ILLRECLEN 1425472
+#define LIB$_ILLRECLN2 1425480
+#define LIB$_ILLRECTYP 1425488
+#define LIB$_ILLRECTY2 1425496
+#define LIB$_ILLSYMLEN 1425504
+#define LIB$_NOEOM 1425512
+#define LIB$_RECTOOSML 1425520
+#define LIB$_SEQUENCE 1425528
+#define LIB$_SEQUENCE2 1425536
+#define LIB$_STRLVL 1425544
+#define LIB$_NOWILD 1380650
+#define LIB$_ACTIMAGE 1381050
+#define LIB$_OPENIN 1380506
+#define LIB$_CLOSEIN 1380432
+#define LIB$_READERR 1380530
+#define SS$_NORMAL 1
+#define SS$_CONTINUE 1
+#define SS$_WASCLR 1
+#define SS$_WASSET 9
+#define SS$_ACCVIO 12
+#define SS$_BADPARAM 20
+#define SS$_EXQUOTA 28
+#define SS$_NOPRIV 36
+#define SS$_ABORT 44
+#define SS$_BADESCAPE 60
+#define SS$_DUPLNAM 148
+#define SS$_INSFARG 276
+#define SS$_INSFMEM 292
+#define SS$_IVCHAN 316
+#define SS$_IVLOGNAM 340
+#define SS$_IVSTSFLG 380
+#define SS$_NOLOGNAM 444
+#define SS$_TIMEOUT 556
+#define SS$_IVBUFLEN 844
+#define SS$_IVLOCKID 8484
+#define SS$_CVTUNGRANT 8508
+#define SS$_BUFFEROVF 1537
+#define SS$_CONTROLY 1553
+#define SS$_CREATED 1561
+#define SS$_MSGNOTFND 1569
+#define SS$_NOTRAN 1577
+#define SS$_SUPERSEDE 1585
+#define SS$_CONTROLC 1617
+#define SS$_SYNCH 1673
+#define SS$_ENDOFFILE 2160
+#define SS$_NOSUCHDEV 2312
+#define SS$_NOSUCHFILE 2320
+#define SS$_RESIGNAL 2328
+#define SS$_UNWIND 2336
+#define SS$_NOTQUEUED 2488
+#define SS$_VALNOTVALID 2544
+#define SS$_DEADLOCK 3594
+#define SS$_EXENQLM 10820
+#define CLI$_FACILITY 3
+#define CLI$_ABVERB 229384
+#define CLI$_ABKEYW 229392
+#define CLI$_BUFOVF 229400
+#define CLI$_COMPLX 229408
+#define CLI$_DEFOVF 229416
+#define CLI$_DIRECT 229424
+#define CLI$_EXPSYN 229432
+#define CLI$_IMCHNG 229440              /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_INSFPRM 229448
+#define CLI$_IVCHAR 229456
+#define CLI$_DEFOVF16 229464            /* SS111808                         */
+#define CLI$_IVKEYW 229472
+#define CLI$_IVOPER 229480
+#define CLI$_IVPROT 229488
+#define CLI$_IVQLOC 229496
+#define CLI$_IVSYMB 229504
+#define CLI$_IVVALU 229512
+#define CLI$_IVVERB 229520
+#define CLI$_MAXPARM 229528
+#define CLI$_NOATFIL 229536             /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_NOCCAT 229544
+#define CLI$_NOCOMD 229552
+#define CLI$_NOKEYW 229560
+#define CLI$_NOLIST 229568
+#define CLI$_NOQUAL 229576
+#define CLI$_NOVALU 229584
+#define CLI$_NOTNEG 229592
+#define CLI$_NULFIL 229600
+#define CLI$_NUMBER 229608
+#define CLI$_ONCOMD 229616
+#define CLI$_ONERR 229624
+#define CLI$_ONLEVL 229632
+#define CLI$_ONOVF 229640
+#define CLI$_PARMDEL 229648
+#define CLI$_RSLOVF 229656
+#define CLI$_SKPDAT 229664
+#define CLI$_STKOVF 229672
+#define CLI$_SYMDEL 229680
+#define CLI$_SYMOVF 229688
+#define CLI$_UNDSYM 229696
+#define CLI$_USGOTO 229704
+#define CLI$_VALREQ 229712
+#define CLI$_ONEVAL 229720
+#define CLI$_OVRFLW 229728
+#define CLI$_UNPROQUAL 229736           /* OLD CLI INTERFACE STATUS         */
+#define CLI$_UNPROPARM 229744           /* OLD CLI INTERFACE STATUS         */
+#define CLI$_INVKEY 229752              /* OLD MCR STATUS GOING AWAY SOON   */
+#define CLI$_INVRSP 229760              /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_UNDFIL 229768
+#define CLI$_FILOPN 229776              /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_BADRET 229784              /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_ABSYMD 229792
+#define CLI$_INVUIC 229800
+#define CLI$_BADTEXT 229808             /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_ABFNAM 229816
+#define CLI$_IVFNAM 229824
+#define CLI$_BLKOVRFLOW 229832          /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_BLKUNDFLOW 229840          /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_BADBLK 229848              /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_NOLBLS 229856
+#define CLI$_NOCHANGE 229864            /* MCR-ONLY STATUS                  */
+#define CLI$_ABSENT 229872              /* NEW CLI INTERFACE STATUS         */
+#define CLI$_NEGATED 229880             /* NEW CLI INTERFACE STATUS         */
+#define CLI$_INVFILSPE 229888
+#define CLI$_INVLOGFIL 229896           /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_NOTHEN 229904
+#define CLI$_SYMTOOLNG 229912
+#define CLI$_ASTDCL 229920              /* GOES AWAY IN V4                  */
+#define CLI$_INVRANGE 229928
+#define CLI$_LOCNEG 229936              /* NEW CLI INTERFACE STATUS         */
+#define CLI$_CMDNOTFND 229944
+#define CLI$_IVQUAL 229952
+#define CLI$_CMDSEG 229960
+#define CLI$_NOTIFY 229968
+#define CLI$_CONFLICT 229976
+#define CLI$_UNDKEY 229984
+#define CLI$_ARGREQ 229992
+#define CLI$_SYMLNG 230000
+#define CLI$_SYMABR 230008
+#define CLI$_IVKEYNAM 230016
+#define CLI$_NOPAREN 230024
+#define CLI$_IVATIME 230032
+#define CLI$_IVDTIME 230040
+#define CLI$_TKNOVF 230048
+#define CLI$_CMDFILERR 230056           /* MCR-ONLY STATUS                  */
+#define CLI$_INVOUTSPE 230064
+#define CLI$_PERMSYM 230072
+#define CLI$_GBLNDF 230080
+#define CLI$_INVGOSUB 230088
+#define CLI$_GOSUBMAX 230096
+#define CLI$_USCALL 230104
+#define CLI$_USGOSUB 230112
+#define CLI$_FRZNCTX 230120
+#define CLI$_NOTCTX 230128
+#define CLI$_INVCTXTYP 230136
+#define CLI$_CMDSEG2 230144
+#define CLI$_INVNOD 230152
+#define CLI$_NULLPIPE 230160
+#define CLI$_INVNULLCMD 230168
+#define CLI$_WRGSUBSHSYN 230176
+#define CLI$_UNTERMSUBSH 230184
+#define CLI$_DUPREDSYN 230192
+#define CLI$_INCREDSYN 230200
+#define CLI$_INVREDSYN 230208
+#define CLI$_INVCONCHAR 230216
+#define CLI$_CMDNOTALLINPIP 230224
+#define CLI$_LBLNOTALLINPIP 230232
+#define CLI$_TOOMANYPIPCMD 230240
+#define CLI$_UNSUPITEM 230248           /*                                  */
+#define CLI$_CONFQUAL 231426            /* OLD CLI INTERFACE STATUS         */
+#define CLI$_INVQUAL 231434             /* OLD CLI INTERFACE STATUS         */
+#define CLI$_REQPRMABS 231442           /* OLD CLI INTERFACE STATUS         */
+#define CLI$_INVQUALNUM 231450          /* OLD CLI INTERFACE STATUS         */
+#define CLI$_INVREQTYP 231458           /* USED BY CALL BACKS               */
+#define CLI$_NOVALUE 231466             /* OLD CLI INTERFACE STATUS         */
+#define CLI$_VALCNVERR 231474           /* OLD CLI INTERFACE STATUS         */
+#define CLI$_ILLVAL 231482              /* USED BY CALL BACKS               */
+#define CLI$_NOOPTPRS 231490            /* OLD CLI INTERFACE STATUS         */
+#define CLI$_CREQUEJOB 231498           /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_SUBMITERR 231506           /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_DEVALSPL 231514            /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_DEVNOTSPL 231522           /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_IVDEVTYPE 231530           /* MCR-ONLY STATUS                  */
+#define CLI$_IMGFNF 231538              /* MCR-ONLY STATUS                  */
+#define CLI$_DEVNOTFOR 231546           /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_PWDNOTVAL 231554           /* SET PASSWORD STATUS              */
+#define CLI$_PWDNOTVER 231562           /* SET PASSWORD STATUS              */
+#define CLI$_PWDLOCKED 231570           /* SET PASSWORD STATUS              */
+#define CLI$_NOTFR 231578               /* IMAGE ACTIVATION ERROR - PART 2  */
+#define CLI$_PWDSYNTAX 231586           /* SET PASSWORD STATUS              */
+#define CLI$_IMGNAME 231594             /* IMAGE ACTIVATION ERROR - PART 2  */
+#define CLI$_IMAGEFNF 231602            /* IMAGE ACTIVATION ERROR - PART 2  */
+#define CLI$_BADSTRLVL 231610           /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_REFUSED 231618
+#define CLI$_BADCTLMSK 231626           /* USED BY CALL BACKS               */
+#define CLI$_INVRFM 231634
+#define CLI$_NOCLINT 231642             /* MCR-ONLY STATUS                  */
+#define CLI$_NOSPAWN 231650             /* MCR-ONLY STATUS                  */
+#define CLI$_SPWNIO 231658
+#define CLI$_TRMMBX 231666
+#define CLI$_STRTOOLNG 231674
+#define CLI$_CMDGONE 231682             /* MCR-ONLY STATUS                  */
+#define CLI$_NOCMDPROC 231690
+#define CLI$_INVROUT 231698
+#define CLI$_OLDTAB 231706
+#define CLI$_INVTAB 231714
+#define CLI$_NOTDISCON 231722
+#define CLI$_ENTNF 231730
+#define CLI$_ATTRMBX 231738
+#define CLI$_INVCALL 231746
+#define CLI$_INVIFNEST 231754
+#define CLI$_CAPTINT 231762
+#define CLI$_CAPTINQ 231770
+#define CLI$_NOFORCMD 231778
+#define CLI$_NORUNMCR 231786
+#define CLI$_NOREADCP 231794
+#define CLI$_INVPREFIX 231802
+#define CLI$_CAPTSPAWN 231810
+#define CLI$_ILLFILEVER 231818
+#define CLI$_DEFKEY 253379
+#define CLI$_DELKEY 253387
+#define CLI$_SETKEY 253395
+#define CLI$_SPARE1 253403              /* NOT CURRENTLY USED               */
+#define CLI$_ALLOC 253411
+#define CLI$_SUPERSEDE 253419
+#define CLI$_INSPRIV 253427             /* MCR-ONLY STATUS                  */
+#define CLI$_NODIRCHG 253435            /* MCR-ONLY STATUS                  */
+#define CLI$_IGNQUAL 253443
+#define CLI$_TABEXIST 253451
+#define CLI$_TABSUPER 253459
+#define CLI$_TABNOTFND 253467
+#define CLI$_DELSYM 253475
+#define CLI$_SYMTRUNC 253483
+#define CLI$_KEYCNV 253491
+#define CLI$_INVDEF 253499
+#define CLI$_MISSPELL 253507
+#define CLI$_MSNGENDS 253515
+#define CLI$_SPAWNED 261377
+#define CLI$_ATTACHED 261385
+#define CLI$_RETURNED 261393
+#define CLI$_PRESENT 261401             /* NEW CLI INTERFACE STATUS         */
+#define CLI$_DEFAULTED 261409           /* NEW CLI INTERFACE STATUS         */
+#define CLI$_CONCAT 261417              /* NEW CLI INTERFACE STATUS         */
+#define CLI$_LOCPRES 261425             /* NEW CLI INTERFACE STATUS         */
+#define CLI$_COMMA 261433               /* NEW CLI INTERFACE STATUS         */
+#define CLI$_OKTAB 261441               /* CDU CONVERSION ROUTINE STATUS    */
+#define CLI$_UPGTAB 261449              /* CDU CONVERSION ROUTINE STATUS    */
+#define CLI$_PROC_ID 262129             /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_QUEJOBCRE 262137           /* NOT USED BY DCL NOR BY MCR       */
+#define CLI$_NORMAL 196609
+#define STS$M_SEVERITY 0x7
+#define STS$M_COND_ID 0xFFFFFF8
+#define STS$M_CONTROL 0xF0000000
+#define STS$M_SUCCESS 0x1
+#define STS$M_MSG_NO 0xFFF8
+#define STS$M_CODE 0x7FF8
+#define STS$M_FAC_SP 0x8000
+#define STS$M_CUST_DEF 0x8000000
+#define STS$M_INHIB_MSG 0x10000000
+#define STS$M_FAC_NO 0xFFF0000
+#define STS$K_WARNING 0                 /* WARNING                          */
+#define STS$K_SUCCESS 1                 /* SUCCESSFUL COMPLETION            */
+#define STS$K_ERROR 2                   /* ERROR                            */
+#define STS$K_INFO 3                    /* INFORMATION                      */
+#define STS$K_SEVERE 4                  /* SEVERE ERROR                     */
+#define sts$v_severity sts$r_stsdef_bits0.sts$v_severity
+#define sts$v_cond_id sts$r_stsdef_bits0.sts$v_cond_id
+#define sts$v_control sts$r_stsdef_bits0.sts$v_control
+#define sts$v_success sts$r_stsdef_bits1.sts$v_success
+#define sts$v_msg_no sts$r_stsdef_bits1.sts$v_msg_no
+#define sts$v_code sts$r_stsdef_bits2.sts$v_code
+#define sts$v_fac_sp sts$r_stsdef_bits2.sts$v_fac_sp
+#define sts$v_cust_def sts$r_stsdef_bits2.sts$v_cust_def
+#define sts$v_inhib_msg sts$r_stsdef_bits2.sts$v_inhib_msg
+#define sts$v_fac_no sts$r_stsdef_bits3.sts$v_fac_no
+#define sts$v_severity sts$r_stsdef_bits0.sts$v_severity
+#define sts$v_cond_id sts$r_stsdef_bits0.sts$v_cond_id
+#define sts$v_control sts$r_stsdef_bits0.sts$v_control
+#define sts$v_success sts$r_stsdef_bits1.sts$v_success
+#define sts$v_msg_no sts$r_stsdef_bits1.sts$v_msg_no
+#define sts$v_code sts$r_stsdef_bits2.sts$v_code
+#define sts$v_fac_sp sts$r_stsdef_bits2.sts$v_fac_sp
+#define sts$v_cust_def sts$r_stsdef_bits2.sts$v_cust_def
+#define sts$v_inhib_msg sts$r_stsdef_bits2.sts$v_inhib_msg
+#define sts$v_fac_no sts$r_stsdef_bits3.sts$v_fac_no
+#define STS$S_CODE       0x0C
+#define STS$S_COND_ID    0x19
+#define STS$S_CONTROL    0x04
+#define STS$S_FAC_NO     0x0C
+#define STS$S_MSG_NO     0x0D
+#define STS$S_SEVERITY   0x03
+#define STS$V_CODE       0x03
+#define STS$V_COND_ID    0x03
+#define STS$V_CONTROL    0x1C
+#define STS$V_CUST_DEF   0x1B
+#define STS$V_FAC_NO     0x10
+#define STS$V_FAC_SP     0x0F
+#define STS$V_INHIB_MSG  0x1C
+#define STS$V_MSG_NO     0x03
+#define STS$V_SEVERITY   0x00
+#define STS$V_SUCCESS    0x00
+#define DSC$K_DTYPE_Z 0                 /* Unspecified. The calling program has  */
+#define DSC$K_DTYPE_T 14                /* Character-coded text. A single 8-bit character  */
+#define DSC$K_CLASS_S 1                 /* Scalar, String Descriptor        */
+#define DSC$K_CLASS_D 2                 /* Dynamic String Descriptor        */
+#define LCK$M_VALBLK 0x1
+#define LCK$M_CONVERT 0x2
+#define LCK$M_NOQUEUE 0x4
+#define LCK$M_SYNCSTS 0x8
+#define LCK$M_SYSTEM 0x10
+#define LCK$M_NOQUOTA 0x20
+#define LCK$M_CVTSYS 0x40
+#define LCK$M_RECOVER 0x80
+#define LCK$M_PROTECT 0x100
+#define LCK$M_NODLCKWT 0x200
+#define LCK$M_NODLCKBLK 0x400
+#define LCK$M_EXPEDITE 0x800
+#define LCK$M_QUECVT 0x1000
+#define LCK$M_BYPASS 0x2000
+#define LCK$M_NOIOLOCK8 0x4000
+#define LCK$M_NOFORK 0x8000
+#define LCK$M_XVALBLK 0x10000
+#define LCK$M_DEQALL 0x1
+#define LCK$M_CANCEL 0x2
+#define LCK$M_INVVALBLK 0x4
+#define LCK$M_RESV_NOIOLOCK8 0x4000
+#define LCK$M_RESV_NOFORK 0x8000
+#define LCK$M_RESV_XVALBLK 0x10000
+#define LCK$K_NLMODE 0                  /* NULL                             */
+#define LCK$K_CRMODE 1                  /* CONCURRENT READ                  */
+#define LCK$K_CWMODE 2                  /* CONCURRENT WRITE                 */
+#define LCK$K_PRMODE 3                  /* PROTECTED READ                   */
+#define LCK$K_PWMODE 4                  /* PROTECTED WRITE                  */
+#define LCK$K_EXMODE 5                  /* EXCLUSIVE                        */
+#define lck$v_valblk lck$r_lckdef_bits0.lck$v_valblk
+#define lck$v_convert lck$r_lckdef_bits0.lck$v_convert
+#define lck$v_noqueue lck$r_lckdef_bits0.lck$v_noqueue
+#define lck$v_syncsts lck$r_lckdef_bits0.lck$v_syncsts
+#define lck$v_system lck$r_lckdef_bits0.lck$v_system
+#define lck$v_noquota lck$r_lckdef_bits0.lck$v_noquota
+#define lck$v_cvtsys lck$r_lckdef_bits0.lck$v_cvtsys
+#define lck$v_recover lck$r_lckdef_bits0.lck$v_recover
+#define lck$v_protect lck$r_lckdef_bits0.lck$v_protect
+#define lck$v_nodlckwt lck$r_lckdef_bits0.lck$v_nodlckwt
+#define lck$v_nodlckblk lck$r_lckdef_bits0.lck$v_nodlckblk
+#define lck$v_expedite lck$r_lckdef_bits0.lck$v_expedite
+#define lck$v_quecvt lck$r_lckdef_bits0.lck$v_quecvt
+#define lck$v_bypass lck$r_lckdef_bits0.lck$v_bypass
+#define lck$v_noiolock8 lck$r_lckdef_bits0.lck$v_noiolock8
+#define lck$v_nofork lck$r_lckdef_bits0.lck$v_nofork
+#define lck$v_xvalblk lck$r_lckdef_bits0.lck$v_xvalblk
+#define lck$v_deqall lck$r_lckdef_bits1.lck$v_deqall
+#define lck$v_cancel lck$r_lckdef_bits1.lck$v_cancel
+#define lck$v_invvalblk lck$r_lckdef_bits1.lck$v_invvalblk
+#define lck$v_valblk lck$r_lckdef_bits0.lck$v_valblk
+#define lck$v_convert lck$r_lckdef_bits0.lck$v_convert
+#define lck$v_noqueue lck$r_lckdef_bits0.lck$v_noqueue
+#define lck$v_syncsts lck$r_lckdef_bits0.lck$v_syncsts
+#define lck$v_system lck$r_lckdef_bits0.lck$v_system
+#define lck$v_noquota lck$r_lckdef_bits0.lck$v_noquota
+#define lck$v_cvtsys lck$r_lckdef_bits0.lck$v_cvtsys
+#define lck$v_recover lck$r_lckdef_bits0.lck$v_recover
+#define lck$v_protect lck$r_lckdef_bits0.lck$v_protect
+#define lck$v_nodlckwt lck$r_lckdef_bits0.lck$v_nodlckwt
+#define lck$v_nodlckblk lck$r_lckdef_bits0.lck$v_nodlckblk
+#define lck$v_expedite lck$r_lckdef_bits0.lck$v_expedite
+#define lck$v_quecvt lck$r_lckdef_bits0.lck$v_quecvt
+#define lck$v_bypass lck$r_lckdef_bits0.lck$v_bypass
+#define lck$v_noiolock8 lck$r_lckdef_bits0.lck$v_noiolock8
+#define lck$v_nofork lck$r_lckdef_bits0.lck$v_nofork
+#define lck$v_xvalblk lck$r_lckdef_bits0.lck$v_xvalblk
+#define lck$v_deqall lck$r_lckdef_bits1.lck$v_deqall
+#define lck$v_cancel lck$r_lckdef_bits1.lck$v_cancel
+#define lck$v_invvalblk lck$r_lckdef_bits1.lck$v_invvalblk
+#define LKSB$K_LENGTH 24                /* Length of LKSB                   */
+#define LKSB$C_LENGTH 24                /* Length of LKSB                   */

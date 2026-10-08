@@ -1,0 +1,17 @@
+# VMS doing to its own files what idx_roundtrip.rs does to RT1, RT2, RT5.
+in IDX.FDL
+in KS.FDL
+in PDUP.FDL
+in BUILD.COM
+run @BUILD.COM/OUTPUT=BUILD.LOG
+text BUILD.LOG recorded/build.log
+blocks V1.DAT recorded/V1.DAT
+text V1.ANL recorded/V1.ANL
+text V1.CHK recorded/V1.CHK
+blocks V2.DAT recorded/V2.DAT
+text V2.ANL recorded/V2.ANL
+text V2.CHK recorded/V2.CHK
+blocks V5.DAT recorded/V5.DAT
+text V5.ANL recorded/V5.ANL
+text V5.CHK recorded/V5.CHK
+manifest *.DAT recorded/ods-manifest.json

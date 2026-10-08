@@ -1,0 +1,8 @@
+[package]
+name = "vms-msg"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+vms-cond = { path = "../vms-cond" }
+vms-fao = { path = "../vms-fao" }

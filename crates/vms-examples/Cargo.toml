@@ -1,0 +1,13 @@
+[package]
+name = "vms-examples"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+libvms = { path = "../libvms" }
+vms-cond = { path = "../vms-cond" }
+vms-fao = { path = "../vms-fao" }
+
+[dev-dependencies]
+vms-rms = { path = "../vms-rms" }
+vmsportd = { path = "../vmsportd" }

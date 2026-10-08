@@ -1,0 +1,3 @@
+in time.com
+run @TIME.COM/OUTPUT=TIME.LOG
+text TIME.LOG recorded/time.log

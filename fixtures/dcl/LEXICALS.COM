@@ -1,0 +1,41 @@
+$! Lexical functions that do not depend on the system they run on.
+$ SET NOON
+$ s = "  Hello,  World!  "
+$ WRITE SYS$OUTPUT "[", F$EDIT(s, "TRIM"), "]"
+$ WRITE SYS$OUTPUT "[", F$EDIT(s, "COMPRESS"), "]"
+$ WRITE SYS$OUTPUT "[", F$EDIT(s, "COLLAPSE,UPCASE"), "]"
+$ WRITE SYS$OUTPUT "[", F$EDIT("a!b ! comment", "UNCOMMENT"), "]"
+$ WRITE SYS$OUTPUT "[", F$EDIT("MiXeD", "LOWERCASE"), "]"
+$ WRITE SYS$OUTPUT F$LENGTH(s), " ", F$LOCATE("World", s), " ", F$LOCATE("zz", s)
+$ WRITE SYS$OUTPUT "[", F$EXTRACT(2, 5, s), "] [", F$EXTRACT(15, 10, s), "]"
+$ WRITE SYS$OUTPUT "[", F$EXTRACT(40, 2, s), "]"
+$ WRITE SYS$OUTPUT F$ELEMENT(0, ",", "a,b,,c"), F$ELEMENT(2, ",", "a,b,,c"), -
+	F$ELEMENT(3, ",", "a,b,,c"), F$ELEMENT(9, ",", "a,b,,c")
+$ WRITE SYS$OUTPUT F$INTEGER("12"), " ", F$INTEGER("%X1F"), " ", F$INTEGER("Y")
+$ WRITE SYS$OUTPUT F$INTEGER("abc"), " ", F$STRING(-5), " ", F$STRING("x")
+$ x = 1
+$ y = "s"
+$ WRITE SYS$OUTPUT F$TYPE(x), " ", F$TYPE(y), " [", F$TYPE(nosuch), "] ", -
+	F$TYPE(F$STRING(12))
+$ WRITE SYS$OUTPUT F$CVUI(0, 8, "A"), " ", F$CVSI(1, 2, "f")
+$ WRITE SYS$OUTPUT F$FAO("!AS has !UL item!%S", "list", 3)
+$ WRITE SYS$OUTPUT F$PARSE("X.Y;3", "DKA100:[A.B]Z.TXT", , "NAME"), " ", -
+	F$PARSE("X.Y;3", "DKA100:[A.B]Z.TXT", , "TYPE"), " ", -
+	F$PARSE("X.Y;3", "DKA100:[A.B]Z.TXT", , "VERSION"), " ", -
+	F$PARSE("X", "[A.B]Z.TXT", , "DIRECTORY", "SYNTAX_ONLY")
+$ WRITE SYS$OUTPUT F$PARSE("[C]X", "DKA100:[A.B].TXT", , , "SYNTAX_ONLY")
+$ WRITE SYS$OUTPUT F$PARSE("a^.b.c;1", , , "NAME", "SYNTAX_ONLY"), " ", -
+	F$PARSE("a^.b.c;1", , , "TYPE", "SYNTAX_ONLY")
+$ WRITE SYS$OUTPUT F$PARSE("a.b.c.d", , , , "SYNTAX_ONLY")
+$ WRITE SYS$OUTPUT F$PARSE("NODE::DEV:[DIR]F.T;1", , , "NODE", "SYNTAX_ONLY")
+$ WRITE SYS$OUTPUT F$PARSE("[-.X]Y", "[A.B]", , "DIRECTORY", "SYNTAX_ONLY")
+$ WRITE SYS$OUTPUT F$PARSE("[.X]Y", "[A.B]", , "DIRECTORY", "SYNTAX_ONLY")
+$ WRITE SYS$OUTPUT F$PARSE("bad[spec", , , , "SYNTAX_ONLY"), "|"
+$ WRITE SYS$OUTPUT F$CVTIME("1-JAN-2000 10:20:30.40", "COMPARISON")
+$ WRITE SYS$OUTPUT F$CVTIME("1-JAN-2000 10:20:30.40", "ABSOLUTE", "WEEKDAY")
+$ WRITE SYS$OUTPUT F$CVTIME("29-FEB-2000", "ABSOLUTE", "DATE")
+$ WRITE SYS$OUTPUT F$CVTIME("1-JAN-2000 10:20 +2-03:00", , "TIME")
+$ WRITE SYS$OUTPUT F$CVTIME("1-JAN-2000", "DELTA")
+$ WRITE SYS$OUTPUT F$MESSAGE(%X18292)
+$ WRITE SYS$OUTPUT F$MESSAGE(%X10)
+$ EXIT

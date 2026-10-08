@@ -1,0 +1,158 @@
+
+Check RMS File Integrity                      7-OCT-2026 03:46:32.08   Page 1
+DKA200:[T.IDXV]V1.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.IDXV]V1.DAT;1
+	File ID: (36,96,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 03:46:21.93
+	Revision Date:    7-OCT-2026 03:46:26.91, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: indexed
+	Record Format: fixed
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 64
+	Longest Record: 64
+	Blocks Allocated: 160, Default Extend Size: 12
+	Bucket Size: 1
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Number of Areas: 1, VBN of First Descriptor: 3
+	Prolog Version: 3
+
+AREA DESCRIPTOR #0 (VBN 3, offset %X'0000')
+
+	Bucket Size: 1
+	Reclaimed Bucket VBN: 0
+	Current Extent Start: 145, Blocks: 16, Used: 3, Next: 148
+	Default Extend Quantity: 12
+	Total Allocation: 160
+
+KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
+
+	Next Key Descriptor VBN: 2, Offset: %X'0000'
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 2
+	Index Bucket Size: 1, Data Bucket Size: 1
+	Root VBN: 122
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    0
+		(3)  KEY$V_IDX_COMPR  1
+
+Check RMS File Integrity                      7-OCT-2026 03:46:32.08   Page 2
+DKA200:[T.IDXV]V1.DAT;1
+
+
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  1
+		(7)  KEY$V_REC_COMPR  1
+	Key Segments: 1
+	Key Size: 8
+	Minimum Record Size: 8
+	Index Fill Quantity: 512, Data Fill Quantity: 512
+	Segment Positions:       0
+	Segment Sizes:           8
+	Data Type: string
+	Name: "ID"
+	First Data Bucket VBN: 4
+
+KEY DESCRIPTOR #1 (VBN 2, offset %X'0000')
+
+	Next Key Descriptor VBN: 2, Offset: %X'0066'
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 1, Data Bucket Size: 1
+	Root VBN: 7
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    1
+		(1)  KEY$V_CHGKEYS    1
+		(2)  KEY$V_NULKEYS    0
+		(3)  KEY$V_IDX_COMPR  1
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  1
+	Key Segments: 1
+	Key Size: 10
+	Minimum Record Size: 18
+	Index Fill Quantity: 512, Data Fill Quantity: 512
+	Segment Positions:       8
+	Segment Sizes:          10
+	Data Type: string
+	Name: "CITY"
+	First Data Bucket VBN: 6
+
+KEY DESCRIPTOR #2 (VBN 2, offset %X'0066')
+
+	Next Key Descriptor VBN: 2, Offset: %X'00CC'
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 1, Data Bucket Size: 1
+	Root VBN: 9
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    1
+		(1)  KEY$V_CHGKEYS    1
+		(2)  KEY$V_NULKEYS    0
+		(3)  KEY$V_IDX_COMPR  1
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  1
+	Key Segments: 2
+	Key Size: 8
+	Minimum Record Size: 34
+
+Check RMS File Integrity                      7-OCT-2026 03:46:32.11   Page 3
+DKA200:[T.IDXV]V1.DAT;1
+
+
+	Index Fill Quantity: 512, Data Fill Quantity: 512
+	Segment Positions:      20    30
+	Segment Sizes:           4     4
+	Data Type: string
+	Name: "SPLIT"
+	First Data Bucket VBN: 8
+
+KEY DESCRIPTOR #3 (VBN 2, offset %X'00CC')
+
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 1, Data Bucket Size: 1
+	Root VBN: 11
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    1
+		(1)  KEY$V_CHGKEYS    1
+		(2)  KEY$V_NULKEYS    0
+		(3)  KEY$V_IDX_COMPR  0
+		(4)  KEY$V_INITIDX    0
+		(6)  KEY$V_KEY_COMPR  0
+	Key Segments: 1
+	Key Size: 4
+	Minimum Record Size: 44
+	Index Fill Quantity: 512, Data Fill Quantity: 512
+	Segment Positions:      40
+	Segment Sizes:           4
+	Data Type: unsigned longword
+	Name: "NUM"
+	First Data Bucket VBN: 10
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK/OUTPUT=V1.CHK V1.DAT

@@ -1,0 +1,24 @@
+two
+big
+x is even
+left at 3
+in one, depth 2
+in two
+%SYSTEM-F-FILNOTPUR, error deleting !AS
+gosub status 00001234
+5! = 120
+in fails, depth 3
+%SYSTEM-F-ABORT, abort
+call status 0000002C sev 4
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \BOGUS\
+not reached
+handled 00010001
+after sub_on 00030001
+on severity NONE
+on severity ERROR
+on severity WARNING
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+ \NOSUCHVERB\
+continued 00038090
+bad return 10030001

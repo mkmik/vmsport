@@ -1,0 +1,43 @@
+{
+ "volume": "VPTOUT",
+ "structure_level": 5,
+ "root": "[T]",
+ "entries": [
+  {
+   "path": "IDXRT/RT1V.DAT;1",
+   "directory": false,
+   "name": "RT1V.DAT",
+   "version": 1,
+   "bytes": 114688,
+   "rtype": 33,
+   "rattrib": 2,
+   "rsize": 64,
+   "bktsize": 1,
+   "vfcsize": 0,
+   "maxrec": 64,
+   "defext": 0,
+   "gbc": 0,
+   "reserved": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "version_limit": 0,
+   "filechar": 0,
+   "owner": 65540,
+   "protection": 64000,
+   "revision": 2,
+   "created": 52980633612898965,
+   "revised": 52980633612898965,
+   "expires": 0,
+   "backup": 0,
+   "accessed": 52980633612898965,
+   "attr_changed": 52980633618582195
+  }
+ ]
+}

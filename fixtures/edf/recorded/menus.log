@@ -1,0 +1,1240 @@
+$ SET DEFAULT SYS$LOGIN
+$ CREATE/DIRECTORY [.EDM]
+$ SET DEFAULT [.EDM]
+$ CREATE IDX.FDL
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+*EXIT*
+$ CREATE SMALL.FDL
+FILE
+  ORGANIZATION sequential
+*EXIT*
+$ COPY IDX.FDL M1.FDL
+$ COPY IDX.FDL M2.FDL
+$ COPY IDX.FDL M3.FDL
+$ COPY IDX.FDL M4.FDL
+$ EDIT/FDL SMALL.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:00:57  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            sequential
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : V
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:00:57  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            sequential
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM]SMALL.FDL;2  4 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M1.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:01:04  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            indexed
+
+        RECORD
+                FORMAT                  fixed
+                SIZE                    64
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : 
+
+        (Type "?" for list of Keywords)
+        Enter FILE Attribute            (Keyword)[-]    : ALLOCATION
+
+        FILE
+                ALLOCATION      
+
+        Enter value for this Secondary  (0-4Giga)[-]    :  100
+
+                         Resulting Primary Section 
+
+        FILE
+                ALLOCATION              100
+                ORGANIZATION            indexed
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:01:04  OpenVMS FDL Editor"
+
+        FILE
+                ALLOCATION              100
+                ORGANIZATION            indexed
+
+        RECORD
+                FORMAT                  fixed
+                SIZE                    64
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : FILE
+
+        (Type "?" for list of Keywords)
+        Enter FILE Attribute            (Keyword)[-]    : ORGANIZATION
+
+        FILE
+                ORGANIZATION    
+        Replace this existing secondary (Yes/No)[No]    : 
+
+
+         Press RETURN or ^Z for Main Menu         ADD
+
+         "ADD" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         RECORD
+
+         "RECORD" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         SIZE
+
+         "SIZE" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         80
+
+         "80" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : 
+
+
+  Information available:
+
+  Abstract   ADD        DELETE     EXIT       HELP       INVOKE     MODIFY     Operation  QUIT       SET        VIEW
+
+Topic? VIEW
+
+VIEW
+
+     This command displays the attributes contained in the current FDL
+     definition. This offers a preview of what the contents of the FDL
+     file would be if it were to be output at this time.
+
+     Format
+
+       VIEW
+   
+
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? ADD
+
+VIEW
+  Sorry, no documentation on VIEW ADD
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? KEY 2
+
+VIEW
+  Sorry, no documentation on VIEW KEY 2
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? SEG0_LENGTH
+
+VIEW
+  Sorry, no documentation on VIEW SEG0_LENGTH
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? 4
+
+VIEW
+  Sorry, no documentation on VIEW 4
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? 
+Topic? VIEW
+
+VIEW
+
+     This command displays the attributes contained in the current FDL
+     definition. This offers a preview of what the contents of the FDL
+     file would be if it were to be output at this time.
+
+     Format
+
+       VIEW
+   
+
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? ADD
+
+VIEW
+  Sorry, no documentation on VIEW ADD
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? AREA 0
+
+VIEW
+  Sorry, no documentation on VIEW AREA 0
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? BUCKET_SIZE
+
+VIEW
+  Sorry, no documentation on VIEW BUCKET_SIZE
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? 4
+
+VIEW
+  Sorry, no documentation on VIEW 4
+
+
+  Additional information available:
+
+  Example
+
+VIEW Subtopic? 
+Topic? ADD
+
+ADD
+
+     This command allows you to add one or more lines to the FDL
+     file. If the line already exists, you can optionally replace
+     it with the new line. After you insert a line, you can optionally
+     continue to add lines under that particular primary section. If
+     no primary section exists to hold the secondary attribute being
+     added, one is automatically created.
+
+     Format
+
+       ADD
+   
+
+
+
+  Additional information available:
+
+  Example
+
+ADD Subtopic? TITLE
+
+ADD
+  Sorry, no documentation on ADD TITLE
+
+
+  Additional information available:
+
+  Example
+
+ADD Subtopic? 
+Topic? ADD
+
+ADD
+
+     This command allows you to add one or more lines to the FDL
+     file. If the line already exists, you can optionally replace
+     it with the new line. After you insert a line, you can optionally
+     continue to add lines under that particular primary section. If
+     no primary section exists to hold the secondary attribute being
+     added, one is automatically created.
+
+     Format
+
+       ADD
+   
+
+
+
+  Additional information available:
+
+  Example
+
+ADD Subtopic? DATE
+
+ADD
+  Sorry, no documentation on ADD DATE
+
+
+  Additional information available:
+
+  Example
+
+ADD Subtopic? ?
+
+ADD
+
+     This command allows you to add one or more lines to the FDL
+     file. If the line already exists, you can optionally replace
+     it with the new line. After you insert a line, you can optionally
+     continue to add lines under that particular primary section. If
+     no primary section exists to hold the secondary attribute being
+     added, one is automatically created.
+
+     Format
+
+       ADD
+   
+
+
+
+  Additional information available:
+
+  Example
+
+ADD Subtopic? *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : ADD
+
+        (ACCESS AREA CONNECT DATE FILE
+         KEY NETWORK RECORD SHARING SYSTEM TITLE)
+        Enter Desired Primary           (Keyword)[FILE] : KEY
+
+         "" contains a syntax error. 
+                         Legal Primary Attributes 
+
+        ACCESS  attributes set the run-time access mode of the file
+        AREA x  attributes define the characteristics of file area x
+        CONNECT attributes set various RMS run-time options
+        DATE    attributes set the date parameters of the file
+        FILE    attributes affect the entire RMS data file
+        KEY y   attributes define the characteristics of key y
+        NETWORK attributes set-run time network access parameters
+        RECORD  attributes set the non-key aspects of each record
+        SHARING attributes set the run-time sharing mode of the file
+        SYSTEM  attributes document operating system-specific items
+        TITLE   is the header line for the FDL file
+
+        Enter Desired Primary           (Keyword)[FILE] : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:01:04  OpenVMS FDL Editor"
+
+        FILE
+                ALLOCATION              100
+                ORGANIZATION            indexed
+
+        RECORD
+                FORMAT                  fixed
+                SIZE                    64
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM]M1.FDL;2  21 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M2.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : ?
+
+                         Current Primary Attributes 
+
+        FILE
+        RECORD
+        KEY 0
+        KEY 1
+
+        Enter Desired Primary           (Keyword)[FILE] : RECORD
+
+        (Type "?" for list of Keywords)
+        Enter RECORD Attribute          (Keyword)[-]    : ?
+
+                         Current RECORD Secondary Attributes 
+
+        RECORD
+                FORMAT                  fixed
+                SIZE                    64
+
+        Enter RECORD Attribute          (Keyword)[-]    : SIZE
+
+        RECORD
+                SIZE                    64
+
+
+        Enter value for this Secondary  (0-32240)[-]    :  
+
+         You must provide an answer here (or ^Z for Main Menu).
+        The value entered will be put into the Definition.
+
+        Enter value for this Secondary  (0-32240)[-]    :  72
+
+                         Resulting Primary Section 
+
+        RECORD
+                FORMAT                  fixed
+                SIZE                    72
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:02:42  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            indexed
+
+        RECORD
+                FORMAT                  fixed
+                SIZE                    72
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[RECORD] : KEY 1
+
+        (Type "?" for list of Keywords)
+        Enter KEY  1 Attribute          (Keyword)[-]    : DUPLICATES
+
+        KEY 1
+                DUPLICATES              yes
+
+
+        Enter value for this Secondary  (Yes/No)[-]     : no
+
+                         Resulting Primary Section 
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              no
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[KEY 1] : AREA 3
+
+         "3" is not appropriate in this context. 
+                         Current Primary Attributes 
+
+        FILE
+        RECORD
+        KEY 0
+        KEY 1
+
+        Enter Desired Primary           (Keyword)[AREA 3] : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : MODIFY
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : FILE
+
+        (Type "?" for list of Keywords)
+        Enter FILE Attribute            (Keyword)[-]    : BUCKET_SIZE
+
+         "BUCKET_SIZE" is not appropriate in this context. 
+                         Current FILE Secondary Attributes 
+
+        FILE
+                ORGANIZATION            indexed
+
+        Enter FILE Attribute            (Keyword)[-]    : *EXIT*
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:02:42  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            indexed
+
+        RECORD
+                FORMAT                  fixed
+                SIZE                    72
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              no
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM]M2.FDL;2  20 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M3.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : DELETE
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : ?
+
+                         Current Primary Attributes 
+
+        FILE
+        RECORD
+        KEY 0
+        KEY 1
+
+        Enter Desired Primary           (Keyword)[FILE] : KEY 1
+
+        (Type "?" for list of Keywords)
+        Enter KEY  1 Attribute          (Keyword)[-]    : ?
+
+                         Current KEY  1 Secondary Attributes 
+
+        KEY 1
+                CHANGES                 yes
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+        Enter KEY  1 Attribute          (Keyword)[-]    : CHANGES
+
+        KEY 1
+                CHANGES                 yes
+
+
+         Press RETURN to continue (^Z for Main Menu)    
+
+                         Resulting Primary Section 
+
+        KEY 1
+                DUPLICATES              yes
+                SEG0_LENGTH             10
+                SEG0_POSITION           8
+
+
+         Press RETURN or ^Z for Main Menu         VIEW
+
+         "VIEW" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         DELETE
+
+         "DELETE" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         RECORD
+
+         "RECORD" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         SIZE
+
+         "SIZE" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : DELETE
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[KEY 1] : RECORD
+
+        (Type "?" for list of Keywords)
+        Enter RECORD Attribute          (Keyword)[-]    : FORMAT
+
+        RECORD
+                FORMAT                  fixed
+
+
+         Press RETURN to continue (^Z for Main Menu)    
+
+                         Resulting Primary Section 
+
+        RECORD
+                SIZE                    64
+
+
+         Press RETURN or ^Z for Main Menu         VIEW
+
+         "VIEW" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         DELETE
+
+         "DELETE" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         KEY 1
+
+         "KEY" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         DUPLICATES
+
+         "DUPLICATES" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : DELETE
+
+        (Type "?" for a list of existing Primary Attributes)
+        Enter Desired Primary           (Keyword)[FILE] : KEY 1
+
+        (Type "?" for list of Keywords)
+        Enter KEY  1 Attribute          (Keyword)[-]    : SEG0_LENGTH
+
+        KEY 1
+                SEG0_LENGTH             10
+
+
+         Press RETURN to continue (^Z for Main Menu)    
+
+                         Resulting Primary Section 
+
+        KEY 1
+                DUPLICATES              yes
+                SEG0_POSITION           8
+
+
+         Press RETURN or ^Z for Main Menu         DELETE
+
+         "DELETE" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         KEY 1
+
+         "KEY" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         SEG0_POSITION
+
+         "SEG0_POSITION" contains a syntax error. 
+
+         Press RETURN or ^Z for Main Menu         
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : VIEW
+
+        IDENT   FDL_VERSION 02  " 7-OCT-2026 19:03:37  OpenVMS FDL Editor"
+
+        FILE
+                ORGANIZATION            indexed
+
+        RECORD
+                SIZE                    64
+
+        KEY 0
+                CHANGES                 no
+                DUPLICATES              no
+                SEG0_LENGTH             8
+                SEG0_POSITION           0
+
+        KEY 1
+                DUPLICATES              yes
+                SEG0_POSITION           8
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM]M3.FDL;2  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M4.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : SET
+
+        (Analysis Display Emphasis Granularity
+         Number_Keys Output Prompting Responses)
+        Editor characteristic to set    (keyword)[-]    : ANALYSIS
+
+        Analysis File file-spec (1-512 chars)[null]
+        : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : SET
+
+        (Analysis Display Emphasis Granularity
+         Number_Keys Output Prompting Responses)
+        Editor characteristic to set    (keyword)[-]    : DISPLAY
+
+        (Line Fill Key Record Init Add)
+        Graph type to display           (Keyword)[Line] : ?
+
+                         Key  0 Graph Type Selection 
+
+        Line    Bucket Size vs Index Depth      as a 2 dimensional plot
+        Fill    Bucket Size vs     Load Fill Percent     vs Index Depth
+        Key     Bucket Size vs         Key Length        vs Index Depth
+        Record  Bucket Size vs        Record Size        vs Index Depth
+        Init    Bucket Size vs Initial Load Record Count vs Index Depth
+        Add     Bucket Size vs  Additional Record Count  vs Index Depth
+
+        Graph type to display           (Keyword)[Line] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : SET
+
+        (Analysis Display Emphasis Granularity
+         Number_Keys Output Prompting Responses)
+        Editor characteristic to set    (keyword)[-]    : EMPHASIS
+
+        (Smaller_Buffers Flatter_Files)
+        Emphasis for Default Bucket_Size(Keyword)[Flat] : ?
+
+        Smaller_Buffers: less memory and RMS processing used
+        Flatter_Files:   fewer actual disk accesses needed
+        (Smaller_Buffers Flatter_Files)
+        Emphasis for Default Bucket_Size(Keyword)[Flat] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : SET
+
+        (Analysis Display Emphasis Granularity
+         Number_Keys Output Prompting Responses)
+        Editor characteristic to set    (keyword)[-]    : GRANULARITY
+
+        (One Two Three Four Double)
+        (Type "Double" to allocate 2 areas per key)
+        Number of areas to allocate     (keyword)[Three] : ?
+
+                         Area Granularity Selection 
+
+   +-------------+     +-------------+     +-------------+     +-------------+
+ 0 | Key 0 Data  |   0 | Key 0 Data  |   0 | Key 0 Data  |   0 | Key 0 Data  |
+   |             |     +-------------+     +-------------+     +-------------+
+   | Key 0 Index |   1 | Key 0 Index |   1 | Key 0 Index |   1 | Key 0 Index |
+   |             |     |             |     +-------------+     +-------------+
+   | Key n Data  |     | Key n Data  |   2 | Key n Data  |   2 | Key n Data  |
+   |             |     |             |     |             |     +-------------+
+   | Key n Index |     | Key n Index |     | Key n Index |   3 | Key n Index |
+   +-------------+     +-------------+     +-------------+     +-------------+
+       One (1)             Two (2)            Three (3)            Four (4)
+
+        (Type "Double" to allocate 2 areas per key)
+        Number of areas to allocate     (keyword)[Three] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : SET
+
+        (Analysis Display Emphasis Granularity
+         Number_Keys Output Prompting Responses)
+        Editor characteristic to set    (keyword)[-]    : NUMBER_KEYS
+
+        Number of Keys to Define        (1-255)[1]      : ?
+
+        An Indexed file can have from 1 to 255 keys.
+        Number of Keys to Define        (1-255)[1]      : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : SET
+
+        (Analysis Display Emphasis Granularity
+         Number_Keys Output Prompting Responses)
+        Editor characteristic to set    (keyword)[-]    : OUTPUT
+
+        Output File file-spec           (1-512 chars)[null]
+        : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : SET
+
+        (Analysis Display Emphasis Granularity
+         Number_Keys Output Prompting Responses)
+        Editor characteristic to set    (keyword)[-]    : PROMPTING
+
+        (Brief Full)
+        Prompting level for menus       (Keyword)[Full] : ?
+
+        This controls whether full menus are displayed.
+        (Brief Full)
+        Prompting level for menus       (Keyword)[Full] : 
+
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : SET
+
+                         FDL Editor SET Function 
+
+        Analysis        filespec of FDL Analysis file
+        Display         type of graph to display
+        Emphasis        of default bucketsize calculations
+        Granularity     number of areas in Indexed files
+        Number_Keys     number of keys in Indexed files
+        Output          filespec of FDL Output file
+        Prompting       Full or Brief prompting of menus
+        Responses       usage of default responses in scripts
+
+        Editor characteristic to set    (keyword)[-]    : RESPONSES
+
+        (Automatic Manual)
+        Default responses in scripts    (Keyword)[Auto] : ?
+
+        Automatic means the default answers will be used without
+        waiting for confirmation.
+        (Automatic Manual)
+        Default responses in scripts    (Keyword)[Auto] : 
+
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : INVOKE
+
+                         Script Title Selection 
+
+        Add_Key         modeling and addition of a new index's parameters
+        Delete_Key      removal of the highest index's parameters
+        Indexed         modeling of parameters for an entire Indexed file
+        Optimize        tuning of all indices' parameters using file statistics
+        Relative        selection of parameters for a Relative file
+        Sequential      selection of parameters for a Sequential file
+        Touchup         remodeling of parameters for a particular index
+
+        Editing Script Title            (Keyword)[-]    : ?
+
+                         Script Title Selection 
+
+        Add_Key         modeling and addition of a new index's parameters
+        Delete_Key      removal of the highest index's parameters
+        Indexed         modeling of parameters for an entire Indexed file
+        Optimize        tuning of all indices' parameters using file statistics
+        Relative        selection of parameters for a Relative file
+        Sequential      selection of parameters for a Sequential file
+        Touchup         remodeling of parameters for a particular index
+
+        Editing Script Title            (Keyword)[-]    : 
+
+         You must provide an answer here (or ^Z for Main Menu).
+                         Script Title Selection 
+
+        Add_Key         modeling and addition of a new index's parameters
+        Delete_Key      removal of the highest index's parameters
+        Indexed         modeling of parameters for an entire Indexed file
+        Optimize        tuning of all indices' parameters using file statistics
+        Relative        selection of parameters for a Relative file
+        Sequential      selection of parameters for a Sequential file
+        Touchup         remodeling of parameters for a particular index
+
+        Editing Script Title            (Keyword)[-]    : *EXIT*
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : SE
+
+                         FDL Editor SET Function 
+
+        Analysis        filespec of FDL Analysis file
+        Display         type of graph to display
+        Emphasis        of default bucketsize calculations
+        Granularity     number of areas in Indexed files
+        Number_Keys     number of keys in Indexed files
+        Output          filespec of FDL Output file
+        Prompting       Full or Brief prompting of menus
+        Responses       usage of default responses in scripts
+
+        Editor characteristic to set    (keyword)[-]    : Q
+
+         "Q" contains a syntax error. 
+                         FDL Editor SET Function 
+
+        Analysis        filespec of FDL Analysis file
+        Display         type of graph to display
+        Emphasis        of default bucketsize calculations
+        Granularity     number of areas in Indexed files
+        Number_Keys     number of keys in Indexed files
+        Output          filespec of FDL Output file
+        Prompting       Full or Brief prompting of menus
+        Responses       usage of default responses in scripts
+
+        Editor characteristic to set    (keyword)[-]    : *EXIT*
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDM]M4.FDL;2  20 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL M4.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : QUIT
+
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/OUTPUT=OUT.FDL M4.FDL
+                        Parsing Definition File
+                        Definition Parse Complete
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : EXIT
+
+
+SYS$SYSROOT:[SYSMGR.EDM]OUT.FDL;1  20 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ DIRECTORY
+
+Directory SYS$SYSROOT:[SYSMGR.EDM]
+
+IDX.FDL;1           M1.FDL;2            M1.FDL;1            M2.FDL;2           
+M2.FDL;1            M3.FDL;2            M3.FDL;1            M4.FDL;2           
+M4.FDL;1            OUT.FDL;1           SMALL.FDL;2         SMALL.FDL;1        
+
+Total of 12 files.
+$ TYPE M1.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M1.FDL;2
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:01:04  OpenVMS FDL Editor"
+
+FILE
+        ALLOCATION              100
+        ORGANIZATION            indexed
+
+RECORD
+        FORMAT                  fixed
+        SIZE                    64
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              no
+        SEG0_LENGTH             8
+        SEG0_POSITION           0
+
+KEY 1
+        CHANGES                 yes
+        DUPLICATES              yes
+        SEG0_LENGTH             10
+        SEG0_POSITION           8
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M1.FDL;1
+ 
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+$ TYPE M2.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M2.FDL;2
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:02:42  OpenVMS FDL Editor"
+
+FILE
+        ORGANIZATION            indexed
+
+RECORD
+        FORMAT                  fixed
+        SIZE                    72
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              no
+        SEG0_LENGTH             8
+        SEG0_POSITION           0
+
+KEY 1
+        CHANGES                 yes
+        DUPLICATES              no
+        SEG0_LENGTH             10
+        SEG0_POSITION           8
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M2.FDL;1
+ 
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+$ TYPE M3.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M3.FDL;2
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:03:37  OpenVMS FDL Editor"
+
+FILE
+        ORGANIZATION            indexed
+
+RECORD
+        SIZE                    64
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              no
+        SEG0_LENGTH             8
+        SEG0_POSITION           0
+
+KEY 1
+        DUPLICATES              yes
+        SEG0_POSITION           8
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M3.FDL;1
+ 
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+$ TYPE M4.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M4.FDL;2
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:05:00  OpenVMS FDL Editor"
+
+FILE
+        ORGANIZATION            indexed
+
+RECORD
+        FORMAT                  fixed
+        SIZE                    64
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              no
+        SEG0_LENGTH             8
+        SEG0_POSITION           0
+
+KEY 1
+        CHANGES                 yes
+        DUPLICATES              yes
+        SEG0_LENGTH             10
+        SEG0_POSITION           8
+ 
+SYS$SYSROOT:[SYSMGR.EDM]M4.FDL;1
+ 
+FILE
+  ORGANIZATION indexed
+RECORD
+  FORMAT fixed
+  SIZE 64
+KEY 0
+  SEG0_LENGTH 8
+  SEG0_POSITION 0
+  DUPLICATES no
+  CHANGES no
+KEY 1
+  SEG0_LENGTH 10
+  SEG0_POSITION 8
+  DUPLICATES yes
+  CHANGES yes
+$ TYPE OUT.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDM]OUT.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:06:28  OpenVMS FDL Editor"
+
+FILE
+        ORGANIZATION            indexed
+
+RECORD
+        FORMAT                  fixed
+        SIZE                    64
+
+KEY 0
+        CHANGES                 no
+        DUPLICATES              no
+        SEG0_LENGTH             8
+        SEG0_POSITION           0
+
+KEY 1
+        CHANGES                 yes
+        DUPLICATES              yes
+        SEG0_LENGTH             10
+        SEG0_POSITION           8
+$ TYPE SMALL.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDM]SMALL.FDL;2
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 19:00:57  OpenVMS FDL Editor"
+
+FILE
+        ORGANIZATION            sequential
+ 
+SYS$SYSROOT:[SYSMGR.EDM]SMALL.FDL;1
+ 
+FILE
+  ORGANIZATION sequential
+$ 

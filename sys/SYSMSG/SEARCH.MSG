@@ -1,0 +1,13 @@
+! SEARCH's own messages. NOFILE and NOMATCHES have the codes VMS returned
+! (%X08D7804A, %X08D78053); the others' numbers are vmsport's.
+	.TITLE		SEARCH	SEARCH messages
+	.FACILITY	SEARCH,215
+	.SEVERITY	ERROR
+	.BASE		9
+NOFILE		<no file found>
+	.SEVERITY	INFORMATIONAL
+NOMATCHES	<no strings matched>
+NULLFILE	<file !AS contains no records> /FAO=1
+	.SEVERITY	SUCCESS
+MATCHED		<!AS - !UL record!%S, !UL match!AS> /FAO=4
+NOMATCH		<!AS - !UL record!%S> /FAO=2

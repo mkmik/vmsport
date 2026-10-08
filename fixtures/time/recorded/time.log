@@ -1,0 +1,496 @@
+@@ now
+[ 7-OCT-2026 00:45:56.39]
+@@ 1
+[2000-01-01 10:20:30.40]
+@@ 2
+[2000-01-01 10:20:30.40]
+@@ 3
+[2000-01-01 10:20:30.40]
+@@ 4
+[2000-01-01 10:20:30.40]
+@@ 5
+[2000-01-01 00:00:00.00]
+@@ 6
+[2000-01-01 10:00:00.00]
+@@ 7
+[2000-01-01 10:20:00.00]
+@@ 8
+[2000-01-01 10:20:30.00]
+@@ 9
+[2000-01-01 10:20:30.40]
+@@ 10
+[2000-01-01 10:20:30.46]
+@@ 11
+[2000-01-01 10:00:00.00]
+@@ 12
+[2000-01-01 00:00:00.00]
+@@ 13
+[2000-01-01 10:20:00.00]
+@@ 14
+[2000-01-01 10:20:00.00]
+@@ 15
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \2000-01-01 10:20:30.40\
+@@ 16
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \2000-01-01\
+@@ 17
+[1858-11-17 00:00:00.00]
+@@ 18
+[1858-11-17 00:00:00.01]
+@@ 19
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \16-NOV-1858\
+@@ 20
+[9999-12-31 23:59:59.99]
+@@ 21
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-10000\
+@@ 22
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-1700\
+@@ 23
+[2000-02-29 00:00:00.00]
+@@ 24
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \29-FEB-1900\
+@@ 25
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \29-FEB-2001\
+@@ 26
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \32-JAN-2000\
+@@ 27
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \0-JAN-2000\
+@@ 28
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \31-APR-2000\
+@@ 29
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-FOO-2000\
+@@ 30
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-2000 24:00\
+@@ 31
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-2000 23:60\
+@@ 32
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-2000 10:20:60\
+@@ 33
+[2000-01-01 10:20:30.10]
+@@ 34
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \ABC\
+@@ 35
+[2000-01-01 00:00:00.00]
+@@ 36
+[1999-01-01 00:00:00.00]
+@@ 37
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-2000 10:20 +2-03:00\
+@@ 38
+[1999-12-31 13:40:00.00]
+@@ 39
+[7-OCT-2026 00:13:41.60]
+@@ 40
+[7-OCT-2026 00:13:41.60]
+@@ 41
+[7-OCT-2026]
+@@ 42
+[00:13:41.60]
+@@ 43
+[7]
+@@ 44
+[OCT]
+@@ 45
+[2026]
+@@ 46
+[00]
+@@ 47
+[13]
+@@ 48
+[41]
+@@ 49
+[60]
+@@ 50
+[Wednesday]
+@@ 51
+[280]
+@@ 52
+[6696]
+@@ 53
+[401773]
+@@ 54
+[24106421]
+@@ 55
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \TICKOFYEAR\
+@@ 56
+[2026-10-07 00:13:41.60]
+@@ 57
+[2026-10-07 00:13:41.60]
+@@ 58
+[2026-10-07]
+@@ 59
+[00:13:41.60]
+@@ 60
+[07]
+@@ 61
+[10]
+@@ 62
+[2026]
+@@ 63
+[00]
+@@ 64
+[13]
+@@ 65
+[41]
+@@ 66
+[60]
+@@ 67
+[Wednesday]
+@@ 68
+[280]
+@@ 69
+[6696]
+@@ 70
+[401773]
+@@ 71
+[24106421]
+@@ 72
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \TICKOFYEAR\
+@@ 73
+[Wednesday]
+@@ 74
+[31-DEC-2026 23:59:59.99]
+@@ 75
+[31]
+@@ 76
+[23]
+@@ 77
+[59]
+@@ 78
+[59]
+@@ 79
+[99]
+@@ 80
+[366]
+@@ 81
+[8783]
+@@ 82
+[527039]
+@@ 83
+[31622399]
+@@ 84
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \TICKOFYEAR\
+@@ 85
+[Saturday]
+@@ 86
+[Sunday]
+@@ 87
+[Monday]
+@@ 88
+[Tuesday]
+@@ 89
+[Wednesday]
+@@ 90
+[Thursday]
+@@ 91
+[Friday]
+@@ 92
+[366]
+@@ 93
+[Sunday]
+@@ 94
+[365]
+@@ 95
+[Monday]
+@@ 96
+[61]
+@@ 97
+[Wednesday]
+@@ 98
+[60]
+@@ 99
+[Thursday]
+@@ 100
+[321]
+@@ 101
+[Wednesday]
+@@ 102
+[60]
+@@ 103
+[Tuesday]
+@@ 104
+[5-JAN-2001 01:02:03.40]
+@@ 105
+[5-FEB-2001 01:02:03.40]
+@@ 106
+[5-MAR-2001 01:02:03.40]
+@@ 107
+[5-APR-2001 01:02:03.40]
+@@ 108
+[5-MAY-2001 01:02:03.40]
+@@ 109
+[5-JUN-2001 01:02:03.40]
+@@ 110
+[5-JUL-2001 01:02:03.40]
+@@ 111
+[5-AUG-2001 01:02:03.40]
+@@ 112
+[5-SEP-2001 01:02:03.40]
+@@ 113
+[5-OCT-2001 01:02:03.40]
+@@ 114
+[5-NOV-2001 01:02:03.40]
+@@ 115
+[5-DEC-2001 01:02:03.40]
+@@ 116
+[2026-10-07 00:00:00.00]
+@@ 117
+[7-OCT-2026 00:00:00.00]
+@@ 118
+[2026-10-08 00:00:00.00]
+@@ 119
+[8-OCT-2026 00:00:00.00]
+@@ 120
+[2026-10-06 00:00:00.00]
+@@ 121
+[6-OCT-2026 00:00:00.00]
+@@ 122
+[2026-10-07 00:00:00.00]
+@@ 123
+[7-OCT-2026 00:00:00.00]
+@@ 124
+[2026-10-08 00:00:00.00]
+@@ 125
+[8-OCT-2026 00:00:00.00]
+@@ 126
+[2026-10-07 00:00:00.00]
+@@ 127
+[7-OCT-2026 00:00:00.00]
+@@ 128
+[2026-10-08 00:00:00.00]
+@@ 129
+[8-OCT-2026 00:00:00.00]
+@@ 130
+[2026-10-06 00:00:00.00]
+@@ 131
+[6-OCT-2026 00:00:00.00]
+@@ 132
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \NOW\
+@@ 133
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \NOW\
+@@ 134
+[1-JAN-2026 00:00:00.00]
+@@ 135
+[7-FEB-2000 00:00:00.00]
+@@ 136
+[7-OCT-2001 10:00:00.00]
+@@ 137
+[7-OCT-2026 15:00:00.00]
+@@ 138
+[15-OCT-2026 00:00:00.00]
+@@ 139
+[7-MAR-2026 00:00:00.00]
+@@ 140
+[7-OCT-2026 10:20:00.00]
+@@ 141
+[7-OCT-2026 00:30:00.00]
+@@ 142
+[7-OCT-2026 00:00:15.00]
+@@ 143
+[7-OCT-2026 10:20:30.40]
+@@ 144
+[1-JAN-2026 10:20:00.00]
+@@ 145
+[7-OCT-2026 00:45:56.59]
+@@ 146
+[7-OCT-2026]
+@@ 147
+[2026-10-07]
+@@ 148
+[3-JAN-2000 13:20:00.00]
+@@ 149
+[3-JAN-2000 00:00:00.00]
+@@ 150
+[31-DEC-1999 00:00:00.00]
+@@ 151
+[29-FEB-2000 00:00:00.00]
+@@ 152
+[1-JAN-2001 00:00:00.00]
+@@ 153
+[1-JAN-2000 01:00:00.00]
+@@ 154
+[1-JAN-2000 10:20:00.01]
+@@ 155
+[1-JAN-2000 10:20:00.10]
+@@ 156
+[1-JAN-2000 01:00:00.00]
+@@ 157
+[2-JAN-2000 00:00:00.00]
+@@ 158
+[2-JAN-2000 00:00:00.00]
+@@ 159
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-2000+-1-\
+@@ 160
+%DCL-W-IVATIME, invalid absolute time - use DD-MMM-YYYY:HH:MM:SS.CC format
+ \1-JAN-2000+1-25:00\
+@@ 161
+[8-OCT-2026 00:00:00.00]
+@@ 162
+[5-OCT-2026 12:00:00.00]
+@@ 163
+[7-OCT-2026 23:00:00.00]
+@@ 164
+[8-OCT-2026 00:00:00.00]
+@@ 165
+[  1 00:00:00.00]
+@@ 166
+[1-JAN-**** 00:00:00.00]
+@@ 167
+[8-OCT-2026]
+@@ 168
+[6-OCT-2026]
+@@ 169
+[7-OCT-2026]
+@@ 170
+[2 03:04:05.06]
+@@ 171
+[0 00:00:01.00]
+@@ 172
+[2 0:00:00.00]
+@@ 173
+[0 2:00:00.00]
+@@ 174
+[0 03:04:00.00]
+@@ 175
+[0 3:4:5.6]
+@@ 176
+[9999 23:59:59.99]
+@@ 177
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \10000-\
+@@ 178
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \2-25:00\
+@@ 179
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \2-23:60\
+@@ 180
+[0 0:0:0.0]
+@@ 181
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \-2-\
+@@ 182
+[0 0:00:00.00]
+@@ 183
+[1 00:00:00.5]
+@@ 184
+[2 03:00:00.00]
+@@ 185
+[2 03:04:05.006]
+@@ 186
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \1-JAN-2000\
+@@ 187
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \TODAY\
+@@ 188
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \ABC\
+@@ 189
+[0 0:00:00.00]
+@@ 190
+[0 0:30:00.00]
+@@ 191
+%DCL-W-IVDTIME, invalid delta time - use DDDD-HH:MM:SS.CC format
+ \1 02:00\
+@@ 192
+[2 03:04:05.06]
+@@ 193
+[2]
+@@ 194
+[03:04:05.06]
+@@ 195
+[2]
+@@ 196
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \MONTH\
+@@ 197
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \YEAR\
+@@ 198
+[03]
+@@ 199
+[04]
+@@ 200
+[05]
+@@ 201
+[06]
+@@ 202
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \WEEKDAY\
+@@ 203
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \DAYOFYEAR\
+@@ 204
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \HOUROFYEAR\
+@@ 205
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \MINUTEOFYEAR\
+@@ 206
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \SECONDOFYEAR\
+@@ 207
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \TICKOFYEAR\
+@@ 208
+[2026-10-06 22:55:54.94]
+@@ 209
+[6-OCT-2026 22:55:54.94]
+@@ 210
+[06]
+@@ 211
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \BOGUS\
+@@ 212
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \BOGUS\
+@@ 213
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \ABS\
+@@ 214
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \COMP\
+@@ 215
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \DEL\
+@@ 216
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \A\
+@@ 217
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \WEEK\
+@@ 218
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \DAYOF\
+@@ 219
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+ \D\
+@@ 220
+[1-JAN-2000]
+@@ 221
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+@@ 222
+%DCL-W-IVKEYW, unrecognized keyword - check validity and spelling
+@@ now
+[ 7-OCT-2026 00:45:56.75]

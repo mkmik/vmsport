@@ -1,0 +1,197 @@
+@@ create
+  $STATUS == "%X00010001"
+@@ write
+  $STATUS == "%X00000001"
+  $STATUS == "%X00018011"
+%RMS-F-DUP, duplicate key detected (DUP not set)
+  $STATUS == "%X000184EC"
+%RMS-F-RSZ, invalid record size
+  $STATUS == "%X000186A4"
+%RMS-F-RSZ, invalid record size
+  $STATUS == "%X000186A4"
+  $STATUS == "%X000184EC"
+@@ sequential
+[0010applesone       ]
+[0020banan two       ]
+[0030carrotthree     ]
+[0040applesfour      ]
+  $STATUS == "%X0001827A"
+%RMS-E-EOF, end of file detected
+  $STATUS == "%X0001827A"
+@@ keyed
+[0020banan two       ]
+next [0030carrotthree     ]
+%RMS-E-RNF, record not found
+  $STATUS == "%X000182B2"
+GE [0030carrotthree     ]
+GT [0040applesfour      ]
+GE [0030carrotthree     ]
+  $STATUS == "%X00030001"
+  $STATUS == "%X00030001"
+EQ [0030carrotthree     ]
+generic [0030carrotthree     ]
+next [0040applesfour      ]
+%RMS-F-KSZ, invalid key size for $GET/$FIND
+  $STATUS == "%X000185A4"
+%RMS-F-KSZ, invalid key size for $GET/$FIND
+  $STATUS == "%X000185A4"
+%RMS-E-RNF, record not found
+  $STATUS == "%X000182B2"
+  $STATUS == "%X000182B2"
+%RMS-E-RNF, record not found
+after RNF with /END_OF_FILE
+  $STATUS == "%X00010001"
+@@ alternate
+[0010applesone       ]
+next [0040applesfour      ]
+next [0020banan two       ]
+generic [0020banan two       ]
+%RMS-F-KRF, invalid key-of-reference
+  $STATUS == "%X0001859C"
+index only [0030carrotthree     ]
+%RMS-E-EOF, end of file detected
+index 0 [0030carrotthree     ]
+first by index 1 [0010applesone       ]
+[0020banan two       ]
+[0030carrotthree     ]
+[0040applesfour      ]
+@@ update
+%RMS-F-CUR, no current record (operation not preceded by $GET/$FIND)
+  $STATUS == "%X000184B4"
+%RMS-F-RSZ, invalid record size
+  $STATUS == "%X000186A4"
+  $STATUS == "%X00010001"
+%RMS-F-CHG, invalid key change in $UPDATE (CHG not set)
+  $STATUS == "%X0001849C"
+%RMS-F-RSZ, invalid record size
+  $STATUS == "%X000186A4"
+  $STATUS == "%X00010001"
+deleted [0040applesfour      ]
+%RMS-E-RNF, record not found
+  $STATUS == "%X000182B2"
+[0010zebra one upd   ]
+%RMS-F-RSZ, invalid record size
+  $STATUS == "%X000186A4"
+next after write [0020banan two       ]
+deleted next [0030carrotthree     ]
+%RMS-E-EOF, end of file detected
+then [0030carrotthree     ]
+@@ share
+  $STATUS == "%X00000001"
+  $STATUS == "%X00000001"
+%RMS-E-RLK, target record currently locked by another stream
+  $STATUS == "%X000182AA"
+  $STATUS == "%X00030001"
+nolock [0020banan two       ]
+%RMS-E-RNF, record not found
+  $STATUS == "%X00030001"
+B [0020banan two       ]
+  $STATUS == "%X00010001"
+  $STATUS == "%X00030001"
+A sees [0020banana two      ]
+  $STATUS == "%X00030001"
+%DCL-E-OPENIN, error opening DKA200:[T.DCLRMS]KEYED.DAT; as input
+-RMS-E-FLK, file currently locked by another user
+  $STATUS == "%X1001828A"
+  $STATUS == "%X1001828A"
+  $STATUS == "%X00000001"
+%DCL-E-OPENIN, error opening DKA200:[T.DCLRMS]KEYED.DAT; as input
+-RMS-E-FLK, file currently locked by another user
+  $STATUS == "%X1001828A"
+%DCL-W-UNDFIL, file has not been opened by DCL - check logical name
+  $STATUS == "%X00000001"
+%DCL-E-OPENIN, error opening DKA200:[T.DCLRMS]KEYED.DAT; as input
+-RMS-E-FLK, file currently locked by another user
+  $STATUS == "%X1001828A"
+%DCL-W-UNDFIL, file has not been opened by DCL - check logical name
+@@ relative
+  $STATUS == "%X00010001"
+%RMS-F-KSZ, invalid key size for $GET/$FIND
+  $STATUS == "%X000185A4"
+[first]
+deleted [second]
+[third]
+  $STATUS == "%X00010001"
+  $STATUS == "%X00010001"
+[first]
+[third, updated and longer]
+[fourth]
+@@ utilities
+0010zebra one upd   
+0020banana two      
+  $STATUS == "%X10000001"
+first
+third, updated and longer
+fourth
+0010zebra one upd   
+third, updated and longer
+fourth
+@@ lexicals
+ORG IDX REL
+RFM FIX VAR
+RAT CR CR
+MRS 20 40
+MRN 0 2147483647
+BKS 2 1
+NOK 2 0
+NOA 1 0
+FSZ 0 0
+ALQ 16 16
+EOF 16 16
+DEQ 0 0
+GBC 0 0
+LRL 20 40
+@@ directory
+
+Directory DKA200:[T.DCLRMS]
+
+KEYED.DAT;1                   File ID:  (18,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:41:33.57
+Modified:    7-OCT-2026 02:41:33.70 (6)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:41:33.57
+Attr Mod:    7-OCT-2026 02:41:33.70
+Data Mod:    7-OCT-2026 02:41:33.57
+Linkcount:  1
+File organization:  Indexed, Prolog: 3, Using 2 keys
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Maximum bucket size: 2, Global buffer count: 0, No version limit
+Record format:      Fixed length 20 byte records
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+REL.DAT;1                     File ID:  (19,1,0)              
+Size:           16/16         Owner:    [1,4]
+Created:     7-OCT-2026 02:41:33.75
+Modified:    7-OCT-2026 02:41:33.77 (3)
+Expires:    <None specified>
+Backup:     <No backup recorded>
+Effective:  <None specified>
+Recording:  <None specified>
+Accessed:    7-OCT-2026 02:41:33.75
+Attr Mod:    7-OCT-2026 02:41:33.77
+Data Mod:    7-OCT-2026 02:41:33.75
+Linkcount:  1
+File organization:  Relative, maximum record number: 2147483647
+Shelved state:      Online 
+Caching attribute:  Writethrough
+File attributes:    Allocation: 16, Extend: 0, Bucket size: 1, Global buffer count: 0, No version limit
+Record format:      Variable length, maximum 40 bytes, longest 40 bytes
+Record attributes:  Carriage return carriage control
+RMS attributes:     None
+Journaling enabled: None
+File protection:    System:RWED, Owner:RWED, Group:RE, World:
+Access Cntrl List:  None
+Client attributes:  None
+
+Total of 2 files, 32/32 blocks.
+@@ end

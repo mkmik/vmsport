@@ -1,0 +1,418 @@
+msg 0CD20000 %NONAME-W-NORMAL, normal successful completion
+msg 0CD20008 %NONAME-W-ACCVIO, access violation, reason mask=!XB, virtual address=!XH, PC=!XH, PS=!XL
+msg 0CD28008 %VPT-W-NORMAL, normal successful completion
+msg 0CD20010 %NONAME-W-BADPARAM, bad parameter value
+msg 0CD28010 %VPT-W-CREATED, !AS created
+msg 0CD20018 %NONAME-W-EXQUOTA, process quota exceeded
+msg 0CD28018 %VPT-W-NOFILES, no files found matching !AS
+msg 0CD20020 %NONAME-W-NOPRIV, insufficient privilege or object protection violation
+msg 0CD28020 %VPT-W-BADVAL, bad value !UL, expected !UL to !UL
+msg 0CD20028 %NONAME-W-ABORT, abort
+msg 0CD20030 %NONAME-W-BADATTRIB, bad attribute control list
+msg 0CD20038 %NONAME-W-BADESCAPE, syntax error in escape sequence
+msg 0CD20040 %NONAME-W-BADIMGHDR, bad image header
+msg 0CD20048 %NONAME-W-CHANINTLK, channel usage interlocked
+msg 0CD20050 %NONAME-W-CTRLERR, fatal controller error
+msg 0CD20058 %NONAME-W-DATACHECK, write check error
+msg 0CD20060 %NONAME-W-DEVFOREIGN, device is mounted foreign
+msg 0CD20068 %NONAME-W-DEVMOUNT, device is already mounted
+msg 0CD20070 %NONAME-W-DEVNOTMBX, device is not a mailbox
+msg 0CD20078 %NONAME-W-DEVNOTMOUNT, device is not mounted
+msg 0CD20080 %NONAME-W-DEVOFFLINE, device is not in configuration or not available
+msg 0CD20088 %NONAME-W-DRVERR, fatal drive error
+msg 0CD20090 %NONAME-W-DUPLNAM, duplicate name
+msg 0CD20098 %NONAME-W-FILACCERR, magnetic tape file access is nonblank
+msg 0CD200A0 %NONAME-W-FILALRACC, file already accessed on channel
+msg 0CD200A8 %NONAME-W-FILNOTACC, file not accessed on channel
+msg 0CD200B0 %NONAME-W-FILNOTEXP, file is not expired
+msg 0CD200B8 %NONAME-W-FORMAT, invalid media format
+msg 0CD200C0 %NONAME-W-GPTFULL, global page table is full
+msg 0CD200C8 %NONAME-W-GSDFULL, global section descriptor table is full
+msg 0CD200D0 %NONAME-W-LCKPAGFUL, no more pages may be locked in memory
+msg 0CD200D8 %NONAME-W-ILLBLKNUM, illegal logical block number
+msg 0CD200E0 %NONAME-W-ILLCNTRFUNC, illegal ACP control function
+msg 0CD200E8 %NONAME-W-ILLEFC, illegal event flag cluster
+msg 0CD200F0 %NONAME-W-ILLIOFUNC, illegal I/O function code
+msg 0CD200F8 %NONAME-W-ILLPAGCNT, illegal page count parameter
+msg 0CD20100 %NONAME-W-ILLSER, illegal service call number
+msg 0CD20108 %NONAME-W-INCVOLLABEL, incorrect volume label
+msg 0CD20110 %NONAME-W-INSFARG, insufficient call arguments
+msg 0CD20118 %NONAME-W-INSFWSL, insufficient working set limit
+msg 0CD20120 %NONAME-W-INSFMEM, insufficient dynamic memory
+msg 0CD20128 %NONAME-W-INSFRAME, insufficient call frames to unwind
+msg 0CD20130 %NONAME-W-IVADDR, invalid media address
+msg 0CD20138 %NONAME-W-IVCHAN, invalid I/O channel
+msg 0CD20140 %NONAME-W-IVDEVNAM, invalid device name
+msg 0CD20148 %NONAME-W-IVGSDNAM, invalid global section name
+msg 0CD20150 %NONAME-W-IVLOGNAM, invalid logical name
+msg 0CD20158 %NONAME-W-IVLOGTAB, invalid logical name table
+msg 0CD20160 %NONAME-W-IVQUOTAL, invalid quota list
+msg 0CD20168 %NONAME-W-IVSECFLG, invalid process or global section flags
+msg 0CD20170 %NONAME-W-IVSSRQ, invalid system service request
+msg 0CD20178 %NONAME-W-IVSTSFLG, invalid status flag
+msg 0CD20180 %NONAME-W-IVTIME, invalid time
+msg 0CD20188 %NONAME-W-LENVIO, address space length violation
+msg 0CD20190 %NONAME-W-LKWSETFUL, locked portion of working set is full
+msg 0CD20198 %NONAME-W-MBTOOSML, mailbox is too small for request
+msg 0CD201A0 %NONAME-W-MEDOFL, medium is offline
+msg 0CD201A8 %NONAME-W-NODATA, mailbox is empty
+msg 0CD201B0 %NONAME-W-NOIOCHAN, no I/O channel available
+msg 0CD201B8 %NONAME-W-NOLOGNAM, no logical name match
+msg 0CD201C0 %NONAME-W-NONEXDRV, nonexistent drive
+msg 0CD201C8 %NONAME-W-NOTFILEDEV, device is not file structured
+msg 0CD201D0 %NONAME-W-NOTINTBLSZ, block size is greater than 2048
+msg 0CD201D8 %NONAME-W-NOTLABELMT, tape is not labeled
+msg 0CD201E0 %NONAME-W-NOTSQDEV, not a sequential device
+msg 0CD201E8 %NONAME-W-PAGOWNVIO, page owner violation
+msg 0CD201F0 %NONAME-W-PARITY, parity error
+msg 0CD201F8 %NONAME-W-PARTESCAPE, partial escape
+msg 0CD20200 %NONAME-W-PFMBSY, page fault monitor is in use
+msg 0CD20208 %NONAME-W-PSTFULL, process section table is full
+msg 0CD20210 %NONAME-W-RESULTOVF, resultant string overflow
+msg 0CD20218 %NONAME-W-SECTBLFUL, process or global section table is full
+msg 0CD20220 %NONAME-W-TAPEPOSLOST, magnetic tape position lost
+msg 0CD20228 %NONAME-W-TIMEOUT, device timeout
+msg 0CD20230 %NONAME-W-UNASEFC, unassociated event flag cluster
+msg 0CD20238 %NONAME-W-UNSAFE, drive unsafe
+msg 0CD20240 %NONAME-W-VASFULL, virtual address space is full
+msg 0CD20248 %NONAME-W-VECINUSE, AST vector already enabled
+msg 0CD20250 %NONAME-W-VOLINV, volume is not software enabled
+msg 0CD20258 %NONAME-W-WRITLCK, write lock error
+msg 0CD20260 %NONAME-W-NOTAPEOP, no tape operator
+msg 0CD20268 %NONAME-W-IVCHNLSEC, invalid channel for create and map section
+msg 0CD20270 %NONAME-W-NOMBX, no associated mailbox for inbound connects
+msg 0CD20278 %NONAME-W-NOLINKS, maximum network logical links exceeded
+msg 0CD20280 %NONAME-W-NOSOLICIT, interrupt message not solicited
+msg 0CD20288 %NONAME-W-NOSUCHNODE, remote node is unknown
+msg 0CD20290 %NONAME-W-REJECT, connect to network object rejected
+msg 0CD20298 %NONAME-W-TOOMUCHDATA, too much optional or interrupt data specified
+msg 0CD202A0 %NONAME-W-BUGCHECK, internal consistency failure
+msg 0CD202A8 %NONAME-W-FILNOTCNTG, file is not contiguous as required
+msg 0CD202B0 %NONAME-W-BADSTACK, bad stack encountered during exception dispatch
+msg 0CD202B8 %NONAME-W-MCHECK, detected hardware error, PC=!XH, PS=!XL
+msg 0CD202C0 %NONAME-W-DEVACTIVE, device is active
+msg 0CD202C8 %NONAME-W-HANGUP, data set hang-up
+msg 0CD202D0 %NONAME-W-OPINCOMPL, operation is incomplete
+msg 0CD202D8 %NONAME-W-ILLSEQOP, illegal sequential operation
+msg 0CD202E0 %NONAME-W-IVSECIDCTL, invalid section identification match control
+msg 0CD202E8 %NONAME-W-NOTNETDEV, not a network communication device
+msg 0CD202F0 %NONAME-W-IVPROTECT, invalid page or global section protection specified code
+msg 0CD202F8 %NONAME-W-ACPVAFUL, MTAACP's virtual address space is full
+msg 0CD20300 %NONAME-W-MTLBLLONG, magnetic tape volume label can be no more than six characters
+msg 0CD20308 %NONAME-W-BUFBYTALI, device does not support byte-aligned transfers
+msg 0CD20310 %NONAME-W-NOAQB, ACP queue header not found
+msg 0CD20318 %NONAME-W-WRONGACP, wrong ACP for device
+msg 0CD20320 %NONAME-W-BUFNOTALIGN, buffer incorrectly aligned
+msg 0CD28320 %VPT-W-OPENIN, error opening !AS as input
+msg 0CD20328 %NONAME-W-DEVCMDERR, device command error
+msg 0CD28328 %VPT-W-BUG, internal consistency failure
+msg 0CD20330 %NONAME-W-DEVREQERR, device request error
+msg 0CD28330 %VPT-W-QUOTED, text with "quotes" and 'apostrophes'
+msg 0CD20338 %NONAME-W-INSFBUFDP, unable to allocate a buffered datapath
+msg 0CD28338 %VPT-W-EXPLICIT, explicit severity
+msg 0CD20340 %NONAME-W-INSFMAPREG, insufficient map registers
+msg 0CD28340 %VPT-W-INFO2, explicit info
+msg 0CD20348 %NONAME-W-IVBUFLEN, invalid buffer length
+msg 0CD28348 %VPT-W-SEVERE2, explicit severe
+msg 0CD20350 %NONAME-W-IVMODE, invalid mode for requested function
+msg 0CD28350 %VPT-W-EMPTY, 
+msg 0CD20358 %NONAME-W-MCNOTVALID, device microcode is not valid
+msg 0CD20360 %NONAME-W-POWERFAIL, power failure occurred
+msg 0CD20368 %NONAME-W-SHMGSNOTMAP, shared memory global section not mapped during creation
+msg 0CD20370 %NONAME-W-TOOMANYLNAM, logical name translations exceeded
+msg 0CD20378 %NONAME-W-SHMNOTCNCT, shared memory not connected
+msg 0CD20380 %NONAME-W-NOTCREATOR, request denied; user is not on creator port
+msg 0CD20388 %NONAME-W-INTERLOCK, unable to acquire system data structure interlock
+msg 0CD20390 %NONAME-W-BADQUEUEHDR, interlocked queue corrupted
+msg 0CD20398 %NONAME-W-NOSLOT, no PCB available
+msg 0CD203A0 %NONAME-W-SUSPENDED, process is suspended
+msg 0CD203A8 %NONAME-W-EXPORTQUOTA, port's quota exceeded
+msg 0CD203B0 %NONAME-W-NOSHMBLOCK, no free shared memory block available for creation
+msg 0CD203B8 %NONAME-W-BADQFILE, invalid disk quota file format
+msg 0CD203C0 %NONAME-W-NOQFILE, no disk quota file available
+msg 004D0000 %IMGACT-W-NORMAL, normal successful completion
+msg 004D8000 %IMGACT-W-NORMAL, image successfully activated
+msg 004D0008 %IMGACT-W-ACCVIO, access violation, reason mask=!XB, virtual address=!XH, PC=!XH, PS=!XL
+msg 004D8008 %OTHER-W-SYSMSG, system-style message, no facility-specific bit
+msg 004D0010 %IMGACT-W-BADPARAM, bad parameter value
+msg 004D0018 %IMGACT-W-EXQUOTA, process quota exceeded
+msg 004D0020 %IMGACT-W-NOPRIV, insufficient privilege or object protection violation
+msg 004D0028 %IMGACT-W-ABORT, abort
+msg 004D8028 %OTHER-W-FIVE, base five
+msg 004D0030 %IMGACT-W-BADATTRIB, bad attribute control list
+msg 004D0038 %IMGACT-W-BADESCAPE, syntax error in escape sequence
+msg 004D0040 %IMGACT-W-BADIMGHDR, bad image header
+msg 004D0048 %IMGACT-W-CHANINTLK, channel usage interlocked
+msg 004D0050 %IMGACT-W-CTRLERR, fatal controller error
+msg 004D0058 %IMGACT-W-DATACHECK, write check error
+msg 004D0060 %IMGACT-W-DEVFOREIGN, device is mounted foreign
+msg 004D0068 %IMGACT-W-DEVMOUNT, device is already mounted
+msg 004D0070 %IMGACT-W-DEVNOTMBX, device is not a mailbox
+msg 004D0078 %IMGACT-W-DEVNOTMOUNT, device is not mounted
+msg 004D0080 %IMGACT-W-DEVOFFLINE, device is not in configuration or not available
+msg 004D0088 %IMGACT-W-DRVERR, fatal drive error
+msg 004D0090 %IMGACT-W-DUPLNAM, duplicate name
+msg 004D0098 %IMGACT-W-FILACCERR, magnetic tape file access is nonblank
+msg 004D00A0 %IMGACT-W-FILALRACC, file already accessed on channel
+msg 004D00A8 %IMGACT-W-FILNOTACC, file not accessed on channel
+msg 004D00B0 %IMGACT-W-FILNOTEXP, file is not expired
+msg 004D00B8 %IMGACT-W-FORMAT, invalid media format
+msg 004D00C0 %IMGACT-W-GPTFULL, global page table is full
+msg 004D00C8 %IMGACT-W-GSDFULL, global section descriptor table is full
+msg 004D00D0 %IMGACT-W-LCKPAGFUL, no more pages may be locked in memory
+msg 004D00D8 %IMGACT-W-ILLBLKNUM, illegal logical block number
+msg 004D00E0 %IMGACT-W-ILLCNTRFUNC, illegal ACP control function
+msg 004D00E8 %IMGACT-W-ILLEFC, illegal event flag cluster
+msg 004D00F0 %IMGACT-W-ILLIOFUNC, illegal I/O function code
+msg 004D00F8 %IMGACT-W-ILLPAGCNT, illegal page count parameter
+msg 004D0100 %IMGACT-W-ILLSER, illegal service call number
+msg 004D0108 %IMGACT-W-INCVOLLABEL, incorrect volume label
+msg 004D0110 %IMGACT-W-INSFARG, insufficient call arguments
+msg 004D0118 %IMGACT-W-INSFWSL, insufficient working set limit
+msg 004D0120 %IMGACT-W-INSFMEM, insufficient dynamic memory
+msg 004D0128 %IMGACT-W-INSFRAME, insufficient call frames to unwind
+msg 004D0130 %IMGACT-W-IVADDR, invalid media address
+msg 004D0138 %IMGACT-W-IVCHAN, invalid I/O channel
+msg 004D0140 %IMGACT-W-IVDEVNAM, invalid device name
+msg 004D0148 %IMGACT-W-IVGSDNAM, invalid global section name
+msg 004D0150 %IMGACT-W-IVLOGNAM, invalid logical name
+msg 004D0158 %IMGACT-W-IVLOGTAB, invalid logical name table
+msg 004D0160 %IMGACT-W-IVQUOTAL, invalid quota list
+msg 004D0168 %IMGACT-W-IVSECFLG, invalid process or global section flags
+msg 004D0170 %IMGACT-W-IVSSRQ, invalid system service request
+msg 004D0178 %IMGACT-W-IVSTSFLG, invalid status flag
+msg 004D0180 %IMGACT-W-IVTIME, invalid time
+msg 004D0188 %IMGACT-W-LENVIO, address space length violation
+msg 004D0190 %IMGACT-W-LKWSETFUL, locked portion of working set is full
+msg 004D0198 %IMGACT-W-MBTOOSML, mailbox is too small for request
+msg 004D01A0 %IMGACT-W-MEDOFL, medium is offline
+msg 004D01A8 %IMGACT-W-NODATA, mailbox is empty
+msg 004D01B0 %IMGACT-W-NOIOCHAN, no I/O channel available
+msg 004D01B8 %IMGACT-W-NOLOGNAM, no logical name match
+msg 004D01C0 %IMGACT-W-NONEXDRV, nonexistent drive
+msg 004D01C8 %IMGACT-W-NOTFILEDEV, device is not file structured
+msg 004D01D0 %IMGACT-W-NOTINTBLSZ, block size is greater than 2048
+msg 004D01D8 %IMGACT-W-NOTLABELMT, tape is not labeled
+msg 004D01E0 %IMGACT-W-NOTSQDEV, not a sequential device
+msg 004D01E8 %IMGACT-W-PAGOWNVIO, page owner violation
+msg 004D01F0 %IMGACT-W-PARITY, parity error
+msg 004D01F8 %IMGACT-W-PARTESCAPE, partial escape
+msg 004D0200 %IMGACT-W-PFMBSY, page fault monitor is in use
+msg 004D0208 %IMGACT-W-PSTFULL, process section table is full
+msg 004D0210 %IMGACT-W-RESULTOVF, resultant string overflow
+msg 004D0218 %IMGACT-W-SECTBLFUL, process or global section table is full
+msg 004D0220 %IMGACT-W-TAPEPOSLOST, magnetic tape position lost
+msg 004D0228 %IMGACT-W-TIMEOUT, device timeout
+msg 004D0230 %IMGACT-W-UNASEFC, unassociated event flag cluster
+msg 004D0238 %IMGACT-W-UNSAFE, drive unsafe
+msg 004D0240 %IMGACT-W-VASFULL, virtual address space is full
+msg 004D0248 %IMGACT-W-VECINUSE, AST vector already enabled
+msg 004D0250 %IMGACT-W-VOLINV, volume is not software enabled
+msg 004D0258 %IMGACT-W-WRITLCK, write lock error
+msg 004D0260 %IMGACT-W-NOTAPEOP, no tape operator
+msg 004D0268 %IMGACT-W-IVCHNLSEC, invalid channel for create and map section
+msg 004D0270 %IMGACT-W-NOMBX, no associated mailbox for inbound connects
+msg 004D0278 %IMGACT-W-NOLINKS, maximum network logical links exceeded
+msg 004D0280 %IMGACT-W-NOSOLICIT, interrupt message not solicited
+msg 004D0288 %IMGACT-W-NOSUCHNODE, remote node is unknown
+msg 004D0290 %IMGACT-W-REJECT, connect to network object rejected
+msg 004D0298 %IMGACT-W-TOOMUCHDATA, too much optional or interrupt data specified
+msg 004D02A0 %IMGACT-W-BUGCHECK, internal consistency failure
+msg 004D02A8 %IMGACT-W-FILNOTCNTG, file is not contiguous as required
+msg 004D02B0 %IMGACT-W-BADSTACK, bad stack encountered during exception dispatch
+msg 004D02B8 %IMGACT-W-MCHECK, detected hardware error, PC=!XH, PS=!XL
+msg 004D02C0 %IMGACT-W-DEVACTIVE, device is active
+msg 004D02C8 %IMGACT-W-HANGUP, data set hang-up
+msg 004D02D0 %IMGACT-W-OPINCOMPL, operation is incomplete
+msg 004D02D8 %IMGACT-W-ILLSEQOP, illegal sequential operation
+msg 004D02E0 %IMGACT-W-IVSECIDCTL, invalid section identification match control
+msg 004D02E8 %IMGACT-W-NOTNETDEV, not a network communication device
+msg 004D02F0 %IMGACT-W-IVPROTECT, invalid page or global section protection specified code
+msg 004D02F8 %IMGACT-W-ACPVAFUL, MTAACP's virtual address space is full
+msg 004D0300 %IMGACT-W-MTLBLLONG, magnetic tape volume label can be no more than six characters
+msg 004D0308 %IMGACT-W-BUFBYTALI, device does not support byte-aligned transfers
+msg 004D0310 %IMGACT-W-NOAQB, ACP queue header not found
+msg 004D0318 %IMGACT-W-WRONGACP, wrong ACP for device
+msg 004D0320 %IMGACT-W-BUFNOTALIGN, buffer incorrectly aligned
+msg 004D8320 %IMGACT-W-ACTIVATED, image already mapped
+msg 004D0328 %IMGACT-W-DEVCMDERR, device command error
+msg 004D0330 %IMGACT-W-DEVREQERR, device request error
+msg 004D0338 %IMGACT-W-INSFBUFDP, unable to allocate a buffered datapath
+msg 004D0340 %IMGACT-W-INSFMAPREG, insufficient map registers
+msg 004D0348 %IMGACT-W-IVBUFLEN, invalid buffer length
+msg 004D0350 %IMGACT-W-IVMODE, invalid mode for requested function
+msg 004D0358 %IMGACT-W-MCNOTVALID, device microcode is not valid
+msg 004D0360 %IMGACT-W-POWERFAIL, power failure occurred
+msg 004D0368 %IMGACT-W-SHMGSNOTMAP, shared memory global section not mapped during creation
+msg 004D0370 %IMGACT-W-TOOMANYLNAM, logical name translations exceeded
+msg 004D0378 %IMGACT-W-SHMNOTCNCT, shared memory not connected
+msg 004D0380 %IMGACT-W-NOTCREATOR, request denied; user is not on creator port
+msg 004D0388 %IMGACT-W-INTERLOCK, unable to acquire system data structure interlock
+msg 004D0390 %IMGACT-W-BADQUEUEHDR, interlocked queue corrupted
+msg 004D0398 %IMGACT-W-NOSLOT, no PCB available
+msg 004D03A0 %IMGACT-W-SUSPENDED, process is suspended
+msg 004D03A8 %IMGACT-W-EXPORTQUOTA, port's quota exceeded
+msg 004D03B0 %IMGACT-W-NOSHMBLOCK, no free shared memory block available for creation
+msg 004D03B8 %IMGACT-W-BADQFILE, invalid disk quota file format
+msg 004D03C0 %IMGACT-W-NOQFILE, no disk quota file available
+msg 0FFF0000 %NONAME-W-NORMAL, normal successful completion
+msg 0FFF0008 %NONAME-W-ACCVIO, access violation, reason mask=!XB, virtual address=!XH, PC=!XH, PS=!XL
+msg 0FFF8008 %THIRD-W-FIRST, first in a facility without a prefix
+msg 0FFF0010 %NONAME-W-BADPARAM, bad parameter value
+msg 0FFF0018 %NONAME-W-EXQUOTA, process quota exceeded
+msg 0FFF0020 %NONAME-W-NOPRIV, insufficient privilege or object protection violation
+msg 0FFF0028 %NONAME-W-ABORT, abort
+msg 0FFF0030 %NONAME-W-BADATTRIB, bad attribute control list
+msg 0FFF0038 %NONAME-W-BADESCAPE, syntax error in escape sequence
+msg 0FFF0040 %NONAME-W-BADIMGHDR, bad image header
+msg 0FFF0048 %NONAME-W-CHANINTLK, channel usage interlocked
+msg 0FFF0050 %NONAME-W-CTRLERR, fatal controller error
+msg 0FFF0058 %NONAME-W-DATACHECK, write check error
+msg 0FFF0060 %NONAME-W-DEVFOREIGN, device is mounted foreign
+msg 0FFF0068 %NONAME-W-DEVMOUNT, device is already mounted
+msg 0FFF0070 %NONAME-W-DEVNOTMBX, device is not a mailbox
+msg 0FFF0078 %NONAME-W-DEVNOTMOUNT, device is not mounted
+msg 0FFF0080 %NONAME-W-DEVOFFLINE, device is not in configuration or not available
+msg 0FFF0088 %NONAME-W-DRVERR, fatal drive error
+msg 0FFF0090 %NONAME-W-DUPLNAM, duplicate name
+msg 0FFF0098 %NONAME-W-FILACCERR, magnetic tape file access is nonblank
+msg 0FFF00A0 %NONAME-W-FILALRACC, file already accessed on channel
+msg 0FFF00A8 %NONAME-W-FILNOTACC, file not accessed on channel
+msg 0FFF00B0 %NONAME-W-FILNOTEXP, file is not expired
+msg 0FFF00B8 %NONAME-W-FORMAT, invalid media format
+msg 0FFF00C0 %NONAME-W-GPTFULL, global page table is full
+msg 0FFF00C8 %NONAME-W-GSDFULL, global section descriptor table is full
+msg 0FFF00D0 %NONAME-W-LCKPAGFUL, no more pages may be locked in memory
+msg 0FFF00D8 %NONAME-W-ILLBLKNUM, illegal logical block number
+msg 0FFF00E0 %NONAME-W-ILLCNTRFUNC, illegal ACP control function
+msg 0FFF00E8 %NONAME-W-ILLEFC, illegal event flag cluster
+msg 0FFF00F0 %NONAME-W-ILLIOFUNC, illegal I/O function code
+msg 0FFF00F8 %NONAME-W-ILLPAGCNT, illegal page count parameter
+msg 0FFF0100 %NONAME-W-ILLSER, illegal service call number
+msg 0FFF0108 %NONAME-W-INCVOLLABEL, incorrect volume label
+msg 0FFF0110 %NONAME-W-INSFARG, insufficient call arguments
+msg 0FFF0118 %NONAME-W-INSFWSL, insufficient working set limit
+msg 0FFF0120 %NONAME-W-INSFMEM, insufficient dynamic memory
+msg 0FFF0128 %NONAME-W-INSFRAME, insufficient call frames to unwind
+msg 0FFF0130 %NONAME-W-IVADDR, invalid media address
+msg 0FFF0138 %NONAME-W-IVCHAN, invalid I/O channel
+msg 0FFF0140 %NONAME-W-IVDEVNAM, invalid device name
+msg 0FFF0148 %NONAME-W-IVGSDNAM, invalid global section name
+msg 0FFF0150 %NONAME-W-IVLOGNAM, invalid logical name
+msg 0FFF0158 %NONAME-W-IVLOGTAB, invalid logical name table
+msg 0FFF0160 %NONAME-W-IVQUOTAL, invalid quota list
+msg 0FFF0168 %NONAME-W-IVSECFLG, invalid process or global section flags
+msg 0FFF0170 %NONAME-W-IVSSRQ, invalid system service request
+msg 0FFF0178 %NONAME-W-IVSTSFLG, invalid status flag
+msg 0FFF0180 %NONAME-W-IVTIME, invalid time
+msg 0FFF0188 %NONAME-W-LENVIO, address space length violation
+msg 0FFF0190 %NONAME-W-LKWSETFUL, locked portion of working set is full
+msg 0FFF0198 %NONAME-W-MBTOOSML, mailbox is too small for request
+msg 0FFF01A0 %NONAME-W-MEDOFL, medium is offline
+msg 0FFF01A8 %NONAME-W-NODATA, mailbox is empty
+msg 0FFF01B0 %NONAME-W-NOIOCHAN, no I/O channel available
+msg 0FFF01B8 %NONAME-W-NOLOGNAM, no logical name match
+msg 0FFF01C0 %NONAME-W-NONEXDRV, nonexistent drive
+msg 0FFF01C8 %NONAME-W-NOTFILEDEV, device is not file structured
+msg 0FFF01D0 %NONAME-W-NOTINTBLSZ, block size is greater than 2048
+msg 0FFF01D8 %NONAME-W-NOTLABELMT, tape is not labeled
+msg 0FFF01E0 %NONAME-W-NOTSQDEV, not a sequential device
+msg 0FFF01E8 %NONAME-W-PAGOWNVIO, page owner violation
+msg 0FFF01F0 %NONAME-W-PARITY, parity error
+msg 0FFF01F8 %NONAME-W-PARTESCAPE, partial escape
+msg 0FFF0200 %NONAME-W-PFMBSY, page fault monitor is in use
+msg 0FFF0208 %NONAME-W-PSTFULL, process section table is full
+msg 0FFF0210 %NONAME-W-RESULTOVF, resultant string overflow
+msg 0FFF0218 %NONAME-W-SECTBLFUL, process or global section table is full
+msg 0FFF0220 %NONAME-W-TAPEPOSLOST, magnetic tape position lost
+msg 0FFF0228 %NONAME-W-TIMEOUT, device timeout
+msg 0FFF0230 %NONAME-W-UNASEFC, unassociated event flag cluster
+msg 0FFF0238 %NONAME-W-UNSAFE, drive unsafe
+msg 0FFF0240 %NONAME-W-VASFULL, virtual address space is full
+msg 0FFF0248 %NONAME-W-VECINUSE, AST vector already enabled
+msg 0FFF0250 %NONAME-W-VOLINV, volume is not software enabled
+msg 0FFF0258 %NONAME-W-WRITLCK, write lock error
+msg 0FFF0260 %NONAME-W-NOTAPEOP, no tape operator
+msg 0FFF0268 %NONAME-W-IVCHNLSEC, invalid channel for create and map section
+msg 0FFF0270 %NONAME-W-NOMBX, no associated mailbox for inbound connects
+msg 0FFF0278 %NONAME-W-NOLINKS, maximum network logical links exceeded
+msg 0FFF0280 %NONAME-W-NOSOLICIT, interrupt message not solicited
+msg 0FFF0288 %NONAME-W-NOSUCHNODE, remote node is unknown
+msg 0FFF0290 %NONAME-W-REJECT, connect to network object rejected
+msg 0FFF0298 %NONAME-W-TOOMUCHDATA, too much optional or interrupt data specified
+msg 0FFF02A0 %NONAME-W-BUGCHECK, internal consistency failure
+msg 0FFF02A8 %NONAME-W-FILNOTCNTG, file is not contiguous as required
+msg 0FFF02B0 %NONAME-W-BADSTACK, bad stack encountered during exception dispatch
+msg 0FFF02B8 %NONAME-W-MCHECK, detected hardware error, PC=!XH, PS=!XL
+msg 0FFF02C0 %NONAME-W-DEVACTIVE, device is active
+msg 0FFF02C8 %NONAME-W-HANGUP, data set hang-up
+msg 0FFF02D0 %NONAME-W-OPINCOMPL, operation is incomplete
+msg 0FFF02D8 %NONAME-W-ILLSEQOP, illegal sequential operation
+msg 0FFF02E0 %NONAME-W-IVSECIDCTL, invalid section identification match control
+msg 0FFF02E8 %NONAME-W-NOTNETDEV, not a network communication device
+msg 0FFF02F0 %NONAME-W-IVPROTECT, invalid page or global section protection specified code
+msg 0FFF02F8 %NONAME-W-ACPVAFUL, MTAACP's virtual address space is full
+msg 0FFF0300 %NONAME-W-MTLBLLONG, magnetic tape volume label can be no more than six characters
+msg 0FFF0308 %NONAME-W-BUFBYTALI, device does not support byte-aligned transfers
+msg 0FFF0310 %NONAME-W-NOAQB, ACP queue header not found
+msg 0FFF0318 %NONAME-W-WRONGACP, wrong ACP for device
+msg 0FFF0320 %NONAME-W-BUFNOTALIGN, buffer incorrectly aligned
+msg 0FFF0328 %NONAME-W-DEVCMDERR, device command error
+msg 0FFF0330 %NONAME-W-DEVREQERR, device request error
+msg 0FFF0338 %NONAME-W-INSFBUFDP, unable to allocate a buffered datapath
+msg 0FFF0340 %NONAME-W-INSFMAPREG, insufficient map registers
+msg 0FFF0348 %NONAME-W-IVBUFLEN, invalid buffer length
+msg 0FFF0350 %NONAME-W-IVMODE, invalid mode for requested function
+msg 0FFF0358 %NONAME-W-MCNOTVALID, device microcode is not valid
+msg 0FFF0360 %NONAME-W-POWERFAIL, power failure occurred
+msg 0FFF0368 %NONAME-W-SHMGSNOTMAP, shared memory global section not mapped during creation
+msg 0FFF0370 %NONAME-W-TOOMANYLNAM, logical name translations exceeded
+msg 0FFF0378 %NONAME-W-SHMNOTCNCT, shared memory not connected
+msg 0FFF0380 %NONAME-W-NOTCREATOR, request denied; user is not on creator port
+msg 0FFF0388 %NONAME-W-INTERLOCK, unable to acquire system data structure interlock
+msg 0FFF0390 %NONAME-W-BADQUEUEHDR, interlocked queue corrupted
+msg 0FFF0398 %NONAME-W-NOSLOT, no PCB available
+msg 0FFF03A0 %NONAME-W-SUSPENDED, process is suspended
+msg 0FFF03A8 %NONAME-W-EXPORTQUOTA, port's quota exceeded
+msg 0FFF03B0 %NONAME-W-NOSHMBLOCK, no free shared memory block available for creation
+msg 0FFF03B8 %NONAME-W-BADQFILE, invalid disk quota file format
+msg 0FFF03C0 %NONAME-W-NOQFILE, no disk quota file available
+sev 0 %VPT-W-CREATED, !AS created
+sev 1 %VPT-S-CREATED, !AS created
+sev 2 %VPT-E-CREATED, !AS created
+sev 3 %VPT-I-CREATED, !AS created
+sev 4 %VPT-F-CREATED, !AS created
+sev 5 %VPT-?-CREATED, !AS created
+sev 6 %VPT-?-CREATED, !AS created
+sev 7 %VPT-?-CREATED, !AS created
+comp !AS created
+comp %CREATED
+comp %W
+comp %VPT
+comp %VPT-CREATED
+comp %W, !AS created
+none %NONAME-E-NOMSG, Message number 0CD28192
+none %MNSS-W-NOMSG, Message number 12345678
+none %NONAME-W-NOMSG, Message number 00000000
+none %NONAME-?-NOMSG, Message number 0FFFFFFF
+sys %SYSTEM-S-NORMAL, normal successful completion
+sys %SYSTEM-F-ABORT, abort
+sys %SYSTEM-S-CONTROLC, operation completed under CTRL/C
+sys %RMS-E-FNF, file not found
+sys %CLI-W-IVQUAL, unrecognized qualifier - check validity, spelling, and placement
+status 0CD2800B
+%VPT-W-CREATED, !AS created
+status 0CD28010
+%VPT-E-NOFILES, no files found matching !AS
+status 0CD2801A
+%VPT-F-OPENIN, error opening !AS as input
+status 0CD28324
+status 1CD2801A
+%NONAME-E-NOMSG, Message number 0CD28192
+status 0CD28192
+%SYSTEM-F-ABORT, abort
+status 0000002C
+%F-ABORT, abort
+%SYSTEM-F, abort
+%SYSTEM-ABORT, abort
+%SYSTEM-F-ABORT

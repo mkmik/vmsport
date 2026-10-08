@@ -1,0 +1,30 @@
+$ OPEN/WRITE f A.TXT
+$ WRITE f "alpha one"
+$ WRITE f "beta two"
+$ CLOSE f
+$ OPEN/WRITE f A.TXT
+$ WRITE f "alpha version two"
+$ WRITE f "gamma"
+$ CLOSE f
+$ OPEN/WRITE f A.TXT
+$ WRITE f "Alpha Three"
+$ WRITE f "delta"
+$ WRITE f "ALPHA beta"
+$ CLOSE f
+$ OPEN/WRITE f B.DAT
+$ n = 1
+$bloop:
+$ s = F$FAO("line !2ZL !22*-", n)
+$ IF n .EQ. 5 .OR. n .EQ. 12 THEN s = F$FAO("line !2ZL needle !15*-", n)
+$ WRITE f s
+$ n = n + 1
+$ IF n .LE. 20 THEN GOTO bloop
+$ CLOSE f
+$ OPEN/WRITE f C.LIS
+$ WRITE f "see alpha in C"
+$ CLOSE f
+$ OPEN/WRITE f LONGER_FILE_NAME_FOR_COLUMNS.TEXT
+$ WRITE f "x"
+$ CLOSE f
+$ OPEN/WRITE f EMPTY.TXT
+$ CLOSE f

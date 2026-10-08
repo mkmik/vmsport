@@ -1,0 +1,7 @@
+FILE
+	ORGANIZATION		relative
+	EXTENSION		5
+RECORD
+	CARRIAGE_CONTROL	carriage_return
+	FORMAT			variable
+	SIZE			600

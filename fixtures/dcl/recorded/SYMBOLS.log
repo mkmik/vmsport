@@ -1,0 +1,24 @@
+  A = 7   Hex = 00000007  Octal = 00000000007
+  B = "7"
+  C = "HELLO WORLD"
+  D = "Hello  World"
+  E = "xy"
+  G == 1   Hex = 00000001  Octal = 00000000001
+  G == 1   Hex = 00000001  Octal = 00000000001
+10 21 3 -3 -3
+7 9 3 5
+-1 -2 -2147483648
+abcd acabc 7 7
+0 1 1
+0 1 1
+16 15 99
+x is 'x' and a twice
+%DCL-W-UNDSYM, undefined symbol - check validity and spelling
+ \x\
+  S = "01abc56789"
+  BITS = 241   Hex = 000000F1  Octal = 00000000361
+TRUE string is false
+YES string is true
+0 is false
+%DCL-W-UNDSYM, undefined symbol - check validity and spelling
+sym sym sym

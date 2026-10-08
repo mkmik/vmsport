@@ -1,0 +1,3 @@
+in LNM.COM
+run @LNM.COM/OUTPUT=LNM.LOG
+text LNM.LOG recorded/lnm.log

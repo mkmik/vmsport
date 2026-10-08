@@ -1,0 +1,828 @@
+$ SET DEFAULT SYS$LOGIN
+$ CREATE/DIRECTORY [.EDS2]
+$ SET DEFAULT [.EDS2]
+$ EDIT/FDL/SCRIPT=SEQUENTIAL S3.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]S3.FDL; will be created.
+                         Sequential Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 0
+
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : Fixed
+
+        Records can span disk blocks    (Yes/No)[Yes]   : 
+
+        Record Size                     (1-32767)[-]    : 80
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]S3.FDL;1  16 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=SEQUENTIAL S4.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]S4.FDL; will be created.
+                         Sequential Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 777
+
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : _LF
+
+         "_LF" contains a syntax error. 
+        Indexed files are only Fixed or Variable.
+        Stream format (Seq only) is Stream, Stream_CR, or Stream_LF.
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : 
+
+        Records can span disk blocks    (Yes/No)[Yes]   : No
+
+        Mean Record Size                (1-510)[-]      : 37
+
+        Maximum Record Size             (0,37-510)[0]   : 
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : Stream title
+
+         "STREAM" contains a syntax error. 
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : DKA0:[DATA]S4.TXT
+
+         "DKA0" contains a syntax error. 
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : FORTRAN
+
+         "FORTRAN" contains a syntax error. 
+                         OpenVMS FDL Editor
+
+        Add     to insert one line into the FDL definition
+        Delete  to remove one line from the FDL definition
+        Exit    to leave the FDL Editor after creating the FDL file
+        Help    to obtain information about the FDL Editor
+        Invoke  to initiate a script of related questions
+        Modify  to change an existing line in the FDL definition
+        Quit    to abort the FDL Editor with no FDL file creation
+        Set     to specify FDL Editor characteristics
+        View    to display the current FDL Definition
+
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]S4.FDL;1  16 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=SEQUENTIAL S5.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]S5.FDL; will be created.
+                         Sequential Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 2500
+
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : VFC
+
+        Records can span disk blocks    (Yes/No)[Yes]   : 
+
+        Mean Record Size w/fix          (1-32767)[-]    : 120
+
+        Control Field Size              (1-120)[2]      : 
+
+        Maximum Record Size             (0,120-32765)[0] : 300
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]S5.FDL;1  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=SEQUENTIAL S6.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]S6.FDL; will be created.
+                         Sequential Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 100
+
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : Undefined
+
+        Records can span disk blocks    (Yes/No)[Yes]   : 
+
+        Record Size                     (1-32767)[-]    : 512
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]S6.FDL;1  16 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=SEQUENTIAL S7.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]S7.FDL; will be created.
+                         Sequential Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 123456
+
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : 
+
+        Records can span disk blocks    (Yes/No)[Yes]   : 
+
+        Mean Record Size                (1-32767)[-]    : 37
+
+        Maximum Record Size             (0,37-32767)[0] : 100
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : None
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]S7.FDL;1  16 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=SEQUENTIAL S8.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]S8.FDL; will be created.
+                         Sequential Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 10
+
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : Stream
+
+        Records can span disk blocks    (Yes/No)[Yes]   : 
+
+        Mean Record Size                (1-32767)[-]    : 10
+
+        Maximum Record Size             (0,10-32767)[0] : 
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : Print
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]S8.FDL;1  16 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=SEQUENTIAL S9.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]S9.FDL; will be created.
+                         Sequential Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 5
+
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : _CR
+
+         "_CR" contains a syntax error. 
+        Indexed files are only Fixed or Variable.
+        Stream format (Seq only) is Stream, Stream_CR, or Stream_LF.
+        (Fixed Stream _CR _LF Undefined Variable VFC)
+        Record Format                   (Keyword)[Var]  : 
+
+        Records can span disk blocks    (Yes/No)[Yes]   : 
+
+        Mean Record Size                (1-32767)[-]    : 3000
+
+        Maximum Record Size             (0,3000-32767)[0] : 
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]S9.FDL;1  16 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=RELATIVE R3.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]R3.FDL; will be created.
+                         Relative Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 5000
+
+        (Fixed Variable VFC)
+        Record Format                   (Keyword)[Var]  : Fixed
+
+        Record Size                     (1-32255)[-]    : 40
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        Target disk volume Cluster Size (1-2Giga)[3]    : 1
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]R3.FDL;1  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=RELATIVE R4.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]R4.FDL; will be created.
+                         Relative Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 10
+
+        (Fixed Variable VFC)
+        Record Format                   (Keyword)[Var]  : VFC
+
+        Mean Record Size w/fix          (1-32253)[-]    : 10
+
+        Control Field Size              (1-10)[2]       : 
+
+        Maximum Record Size             (10-32251)[-]   : 50
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        Target disk volume Cluster Size (1-2Giga)[3]    : 16
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]R4.FDL;1  18 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=RELATIVE R5.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]R5.FDL; will be created.
+                         Relative Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 3000
+
+        (Fixed Variable VFC)
+        Record Format                   (Keyword)[Var]  : 
+
+        Mean Record Size                (1-32253)[-]    : 500
+
+        Maximum Record Size             (500-32253)[-]  : 2000
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        Target disk volume Cluster Size (1-2Giga)[3]    : 1
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]R5.FDL;1  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=RELATIVE R6.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]R6.FDL; will be created.
+                         Relative Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 0
+
+        (Fixed Variable VFC)
+        Record Format                   (Keyword)[Var]  : Fixed
+
+        Record Size                     (1-32255)[-]    : 200
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        Target disk volume Cluster Size (1-2Giga)[3]    : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]R6.FDL;1  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=RELATIVE R7.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]R7.FDL; will be created.
+                         Relative Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 40000
+
+        (Fixed Variable VFC)
+        Record Format                   (Keyword)[Var]  : 
+
+        Mean Record Size                (1-32253)[-]    : 100
+
+        Maximum Record Size             (100-32253)[-]  : 100
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        Target disk volume Cluster Size (1-2Giga)[3]    : 7
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]R7.FDL;1  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=RELATIVE R8.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]R8.FDL; will be created.
+                         Relative Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 64
+
+        (Fixed Variable VFC)
+        Record Format                   (Keyword)[Var]  : Fixed
+
+        Record Size                     (1-32255)[-]    : 8000
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        Target disk volume Cluster Size (1-2Giga)[3]    : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]R8.FDL;1  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ EDIT/FDL/SCRIPT=RELATIVE R9.FDL
+                        Parsing Definition File
+
+
+
+        SYS$COMMON:[SYSMGR.EDS2]R9.FDL; will be created.
+                         Relative Script 
+
+        File Capacity in Records        (0-2Giga)[-]    : 1000000
+
+        (Fixed Variable VFC)
+        Record Format                   (Keyword)[Var]  : Fixed
+
+        Record Size                     (1-32255)[-]    : 1
+
+        Text for FDL Title Section      (1-126 chars)[null]
+        : 
+
+        Data File file-spec             (1-512 chars)[null]
+        : 
+
+        (Carriage_Return FORTRAN None Print)
+        Carriage Control                (Keyword)[Carr] : 
+
+        Target disk volume Cluster Size (1-2Giga)[3]    : 
+
+        (Add Delete Exit Help Invoke Modify Quit Set View)
+        Main Editor Function            (Keyword)[Help] : *EXIT*
+
+SYS$SYSROOT:[SYSMGR.EDS2]R9.FDL;1  17 lines
+$ SHOW SYMBOL $STATUS
+  $STATUS == "%X00000001"
+$ DIRECTORY
+
+Directory SYS$SYSROOT:[SYSMGR.EDS2]
+
+R3.FDL;1            R4.FDL;1            R5.FDL;1            R6.FDL;1           
+R7.FDL;1            R8.FDL;1            R9.FDL;1            S3.FDL;1           
+S4.FDL;1            S5.FDL;1            S6.FDL;1            S7.FDL;1           
+S8.FDL;1            S9.FDL;1            
+
+Total of 14 files.
+$ TYPE S3.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]S3.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:52:44  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              0
+        BEST_TRY_CONTIGUOUS     yes
+        EXTENSION               0
+        ORGANIZATION            sequential
+
+RECORD
+        BLOCK_SPAN              yes
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  fixed
+        SIZE                    80
+$ TYPE S4.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]S4.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:53:08  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              59
+        BEST_TRY_CONTIGUOUS     yes
+        EXTENSION               5
+        ORGANIZATION            sequential
+
+RECORD
+        BLOCK_SPAN              no
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  variable
+        SIZE                    0
+$ TYPE S5.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]S5.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:53:42  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              596
+        BEST_TRY_CONTIGUOUS     yes
+        EXTENSION               59
+        ORGANIZATION            sequential
+
+RECORD
+        BLOCK_SPAN              yes
+        CARRIAGE_CONTROL        carriage_return
+        CONTROL_FIELD_SIZE      2
+        FORMAT                  VFC
+        SIZE                    300
+$ TYPE S6.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]S6.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:54:00  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              100
+        BEST_TRY_CONTIGUOUS     yes
+        EXTENSION               10
+        ORGANIZATION            sequential
+
+RECORD
+        BLOCK_SPAN              yes
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  undefined
+        SIZE                    512
+$ TYPE S7.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]S7.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:54:21  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              9404
+        BEST_TRY_CONTIGUOUS     yes
+        EXTENSION               940
+        ORGANIZATION            sequential
+
+RECORD
+        BLOCK_SPAN              yes
+        CARRIAGE_CONTROL        none
+        FORMAT                  variable
+        SIZE                    100
+$ TYPE S8.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]S8.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:54:41  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              0
+        BEST_TRY_CONTIGUOUS     yes
+        EXTENSION               0
+        ORGANIZATION            sequential
+
+RECORD
+        BLOCK_SPAN              yes
+        CARRIAGE_CONTROL        print
+        FORMAT                  stream
+        SIZE                    0
+$ TYPE S9.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]S9.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:55:06  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              29
+        BEST_TRY_CONTIGUOUS     yes
+        EXTENSION               2
+        ORGANIZATION            sequential
+
+RECORD
+        BLOCK_SPAN              yes
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  variable
+        SIZE                    0
+$ TYPE R3.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]R3.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:55:21  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              419
+        BEST_TRY_CONTIGUOUS     yes
+        BUCKET_SIZE             2
+        EXTENSION               104
+        MAX_RECORD_NUMBER       5000
+        ORGANIZATION            relative
+
+RECORD
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  fixed
+        SIZE                    40
+$ TYPE R4.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]R4.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:55:45  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              32
+        BEST_TRY_CONTIGUOUS     yes
+        BUCKET_SIZE             16
+        EXTENSION               16
+        MAX_RECORD_NUMBER       10
+        ORGANIZATION            relative
+
+RECORD
+        CARRIAGE_CONTROL        carriage_return
+        CONTROL_FIELD_SIZE      2
+        FORMAT                  VFC
+        SIZE                    50
+$ TYPE R5.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]R5.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:56:05  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              11845
+        BEST_TRY_CONTIGUOUS     yes
+        BUCKET_SIZE             63
+        EXTENSION               2961
+        MAX_RECORD_NUMBER       3000
+        ORGANIZATION            relative
+
+RECORD
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  variable
+        SIZE                    2000
+$ TYPE R6.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]R6.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:56:22  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              6
+        BEST_TRY_CONTIGUOUS     yes
+        BUCKET_SIZE             3
+        EXTENSION               3
+        MAX_RECORD_NUMBER       0
+        ORGANIZATION            relative
+
+RECORD
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  fixed
+        SIZE                    200
+$ TYPE R7.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]R7.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:56:42  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              8246
+        BEST_TRY_CONTIGUOUS     yes
+        BUCKET_SIZE             7
+        EXTENSION               2065
+        MAX_RECORD_NUMBER       40000
+        ORGANIZATION            relative
+
+RECORD
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  variable
+        SIZE                    100
+$ TYPE R8.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]R8.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:57:01  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              1011
+        BEST_TRY_CONTIGUOUS     yes
+        BUCKET_SIZE             63
+        EXTENSION               252
+        MAX_RECORD_NUMBER       64
+        ORGANIZATION            relative
+
+RECORD
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  fixed
+        SIZE                    8000
+$ TYPE R9.FDL;*
+ 
+SYS$SYSROOT:[SYSMGR.EDS2]R9.FDL;1
+ 
+IDENT   FDL_VERSION 02  " 7-OCT-2026 18:57:19  OpenVMS FDL Editor"
+
+SYSTEM
+        SOURCE                  "OpenVMS"
+
+FILE
+        ALLOCATION              3912
+        BEST_TRY_CONTIGUOUS     yes
+        BUCKET_SIZE             3
+        EXTENSION               978
+        MAX_RECORD_NUMBER       1000000
+        ORGANIZATION            relative
+
+RECORD
+        CARRIAGE_CONTROL        carriage_return
+        FORMAT                  fixed
+        SIZE                    1
+$ 

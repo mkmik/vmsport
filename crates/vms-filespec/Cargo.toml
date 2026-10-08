@@ -1,0 +1,4 @@
+[package]
+name = "vms-filespec"
+edition.workspace = true
+version.workspace = true

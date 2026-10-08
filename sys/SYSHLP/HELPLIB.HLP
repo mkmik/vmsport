@@ -1,0 +1,2360 @@
+1 @
+ Runs a command procedure: a file of DCL commands, each line starting
+ with a dollar sign. The procedure runs at a new procedure level, with
+ its own local symbols, its own ON settings and the parameters P1 to P8.
+
+ Format
+
+   @file-spec [p1 [p2 [... p8]]]
+2 Parameters
+file-spec
+
+ The procedure to run. The default type is .COM, and the rest of the
+ spec comes from the current default directory.
+
+p1 to p8
+
+ Up to eight parameters, separated by blanks. DCL upcases them unless
+ they are in quotation marks, and takes the quotation marks away. The
+ procedure sees them as the local symbols P1 to P8; those not given are
+ empty strings.
+2 Qualifiers
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Sends the procedure's SYS$OUTPUT, and what the images it runs write,
+ to a new version of file-spec instead of the terminal. DCL's messages
+ go to the file, and to SYS$ERROR as well.
+2 Examples
+ 1.$ @BUILD
+
+   Runs BUILD.COM from the current default directory.
+
+ 2.$ @[.TOOLS]COPYALL "My File" B
+
+   P1 is "My File" as typed, P2 is "B".
+
+ 3.$ @NIGHTLY/OUTPUT=NIGHTLY.LOG
+
+   Runs NIGHTLY.COM with its output in NIGHTLY.LOG.
+2 Nesting
+ Procedures may call procedures, and CALL starts a level too; vmsport,
+ like VMS, stops at 32 levels with %DCL-W-STKOVF.
+1 ANALYZE
+ vmsport's ANALYZE examines RMS files only (/RMS_FILE): it checks a
+ file's structure and reports what it finds, or describes the file in
+ FDL, ready for CREATE/FDL.
+
+ Format
+
+   ANALYZE/RMS_FILE file-spec[,...]
+2 Parameters
+file-spec[,...]
+
+ The files to analyze; wildcards are allowed. /FDL describes only the
+ first.
+2 Qualifiers
+/RMS_FILE
+
+ Required: the files are RMS files.
+/CHECK
+
+    /CHECK (default)
+
+ Reports the file's header, attributes and structure, and the errors
+ found, then the command. Without /OUTPUT the reports go to SYS$OUTPUT.
+/FDL
+
+ Writes an FDL description of the file instead, to name.FDL in the
+ current directory unless /OUTPUT names another file.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Where the reports go (default type .ANL, or .FDL with /FDL). With
+ /OUTPUT, each file analyzed is also reported as %ANLRMS-I-ERRORS with
+ its count of errors.
+1 ASSIGN
+ Defines a logical name, like DEFINE, with the two names the other way
+ round: the equivalence first, then the logical name.
+
+ Format
+
+   ASSIGN equivalence-name[,...] logical-name[:]
+2 Parameters
+equivalence-name[,...]
+
+ The value (or, separated by commas, the values of a search list) the
+ logical name stands for. Quotation marks keep case and blanks.
+
+logical-name
+
+ The name to define. A trailing colon is ignored.
+2 Qualifiers
+/TABLE
+
+    /TABLE=name
+
+ The logical name table to define it in. The default is LNM$PROCESS.
+/PROCESS
+ Defines the name in the process table (the default).
+/JOB
+ Defines the name in the job table, shared by the processes of your
+ job (in vmsport, the processes of one Unix login session).
+/GROUP
+ Defines the name in the group table, shared by your Unix group.
+/SYSTEM
+ Defines the name in the system table. vmsportd keeps one per user.
+/TRANSLATION_ATTRIBUTES
+
+    /TRANSLATION_ATTRIBUTES=(keyword[,...])
+
+ CONCEALED: when the name is a device, file specs show the logical name,
+ not its equivalence. TERMINAL: the equivalence is not translated any
+ further.
+/LOG
+
+    /LOG (default)
+    /NOLOG
+
+ When the name already had a value, says so with %DCL-I-SUPERSEDE.
+/USER_MODE
+ Accepted. vmsport defines names in supervisor mode whatever is asked;
+ access modes are kept as data and protect nothing.
+/SUPERVISOR_MODE
+ The mode vmsport always uses.
+/EXECUTIVE_MODE
+ Accepted, see /USER_MODE.
+/KERNEL_MODE
+ Accepted, see /USER_MODE.
+2 Example
+ $ ASSIGN HOST:[Users.me.data.] DATA
+
+   Same as DEFINE DATA HOST:[Users.me.data.].
+1 CALL
+ Calls a subroutine of the current procedure: a block that starts with
+ label: SUBROUTINE and ends with ENDSUBROUTINE. The subroutine runs at a
+ new procedure level, with its own local symbols, ON settings and
+ parameters P1 to P8.
+
+ Format
+
+   CALL label [p1 [p2 [... p8]]]
+2 Parameters
+label
+
+ The label of the SUBROUTINE line.
+
+p1 to p8
+
+ As for @: separated by blanks, upcased unless quoted.
+2 Status
+ EXIT [status] leaves the subroutine with that status; reaching
+ ENDSUBROUTINE leaves it with %X00030001. The status is in $STATUS
+ afterwards, and a failure the subroutine didn't show is shown.
+2 Example
+ $ CALL SQUARE 7
+ $ WRITE SYS$OUTPUT RESULT
+ $ EXIT
+ $SQUARE: SUBROUTINE
+ $ RESULT == P1 * P1
+ $ ENDSUBROUTINE
+1 CLOSE
+ Closes a file opened with OPEN.
+
+ Format
+
+   CLOSE logical-name
+2 Parameters
+logical-name
+
+ The name given to OPEN. A name that isn't open gives
+ %DCL-W-UNDFIL.
+2 Qualifiers
+/ERROR
+
+    /ERROR=label
+
+ Accepted; vmsport doesn't take it yet.
+/DISPOSITION
+
+    /DISPOSITION=keyword
+
+ Accepted; the file is always kept.
+1 Command_Procedures
+ A command procedure is a file of DCL commands that @ runs. A line that
+ starts with $ is a command; other lines are data and are skipped. A
+ command continues on the next line when it ends with a hyphen. An
+ exclamation mark starts a comment, outside quotation marks.
+
+ A line may start with a label, "name:", for GOTO, GOSUB and CALL.
+2 Levels
+ Each procedure, and each CALL, is a level with its own local symbols,
+ its own P1 to P8 and its own ON settings. Locals of outer levels are
+ visible; globals (==) are visible everywhere. F$ENVIRONMENT("DEPTH")
+ tells the level, 0 at the terminal.
+2 Status
+ Every command leaves its status in $STATUS, a string like "%X00030001",
+ and its severity in $SEVERITY (0 warning, 1 success, 2 error,
+ 3 informational, 4 severe). Commands DCL does itself leave %X00030001
+ when they work; WRITE and READ leave %X00010001.
+
+ A procedure that exits with a failure shows its message once, in the
+ caller, unless it was shown already.
+2 Errors
+ By default a procedure exits when a command fails with an error or a
+ severe error (ON ERROR THEN EXIT). ON chooses another action and another
+ severity; SET NOON turns this off for the level, SET ON back on.
+2 Verify
+ SET VERIFY echoes each line before it runs, as it is in the file after
+ apostrophe substitution; continuation lines show separately.
+2 LOGIN.COM
+ An interactive dcl session runs SYS$LOGIN:LOGIN.COM first, if there is
+ one. dcl -c and dcl FILE.COM don't.
+1 CONTINUE
+ Does nothing, and leaves $STATUS as it was. It is mostly an ON action:
+ ON WARNING THEN CONTINUE goes on after warnings.
+
+ Format
+
+   CONTINUE
+1 CONVERT
+ Copies the records of one or more files into a file of the
+ organization and record format you choose: sequential, relative or
+ indexed, fixed, variable, controlled or stream. The output is described
+ by an FDL file, or else has the attributes of the first input. Records
+ that the output can't take (too long, too short, out of order, a
+ duplicate key that isn't allowed) are exceptions: each is reported with
+ a %CONVERT-I message, and the rest go on.
+
+ Format
+
+   CONVERT input-file-spec[,...] output-file-spec
+2 Parameters
+input-file-spec[,...]
+
+ The files whose records are copied, in order, of any organization.
+
+output-file-spec
+
+ The file the records go to: a new version unless /NOCREATE, /APPEND or
+ /MERGE say to use the one that exists.
+2 Qualifiers
+/FDL
+
+    /FDL=fdl-file-spec
+
+ Describes the output (its FILE, RECORD, AREA and KEY sections); the
+ default type is .FDL.
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ With /NOCREATE, the records go into the existing output, which keeps
+ its attributes. A sequential output can only take them when it is
+ empty: otherwise there is RMS-F-NEF.
+/APPEND
+ Adds the records at the end of an existing sequential output.
+/MERGE
+ Inserts the records among those of an existing indexed output, by key.
+/PAD
+
+    /PAD[=character]
+
+ Fills records too short for a fixed-length output, with NUL or the
+ character given (a letter, or %X2A and the like). Without /PAD they are
+ exceptions.
+/TRUNCATE
+ Cuts records longer than the output's maximum record size. Without it
+ they are exceptions.
+/EXCEPTIONS_FILE
+
+    /EXCEPTIONS_FILE[=file-spec]
+
+ Keeps the exception records, as they were read, in the file given
+ (default type .EXC), or shows them on SYS$OUTPUT when no file is given.
+/SORT
+
+    /SORT (default)
+    /NOSORT
+
+ Sorts the records by the primary key before loading an indexed output.
+ With /NOSORT (and when the input is itself indexed) records out of
+ order are exceptions.
+/FAST_LOAD
+
+    /FAST_LOAD (default)
+    /NOFAST_LOAD
+
+ Loads an indexed output from sorted records. With /NOFAST_LOAD each
+ record is put as a program would put it, and records too short for the
+ keys are reported as RMS reports them.
+/STATISTICS
+
+    /STATISTICS[=BRIEF|FULL]
+
+ Shows how many files, records and exceptions there were, and the time
+ taken.
+/KEY
+
+    /KEY=n
+
+ Reads an indexed input in the order of its key n (0, the primary
+ key, by default). An indexed input isn't sorted again: loaded into an
+ indexed output by another key, records out of order are exceptions.
+/EXIT
+ Accepted; vmsport goes on after exceptions.
+/FILL_BUCKETS
+ Accepted.
+/FIXED_CONTROL
+ Accepted.
+/PROLOG
+
+    /PROLOG=n
+
+ Accepted.
+/READ_CHECK
+ Accepted.
+/SECONDARY
+
+    /SECONDARY=n
+
+ Accepted.
+/SHARE
+ Accepted.
+/WORK_FILES
+
+    /WORK_FILES=n
+
+ Accepted; vmsport sorts in memory.
+/WRITE_CHECK
+ Accepted.
+2 Examples
+ 1.$ CONVERT/FDL=FIXED.FDL/PAD/TRUNCATE NOTES.TXT NOTES.DAT
+
+   Makes NOTES.DAT a file of the fixed-length records FIXED.FDL
+   describes, padding short lines and cutting long ones.
+
+ 2.$ CONVERT/FDL=PARTS.FDL PARTS.TXT PARTS.IDX
+
+   Loads an indexed file from a text file, sorted by its primary key.
+1 COPY
+ Copies files, record by record, keeping their record attributes
+ (record format and carriage control, in the vms.fab extended
+ attribute). Each copy is a new version of the output.
+
+ Format
+
+   COPY input-file-spec[,...] output-file-spec
+2 Parameters
+input-file-spec[,...]
+
+ The files to copy; wildcards allowed. A plus sign between files
+ concatenates them, as a comma does when the output is one file.
+
+output-file-spec
+
+ Where to copy to. Fields it leaves out, and wildcards in it, come from
+ each input: COPY *.TXT *.BAK copies every .TXT to a .BAK. When several
+ inputs go to one output without wildcards, they are concatenated into
+ it.
+2 Qualifiers
+/LOG
+ Shows each copy, %COPY-S-COPIED, or each file added to a
+ concatenation, %COPY-S-APPENDED.
+/CONCATENATE
+ Accepted. vmsport decides by itself: several inputs and an output with
+ no wildcard are concatenated.
+/EXCLUDE
+
+    /EXCLUDE=(file-spec[,...])
+
+ Accepted; vmsport doesn't skip anything yet.
+2 Examples
+ 1.$ COPY NOTES.TXT [.BACKUP]/LOG
+
+   Copies the newest NOTES.TXT to [.BACKUP]NOTES.TXT, a new version.
+
+ 2.$ COPY A.TXT,B.TXT ALL.TXT
+
+   Concatenates A.TXT and B.TXT into a new ALL.TXT.
+1 CREATE
+ Makes files: a sequential file of the records typed after the command
+ (in a command procedure, its data lines), new directories
+ (/DIRECTORY), or an empty file of any organization as an FDL file
+ describes it (/FDL).
+
+ Format
+
+   CREATE file-spec[,...]
+   CREATE/DIRECTORY directory-spec[,...]
+   CREATE/FDL=fdl-file-spec [file-spec]
+2 Parameters
+file-spec[,...]
+
+ The files to create, each a new version. Only the first gets the
+ records; with /FDL the FDL's NAME is used when no file is given.
+2 Qualifiers
+/DIRECTORY
+
+ Creates the directories named, and those above them that aren't there
+ yet. One that exists already is reported as %CREATE-I-EXISTS.
+/FDL
+
+    /FDL=fdl-file-spec
+
+ Creates an empty sequential, relative or indexed file with the
+ attributes the FDL gives (default type .FDL; SYS$INPUT reads it from
+ the data lines that follow). Statements it doesn't understand are
+ reported by number, and no file is made.
+/LOG
+
+ Reports each file or directory created.
+1 DEASSIGN
+ Removes a logical name.
+
+ Format
+
+   DEASSIGN [logical-name[:]]
+2 Parameters
+logical-name
+
+ The name to remove. A name that isn't there gives
+ %SYSTEM-F-NOLOGNAM. Leave it out with /ALL.
+2 Qualifiers
+/TABLE
+
+    /TABLE=name
+
+ The table to remove it from. The default is LNM$PROCESS.
+/PROCESS
+ The process table (the default).
+/JOB
+ The job table.
+/GROUP
+ The group table.
+/SYSTEM
+ The system table.
+/ALL
+ Removes every name in the table.
+/USER_MODE
+ Accepted; vmsport deassigns at supervisor mode.
+/SUPERVISOR_MODE
+ The mode vmsport always uses.
+/EXECUTIVE_MODE
+ Accepted, see /USER_MODE.
+/KERNEL_MODE
+ Accepted, see /USER_MODE.
+1 DEFINE
+ Defines a logical name: a name that stands for one or more values,
+ mostly file specs or parts of them. See also Logical_Names.
+
+ Format
+
+   DEFINE logical-name equivalence-name[,...]
+2 Parameters
+logical-name
+
+ The name to define. DCL upcases it.
+
+equivalence-name[,...]
+
+ Its value, or the values of a search list. DCL upcases them unless they
+ are in quotation marks; quotation marks keep case and blanks and are not
+ part of the value.
+2 Qualifiers
+/TABLE
+
+    /TABLE=name
+
+ The logical name table to define it in. The default is LNM$PROCESS.
+/PROCESS
+ Defines the name in the process table (the default). Images DCL runs
+ get the process table, and the names they define come back to it.
+/JOB
+ Defines the name in the job table: the processes of one Unix login
+ session share it, and vmsportd keeps it.
+/GROUP
+ Defines the name in the group table, shared by your Unix group.
+/SYSTEM
+ Defines the name in the system table. vmsportd keeps one per user, so
+ "system" means all of your processes.
+/TRANSLATION_ATTRIBUTES
+
+    /TRANSLATION_ATTRIBUTES=(keyword[,...])
+
+ CONCEALED: a device name that file specs show instead of its
+ equivalence. TERMINAL: the equivalence isn't translated further. A
+ concealed name whose value ends in ".]" is a rooted device:
+ DEFINE/TRANSLATION=CONCEALED PROJ HOST:[Users.me.proj.] makes
+ PROJ:[SRC] the host directory /Users/me/proj/SRC.
+/LOG
+
+    /LOG (default)
+    /NOLOG
+
+ When the name already had a value, says so with %DCL-I-SUPERSEDE.
+/USER_MODE
+ Accepted. vmsport defines names in supervisor mode whatever is asked;
+ access modes are kept but protect nothing.
+/SUPERVISOR_MODE
+ The mode vmsport always uses.
+/EXECUTIVE_MODE
+ Accepted, see /USER_MODE.
+/KERNEL_MODE
+ Accepted, see /USER_MODE.
+2 Examples
+ 1.$ DEFINE NOTES SYS$LOGIN:NOTES.TXT
+   $ TYPE NOTES
+
+   A bare name is tried as a logical name for a file.
+
+ 2.$ DEFINE/TRANSLATION=CONCEALED WORK HOST:[Users.me.work.]
+   $ SET DEFAULT WORK:[000000]
+
+   A device of your own over a host directory.
+
+ 3.$ DEFINE TOOLS SYS$LOGIN:[TOOLS], SYS$LOGIN:[OLDTOOLS]
+
+   A search list: files are looked for in both, in that order.
+1 DELETE
+ Deletes files, or with /SYMBOL symbols. Deleting a file deletes one
+ version of it: on the host, the file NAME.TYP;n (or NAME.TYP for
+ version 1 of a plain Unix file).
+
+ Format
+
+   DELETE file-spec[,...]
+   DELETE/SYMBOL [symbol-name]
+2 Parameters
+file-spec[,...]
+
+ The files to delete. Each must give a version, as on VMS: ;n, ;0 (the
+ newest), ;-1 (the one before) or ;* (all). Wildcards allowed. Without a
+ version DELETE fails with %DELETE-W-DELVER.
+2 Qualifiers
+/LOG
+ Shows each file deleted, %DELETE-I-FILDEL, and the total.
+/CONFIRM
+ Accepted; vmsport doesn't ask yet.
+/SYMBOL
+ Deletes a symbol instead of files: see DELETE /SYMBOL.
+/BEFORE
+
+    /BEFORE=time
+
+ Accepted; vmsport doesn't select by date yet.
+/SINCE
+
+    /SINCE=time
+
+ Accepted; vmsport doesn't select by date yet.
+/EXCLUDE
+
+    /EXCLUDE=(file-spec[,...])
+
+ Accepted; vmsport doesn't skip anything yet.
+2 /SYMBOL
+ Deletes a symbol. DCL does this itself.
+
+ Format
+
+   DELETE/SYMBOL [symbol-name]
+3 Parameters
+symbol-name
+
+ The symbol to delete; an abbreviation defined with * deletes the whole
+ name. A symbol that isn't there gives %DCL-W-UNDSYM.
+3 Qualifiers
+/SYMBOL
+ Says this is DELETE/SYMBOL.
+/LOCAL
+ Deletes from the local symbols of the current level (the default).
+/GLOBAL
+ Deletes from the global symbols.
+/ALL
+ Deletes every symbol of the level, or with /GLOBAL every global one.
+/LOG
+ Accepted; nothing is shown.
+2 Examples
+ 1.$ DELETE *.TMP;*
+
+   Deletes every version of every .TMP file.
+
+ 2.$ DELETE/LOG REPORT.TXT;-1
+
+   Deletes the version before the newest.
+
+ 3.$ DELETE/SYMBOL/GLOBAL COUNT
+1 DIRECTORY
+ Lists files, laid out as VMS does: a heading per directory, the names
+ in columns, and a trailing total. Directories show as NAME.DIR;1, and a
+ plain Unix file with no ;n in its name is version 1.
+
+ Format
+
+   DIRECTORY [file-spec[,...]]
+2 Parameters
+file-spec[,...]
+
+ What to list; the default is *.*;* in the current default directory.
+ Wildcards are allowed in names, types, versions and directories:
+ [...] is a directory and all those below it, [*] the ones just below.
+2 Qualifiers
+/BRIEF
+ Names only (the default).
+/COLUMNS
+
+    /COLUMNS=n
+
+ Lists in n columns. With /SIZE or /DATE, names that don't fit are cut
+ and end in a vertical bar.
+/DATE
+
+    /DATE[=keyword]
+
+ Shows each file's date, from the host file system. The keywords
+ CREATED (the default), MODIFIED and ALL are accepted.
+/FULL
+ Shows what vmsport knows of each file: sizes, dates, record attributes,
+ and the owner and protection as the host has them.
+/GRAND_TOTAL
+ Shows only the totals for all the directories listed.
+/HEADING
+
+    /HEADING (default)
+    /NOHEADING
+
+ /NOHEADING leaves out the "Directory ..." lines and shows each file's
+ full spec.
+/OWNER
+ Accepted; see /FULL for the owner.
+/PROTECTION
+ Accepted; see /FULL for the protection.
+/SIZE
+
+    /SIZE[=keyword]
+
+ Shows each file's size in 512-byte blocks: USED (the default), the
+ host's ALLOCATION, or ALL (both).
+/TOTAL
+ Shows only each directory's totals.
+/TRAILING
+
+    /TRAILING (default)
+    /NOTRAILING
+
+ /NOTRAILING leaves out the "Total of ..." lines.
+/VERSIONS
+
+    /VERSIONS=n
+
+ Lists at most the n newest versions of each file.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Accepted; the listing goes to SYS$OUTPUT.
+/EXCLUDE
+
+    /EXCLUDE=(file-spec[,...])
+
+ Accepted; vmsport doesn't skip anything yet.
+2 Examples
+ 1.$ DIRECTORY/SIZE
+
+ 2.$ DIRECTORY [...]*.COM
+
+   Every .COM file here and below.
+
+ 3.$ DIRECTORY/VERSIONS=1 SYS$LOGIN:
+
+   The newest version of each file in your home directory.
+1 DISMOUNT
+ Ends the use of a device MOUNT made from a Files-11 image file. The
+ files that changed, came or went while it was mounted are written back
+ into the image, and the logical name MOUNT defined goes away.
+
+ Format
+
+   DISMOUNT device-name[:]
+2 Parameters
+device-name[:]
+
+ The device, as MOUNT named it (DKA100:).
+1 EDIT
+ Edits a text file in EVE, the editor EDIT runs on VMS (EDIT/TPU): a
+ screen with the text above a status line, keys for moving and editing,
+ and commands typed after the Do key. Exiting saves what changed as a new
+ version of the file; quitting saves nothing. Press Help in EVE for its
+ keys.
+
+ EDIT/HOST edits in the host's editor instead ($VISUAL, $EDITOR or vi);
+ put EDIT :== EDIT/HOST in your LOGIN.COM to make that the default.
+ EDIT/FDL is the FDL editor, of which vmsport has only the part that runs
+ without a terminal (see EDIT /FDL).
+
+ Format
+
+   EDIT [/qualifier...] file-spec
+   EDIT/FDL/NOINTERACTIVE/ANALYSIS=analysis-fdl input-fdl
+2 Parameters
+file-spec
+
+ The file to edit; with /FDL, the design to optimize.
+2 Qualifiers
+/FDL
+ Runs the FDL editor; see EDIT /FDL.
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ Edits a new file when the one named doesn't exist; with /NOCREATE EVE
+ says the file isn't there and ends.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Saves the edited file in this file (a new version of it) rather than in
+ a new version of the one edited.
+/READ_ONLY
+ Shows the file and lets nothing change it: the same as /NOWRITE
+ /NOMODIFY.
+/WRITE
+
+    /WRITE (default)
+    /NOWRITE
+
+ With /NOWRITE, exiting doesn't save the file (the status line says
+ Read-only); it can still be changed.
+/MODIFY
+
+    /MODIFY (default)
+    /NOMODIFY
+
+ With /NOMODIFY the file can't be changed (Unmodifiable).
+/DISPLAY
+
+    /DISPLAY (default)
+    /NODISPLAY
+
+ With /NODISPLAY there is no screen: EVE runs the initialization file's
+ commands, says what they say, and exits, saving what changed. That makes
+ EVE usable from command procedures.
+/INITIALIZATION
+
+    /INITIALIZATION[=file-spec]
+    /NOINITIALIZATION
+
+ EVE commands to run at the start, one per line (default type .EVE); by
+ default, the file the logical name EVE$INIT names, if there is one.
+/JOURNAL
+
+    /JOURNAL[=file-spec]
+
+ Keeps every key typed in a journal file (by default the file's name
+ with type .TJL), deleted when the session ends normally. After a crash,
+ /RECOVER types those keys again.
+/RECOVER
+ Types the keys of the journal file (see /JOURNAL) again, then goes on
+ from there.
+/START_POSITION
+
+    /START_POSITION=(line,column)
+
+ Where the cursor starts.
+/COMMAND
+
+    /COMMAND=file-spec
+    /NOCOMMAND
+
+ A TPU program to run at the start. vmsport's EVE has no TPU language: it
+ says so and goes on without it (a missing file is an error, as on VMS).
+/SECTION
+
+    /SECTION=file-spec
+    /NOSECTION
+
+ A TPU section file: as /COMMAND, not used.
+/HOST
+ Edits in the host's editor ($VISUAL, $EDITOR or vi) instead of EVE.
+/TPU
+ EVE, the default.
+/EDT
+ Edits with EDT, the line and keypad editor; see EDIT /EDT.
+2 /EDT
+ EDT, the line editor with a keypad mode. It starts at its * prompt
+ with the file's first line shown; a range typed alone shows those
+ lines. CHANGE (or SET MODE CHANGE in the command file) switches a
+ terminal to keypad mode, where the numeric keypad edits (PF1 is GOLD,
+ PF2 shows the keypad) and Ctrl/Z comes back to the prompt. EXIT saves
+ the main buffer as a new version of the file and QUIT leaves without
+ saving.
+
+ Line numbers are EDT's: the file's lines are 1, 2, 3 ..., lines put in
+ between 1 and 2 are 1.1, 1.2 ... until RESEQUENCE numbers them anew.
+
+ Format
+
+   EDIT/EDT [/qualifier...] file-spec
+3 Parameters
+file-spec
+
+ The file to edit; one that doesn't exist is made on EXIT.
+3 Commands
+
+ Ranges: n, ., BEGIN, END, "string", -"string" (searching back), +n,
+ -n, r:r or r THRU r, r FOR n, BEFORE, REST, WHOLE, ALL "string",
+ =buffer, and lists r,r.
+
+ TYPE, INSERT [range][;text], REPLACE, DELETE, COPY r TO r [/DUPLICATE],
+ MOVE r TO r, SUBSTITUTE/old/new/ [r] [/NOTYPE] [/BRIEF],
+ SUBSTITUTE NEXT [/old/new/], FIND, FILL (to SET WRAP's width),
+ TAB ADJUST n, RESEQUENCE [/SEQUENCE:start:step], INCLUDE file,
+ WRITE file [r], PRINT file [r], CLEAR buffer, SET and SHOW (CASE,
+ CURSOR, ENTITY, KEYPAD, LINES, MODE, NUMBERS, QUIET, SCREEN, SEARCH,
+ TAB, TEXT, TRUNCATE, VERIFY, WORD, WRAP, and SHOW BUFFER, FILES, KEY,
+ VERSION), DEFINE KEY, DEFINE MACRO, HELP, CHANGE, EXIT [file] [/SAVE],
+ QUIT [/SAVE].
+3 Keypad
+
+ PF1 GOLD, PF2 HELP, PF3 FNDNXT (GOLD: FIND), PF4 DEL L (UND L);
+ 7 PAGE (COMMAND), 8 SECT (FILL), 9 APPEND (REPLACE), - DEL W (UND W);
+ 4 ADVANCE (BOTTOM), 5 BACKUP (TOP), 6 CUT (PASTE), , DEL C (UND C);
+ 1 WORD (CHNGCASE), 2 EOL (DEL EOL), 3 CHAR (SPECINS), ENTER (SUBS);
+ 0 LINE (OPEN LINE), . SELECT (RESET). In parentheses: after GOLD.
+ Do (F16, ESC [29~) is COMMAND too. GOLD and digits repeat the next key. DELETE deletes back a character,
+ Ctrl/H goes to the start of the line, Ctrl/J deletes back a word,
+ Ctrl/U to the start of the line, Ctrl/W redraws, Ctrl/Z ends keypad
+ mode.
+3 Qualifiers
+/COMMAND
+
+    /COMMAND[=file-spec] (default)
+    /NOCOMMAND
+
+ EDT commands to run first. Without a file, EDTINI (a logical name, or
+ EDTINI.EDT in the default directory) if there is one.
+/JOURNAL
+
+    /JOURNAL[=file-spec] (default)
+    /NOJOURNAL
+
+ Keeps what is typed in a journal, the file's name with type .JOU in
+ the default directory unless named; EXIT and QUIT delete it unless
+ given /SAVE.
+/RECOVER
+ Replays the journal of a session that didn't end, then goes on.
+/OUTPUT
+
+    /OUTPUT=file-spec
+    /NOOUTPUT
+
+ Where EXIT writes; /NOOUTPUT and /READ_ONLY write nothing unless EXIT
+ names a file.
+/READ_ONLY
+ No journal, and EXIT needs a file name.
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ Edits an empty buffer when the file doesn't exist; with /NOCREATE,
+ that is an error.
+2 /HOST
+ Edits a text file in the host's editor ($VISUAL, $EDITOR or vi)
+ instead of EVE.
+
+ Format
+
+   EDIT/HOST [/qualifier...] file-spec
+3 Qualifiers
+/CREATE
+
+    /CREATE (default)
+    /NOCREATE
+
+ Edits a new file when the one named doesn't exist; with /NOCREATE that
+ is an error.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Saves what the editor leaves in this file (a new version of it).
+/READ_ONLY
+ Shows the file in the editor and saves nothing.
+2 /FDL
+ Runs the FDL editor, which writes FDL files: the file designs that
+ CREATE/FDL and CONVERT/FDL make files from. At a terminal it asks. You
+ can change the design a line at a time (ADD, MODIFY, DELETE), or run a
+ script (INVOKE) that asks about the file and how it will be used and
+ works the design out: a sequential, relative or indexed file, a key
+ added, reworked or removed, or every key of an indexed file reworked
+ for the data ANALYZE/RMS_FILE/FDL found in it. For an indexed file's
+ keys it plots how deep the index gets at each bucket size, and lets
+ you change what it was told until the design suits you. EXIT writes the
+ design, QUIT leaves without writing; HELP inside the editor tells more.
+
+ With /NOINTERACTIVE it asks nothing: it optimizes an indexed design for
+ the data an analysis describes. For each key it estimates the size of a
+ record (or of an alternate key's entry) from the analysis's compression
+ figures, takes the bucket size that gives the shallowest index, and
+ sizes the data and the index; areas group them as /GRANULARITY says. A
+ sequential or relative design is left alone and nothing is written; an
+ analysis of an indexed file with a design that isn't indexed says so.
+
+ Format
+
+   EDIT/FDL [/qualifiers] fdl-file
+3 Parameters
+fdl-file
+
+ The design, default type .FDL. If it doesn't exist the editor starts a
+ new one. With /NOINTERACTIVE its attributes are kept, except those the
+ optimizing sets (areas, bucket sizes, the keys' areas and fill).
+3 Qualifiers
+/ANALYSIS
+
+    /ANALYSIS=analysis-fdl
+
+ ANALYZE/RMS_FILE/FDL's output for a file holding the data, default type
+ .FDL: what the OPTIMIZE script designs for. Required with
+ /NOINTERACTIVE; at the terminal OPTIMIZE asks for one if it isn't given.
+/EMPHASIS
+
+    /EMPHASIS=FLATTER_FILES (default)
+    /EMPHASIS=SMALLER_BUFFERS
+
+ Which bucket size the scripts offer first: the one giving the
+ shallowest index, or the smallest one that makes it a level shallower.
+ Without a terminal VMS's FDL editor designs the same either way, and so
+ does vmsport.
+/GRANULARITY
+
+    /GRANULARITY=n
+
+ How many areas the design has, 1 to 4 (default 3). With 1 everything
+ is in one area; with 2 the primary key's data has one and all the rest
+ another; with 3 the primary key's data, its index and the alternate
+ keys each have one; 4 also parts the alternate keys' data from their
+ index.
+/INTERACTIVE
+
+    /INTERACTIVE (default)
+    /NOINTERACTIVE
+
+ Whether the editor asks. Asking needs a terminal: when SYS$INPUT is
+ anything else the editor stops with EDF-F-DEVCLASS.
+/OUTPUT
+
+    /OUTPUT[=fdl]
+
+ Where the design goes, default type .FDL; by default a new version of
+ the input.
+/SCRIPT
+
+    /SCRIPT=script-name
+
+ Runs a script first: ADD_KEY, DELETE_KEY, INDEXED, OPTIMIZE, RELATIVE,
+ SEQUENTIAL or TOUCHUP. With /NOINTERACTIVE, DCL refuses it.
+1 ELSE
+ Starts the part of an IF block that runs when the condition is false.
+ See IF.
+
+ Format
+
+   ELSE
+1 ENDIF
+ Ends an IF block. See IF.
+
+ Format
+
+   ENDIF
+1 ENDSUBROUTINE
+ Ends a SUBROUTINE block. See SUBROUTINE.
+
+ Format
+
+   ENDSUBROUTINE
+1 EOJ
+ Ends the session, like LOGOUT.
+
+ Format
+
+   EOJ
+1 EXIT
+ Leaves the current procedure level (a procedure or a CALL) and goes back
+ to the one that started it.
+
+ Format
+
+   EXIT [status]
+2 Parameters
+status
+
+ An expression for the status to leave with; $STATUS has it afterwards.
+ Without it the level leaves with the status of the last command. A
+ failure is shown, unless it was shown already. At the terminal EXIT
+ doesn't leave dcl, but shows a failing status.
+2 Example
+ $ IF F$SEARCH(P1) .EQS. "" THEN EXIT %X10018292
+
+   Leaves with RMS-E-FNF, marked as shown (bit 28), so no message.
+1 Expressions
+ DCL's values are 32-bit integers and strings. An expression is used
+ after = and ==, in IF, WRITE, EXIT, RETURN, and as the arguments of
+ lexical functions.
+2 Operators
+ From the lowest precedence to the highest:
+
+   .OR.                       bitwise or
+   .AND.                      bitwise and
+   .NOT.                      bitwise complement
+   .EQ. .NE. .LT. .LE. .GT. .GE.     compare as integers
+   .EQS. .NES. .LTS. .LES. .GTS. .GES.  compare as strings
+   + -                        add, subtract (see Strings)
+   * /                        multiply, divide
+   unary + -
+
+ Parentheses group. Comparisons give 1 (true) or 0. Arithmetic wraps
+ at 32 bits; division by zero gives 0 and no error.
+2 Values
+ Integers are written in decimal, or with a radix: %X1F (hex), %O17
+ (octal), %D99 (decimal). Strings are in quotation marks; a doubled
+ quotation mark is one quotation mark. A string runs to the end of the
+ line if it isn't closed. A symbol name stands for its value; an
+ undefined one gives %DCL-W-UNDSYM.
+2 Strings
+ String + string is the two joined. String - string is the first with
+ the first occurrence of the second taken out. When one side is an
+ integer, the string is turned into an integer.
+
+ A string as an integer: its number if it is one (radix forms too),
+ otherwise 1 if it starts with T, t, Y or y, otherwise 0. An integer as
+ a string: its decimal digits.
+2 Truth
+ A value is true when its integer value is odd: 1, "YES", "TRUE" and "1"
+ are true; 0, 2, "NO" and "" are false.
+1 Foreign_Commands
+ A foreign command is a symbol whose value starts with a dollar sign: the
+ rest names a program, which runs with the words of the command line as
+ its Unix argv, as typed.
+
+ Format
+
+   symbol :== $program [arguments]
+2 Program
+ The program is a VMS file spec (SYS$LOGIN:[BIN]TOOL, type .EXE, or a
+ host program with no type) or a Unix path. := and :== upcase what isn't
+ quoted, so $/bin/ls becomes $/BIN/LS; vmsport finds Unix paths whatever
+ their case. A vmsport program can also get the line as LIB$GET_FOREIGN
+ returns it: upcased and squeezed outside quotation marks.
+2 DCL$PATH
+ A verb DCL doesn't know is looked for in the directories DCL$PATH names
+ (a logical name, possibly a search list): VERB.COM runs as a procedure,
+ else VERB.EXE or an executable file named verb (lowercase) runs as a
+ foreign command.
+
+ $ DEFINE DCL$PATH HOST:[usr.bin], HOST:[usr.local.bin]
+ $ wc -l NOTES.TXT
+2 Status
+ A program that exits with Unix code 0 leaves SS$_NORMAL in $STATUS; any
+ other code n leaves %X1035A002 + n*8, an error marked as shown. vmsport
+ programs send their full 32-bit status instead.
+2 Example
+ $ LS :== "$/bin/ls"
+ $ LS -l
+
+   With quotation marks the path keeps its case.
+1 GOSUB
+ Goes to a label in the current procedure and comes back with RETURN.
+ GOSUBs nest; they don't start a procedure level, so symbols are shared.
+
+ Format
+
+   GOSUB label
+2 Parameters
+label
+
+ The label to go to. One that isn't there gives %DCL-W-USGOSUB.
+2 Example
+ $ GOSUB SHOW_IT
+ $ EXIT
+ $SHOW_IT:
+ $ WRITE SYS$OUTPUT "here"
+ $ RETURN
+1 GOTO
+ Goes to a label in the current procedure. Going out of an IF block ends
+ the block.
+
+ Format
+
+   GOTO label
+2 Parameters
+label
+
+ The label: a line that starts with "label:". One that isn't there gives
+ %DCL-W-USGOTO.
+1 HELP
+ Shows help from a help library: a topic, its text, and the subtopics it
+ has. Run at a terminal, HELP then asks for a subtopic: type one to see
+ it, ? to see the current topic again, Return to go up a level, and
+ Ctrl/Z to leave.
+
+ vmsport reads help libraries as .HLP text (keys "1 TOPIC", "2 SUBTOPIC",
+ and /QUALIFIER entries under Qualifiers), where VMS uses .HLB files made
+ by LIBRARY/HELP.
+
+ Format
+
+   HELP [topic [subtopic [...]]]
+2 Parameters
+topic
+
+ What to show. Abbreviations work; * and % are wildcards; "topic..."
+ shows the topic and everything under it. A qualifier written after a
+ verb, as in HELP DIRECTORY/SIZE, is that verb's qualifier.
+2 Qualifiers
+/LIBRARY
+
+    /LIBRARY=file-spec
+
+ The help library to use instead of SYS$HELP:HELPLIB.HLP.
+/PROMPT
+
+    /PROMPT (default)
+    /NOPROMPT
+
+ /NOPROMPT shows the help and stops, without asking for more. HELP also
+ doesn't ask when its input isn't a terminal.
+/INSTRUCTIONS
+
+    /INSTRUCTIONS (default)
+    /NOINSTRUCTIONS
+
+ HELP with no topic starts with a few lines on how to use it;
+ /NOINSTRUCTIONS leaves them out.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Writes the help to a file instead of SYS$OUTPUT.
+/PAGE
+ Stops after each screenful.
+/USERLIBRARY
+
+    /USERLIBRARY=(table[,...])
+
+ Where HELP also looks for help libraries of your own, named by the
+ logical names HLP$LIBRARY, HLP$LIBRARY_1, and so on: the PROCESS, JOB,
+ GROUP and SYSTEM tables, ALL of them, or NONE.
+2 /HELP
+ In vmsport every command takes /HELP: instead of running, it shows its
+ help, as HELP verb would. SET DEFAULT/HELP shows HELP SET DEFAULT. The
+ utilities run from a Unix shell take it too: directory /help. A verb
+ with no help of its own shows what its command table says it takes.
+2 Examples
+ 1.$ HELP COPY
+
+ 2.$ HELP SHOW LOGICAL/FULL
+
+ 3.$ HELP/NOPROMPT Lexicals F$PARSE
+1 IF
+ Runs a command, or a block of commands, when an expression is true.
+
+ Format
+
+   IF expression THEN [$] command
+
+   IF expression
+   THEN
+       commands
+   [ELSE
+       commands]
+   ENDIF
+2 Parameters
+expression
+
+ Any expression; it is true when its integer value is odd (see
+ Expressions, Truth).
+
+command
+
+ On the same line as THEN, the command that runs when the expression is
+ true. Nothing after THEN starts a block.
+2 Blocks
+ THEN, ELSE and ENDIF of a block are commands of their own, each on its
+ own line. Blocks nest. An IF without THEN on its line wants THEN as the
+ next command. GOTO out of a block ends it.
+2 THEN
+ Starts the commands that run when the IF's expression is true.
+2 ELSE
+ Starts the commands that run when it is false.
+2 ENDIF
+ Ends the block.
+2 Example
+ $ IF F$SEARCH("LOGIN.COM") .NES. ""
+ $ THEN
+ $     WRITE SYS$OUTPUT "found"
+ $ ELSE
+ $     WRITE SYS$OUTPUT "not found"
+ $ ENDIF
+1 INQUIRE
+ Asks a question at the terminal and puts the answer in a symbol.
+
+ Format
+
+   INQUIRE symbol-name [prompt-string]
+2 Parameters
+symbol-name
+
+ The symbol for the answer. DCL upcases the answer and squeezes its
+ blanks, unless it is in quotation marks.
+
+prompt-string
+
+ The question; the default is the symbol's name.
+2 Qualifiers
+/LOCAL
+ Defines a local symbol (the default).
+/GLOBAL
+ Defines a global symbol.
+/PUNCTUATION
+
+    /PUNCTUATION (default)
+    /NOPUNCTUATION
+
+ Puts ": " after the prompt.
+1 Lexicals
+ Lexical functions return facts about strings, symbols, files, logical
+ names, times and the process. They are written F$NAME(arguments) in
+ expressions, and inside apostrophes ('F$LENGTH(X)') in command lines.
+ An argument may be left empty, as in F$PARSE(X,,,"NAME").
+
+ Not there yet: F$FILE_ATTRIBUTES, F$GETDVI, F$CONTEXT, F$IDENTIFIER,
+ F$PRIVILEGE, F$CSID, F$DELTA_TIME and F$READLINE; they give
+ %DCL-W-IVFNAM.
+2 F$CVSI
+ F$CVSI(start-bit, bits, string): the bits of string, from start-bit
+ (counting from the low bit of the first character), as a signed
+ integer.
+2 F$CVTIME
+ F$CVTIME([time [, format [, field]]]): converts a time.
+
+ time: an absolute time (dd-MMM-yyyy hh:mm:ss.cc, parts may be left
+ out), a delta time (dddd-hh:mm:ss.cc), a combination (time+delta,
+ time-delta), or TODAY, TOMORROW, YESTERDAY. The default is now.
+
+ format: ABSOLUTE, COMPARISON (yyyy-mm-dd hh:mm:ss.cc, the default) or
+ DELTA.
+
+ field: DATE, DATETIME, DAY, DAYOFYEAR, HOUR, HUNDREDTH, MINUTE, MONTH,
+ SECOND, TIME, WEEKDAY, YEAR and the like. Without it the whole time.
+2 F$CVUI
+ F$CVUI(start-bit, bits, string): as F$CVSI, unsigned.
+2 F$DIRECTORY
+ F$DIRECTORY(): the current default directory, [dir] only.
+2 F$EDIT
+ F$EDIT(string, edits): string, edited. edits is a list of COLLAPSE
+ (drop blanks and tabs), COMPRESS (runs of them become one blank),
+ LOWERCASE, TRIM (drop them at both ends), UNCOMMENT (drop from the first
+ ! on) and UPCASE. Text in quotation marks is left alone, except by TRIM
+ and UNCOMMENT.
+2 F$ELEMENT
+ F$ELEMENT(n, delimiter, string): the n-th element (from 0) of string,
+ split at delimiter, a single character. Past the last element it
+ returns the delimiter.
+2 F$ENVIRONMENT
+ F$ENVIRONMENT(item): about the DCL session. Items: DEPTH (procedure
+ level, 0 at the terminal), PROCEDURE (the running procedure's spec),
+ DEFAULT (default directory), ON_SEVERITY (WARNING, ERROR, SEVERE_ERROR
+ or NONE), VERIFY_PROCEDURE and VERIFY_IMAGE, MESSAGE (the SET MESSAGE
+ flags), INTERACTIVE, CAPTIVE, MAX_DEPTH, PROMPT, ON_CONTROL_Y,
+ SYMBOL_SCOPE.
+2 F$EXTRACT
+ F$EXTRACT(start, length, string): length characters of string from
+ start (from 0). Past the end it gives what there is; a negative start
+ or length gives "".
+2 F$FAO
+ F$FAO(control-string [, argument ...]): formats with $FAO directives:
+ !AS a string, !UL !SL !XL !OL !ZL a number (also B and W sizes),
+ !n<...!> a field, !%S a plural s, !%D and !%T a time, !/ a new line,
+ !_ a tab, !! an exclamation mark, a width in front (!10AS) and more.
+2 F$GETJPI
+ F$GETJPI(pid, item): about this process. vmsport answers USERNAME, PID,
+ MASTER_PID, UIC, GRP, MEM, PRCNAM, MODE, NODENAME and VERSION; the pid
+ is ignored.
+2 F$GETSYI
+ F$GETSYI(item): about the system: NODENAME (the host name), SCSNODE,
+ VERSION and ARCH_NAME.
+2 F$INTEGER
+ F$INTEGER(expression): the value as an integer (see Expressions,
+ Strings).
+2 F$LENGTH
+ F$LENGTH(string): its length.
+2 F$LOCATE
+ F$LOCATE(substring, string): where substring starts in string (from 0),
+ or the length of string if it isn't there.
+2 F$LOGICAL
+ F$LOGICAL(name): the old form of F$TRNLNM(name).
+2 F$MATCH_WILD
+ F$MATCH_WILD(candidate, pattern): "TRUE" if candidate matches pattern,
+ with * and % wildcards, ignoring case; else "FALSE".
+2 F$MESSAGE
+ F$MESSAGE(status [, components]): the message for a status, from the
+ system messages and SET MESSAGE files. components lists the parts to
+ return: FACILITY, SEVERITY, IDENT, TEXT (the default is all of them).
+2 F$MODE
+ F$MODE(): "INTERACTIVE".
+2 F$PARSE
+ F$PARSE(file-spec [, default-spec [, related-spec [, field [, type]]]]):
+ file-spec with what it leaves out taken from the other two specs, then
+ the default device and directory, after logical names: the full spec,
+ upcased, or one field, NODE, DEVICE, DIRECTORY, NAME, TYPE or VERSION.
+
+ The device must exist, and for the full spec the directory too;
+ otherwise F$PARSE returns "". type SYNTAX_ONLY checks the syntax only.
+ A spec that is just a name may be a logical name for a file.
+2 F$PID
+ F$PID(context): the process id, in hex.
+2 F$SEARCH
+ F$SEARCH(file-spec [, stream]): the next file matching file-spec, a
+ full spec, or "" when there are no more. Call it again with the same
+ spec for the next one; a different spec starts again. stream numbers
+ keep several searches apart.
+2 F$STRING
+ F$STRING(expression): the value as a string.
+2 F$TIME
+ F$TIME(): the date and time now, dd-MMM-yyyy hh:mm:ss.cc.
+2 F$TRNLNM
+ F$TRNLNM(name [, table [, index [, mode [, case [, item]]]]]): a logical
+ name's value, or "". table defaults to LNM$DCL_LOGICAL (process, job,
+ group, system); index picks a value of a search list (from 0); names are
+ matched case-blind; mode and case are taken but not used. item is VALUE
+ (the default), LENGTH, MAX_INDEX, TABLE_NAME, TABLE, TERMINAL,
+ CONCEALED, CONFINE, NO_ALIAS, CRELOG or ACCESS_MODE.
+2 F$TYPE
+ F$TYPE(symbol-name): "INTEGER" if the symbol is an integer or a string
+ that reads as one, "STRING" for other strings, "" if there is no such
+ symbol. The argument must be a symbol name.
+2 F$UNIQUE
+ F$UNIQUE(): a string different each time.
+2 F$USER
+ F$USER(): the UIC, [group,member] in octal from the Unix gid and uid.
+2 F$VERIFY
+ F$VERIFY([procedure-value [, image-value]]): 1 if SET VERIFY is on, else
+ 0; with an argument, turns it on (true) or off (false) as well.
+1 Logical_Names
+ A logical name is a name that stands for one or more values: usually a
+ device, a directory or a whole file spec. File specs are translated
+ through logical names, up to 10 levels, until a value is TERMINAL or
+ isn't a logical name.
+2 Tables
+ LNM$PROCESS     this process; images DCL runs get a copy, and what
+                 they change comes back
+ LNM$JOB         the processes of one job: a Unix login session
+ LNM$GROUP       your Unix group
+ LNM$SYSTEM      in vmsport, all of your processes
+
+ vmsportd, a per-user daemon started on first use, keeps the job, group
+ and system tables. LNM$FILE_DEV, used for file specs, and
+ LNM$DCL_LOGICAL, used by SHOW LOGICAL and F$TRNLNM, are search lists of
+ these four.
+2 Search_Lists
+ A name with several values is a search list: DEFINE X A:, B:. Opening a
+ file through it tries each value in turn; DIRECTORY and F$SEARCH look
+ in all of them.
+2 Devices
+ HOST: is the host's / and the only real device. Everything else is a
+ logical name over it. A concealed name that ends in ".]" is a rooted
+ device: its directory is the top, [000000], of the device.
+
+ SYS$LOGIN        your home directory
+ SYS$SCRATCH      the same
+ SYS$SYSROOT      vmsport's sys directory, rooted and concealed
+ SYS$SYSTEM       SYS$SYSROOT:[SYSEXE]
+ SYS$MESSAGE      SYS$SYSROOT:[SYSMSG]
+ SYS$LIBRARY      SYS$SYSROOT:[SYSLIB] (command tables)
+ SYS$HELP         SYS$SYSROOT:[SYSHLP] (help libraries)
+ SYS$DISK         the default device
+2 From_Unix
+ The lnm tool shows and sets job logical names from a Unix shell:
+ lnm NAME, lnm NAME=VALUE[,VALUE], lnm -d NAME.
+1 LOGOUT
+ Ends the DCL session. In a subprocess made by SPAWN it says "Process
+ name logged out at ..." and control goes back to the parent.
+
+ Format
+
+   LOGOUT
+2 Qualifiers
+/BRIEF
+ Accepted; no logout message is shown.
+/FULL
+ Accepted; no accounting is shown.
+1 MERGE
+ Merges files already in order by their keys into one file in that
+ order. Each input is checked: a record before the one that came before
+ it in the same input is reported (%SORT-W-BAD_ORDER) and still merged.
+
+ Format
+
+   MERGE input-file-spec,input-file-spec[,...] output-file-spec
+2 Parameters
+input-file-spec[,...]
+
+ The sorted files. When keys are equal, the record of the earlier input
+ comes first.
+
+output-file-spec
+
+ The file the merged records go to.
+2 Qualifiers
+/KEY
+
+    /KEY=(POSITION:n,SIZE:n[,type][,order][,NUMBER:n])
+
+ A key: where it starts in the record (POSITION, from 1) and how long it
+ is (SIZE: bytes, or digits for decimal keys). Give one /KEY for each
+ key; the first is the most significant, unless NUMBER says otherwise.
+ Without /KEY, the whole record is the key. The type is CHARACTER (the
+ default; a key past the end of a record is padded with NULs), BINARY
+ (an integer of 1, 2, 4 or 8 bytes, SIGNED by default or UNSIGNED),
+ DECIMAL or ZONED (one digit a byte, the sign overpunched on the last
+ unless LEADING_SIGN and SEPARATE_SIGN say otherwise) or PACKED_DECIMAL.
+ The order is ASCENDING (the default) or DESCENDING.
+/STABLE
+ Keeps records with equal keys in the order they were read. Without it
+ they come out in the order VMS's sort leaves them, which vmsport
+ follows for small files.
+/DUPLICATES
+
+    /DUPLICATES (default)
+    /NODUPLICATES
+
+ With /NODUPLICATES, only one record of each key value is kept.
+/STATISTICS
+ Shows the counts of records read, sorted and written, and the sizes the
+ sort worked with.
+/COLLATING_SEQUENCE
+
+    /COLLATING_SEQUENCE=sequence
+
+ Accepted; keys are compared as ASCII.
+/SPECIFICATION
+
+    /SPECIFICATION=file-spec
+
+ Accepted; vmsport takes keys from /KEY only.
+/FORMAT
+
+    /FORMAT=(FIXED:n | VARIABLE:n | CONTROLLED:n)
+
+ After the output: its record format and size. Longer records are cut,
+ and fixed-length ones are padded with NULs.
+/SEQUENTIAL
+ After the output: a sequential file (the default).
+/RELATIVE
+ After the output: a relative file.
+/INDEXED_SEQUENTIAL
+ After the output: an indexed file, which must exist (with /OVERLAY).
+/OVERLAY
+ After the output: write into the existing file, which keeps its
+ attributes, rather than a new version.
+/ALLOCATION
+
+    /ALLOCATION=n
+
+ After the output: accepted.
+/BUCKET_SIZE
+
+    /BUCKET_SIZE=n
+
+ After the output: accepted.
+/CONTIGUOUS
+ After the output: accepted.
+/CHECK_SEQUENCE
+
+    /CHECK_SEQUENCE (default)
+    /NOCHECK_SEQUENCE
+
+ Reports records out of order in an input.
+2 Examples
+ 1.$ MERGE/KEY=(POSITION:1,SIZE:8) JAN.TXT,FEB.TXT YEAR.TXT
+
+   Merges two files sorted by their first eight characters.
+1 MOUNT
+ Makes a Files-11 disk image (ODS-2 or ODS-5, as INITIALIZE or the ods
+ tool make it, or as copied from a VMS system) a device, so its files can
+ be used as DKA100:[DIR]FILE.TYP. Every process of the user sees it until
+ DISMOUNT, which writes the changes back into the image.
+
+ vmsport names the image first, where VMS names a drive.
+
+ Format
+
+   MOUNT image-file device-name[:] [volume-label] [logical-name[:]]
+2 Parameters
+image-file
+
+ The host file holding the volume.
+device-name[:]
+
+ The name the volume gets: DKA100:, LDA1: or any other.
+volume-label
+
+ The label the volume must have; MOUNT fails with INCVOLLABEL when it
+ has another.
+logical-name[:]
+
+ The logical name to define for the device in the job table; by default
+ DISK$label.
+2 Qualifiers
+/OVERRIDE
+
+    /OVERRIDE=IDENTIFICATION
+
+ Mounts the volume whatever its label.
+/WRITE
+
+    /WRITE (default)
+    /NOWRITE
+
+ With /NOWRITE, DISMOUNT leaves the image as it was, whatever was
+ changed on the device.
+1 ON
+ Says what to do when a command in this procedure level fails.
+
+ Format
+
+   ON condition THEN command
+2 Parameters
+condition
+
+ WARNING (warnings and worse), ERROR (errors and severe errors; the
+ default, with EXIT as the command) or SEVERE_ERROR. CONTROL_Y is
+ accepted and does nothing yet.
+
+command
+
+ What to run: often GOTO label, or CONTINUE to go on. It runs once; then
+ the level is back to ON ERROR THEN EXIT.
+2 Notes
+ SET NOON turns the checks off for the level, SET ON back on. Each level
+ (procedure or CALL) has its own ON setting.
+2 Example
+ $ ON ERROR THEN GOTO CLEANUP
+1 OPEN
+ Opens a sequential file for READ and WRITE, under a logical name.
+
+ Format
+
+   OPEN logical-name file-spec
+2 Parameters
+logical-name
+
+ The name READ, WRITE and CLOSE use for the file.
+
+file-spec
+
+ The file. If it can't be opened, DCL shows %DCL-E-OPENIN (or OPENOUT)
+ with the reason, and $STATUS has the RMS status.
+2 Qualifiers
+/READ
+ Opens it for reading (the default).
+/WRITE
+ Makes a new version and opens it for writing. vmsport writes stream_LF
+ text files (VMS makes VFC ones). /READ/WRITE together opens for reading
+ only for now.
+/APPEND
+ Opens the newest version and writes after its end.
+/SHARE
+
+    /SHARE[=READ|WRITE]
+
+ Lets others open the file too: READ lets them read it, WRITE (the
+ default) read and change it. Without /SHARE a file opened to read can be
+ read by others, and one opened to write is the opener's alone; an open
+ that conflicts fails with RMS-E-FLK.
+/ERROR
+
+    /ERROR=label
+
+ Goes to label if the file can't be opened, with no message.
+2 Example
+ $ OPEN/WRITE OUT REPORT.TXT
+ $ WRITE OUT "first line"
+ $ CLOSE OUT
+1 PIPE
+ Runs commands joined by pipes, one after the other, or depending on how
+ the one before went.
+
+ Format
+
+   PIPE command [| command ...] [; && || ...]
+2 Parameters
+command
+
+ A command, or several in parentheses (a subshell), with any of:
+
+   < file-spec     input from the file
+   > file-spec     output to a new version of the file
+   2> file-spec    SYS$ERROR to a new version of the file
+
+ The redirections need a blank in front.
+2 Joining
+ a | b      b reads what a writes; each runs in a DCL subprocess, and
+            reads SYS$PIPE (or SYS$INPUT) as its input
+ a ; b      a, then b
+ a && b     b only if a worked
+ a || b     b only if a failed
+
+ A command alone, with no pipe and no redirection, runs in this process,
+ so PIPE A = 1 ; SHOW SYMBOL A sets A here.
+2 Status
+ After a pipeline $STATUS has the last command's status, marked as shown.
+ If the last part didn't run (after && or ||), it is 0.
+2 Examples
+ 1.$ PIPE TYPE NOTES.TXT | SEARCH SYS$PIPE TODO
+
+ 2.$ PIPE (WRITE SYS$OUTPUT "a" ; WRITE SYS$OUTPUT "b") | SEARCH SYS$PIPE A
+
+ 3.$ PIPE SHOW LOGICAL SYS$LOGIN > LOGIN.TXT
+1 PURGE
+ Deletes all but the newest versions of files.
+
+ Format
+
+   PURGE [file-spec[,...]]
+2 Parameters
+file-spec[,...]
+
+ The files to purge; the default is *.* in the current default
+ directory.
+2 Qualifiers
+/KEEP
+
+    /KEEP=n
+
+ Keeps the n newest versions (the default is 1).
+/LOG
+ Shows each version deleted, %PURGE-I-FILPURG, and the total.
+/EXCLUDE
+
+    /EXCLUDE=(file-spec[,...])
+
+ Accepted; vmsport doesn't skip anything yet.
+1 READ
+ Reads a record from a file opened with OPEN, or a line from the
+ terminal or a pipe, into a local symbol.
+
+ Format
+
+   READ logical-name symbol-name
+2 Parameters
+logical-name
+
+ The name given to OPEN, or SYS$INPUT, SYS$COMMAND, SYS$PIPE or TT for
+ DCL's input.
+
+symbol-name
+
+ The local symbol for the record.
+2 Qualifiers
+/END_OF_FILE
+
+    /END_OF_FILE=label
+
+ Goes to label at the end of the file. Without it, the end of the file
+ is an error, %RMS-E-EOF.
+/PROMPT
+
+    /PROMPT=string
+
+ The prompt when reading the terminal.
+/ERROR
+
+    /ERROR=label
+
+ Accepted; vmsport doesn't take it yet.
+/KEY
+
+    /KEY=string
+
+ Reads the record whose key matches the string, in the key /INDEX names
+ (the primary key by default); a string shorter than the key matches its
+ leading part. Later READs go on in that key's order. A relative file's
+ key is the record number as 4 bytes.
+/INDEX
+
+    /INDEX=n
+
+ The key /KEY reads by: 0 is the primary key, 1 the first alternate.
+/MATCH
+
+    /MATCH=option
+
+ How /KEY matches: EQ (the default), GE, GT, LE or LT, the record whose
+ key is equal to the string, at or after it, after it, at or before it,
+ or before it.
+/DELETE
+ Deletes the record once it is read.
+/NOLOCK
+ Reads the record without locking it, even when another stream has it
+ locked. Without /NOLOCK, in a file others may change, the record stays
+ locked against other streams until this one's next operation.
+/TIME_OUT
+
+    /TIME_OUT=n
+
+ Accepted; not used yet.
+2 Example
+ $ OPEN IN NOTES.TXT
+ $LOOP:
+ $ READ/END_OF_FILE=DONE IN LINE
+ $ WRITE SYS$OUTPUT LINE
+ $ GOTO LOOP
+ $DONE:
+ $ CLOSE IN
+1 RETURN
+ Goes back from a GOSUB to the command after it.
+
+ Format
+
+   RETURN [status]
+2 Parameters
+status
+
+ An expression for $STATUS; a failure is shown. RETURN with no GOSUB to
+ go back to does nothing, as on VMS.
+1 SEARCH
+ Searches files for lines that hold one or more strings.
+
+ Format
+
+   SEARCH file-spec[,...] search-string[,...]
+2 Parameters
+file-spec[,...]
+
+ The files to search; wildcards allowed. SYS$PIPE and SYS$INPUT are the
+ command's input.
+
+search-string[,...]
+
+ What to look for. DCL upcases a string that isn't in quotation marks.
+2 Qualifiers
+/EXACT
+ Matches case exactly; by default case doesn't matter.
+/HEADING
+
+    /HEADING (default)
+    /NOHEADING
+
+ When several files are searched, shows each file's name, between lines
+ of asterisks, before its matches.
+/LOG
+ Shows each file searched and how many lines matched.
+/MATCH
+
+    /MATCH=keyword
+
+ OR (the default): a line with any of the strings. AND: with all of
+ them. NAND: without all of them. NOR: with none.
+/NUMBERS
+ Shows each line's number.
+/WINDOW
+
+    /WINDOW[=n]
+    /WINDOW=(before,after)
+
+ Shows lines around each match: n lines in all, or before and after.
+/STATISTICS
+ Accepted; no statistics are shown yet.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Accepted; the lines go to SYS$OUTPUT.
+/EXCLUDE
+
+    /EXCLUDE=(file-spec[,...])
+
+ Accepted; vmsport doesn't skip anything yet.
+2 Examples
+ 1.$ SEARCH *.COM "SET VERIFY"
+
+ 2.$ SEARCH/NUMBERS/WINDOW=3 NOTES.TXT TODO
+1 SET
+ Changes something about the DCL session.
+
+ Format
+
+   SET option
+2 COMMAND
+ Adds the verbs a CLD file defines to this process's command tables, or
+ writes the tables for a program.
+
+ Format
+
+   SET COMMAND [file-spec[,...]]
+3 Parameters
+file-spec[,...]
+
+ The CLD files; the default type is .CLD. A verb's IMAGE may be a VMS
+ file spec, a logical name, or a Unix program, which gets the command's
+ parameters as its argv.
+3 Qualifiers
+/DELETE
+
+    /DELETE=(verb[,...])
+
+ Takes verbs out of this process's tables.
+/OBJECT
+
+    /OBJECT[=file-spec]
+
+ Writes the tables as C source for a program to pass to cli$dcl_parse,
+ instead of changing this process's tables. The default file is the
+ first CLD's name with type .C (vmsport cdu does the same from a Unix
+ shell).
+3 Example
+ $ SET COMMAND [.TOOLS]GREET
+ $ GREET/COUNT=3 WORLD
+2 DEFAULT
+ Changes the default directory, the one file specs use when they don't
+ name a directory.
+
+ Format
+
+   SET DEFAULT [device:][directory]
+3 Parameters
+directory
+
+ A device, a directory or both. [.SUB] and [-] are relative to the
+ current default. vmsport, like VMS, doesn't check that it exists.
+3 Example
+ $ SET DEFAULT SYS$LOGIN:
+ $ SET DEFAULT [.PROJECTS.VMSPORT]
+2 MESSAGE
+ Adds a message file, or chooses which parts of messages show.
+
+ Format
+
+   SET MESSAGE [file-spec]
+3 Parameters
+file-spec
+
+ A message file: .MSG source, or one compiled by vmsport. Its messages
+ come before the system's.
+3 Qualifiers
+/FACILITY
+
+    /FACILITY (default)
+    /NOFACILITY
+
+ Shows the facility name, %FACILITY-S-IDENT.
+/IDENTIFICATION
+
+    /IDENTIFICATION (default)
+    /NOIDENTIFICATION
+
+ Shows the message's name.
+/SEVERITY
+
+    /SEVERITY (default)
+    /NOSEVERITY
+
+ Shows the severity letter.
+/TEXT
+
+    /TEXT (default)
+    /NOTEXT
+
+ Shows the message text.
+/DELETE
+ Accepted; message files can't be taken out yet.
+2 ON
+ SET ON turns on the ON checks for this procedure level (the default);
+ SET NOON turns them off, so failing commands don't stop the procedure.
+
+ Format
+
+   SET [NO]ON
+2 SYMBOL
+ Accepted for compatibility; symbol scoping is not there yet.
+
+ Format
+
+   SET SYMBOL
+3 Qualifiers
+/SCOPE
+
+    /SCOPE=(keyword[,...])
+
+ Accepted; does nothing yet.
+/VERB
+ Accepted; does nothing yet.
+/GENERAL
+ Accepted; does nothing yet.
+2 VERIFY
+ SET VERIFY shows each line of a procedure before it runs (see
+ Command_Procedures, Verify); SET NOVERIFY stops it.
+
+ Format
+
+   SET [NO]VERIFY
+1 SHOW
+ Shows something about the DCL session.
+
+ Format
+
+   SHOW option
+2 DEFAULT
+ Shows the default device and directory.
+
+ Format
+
+   SHOW DEFAULT
+2 LOGICAL
+ Shows logical names and their values, in each table that has them;
+ values that are logical names themselves are translated in turn.
+
+ Format
+
+   SHOW LOGICAL [logical-name[,...]]
+3 Parameters
+logical-name[,...]
+
+ The names to show; without them, all names in LNM$DCL_LOGICAL. A name
+ with no value gives %SHOW-S-NOTRAN.
+3 Qualifiers
+/PROCESS
+ Only the process table.
+/JOB
+ Only the job table.
+/GROUP
+ Only the group table.
+/SYSTEM
+ Only the system table.
+/TABLE
+
+    /TABLE=(name[,...])
+
+ Only these tables.
+/FULL
+ Shows access modes, attributes (concealed, terminal) and the tables
+ themselves too.
+/ALL
+ All the tables in LNM$DCL_LOGICAL (the default).
+3 Example
+ $ SHOW LOGICAL SYS$LOGIN
+2 STATUS
+ Shows the time. Process statistics are not there yet.
+
+ Format
+
+   SHOW STATUS
+2 SYMBOL
+ Shows a symbol's value: integers in decimal, hex and octal, strings in
+ quotation marks; = for a local, == for a global.
+
+ Format
+
+   SHOW SYMBOL [symbol-name]
+3 Parameters
+symbol-name
+
+ The symbol; the local one if there is one, else the global. $STATUS and
+ $SEVERITY show too. Without a name, the current level's locals and the
+ globals.
+3 Qualifiers
+/LOCAL
+ Only the current level's local symbols.
+/GLOBAL
+ Only the global symbols.
+/ALL
+ Every symbol (with /LOCAL or /GLOBAL, all of those).
+/LOG
+ Accepted; does nothing.
+2 TIME
+ Shows the date and time.
+
+ Format
+
+   SHOW TIME
+2 TRANSLATION
+ Shows a logical name's value, as SHOW LOGICAL does for one name.
+
+ Format
+
+   SHOW TRANSLATION logical-name
+3 Parameters
+logical-name
+
+ The name to translate.
+3 Qualifiers
+/TABLE
+
+    /TABLE=name
+
+ The table to look in; the default is LNM$DCL_LOGICAL.
+1 Specify
+ A file spec names a file, VMS style:
+
+   node::device:[directory]name.type;version
+
+ Each part may be left out; what is missing comes from defaults, the
+ default directory (SET DEFAULT) and logical names. DCL upcases specs it
+ isn't given in quotation marks; names are found whatever their case.
+2 Host_Files
+ HOST: is the host's /: HOST:[Users.me.notes]TODO.TXT is the file
+ /Users/me/notes/TODO.TXT. A directory shows as NAME.DIR;1.
+
+ Versions are part of the host name: TODO.TXT;3 is the file
+ "TODO.TXT;3". A Unix file without ;n is version 1. New files are given
+ the next version, and Unix tools see the versions as they are.
+
+ Record attributes (fixed, variable, stream...) are kept in the file's
+ vms.fab extended attribute; a file without it is stream_LF text.
+
+ vmsport path SPEC prints the host path of a spec; vmsport spec PATH the
+ spec of a host path.
+2 Directories
+ [A.B] is a directory from the top of the device, [.A] one below the
+ default, [-] the one above it, [] the default itself, [000000] the top.
+ [...] in a wildcard search is a directory and all below it; * and % in
+ a directory name match subdirectories.
+2 Versions
+ ;n is version n, ;0 or no version the newest, ;-1 the one before it,
+ ;* all of them (in searches).
+2 Wildcards
+ * matches any characters, % one character, in names, types and
+ directory names; ;* matches all versions.
+2 Extended_Names
+ Names may hold characters VMS escapes with ^ (ODS-5): ^. a dot in a
+ name, ^_ or "^ " a blank, ^XX a character in hex, ^Uxxxx a Unicode
+ one, and ^ before other punctuation. Extra dots belong to the name: the
+ last dot starts the type, so archive.tar.gz is name "archive^.tar",
+ type "gz".
+2 Logical_Names
+ A device may be a logical name: SYS$LOGIN:NOTES.TXT. A name alone may
+ be a logical name for a whole spec. See Logical_Names.
+1 SORT
+ Puts the records of one or more files in order by their keys and
+ writes them to a new file: sequential and like the first input by
+ default, or of the organization and format given after the output.
+ The inputs can be of any organization.
+
+ Format
+
+   SORT input-file-spec[,...] output-file-spec
+2 Parameters
+input-file-spec[,...]
+
+ The files whose records are sorted, together.
+
+output-file-spec
+
+ The file the sorted records go to.
+2 Qualifiers
+/KEY
+
+    /KEY=(POSITION:n,SIZE:n[,type][,order][,NUMBER:n])
+
+ A key: where it starts in the record (POSITION, from 1) and how long it
+ is (SIZE: bytes, or digits for decimal keys). Give one /KEY for each
+ key; the first is the most significant, unless NUMBER says otherwise.
+ Without /KEY, the whole record is the key. The type is CHARACTER (the
+ default; a key past the end of a record is padded with NULs), BINARY
+ (an integer of 1, 2, 4 or 8 bytes, SIGNED by default or UNSIGNED),
+ DECIMAL or ZONED (one digit a byte, the sign overpunched on the last
+ unless LEADING_SIGN and SEPARATE_SIGN say otherwise) or PACKED_DECIMAL.
+ The order is ASCENDING (the default) or DESCENDING.
+/STABLE
+ Keeps records with equal keys in the order they were read. Without it
+ they come out in the order VMS's sort leaves them, which vmsport
+ follows for small files.
+/DUPLICATES
+
+    /DUPLICATES (default)
+    /NODUPLICATES
+
+ With /NODUPLICATES, only one record of each key value is kept.
+/STATISTICS
+ Shows the counts of records read, sorted and written, and the sizes the
+ sort worked with.
+/COLLATING_SEQUENCE
+
+    /COLLATING_SEQUENCE=sequence
+
+ Accepted; keys are compared as ASCII.
+/SPECIFICATION
+
+    /SPECIFICATION=file-spec
+
+ Accepted; vmsport takes keys from /KEY only.
+/FORMAT
+
+    /FORMAT=(FIXED:n | VARIABLE:n | CONTROLLED:n)
+
+ After the output: its record format and size. Longer records are cut,
+ and fixed-length ones are padded with NULs.
+/SEQUENTIAL
+ After the output: a sequential file (the default).
+/RELATIVE
+ After the output: a relative file.
+/INDEXED_SEQUENTIAL
+ After the output: an indexed file, which must exist (with /OVERLAY).
+/OVERLAY
+ After the output: write into the existing file, which keeps its
+ attributes, rather than a new version.
+/ALLOCATION
+
+    /ALLOCATION=n
+
+ After the output: accepted.
+/BUCKET_SIZE
+
+    /BUCKET_SIZE=n
+
+ After the output: accepted.
+/CONTIGUOUS
+ After the output: accepted.
+/PROCESS
+
+    /PROCESS=RECORD|TAG|ADDRESS|INDEX
+
+ RECORD and TAG write the records. ADDRESS writes each record's RFA (6
+ bytes: block and byte offset), INDEX its RFA and keys.
+/WORK_FILES
+
+    /WORK_FILES=n
+
+ Accepted; vmsport sorts in memory.
+2 Examples
+ 1.$ SORT/KEY=(POSITION:9,SIZE:4,DESCENDING) PARTS.TXT BYQTY.TXT
+
+   Sorts PARTS.TXT by the four characters from column 9, largest first.
+1 SPAWN
+ Runs a command, or a session of commands, in a DCL subprocess. The
+ subprocess gets this process's symbols, process logical names and
+ default directory; what it changes doesn't come back.
+
+ Format
+
+   SPAWN [command]
+2 Parameters
+command
+
+ The command to run. Without it the subprocess reads commands from the
+ terminal until LOGOUT.
+2 Qualifiers
+/WAIT
+
+    /WAIT (default)
+    /NOWAIT
+
+ /NOWAIT goes on at once, while the subprocess runs.
+/LOG
+
+    /LOG (default)
+    /NOLOG
+
+ Shows %DCL-S-SPAWNED and %DCL-S-ATTACHED when the subprocess starts and
+ %DCL-S-RETURNED when it ends.
+/SYMBOL
+
+    /SYMBOL (default)
+    /NOSYMBOL
+
+ Gives the subprocess this process's symbols.
+/LOGICAL_NAMES
+
+    /LOGICAL_NAMES (default)
+    /NOLOGICAL_NAMES
+
+ Gives the subprocess this process's process logical names.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ The subprocess's SYS$OUTPUT, a new version of the file.
+/INPUT
+
+    /INPUT=file-spec
+
+ The subprocess's input.
+/PROCESS
+
+    /PROCESS=name
+
+ The subprocess's name; the default is this process's name followed by
+ _n.
+/NOTIFY
+ Accepted; no notice is given.
+/CARRIAGE_CONTROL
+ Accepted; does nothing.
+/KEYPAD
+ Accepted; does nothing.
+2 Status
+ $STATUS has the subprocess's last status; a failure shows again in the
+ parent.
+2 Examples
+ 1.$ SPAWN DIRECTORY
+
+ 2.$ SPAWN/NOWAIT/OUTPUT=BUILD.LOG @BUILD
+1 STOP
+ Ends every procedure level and goes back to the terminal, with
+ SS$_ABORT in $STATUS.
+
+ Format
+
+   STOP
+1 SUBROUTINE
+ Starts a subroutine, the target of CALL: a block of commands from
+ label: SUBROUTINE to ENDSUBROUTINE. A procedure that reaches it without
+ CALL steps over it.
+
+ Format
+
+   label: SUBROUTINE
+       commands
+   ENDSUBROUTINE
+2 ENDSUBROUTINE
+ Ends the block; reaching it returns from the CALL with %X00030001.
+1 Symbol_Assign
+ Symbols are DCL's variables: names for integers and strings.
+
+ Format
+
+   symbol = expression           local
+   symbol == expression          global
+   symbol := string              local, string as typed
+   symbol :== string             global, string as typed
+   symbol[start,length] := string
+   symbol[bit,size] = expression
+2 String_Assignment
+ := and :== take the rest of the line as a string: upcased and squeezed
+ to single blanks outside quotation marks; the quotation marks go.
+2 Substrings
+ symbol[start,length] := string puts string into those characters (from
+ 0), padding with blanks.
+2 Bit_Fields
+ symbol[bit,size] = expression puts the value into those bits of an
+ integer (from bit 0, at most 32 bits in all).
+2 Abbreviations
+ A * in the name says how short it may be: ABBREV*IATION = 1 defines
+ ABBREV, ABBREVI, ... ABBREVIATION.
+2 Local_And_Global
+ Locals belong to the procedure level (procedure or CALL) that defines
+ them, and inner levels see them; globals are seen everywhere. A local
+ hides a global of the same name.
+2 Substitution
+ 'symbol' in a command line is replaced by the symbol's value (the
+ closing apostrophe is optional), and so is 'F$FUNCTION(...)'. Inside
+ quotation marks, write ''symbol'. An undefined symbol gives "". In an
+ expression, &symbol is replaced by its value before the expression is
+ read.
+2 Verbs
+ A symbol at the start of a command stands for its value: DIR :==
+ DIRECTORY/SIZE makes DIR a command. One whose value starts with $ is a
+ foreign command (see Foreign_Commands).
+1 THEN
+ Starts the part of an IF block that runs when the condition is true.
+ See IF.
+
+ Format
+
+   THEN
+1 TYPE
+ Shows files on SYS$OUTPUT, their records as lines, with the carriage
+ control turned into new lines, blank lines and form feeds.
+
+ Format
+
+   TYPE file-spec[,...]
+2 Parameters
+file-spec[,...]
+
+ The files to show; wildcards allowed. SYS$INPUT and SYS$PIPE are the
+ command's input. When several files are shown, each after the first
+ (and the first, for wildcards) starts with its name.
+2 Qualifiers
+/PAGE
+ Accepted; the files go out without stopping.
+/OUTPUT
+
+    /OUTPUT=file-spec
+
+ Accepted; the files go to SYS$OUTPUT.
+/EXCLUDE
+
+    /EXCLUDE=(file-spec[,...])
+
+ Accepted; vmsport doesn't skip anything yet.
+1 Unix
+ vmsport is DCL and VMS-style programs on the host; all of it works from
+ a Unix shell too.
+2 dcl
+ dcl                      an interactive session (LOGIN.COM first)
+ dcl -c 'COMMAND' ...     the commands, then exit 0 if the last worked
+ dcl FILE.COM [P1 ...]    @FILE.COM
+
+ At the terminal dcl recalls commands with the arrow keys (or Ctrl/B);
+ Ctrl/Z ends the session.
+2 Utilities
+ directory, type, copy, delete, purge, search and help are programs:
+ DCL runs them for their verbs, and from a shell they take the same
+ command, as arguments:
+
+   directory /size '[.src]'
+   search '*.rs' unwrap /numbers
+
+ Quote what the shell would expand.
+2 Tools
+ vmsport path SPEC        the host path of a VMS file spec
+ vmsport spec PATH        the VMS spec of a host path
+ vmsport cdu FILE.CLD     a CLD as C source for cli$dcl_parse
+ lnm ...                  job logical names (see Logical_Names)
+2 Programs
+ Programs of your own get their commands from a CLD, like the
+ utilities. In Rust, libvms::cli has dcl_parse, present, get_value,
+ get_symbol, set_symbol and exit. In C, include $VMSPORT/include
+ (cli$routines.h, lib$routines.h, starlet.h, descrip.h ...) and link with
+ -lvms for cli$present, cli$get_value, cli$dcl_parse, lib$get_foreign,
+ lib$set_symbol, lib$signal, sys$exit and friends. Leave with sys$exit
+ so DCL gets the whole status. See SET COMMAND and docs/design/m2.md.
+2 Daemon
+ vmsportd keeps the shared logical name tables. Its socket is in
+ $VMSPORT_RUN, or ${TMPDIR:-/tmp}/vmsport-UID; keep that path short
+ (about 100 bytes at most).
+1 WRITE
+ Writes a record to a file opened with OPEN, or a line to SYS$OUTPUT.
+
+ Format
+
+   WRITE logical-name expression[,...]
+2 Parameters
+logical-name
+
+ SYS$OUTPUT, SYS$ERROR or TT, or the name given to OPEN.
+
+expression[,...]
+
+ The values to write, joined with nothing between them; integers are
+ written in decimal.
+2 Qualifiers
+/SYMBOL
+ Accepted; vmsport has no 255-character limit to work around.
+/UPDATE
+ Accepted; updating records in place comes with M3.
+/ERROR
+
+    /ERROR=label
+
+ Accepted; vmsport doesn't take it yet.
+2 Example
+ $ WRITE SYS$OUTPUT "Found ", COUNT, " file", F$FAO("!%S", COUNT)

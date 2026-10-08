@@ -1,0 +1,7 @@
+! The run-time library's messages that utilities pass on; the numbers are
+! vmsport's.
+	.TITLE		LIB	Run-time library messages
+	.FACILITY	LIB,21 /SYSTEM
+	.SEVERITY	FATAL
+	.BASE		1000
+INVFILSPE	<invalid file specification>

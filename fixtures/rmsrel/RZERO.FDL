@@ -1,0 +1,5 @@
+FILE
+	ORGANIZATION		relative
+RECORD
+	FORMAT			variable
+	SIZE			0

@@ -1,0 +1,23 @@
+[package]
+name = "vms-dcl"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+vms-cond = { path = "../vms-cond" }
+vms-fao = { path = "../vms-fao" }
+vms-msg = { path = "../vms-msg" }
+vms-cld = { path = "../vms-cld" }
+vms-filespec = { path = "../vms-filespec" }
+vms-time = { path = "../vms-time" }
+libc = "0.2"
+libvms = { path = "../libvms" }
+vms-lnm = { path = "../vms-lnm" }
+vms-rms = { path = "../vms-rms" }
+
+[[bin]]
+name = "dcl"
+path = "src/main.rs"
+
+[dev-dependencies]
+vmsportd = { path = "../vmsportd" }

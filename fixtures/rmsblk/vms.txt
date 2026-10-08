@@ -1,0 +1,14 @@
+in VARBLK.FDL
+in FIXBLK.FDL
+in VFCBLK.FDL
+in VARLONG.FDL
+in FTN.FDL
+in rmsblk.com
+run @RMSBLK.COM/OUTPUT=RMSBLK.LOG
+text RMSBLK.LOG recorded/rmsblk.log
+blocks VARBLK.DAT recorded/VARBLK.DAT
+blocks FIXBLK.DAT recorded/FIXBLK.DAT
+blocks VFCBLK.DAT recorded/VFCBLK.DAT
+blocks VARLONG.DAT recorded/VARLONG.DAT
+blocks FTN.DAT recorded/FTN.DAT
+manifest *.DAT recorded/ods-manifest.json

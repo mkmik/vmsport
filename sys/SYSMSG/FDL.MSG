@@ -1,0 +1,22 @@
+! FDL's messages, as CREATE/FDL and EDIT/FDL give them. CREATE, OPENFDL
+! and UNPRIKW have the codes VMS returned (fixtures/fdlutil: %X00B4806C,
+! %X00B4808C; fixtures/edf: %X00B480A2); the others' numbers are vmsport's.
+	.TITLE		FDL	FDL messages
+	.FACILITY	FDL,180 /SYSTEM
+	.SEVERITY	FATAL
+	.BASE		13
+CREATE		<error creating !AS> /FAO=1
+	.BASE		17
+OPENFDL		<error opening !AS> /FAO=1
+	.SEVERITY	ERROR
+	.BASE		20
+UNPRIKW		<unrecognized primary keyword in statement !UL !/ \!AS\> /FAO=2
+	.BASE		100
+	.SEVERITY	INFORMATIONAL
+CREATED		<!AS created> /FAO=1
+	.SEVERITY	WARNING
+UNQUAKW		<unrecognized qualifier keyword in statement !UL !/ \!AS\> /FAO=2
+WARNING		<parsed with warnings>
+	.SEVERITY	ERROR
+	.BASE		104
+FDLERROR	<error parsing FDL file>

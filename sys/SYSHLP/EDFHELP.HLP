@@ -1,0 +1,167 @@
+1 ABSTRACT
+
+     The FDL editor (EDIT/FDL) writes FDL files: the file definitions
+     that CREATE/FDL and CONVERT/FDL make files from. You can edit a
+     definition line by line (ADD, DELETE, MODIFY) or have a script ask
+     you about the file and its use and design it for you (INVOKE):
+     sequential, relative and indexed files, keys added, removed or
+     reworked, and an indexed file tuned with what ANALYZE/RMS_FILE/FDL
+     found in the data (/ANALYSIS).
+
+     An FDL file has sections, each a primary attribute (FILE, RECORD,
+     AREA n, KEY n...) followed by its secondary attributes and their
+     values. EXIT writes the definition as a new version of the file
+     named on the command line (or /OUTPUT).
+1 ADD
+
+     Adds a line to the definition: you choose the primary attribute
+     (the section) and the secondary attribute, then give its value. A
+     section that isn't there yet is made. If the line is there already,
+     you can replace it.
+
+     Format
+
+       ADD
+2 EXAMPLE
+
+     Main Editor Function: ADD
+     Enter Desired Primary: FILE
+     Enter FILE Attribute: ALLOCATION
+     Enter value for this Secondary: 300
+1 DELETE
+
+     Removes a line from the definition, and its section with it when it
+     was the last line there.
+
+     Format
+
+       DELETE
+2 EXAMPLE
+
+     Main Editor Function: DELETE
+     Enter Desired Primary: FILE
+     Enter FILE Attribute: ALLOCATION
+1 EXIT
+
+     Writes the definition to the FDL file and leaves the editor. Ctrl/Z
+     at the main menu does the same. Nothing is written when the
+     definition is empty.
+
+     Format
+
+       EXIT
+2 EXAMPLE
+
+     Main Editor Function: EXIT
+1 HELP
+
+     Shows these topics. Return at the main menu asks for them too; Return
+     at the Topic? prompt goes back to the main menu.
+
+     Format
+
+       HELP
+2 EXAMPLE
+
+     Main Editor Function: HELP
+     Topic? INVOKE
+1 INVOKE
+
+     Runs a script: questions about the file and how it will be used,
+     after which the editor works out the definition. A script you leave
+     with Ctrl/Z changes nothing you had.
+
+       SEQUENTIAL   a sequential file
+       RELATIVE     a relative file
+       INDEXED      an indexed file, its keys and their buckets
+       ADD_KEY      another key for an indexed file
+       DELETE_KEY   the indexed file's last key removed
+       TOUCHUP      one key of an indexed file reworked
+       OPTIMIZE     an indexed file reworked with what ANALYZE/RMS_FILE
+                    found in its data (EDIT/FDL/ANALYSIS=)
+
+     For an indexed file's keys the editor shows a plot of how deep the
+     index gets with each bucket size; you can change what it was told
+     (by the two-letter names under the plot) and watch the plot follow,
+     then finish the design (FD).
+
+     Format
+
+       INVOKE
+2 EXAMPLE
+
+     Main Editor Function: INVOKE
+     Editing Script Title: INDEXED
+1 MODIFY
+
+     Changes the value of a line already in the definition.
+
+     Format
+
+       MODIFY
+2 EXAMPLE
+
+     Main Editor Function: MODIFY
+     Enter Desired Primary: RECORD
+     Enter RECORD Attribute: SIZE
+     Enter value for this Secondary: 80
+1 OPERATION
+
+     The editor asks one question at a time. Each shows what it takes
+     (keywords, a range of numbers, Yes/No) and the answer Return gives,
+     in brackets; [-] means there is no such answer and you must give
+     one. Keywords can be shortened while they stay unambiguous.
+2 FILES
+
+     The definition is read from the file named on the command line (a
+     new one is started if it doesn't exist) and written there as a new
+     version, or to /OUTPUT. /ANALYSIS names the output of
+     ANALYZE/RMS_FILE/FDL for the OPTIMIZE script.
+2 PROMPT-LEVEL
+
+     The questions come with short explanations when an answer isn't
+     accepted.
+2 QUESTION-FORMAT
+
+     Question                        (what it takes)[default]        :
+2 CONTROL_CHARACTERS
+
+     Ctrl/Z at a question goes back to the main menu, dropping what a
+     script had asked so far; at the main menu it is EXIT. "?" at a
+     keyword question lists the keywords.
+1 QUIT
+
+     Leaves the editor without writing anything.
+
+     Format
+
+       QUIT
+2 EXAMPLE
+
+     Main Editor Function: QUIT
+1 SET
+
+     Sets the editor's characteristics, those the command line's
+     qualifiers set too: the analysis file, the emphasis, the
+     granularity, the output file; and the number of keys INDEXED
+     designs, the plot it starts with, whether menus are listed in full
+     (PROMPTING) and whether scripts take their defaults without asking
+     (RESPONSES).
+
+     Format
+
+       SET
+2 EXAMPLE
+
+     Main Editor Function: SET
+     Editor characteristic: OUTPUT
+1 VIEW
+
+     Shows the definition as EXIT would write it.
+
+     Format
+
+       VIEW
+2 EXAMPLE
+
+     Main Editor Function: VIEW

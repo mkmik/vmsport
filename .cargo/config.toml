@@ -1,0 +1,4 @@
+# The ods crates come from vaxpunk's repository; the git CLI fetches it with
+# the user's own git settings (an https-to-ssh rewrite, say).
+[net]
+git-fetch-with-cli = true

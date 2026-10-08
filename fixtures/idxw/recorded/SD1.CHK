@@ -1,0 +1,81 @@
+
+Check RMS File Integrity                      7-OCT-2026 02:54:35.35   Page 1
+DKA200:[T.IDXW]SD1.DAT;1
+
+
+FILE HEADER
+
+	File Spec: DKA200:[T.IDXW]SD1.DAT;1
+	File ID: (27,1,0)
+	Owner UIC: [1,4]
+	Protection:  System: RWED, Owner: RWED, Group: RE, World: 
+	Creation Date:    7-OCT-2026 02:54:31.19
+	Revision Date:    7-OCT-2026 02:54:31.21, Number: 2
+	Expiration Date: none specified
+	Backup Date:     none posted
+	Contiguity Options:  none
+	Performance Options: none
+	Reliability Options: none
+	Journaling Enabled:  none
+
+
+RMS FILE ATTRIBUTES
+
+	File Organization: indexed
+	Record Format: fixed
+	Record Attributes:  carriage-return 
+	Maximum Record Size: 60
+	Longest Record: 60
+	Blocks Allocated: 16, Default Extend Size: 16
+	Bucket Size: 1
+	File Monitoring: disabled
+	Global Buffer Count  pre-V8.3:          0
+	Global Buffer Count post-V8.3:          0
+	Global Buffer Flags post-V8.3:       none
+
+
+FIXED PROLOG
+
+	Number of Areas: 1, VBN of First Descriptor: 2
+	Prolog Version: 3
+
+AREA DESCRIPTOR #0 (VBN 2, offset %X'0000')
+
+	Bucket Size: 1
+	Reclaimed Bucket VBN: 0
+	Current Extent Start: 1, Blocks: 16, Used: 5, Next: 6
+	Default Extend Quantity: 16
+	Total Allocation: 16
+
+KEY DESCRIPTOR #0 (VBN 1, offset %X'0000')
+
+	Index Area: 0, Level 1 Index Area: 0, Data Area: 0
+	Root Level: 1
+	Index Bucket Size: 1, Data Bucket Size: 1
+	Root VBN: 4
+	Key Flags:
+		(0)  KEY$V_DUPKEYS    0
+		(3)  KEY$V_IDX_COMPR  0
+		(4)  KEY$V_INITIDX    0
+
+Check RMS File Integrity                      7-OCT-2026 02:54:35.35   Page 2
+DKA200:[T.IDXW]SD1.DAT;1
+
+
+		(6)  KEY$V_KEY_COMPR  0
+		(7)  KEY$V_REC_COMPR  0
+	Key Segments: 1
+	Key Size: 4
+	Minimum Record Size: 4
+	Index Fill Quantity: 512, Data Fill Quantity: 512
+	Segment Positions:       0
+	Segment Sizes:           4
+	Data Type: string
+	Name: ""
+	First Data Bucket VBN: 3
+
+
+The analysis uncovered NO errors.
+
+
+ANALYZE/RMS_FILE/CHECK/OUTPUT=SD1.CHK SD1.DAT

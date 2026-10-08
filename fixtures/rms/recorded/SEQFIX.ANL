@@ -1,0 +1,25 @@
+IDENT	FDL_VERSION 02 " 7-OCT-2026 00:28:24   OpenVMS ANALYZE/RMS_FILE Utility"
+
+SYSTEM
+	SOURCE                  OpenVMS
+
+FILE
+	ALLOCATION              16
+	BEST_TRY_CONTIGUOUS     no
+	CLUSTER_SIZE            16
+	CONTIGUOUS              no
+	EXTENSION               0
+	FILE_MONITORING         no
+	NAME                    "DKA200:[T]SEQFIX.DAT;1"
+	ORGANIZATION            sequential
+	OWNER                   [1,4]
+	PROTECTION              (system:RWED, owner:RWED, group:RE, world:)
+	GLOBAL_BUFFER_COUNT     0
+	GLBUFF_CNT_V83          0
+	GLBUFF_FLAGS_V83        none
+
+RECORD
+	BLOCK_SPAN              yes
+	CARRIAGE_CONTROL        none
+	FORMAT                  fixed
+	SIZE                    13

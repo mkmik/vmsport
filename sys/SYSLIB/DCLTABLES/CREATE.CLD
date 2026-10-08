@@ -1,0 +1,11 @@
+! CREATE: a sequential file from SYS$INPUT, directories (/DIRECTORY), or
+! an empty file of any organization from an FDL (/FDL, whose file
+! parameter may be left out: the FDL's NAME names it).
+MODULE CREATE_TABLES
+
+DEFINE VERB CREATE
+	IMAGE "SYS$SYSTEM:CREATE.EXE"
+	PARAMETER P1, LABEL=FILE, PROMPT="File", VALUE(LIST, TYPE=$FILE)
+	QUALIFIER DIRECTORY
+	QUALIFIER FDL, VALUE(REQUIRED, TYPE=$FILE)
+	QUALIFIER LOG

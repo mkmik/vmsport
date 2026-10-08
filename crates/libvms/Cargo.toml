@@ -1,0 +1,19 @@
+[package]
+name = "libvms"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+libc = "0.2"
+vms-cond = { path = "../vms-cond" }
+vms-filespec = { path = "../vms-filespec" }
+vms-lnm = { path = "../vms-lnm" }
+vms-rms = { path = "../vms-rms" }
+vms-msg = { path = "../vms-msg" }
+vms-cld = { path = "../vms-cld" }
+vms-time = { path = "../vms-time" }
+vmsportd = { path = "../vmsportd" }
+vms-fao = { path = "../vms-fao" }
+vms-help = { path = "../vms-help" }
+# Files-11 images (vaxpunk's ods crates), for MOUNT.
+ods-image = { git = "https://github.com/mkmik/vaxpunk", rev = "4073d2cd1050c992e335029788c938a12f70399a" }

@@ -1,0 +1,43 @@
+TESTMSG                         Message definitions           7-OCT-2026 00:44:20  Message A01-12                   Page   1
+                                                              6-OCT-2026 22:43:15  DKA200:[T.MSG]TESTMSG.MSG;1                 
+ 
+                                      1 ! Test messages for vmsport, compiled by the VMS MESSAGE utility to record
+                                      2 ! the codes, symbols and texts that vms-msg must reproduce.
+                                      3 	.TITLE		VPTMSG	vmsport test messages
+                                      4 	.IDENT		'V1.0'
+                                      5 
+                         00000CD2     6 	.FACILITY	VPT,1234 /PREFIX=VPT__
+                                      7 	.SEVERITY	SUCCESS
+                         0CD28009     8 NORMAL		<normal successful completion>
+                                      9 	.SEVERITY	INFORMATIONAL
+                         0CD28013    10 CREATED		<!AS created> /FAO_COUNT=1
+                                     11 	.SEVERITY	WARNING
+                         0CD28018    12 NOFILES		<no files found matching !AS> /FAO=1
+                                     13 	.SEVERITY	ERROR
+                         0CD28022    14 BADVAL		<bad value !UL, expected !UL to !UL> /FAO_COUNT=3
+                                     15 	.BASE		100
+                         0CD28322    16 OPENIN		<error opening !AS as input>/FAO=1
+                                     17 	.SEVERITY	FATAL
+                         0CD2832C    18 BUGCHECK	"internal consistency failure" /IDENTIFICATION=BUG
+                                     19 	.SEVERITY	WARNING
+                         0CD28330    20 QUOTED		<text with "quotes" and 'apostrophes'>
+                         0CD2833A    21 EXPLICIT	<explicit severity> /ERROR
+                         0CD28343    22 INFO2		<explicit info> /INFORMATIONAL
+                         0CD2834C    23 SEVERE2		<explicit severe> /SEVERE
+                         0CD28350    24 EMPTY		<>
+                                     25 	.LITERAL	VPT__MAXLEN=255
+                                     26 	.LITERAL	VPT__TWICE=VPT__MAXLEN*2
+                                     27 
+                         0000004D    28 	.FACILITY	OTHER,77 /SYSTEM
+                                     29 	.SEVERITY	ERROR
+                         004D800A    30 SYSMSG		<system-style message, no facility-specific bit>
+                                     31 	.BASE		5
+                         004D802A    32 FIVE		<base five>
+                                     33 
+                         00000FFF    34 	.FACILITY	THIRD,2047
+                                     35 	.SEVERITY	SUCCESS
+                         0FFF8009    36 FIRST		<first in a facility without a prefix>
+                                     37 	.END
+
+There were 0 errors, 0 warnings, and 0 informational messages issued.
+MESSAGE/LIST=TESTMSG.LIS/SDL=TESTMSG.SDL TESTMSG.MSG

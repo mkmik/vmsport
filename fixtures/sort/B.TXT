@@ -1,0 +1,3 @@
+apricot 0050 i
+kiwi    0002 j
+banana  0001 k

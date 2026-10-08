@@ -1,0 +1,20 @@
+@@ undefined symbol
+%DCL-W-UNDSYM, undefined symbol - check validity and spelling
+ \NOSUCH\
+@@ bad lexical
+%DCL-W-IVFNAM, invalid lexical function name - check validity and spelling
+ \F$NOSUCH(\
+@@ wrong type
+%DCL-W-SYMDEL, invalid symbol or value delimiter - check command syntax
+@@ unterminated
+@@ invalid qualifier
+%DCL-W-IVQUAL, unrecognized qualifier - check validity, spelling, and placement
+ \NOSUCH\
+@@ ambiguous verb
+%DCL-W-ABVERB, ambiguous command verb - supply more characters
+ \SE\
+@@ extract error
+@@ status 00030001
+@@ goto missing
+%DCL-W-USGOTO, target of GOTO not found - check spelling and presence of label
+ \NOLABEL\

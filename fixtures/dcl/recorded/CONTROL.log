@@ -1,0 +1,16 @@
+start %X00030001
+loop 1
+loop 2
+done 3
+in sub
+after gosub %X00000003
+proc [ONE] [two words] [3] []
+after call %X00000009 1
+nested ALPHA BETA depth 3
+after nested 10000003
+local in nested:  global: set by nested
+divide 00030001
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+ \NOSUCHVERB\
+bad verb 00038090 0
+warning continues

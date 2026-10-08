@@ -1,0 +1,2097 @@
+#define __RMSDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define RMS$_FACILITY 1
+#define RMS$V_STVSTATUS 14              /* MOVE TO BIT 14 OF THE            */
+#define RMS$_SUC 65537
+#define RMS$_NORMAL 65537
+#define RMS$_STALL 98305
+#define RMS$_PENDING 98313
+#define RMS$_OK_DUP 98321
+#define RMS$_OK_IDX 98329
+#define RMS$_OK_RLK 98337
+#define RMS$_OK_RRL 98345
+#define RMS$_KFF 98353
+#define RMS$_OK_ALK 98361
+#define RMS$_OK_DEL 98369
+#define RMS$_OK_RNF 98377
+#define RMS$_OK_LIM 98385
+#define RMS$_OK_NOP 98393
+#define RMS$_OK_WAT 98401
+#define RMS$_CRE_STM 98409
+#define RMS$_OK_RULK 98417
+#define RMS$_SYNCH 98425
+#define RMS$_OK_ACT 98433
+#define RMS$_OK_NOCURTID 98441
+#define RMS$_CONTROLC 67153             /* TERMINAL I/O ABORTED DUE TO CTRL/C */
+#define RMS$_CONTROLO 67081
+#define RMS$_CONTROLY 67089
+#define RMS$_CREATED 67097
+#define RMS$_SUPERSEDE 67121
+#define RMS$_OVRDSKQUOTA 67177
+#define RMS$_FILEPURGED 67193
+#define RMS$_BOF 98712
+#define RMS$_RNL 98720
+#define RMS$_RTB 98728
+#define RMS$_TMO 98736
+#define RMS$_TNS 98744
+#define RMS$_BES 98752
+#define RMS$_PES 98760
+#define RMS$_ACT 98906
+#define RMS$_DEL 98914
+#define RMS$_INCOMPSHR 98922
+#define RMS$_DNR 98930
+#define RMS$_EOF 98938
+#define RMS$_FEX 98946
+#define RMS$_FLK 98954
+#define RMS$_FNF 98962
+#define RMS$_PRV 98970
+#define RMS$_REX 98978
+#define RMS$_RLK 98986
+#define RMS$_RNF 98994
+#define RMS$_WLK 99002
+#define RMS$_EXP 99010
+#define RMS$_NMF 99018
+#define RMS$_SUP 99026
+#define RMS$_RSA 99034
+#define RMS$_CRC 99042
+#define RMS$_WCC 99050
+#define RMS$_IDR 99058
+#define RMS$_LWC 99066
+#define RMS$_UNUSED1 99074
+#define RMS$_NOVALPRS 99082
+#define RMS$_KEY_MISMATCH 99090
+#define RMS$_RUH 99098
+#define RMS$_JND 99106
+#define RMS$_BADPHASE 99114
+#define RMS$_TOWDR 99122
+#define RMS$_NEXDR 99130
+#define RMS$_INVDRMSG 99138
+#define RMS$_RU_ACTIVE 99146
+#define RMS$_UNKRUFAC 99154
+#define RMS$_LIMBO 99162
+#define RMS$_IVATRACE 99170
+#define RMS$_OPNOTSUP 99178
+#define RMS$_EXTNOTFOU 99186
+#define RMS$_EXT_ERR 99194
+#define RMS$_SEMANTICS 99202
+#define RMS$_LSCAN 99210
+#define RMS$_ROOTSRCH 99218
+#define RMS$_IDXSEARCH 99226
+#define RMS$_NETBTS 99234
+#define RMS$_NXR 99242
+#define RMS$_EOFASY_SYNCH 99250
+#define RMS$_ELOOP 99258
+#define RMS$_ACC 114690
+#define RMS$_CRE 114698
+#define RMS$_DAC 114706
+#define RMS$_ENT 114714
+#define RMS$_EXT 114722
+#define RMS$_FND 114730
+#define RMS$_MKD 114738
+#define RMS$_DPE 114746
+#define RMS$_SPL 114754
+#define RMS$_DNF 114762
+#define RMS$_RUF 114770
+#define RMS$_WRTJNL_AIJ 114778
+#define RMS$_WRTJNL_BIJ 114786
+#define RMS$_WRTJNL_ATJ 114794
+#define RMS$_WRTJNL_RUJ 114802
+#define RMS$_RRF 114810
+#define RMS$_DDTM_ERR 114818
+#define RMS$_DTFCDDREC 99308
+#define RMS$_AID 99316
+#define RMS$_ALN 99324
+#define RMS$_ALQ 99332
+#define RMS$_ANI 99340
+#define RMS$_AOP 99348
+#define RMS$_BKS 99356
+#define RMS$_BKZ 99364
+#define RMS$_BLN 99372
+#define RMS$_BUG 99380
+#define RMS$_BUG_DDI 99388
+#define RMS$_BUG_DAP 99396
+#define RMS$_BUG_RU_ACTIVE 99404
+#define RMS$_BUG_RURECERR 99412
+#define RMS$_BUG_FLUSH_JNL_FAILED 99420
+#define RMS$_BUG_RU_ABORT_FAIL 99428
+#define RMS$_BUG_RU_COMMIT_FAIL 99436
+#define RMS$_BUG_XX6 99444
+#define RMS$_BUG_XX7 99452
+#define RMS$_BUG_XX8 99460
+#define RMS$_BUSY 99468
+#define RMS$_CCR 99476
+#define RMS$_CHG 99484
+#define RMS$_CHK 99492
+#define RMS$_COD 99500
+#define RMS$_CUR 99508
+#define RMS$_DAN 99516
+#define RMS$_DEV 99524
+#define RMS$_DIR 99532
+#define RMS$_DME 99540
+#define RMS$_DNA 99548
+#define RMS$_DTP 99556
+#define RMS$_DUP 99564
+#define RMS$_DVI 99572
+#define RMS$_ESA 99580
+#define RMS$_ESS 99588
+#define RMS$_FAB 99596
+#define RMS$_FAC 99604
+#define RMS$_FLG 99612
+#define RMS$_FNA 99620
+#define RMS$_FNM 99628
+#define RMS$_FSZ 99636
+#define RMS$_FOP 99644
+#define RMS$_FUL 99652
+#define RMS$_IAL 99660
+#define RMS$_IAN 99668
+#define RMS$_IDX 99676
+#define RMS$_IFI 99684
+#define RMS$_IMX 99692
+#define RMS$_IOP 99700
+#define RMS$_IRC 99708
+#define RMS$_ISI 99716
+#define RMS$_KBF 99724
+#define RMS$_KEY 99732
+#define RMS$_KRF 99740
+#define RMS$_KSZ 99748
+#define RMS$_LAN 99756
+#define RMS$_RUNDOWN 99764
+#define RMS$_LNE 99772
+#define RMS$_DTFCVT 99780
+#define RMS$_MRN 99788
+#define RMS$_MRS 99796
+#define RMS$_NAM 99804
+#define RMS$_NEF 99812
+#define RMS$_DTFQUASYN 99820
+#define RMS$_NOD 99828
+#define RMS$_NPK 99836
+#define RMS$_ORD 99844                  /*! NOT USED AS OF V4               */
+#define RMS$_ORG 99852
+#define RMS$_PBF 99860
+#define RMS$_PLG 99868
+#define RMS$_POS 99876
+#define RMS$_DTFQUAVAL 99884
+#define RMS$_QUO 99892
+#define RMS$_RAB 99900
+#define RMS$_RAC 99908
+#define RMS$_RAT 99916
+#define RMS$_RBF 99924
+#define RMS$_RFA 99932
+#define RMS$_RFM 99940
+#define RMS$_RHB 99948
+#define RMS$_RLF 99956
+#define RMS$_ROP 99964
+#define RMS$_RRV 99972
+#define RMS$_RVU 99980
+#define RMS$_RSS 99988
+#define RMS$_RST 99996
+#define RMS$_RSZ 100004
+#define RMS$_SEQ 100012
+#define RMS$_SHR 100020
+#define RMS$_SIZ 100028
+#define RMS$_SQO 100036
+#define RMS$_DTFSESEST 100044
+#define RMS$_SYN 100052
+#define RMS$_TRE 100060
+#define RMS$_TYP 100068
+#define RMS$_UBF 100076
+#define RMS$_USZ 100084
+#define RMS$_VER 100092
+#define RMS$_XNF 100100
+#define RMS$_XAB 100108
+#define RMS$_ESL 100116
+#define RMS$_DTFSESTER 100124
+#define RMS$_ENV 100132
+#define RMS$_PLV 100140
+#define RMS$_MBC 100148
+#define RMS$_RSL 100156
+#define RMS$_WLD 100164
+#define RMS$_NET 100172                 /* (NOTE THAT NETFAIL HAS REPLACED NET EXCEPT WHEN RMS CANNOT */
+#define RMS$_IBF 100180
+#define RMS$_REF 100188
+#define RMS$_IFL 100196
+#define RMS$_DFL 100204
+#define RMS$_KNM 100212
+#define RMS$_IBK 100220
+#define RMS$_KSI 100228
+#define RMS$_LEX 100236
+#define RMS$_SEG 100244
+#define RMS$_SNE 100252                 /*! NOT USED AS OF V4               */
+#define RMS$_SPE 100260                 /*! NOT USED AS OF V4               */
+#define RMS$_UPI 100268
+#define RMS$_ACS 100276
+#define RMS$_STR 100284
+#define RMS$_FTM 100292
+#define RMS$_GBC 100300
+#define RMS$_DEADLOCK 100308
+#define RMS$_EXENQLM 100316
+#define RMS$_JOP 100324
+#define RMS$_RUM 100332
+#define RMS$_JNS 100340
+#define RMS$_NRU 100348
+#define RMS$_IFF 100356
+#define RMS$_DTFTRATBL 100364
+#define RMS$_DTFUNSTYP 100372
+#define RMS$_DTFVERMIS 100380
+#define RMS$_DTFACC 100386
+#define RMS$_BOGUSCOL 100396
+#define RMS$_ERRREADCOL 100404
+#define RMS$_ERRWRITECOL 100412
+#define RMS$_SNS 100420
+#define RMS$_NOEXTEND 100428            /*+                                 */
+#define RMS$_DTFCRE 100434
+#define RMS$_DELJNS 100444
+#define RMS$_NOTSAMEJNL 100452
+#define RMS$_SNPPF 100460
+#define RMS$_NAML 100468
+#define RMS$_NAMLESS 100476
+#define RMS$_NAMLRSS 100484
+#define RMS$_NAMLFSSIZ 100492
+#define RMS$_NAMLFSINV 100500
+#define RMS$_BADGBH 100508
+#define RMS$_BADGBD 100516
+#define RMS$_FOPEXTMBZ 100524
+#define RMS$_INVOP_SSIO 100532
+#define RMS$_IVSF 100540
+#define RMS$_ATR 114892
+#define RMS$_ATW 114900
+#define RMS$_CCF 114908
+#define RMS$_CDA 114916
+#define RMS$_CHN 114924
+#define RMS$_RER 114932
+#define RMS$_RMV 114940
+#define RMS$_RPL 114948
+#define RMS$_SYS 114956
+#define RMS$_WER 114964
+#define RMS$_WPL 114972
+#define RMS$_IFA 114980
+#define RMS$_WBE 114988
+#define RMS$_ENQ 114996
+#define RMS$_NETFAIL 115004
+#define RMS$_SUPPORT 115012
+#define RMS$_CRMP 115020
+#define RMS$_DTFCFGFIL 115028
+#define RMS$_REENT 115036
+#define RMS$_ACC_RUJ 115044
+#define RMS$_TMR 115052
+#define RMS$_ACC_AIJ 115060
+#define RMS$_ACC_BIJ 115068
+#define RMS$_ACC_ATJ 115076
+#define RMS$_DTFDEFFIL 115084
+#define RMS$_DTFREGFIL 115092
+#define RMS$_JNLNOTAUTH 115100
+#define RMS$_CRBUFOBJ 115108
+#define RMS$_RSESTK_ALLOC 115116
+#define __FABDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define FAB$C_BID 3                     /* code for fab                     */
+#define FAB$M_PPF_RAT 0x3FC0
+#define FAB$M_PPF_IND 0x4000
+#define FAB$M_PPIFI 0x8000
+#define FAB$M_ASY 0x1
+#define FAB$M_MXV 0x2
+#define FAB$M_SUP 0x4
+#define FAB$M_TMP 0x8
+#define FAB$M_TMD 0x10
+#define FAB$M_DFW 0x20
+#define FAB$M_SQO 0x40
+#define FAB$M_RWO 0x80
+#define FAB$M_POS 0x100
+#define FAB$M_WCK 0x200
+#define FAB$M_NEF 0x400
+#define FAB$M_RWC 0x800
+#define FAB$M_DMO 0x1000
+#define FAB$M_SPL 0x2000
+#define FAB$M_SCF 0x4000
+#define FAB$M_DLT 0x8000
+#define FAB$M_NFS 0x10000
+#define FAB$M_UFO 0x20000
+#define FAB$M_PPF 0x40000
+#define FAB$M_INP 0x80000
+#define FAB$M_CTG 0x100000
+#define FAB$M_CBT 0x200000
+#define FAB$M_SYNCSTS 0x400000
+#define FAB$M_RCK 0x800000
+#define FAB$M_NAM 0x1000000
+#define FAB$M_CIF 0x2000000
+#define FAB$M_ESC 0x8000000
+#define FAB$M_TEF 0x10000000
+#define FAB$M_OFP 0x20000000
+#define FAB$M_KFO 0x40000000
+#define FAB$M_EXTEND_FOP 0x80000000
+#define FAB$M_ERL 0x8000
+#define FAB$M_PUT 0x1
+#define FAB$M_GET 0x2
+#define FAB$M_DEL 0x4
+#define FAB$M_UPD 0x8
+#define FAB$M_TRN 0x10
+#define FAB$M_BIO 0x20
+#define FAB$M_BRO 0x40
+#define FAB$M_EXE 0x80
+#define FAB$M_SHRPUT 0x1
+#define FAB$M_SHRGET 0x2
+#define FAB$M_SHRDEL 0x4
+#define FAB$M_SHRUPD 0x8
+#define FAB$M_MSE 0x10
+#define FAB$M_NIL 0x20
+#define FAB$M_UPI 0x40
+#define FAB$M_NQL 0x80
+#define FAB$M_ORG 0xF0
+#define FAB$C_SEQ 0                     /* sequential                       */
+#define FAB$C_REL 16                    /* relative                         */
+#define FAB$C_IDX 32                    /* indexed                          */
+#define FAB$C_HSH 48                    /* hashed                           */
+#define FAB$C_SPECIAL 64                /* special file                     */
+#define FAB$M_FTN 0x1
+#define FAB$M_CR 0x2
+#define FAB$M_PRN 0x4
+#define FAB$M_BLK 0x8
+#define FAB$M_MSB 0x10
+#define FAB$C_FIFO 1                    /* FIFO special file                */
+#define FAB$C_CHAR_SPECIAL 2            /* character special file           */
+#define FAB$C_BLOCK_SPECIAL 3           /* block special file               */
+#define FAB$C_SYMLINK 4                 /* symbolic link special file for pre-V8.2 */
+#define FAB$C_SYMBOLIC_LINK 5           /* symbolic link special file for V8.2 and beyond */
+#define FAB$C_RFM_DFLT 2                /* var len is default               */
+#define FAB$C_UDF 0                     /* undefined (also stream binary)   */
+#define FAB$C_FIX 1                     /* fixed length records             */
+#define FAB$C_VAR 2                     /* variable length records          */
+#define FAB$C_VFC 3                     /* variable fixed control           */
+#define FAB$C_STM 4                     /* RMS-11 stream (valid only for sequential org) */
+#define FAB$C_STMLF 5                   /* LF stream (valid only for sequential org) */
+#define FAB$C_STMCR 6                   /* CR stream (valid only for sequential org) */
+#define FAB$C_MAXRFM 6                  /* maximum rfm supported            */
+#define FAB$M_ONLY_RU 0x1
+#define FAB$M_RU 0x2
+#define FAB$M_BI 0x4
+#define FAB$M_AI 0x8
+#define FAB$M_AT 0x10
+#define FAB$M_NEVER_RU 0x20
+#define FAB$M_JOURNAL_FILE 0x40
+#define FAB$M_SSIO_RQST 0x1
+#define FAB$M_SSIO_GRANTED 0x2
+#define FAB$M_SSIO_FOC 0x4
+#define FAB$M_RCF_RU 0x1
+#define FAB$M_RCF_AI 0x2
+#define FAB$M_RCF_BI 0x4
+#define fab$w_ifi fab$r_ifi_overlay.fab$w_ifi
+#define fab$r_ifi_bits	fab$r_ifi_overlay.fab$r_ifi_bits
+#define fab$v_ppf_rat fab$r_ifi_bits.fab$v_ppf_rat
+#define fab$v_ppf_ind fab$r_ifi_bits.fab$v_ppf_ind
+#define fab$v_ppifi fab$r_ifi_bits.fab$v_ppifi
+#define fab$l_fop fab$r_fop_overlay.fab$l_fop
+#define fab$r_fop_bits	fab$r_fop_overlay.fab$r_fop_bits
+#define fab$v_asy fab$r_fop_bits.fab$v_asy
+#define fab$v_mxv fab$r_fop_bits.fab$v_mxv
+#define fab$v_sup fab$r_fop_bits.fab$v_sup
+#define fab$v_tmp fab$r_fop_bits.fab$v_tmp
+#define fab$v_tmd fab$r_fop_bits.fab$v_tmd
+#define fab$v_dfw fab$r_fop_bits.fab$v_dfw
+#define fab$v_sqo fab$r_fop_bits.fab$v_sqo
+#define fab$v_rwo fab$r_fop_bits.fab$v_rwo
+#define fab$v_pos fab$r_fop_bits.fab$v_pos
+#define fab$v_wck fab$r_fop_bits.fab$v_wck
+#define fab$v_nef fab$r_fop_bits.fab$v_nef
+#define fab$v_rwc fab$r_fop_bits.fab$v_rwc
+#define fab$v_dmo fab$r_fop_bits.fab$v_dmo
+#define fab$v_spl fab$r_fop_bits.fab$v_spl
+#define fab$v_scf fab$r_fop_bits.fab$v_scf
+#define fab$v_dlt fab$r_fop_bits.fab$v_dlt
+#define fab$v_nfs fab$r_fop_bits.fab$v_nfs
+#define fab$v_ufo fab$r_fop_bits.fab$v_ufo
+#define fab$v_ppf fab$r_fop_bits.fab$v_ppf
+#define fab$v_inp fab$r_fop_bits.fab$v_inp
+#define fab$v_ctg fab$r_fop_bits.fab$v_ctg
+#define fab$v_cbt fab$r_fop_bits.fab$v_cbt
+#define fab$v_syncsts fab$r_fop_bits.fab$v_syncsts
+#define fab$v_rck fab$r_fop_bits.fab$v_rck
+#define fab$v_nam fab$r_fop_bits.fab$v_nam
+#define fab$v_cif fab$r_fop_bits.fab$v_cif
+#define fab$v_esc fab$r_fop_bits.fab$v_esc
+#define fab$v_tef fab$r_fop_bits.fab$v_tef
+#define fab$v_ofp fab$r_fop_bits.fab$v_ofp
+#define fab$v_kfo fab$r_fop_bits.fab$v_kfo
+#define fab$v_extend_fop fab$r_fop_bits.fab$v_extend_fop
+#define fab$r_fop_bits_overlay	fab$r_fop_overlay.fab$r_fop_bits_overlay
+#define fab$v_erl fab$r_fop_bits_overlay.fab$v_erl
+#define fab$b_fac fab$r_fac_overlay.fab$b_fac
+#define fab$r_fac_bits	fab$r_fac_overlay.fab$r_fac_bits
+#define fab$v_put fab$r_fac_bits.fab$v_put
+#define fab$v_get fab$r_fac_bits.fab$v_get
+#define fab$v_del fab$r_fac_bits.fab$v_del
+#define fab$v_upd fab$r_fac_bits.fab$v_upd
+#define fab$v_trn fab$r_fac_bits.fab$v_trn
+#define fab$v_bio fab$r_fac_bits.fab$v_bio
+#define fab$v_bro fab$r_fac_bits.fab$v_bro
+#define fab$v_exe fab$r_fac_bits.fab$v_exe
+#define fab$b_shr fab$r_shr_overlay.fab$b_shr
+#define fab$r_shr_bits	fab$r_shr_overlay.fab$r_shr_bits
+#define fab$v_shrput fab$r_shr_bits.fab$v_shrput
+#define fab$v_shrget fab$r_shr_bits.fab$v_shrget
+#define fab$v_shrdel fab$r_shr_bits.fab$v_shrdel
+#define fab$v_shrupd fab$r_shr_bits.fab$v_shrupd
+#define fab$v_mse fab$r_shr_bits.fab$v_mse
+#define fab$v_nil fab$r_shr_bits.fab$v_nil
+#define fab$v_upi fab$r_shr_bits.fab$v_upi
+#define fab$v_nql fab$r_shr_bits.fab$v_nql
+#define fab$b_org fab$r_org_overlay.fab$b_org
+#define fab$r_org_bits	fab$r_org_overlay.fab$r_org_bits
+#define fab$v_org fab$r_org_bits.fab$v_org
+#define fab$b_rat fab$r_rat_overlay.fab$b_rat
+#define fab$r_rat_bits	fab$r_rat_overlay.fab$r_rat_bits
+#define fab$v_ftn fab$r_rat_bits.fab$v_ftn
+#define fab$v_cr fab$r_rat_bits.fab$v_cr
+#define fab$v_prn fab$r_rat_bits.fab$v_prn
+#define fab$v_blk fab$r_rat_bits.fab$v_blk
+#define fab$v_msb fab$r_rat_bits.fab$v_msb
+#define fab$b_special_type fab$r_rat_overlay.fab$b_special_type
+#define fab$l_jnl fab$r_jnl_overlay.fab$l_jnl
+#define fab$r_jnl_real_stuff	fab$r_jnl_overlay.fab$r_jnl_real_stuff
+#define fab$r_journal_overlay	fab$r_jnl_real_stuff.fab$r_journal_overlay
+#define fab$b_journal fab$r_journal_overlay.fab$b_journal
+#define fab$r_journal_bits	fab$r_journal_overlay.fab$r_journal_bits
+#define fab$v_only_ru fab$r_journal_bits.fab$v_only_ru
+#define fab$v_ru fab$r_journal_bits.fab$v_ru
+#define fab$v_bi fab$r_journal_bits.fab$v_bi
+#define fab$v_ai fab$r_journal_bits.fab$v_ai
+#define fab$v_at fab$r_journal_bits.fab$v_at
+#define fab$v_never_ru fab$r_journal_bits.fab$v_never_ru
+#define fab$v_journal_file fab$r_journal_bits.fab$v_journal_file
+#define fab$b_ru_facility fab$r_jnl_real_stuff.fab$b_ru_facility
+#define fab$r_fopext_overlay	fab$r_jnl_real_stuff.fab$r_fopext_overlay
+#define fab$w_fopext fab$r_fopext_overlay.fab$w_fopext
+#define fab$r_fopext_bits	fab$r_fopext_overlay.fab$r_fopext_bits
+#define fab$v_ssio_rqst fab$r_fopext_bits.fab$v_ssio_rqst
+#define fab$v_ssio_granted fab$r_fopext_bits.fab$v_ssio_granted
+#define fab$v_ssio_foc fab$r_fopext_bits.fab$v_ssio_foc
+#define fab$l_nam fab$r_nam_overlay.fab$l_nam
+#define fab$l_naml fab$r_nam_overlay.fab$l_naml
+#define fab$b_acmodes fab$r_acmodes_overlay.fab$b_acmodes
+#define fab$r_acmodes_bits	fab$r_acmodes_overlay.fab$r_acmodes_bits
+#define fab$v_lnm_mode fab$r_acmodes_bits.fab$v_lnm_mode
+#define fab$v_chan_mode fab$r_acmodes_bits.fab$v_chan_mode
+#define fab$v_file_mode fab$r_acmodes_bits.fab$v_file_mode
+#define fab$v_callers_mode fab$r_acmodes_bits.fab$v_callers_mode
+#define fab$b_rcf fab$r_rcf_overlay.fab$b_rcf
+#define fab$r_rcf_bits	fab$r_rcf_overlay.fab$r_rcf_bits
+#define fab$v_rcf_ru fab$r_rcf_bits.fab$v_rcf_ru
+#define fab$v_rcf_ai fab$r_rcf_bits.fab$v_rcf_ai
+#define fab$v_rcf_bi fab$r_rcf_bits.fab$v_rcf_bi
+#define fab$w_ifi fab$r_ifi_overlay.fab$w_ifi
+#define fab$v_ppf_rat fab$r_ifi_overlay.fab$r_ifi_bits.fab$v_ppf_rat
+#define fab$v_ppf_ind fab$r_ifi_overlay.fab$r_ifi_bits.fab$v_ppf_ind
+#define fab$v_ppifi fab$r_ifi_overlay.fab$r_ifi_bits.fab$v_ppifi
+#define fab$l_fop fab$r_fop_overlay.fab$l_fop
+#define fab$v_asy fab$r_fop_overlay.fab$r_fop_bits.fab$v_asy
+#define fab$v_mxv fab$r_fop_overlay.fab$r_fop_bits.fab$v_mxv
+#define fab$v_sup fab$r_fop_overlay.fab$r_fop_bits.fab$v_sup
+#define fab$v_tmp fab$r_fop_overlay.fab$r_fop_bits.fab$v_tmp
+#define fab$v_tmd fab$r_fop_overlay.fab$r_fop_bits.fab$v_tmd
+#define fab$v_dfw fab$r_fop_overlay.fab$r_fop_bits.fab$v_dfw
+#define fab$v_sqo fab$r_fop_overlay.fab$r_fop_bits.fab$v_sqo
+#define fab$v_rwo fab$r_fop_overlay.fab$r_fop_bits.fab$v_rwo
+#define fab$v_pos fab$r_fop_overlay.fab$r_fop_bits.fab$v_pos
+#define fab$v_wck fab$r_fop_overlay.fab$r_fop_bits.fab$v_wck
+#define fab$v_nef fab$r_fop_overlay.fab$r_fop_bits.fab$v_nef
+#define fab$v_rwc fab$r_fop_overlay.fab$r_fop_bits.fab$v_rwc
+#define fab$v_dmo fab$r_fop_overlay.fab$r_fop_bits.fab$v_dmo
+#define fab$v_spl fab$r_fop_overlay.fab$r_fop_bits.fab$v_spl
+#define fab$v_scf fab$r_fop_overlay.fab$r_fop_bits.fab$v_scf
+#define fab$v_dlt fab$r_fop_overlay.fab$r_fop_bits.fab$v_dlt
+#define fab$v_nfs fab$r_fop_overlay.fab$r_fop_bits.fab$v_nfs
+#define fab$v_ufo fab$r_fop_overlay.fab$r_fop_bits.fab$v_ufo
+#define fab$v_ppf fab$r_fop_overlay.fab$r_fop_bits.fab$v_ppf
+#define fab$v_inp fab$r_fop_overlay.fab$r_fop_bits.fab$v_inp
+#define fab$v_ctg fab$r_fop_overlay.fab$r_fop_bits.fab$v_ctg
+#define fab$v_cbt fab$r_fop_overlay.fab$r_fop_bits.fab$v_cbt
+#define fab$v_syncsts fab$r_fop_overlay.fab$r_fop_bits.fab$v_syncsts
+#define fab$v_rck fab$r_fop_overlay.fab$r_fop_bits.fab$v_rck
+#define fab$v_nam fab$r_fop_overlay.fab$r_fop_bits.fab$v_nam
+#define fab$v_cif fab$r_fop_overlay.fab$r_fop_bits.fab$v_cif
+#define fab$v_esc fab$r_fop_overlay.fab$r_fop_bits.fab$v_esc
+#define fab$v_tef fab$r_fop_overlay.fab$r_fop_bits.fab$v_tef
+#define fab$v_ofp fab$r_fop_overlay.fab$r_fop_bits.fab$v_ofp
+#define fab$v_kfo fab$r_fop_overlay.fab$r_fop_bits.fab$v_kfo
+#define fab$v_extend_fop fab$r_fop_overlay.fab$r_fop_bits.fab$v_extend_fop
+#define fab$v_erl fab$r_fop_overlay.fab$r_fop_bits_overlay.fab$v_erl
+#define fab$b_fac fab$r_fac_overlay.fab$b_fac
+#define fab$v_put fab$r_fac_overlay.fab$r_fac_bits.fab$v_put
+#define fab$v_get fab$r_fac_overlay.fab$r_fac_bits.fab$v_get
+#define fab$v_del fab$r_fac_overlay.fab$r_fac_bits.fab$v_del
+#define fab$v_upd fab$r_fac_overlay.fab$r_fac_bits.fab$v_upd
+#define fab$v_trn fab$r_fac_overlay.fab$r_fac_bits.fab$v_trn
+#define fab$v_bio fab$r_fac_overlay.fab$r_fac_bits.fab$v_bio
+#define fab$v_bro fab$r_fac_overlay.fab$r_fac_bits.fab$v_bro
+#define fab$v_exe fab$r_fac_overlay.fab$r_fac_bits.fab$v_exe
+#define fab$b_shr fab$r_shr_overlay.fab$b_shr
+#define fab$v_shrput fab$r_shr_overlay.fab$r_shr_bits.fab$v_shrput
+#define fab$v_shrget fab$r_shr_overlay.fab$r_shr_bits.fab$v_shrget
+#define fab$v_shrdel fab$r_shr_overlay.fab$r_shr_bits.fab$v_shrdel
+#define fab$v_shrupd fab$r_shr_overlay.fab$r_shr_bits.fab$v_shrupd
+#define fab$v_mse fab$r_shr_overlay.fab$r_shr_bits.fab$v_mse
+#define fab$v_nil fab$r_shr_overlay.fab$r_shr_bits.fab$v_nil
+#define fab$v_upi fab$r_shr_overlay.fab$r_shr_bits.fab$v_upi
+#define fab$v_nql fab$r_shr_overlay.fab$r_shr_bits.fab$v_nql
+#define fab$b_org fab$r_org_overlay.fab$b_org
+#define fab$v_org fab$r_org_overlay.fab$r_org_bits.fab$v_org
+#define fab$b_rat fab$r_rat_overlay.fab$b_rat
+#define fab$v_ftn fab$r_rat_overlay.fab$r_rat_bits.fab$v_ftn
+#define fab$v_cr fab$r_rat_overlay.fab$r_rat_bits.fab$v_cr
+#define fab$v_prn fab$r_rat_overlay.fab$r_rat_bits.fab$v_prn
+#define fab$v_blk fab$r_rat_overlay.fab$r_rat_bits.fab$v_blk
+#define fab$v_msb fab$r_rat_overlay.fab$r_rat_bits.fab$v_msb
+#define fab$b_special_type fab$r_rat_overlay.fab$b_special_type
+#define fab$l_jnl fab$r_jnl_overlay.fab$l_jnl
+#define fab$b_journal fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$b_journal
+#define fab$v_only_ru fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$r_journal_bits.fab$v_only_ru
+#define fab$v_ru fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$r_journal_bits.fab$v_ru
+#define fab$v_bi fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$r_journal_bits.fab$v_bi
+#define fab$v_ai fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$r_journal_bits.fab$v_ai
+#define fab$v_at fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$r_journal_bits.fab$v_at
+#define fab$v_never_ru fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$r_journal_bits.fab$v_never_ru
+#define fab$v_journal_file fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_journal_overlay.fab$r_journal_bits.fab$v_journal_file
+#define fab$b_ru_facility fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$b_ru_facility
+#define fab$w_fopext fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_fopext_overlay.fab$w_fopext
+#define fab$v_ssio_rqst fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_fopext_overlay.fab$r_fopext_bits.fab$v_ssio_rqst
+#define fab$v_ssio_granted fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_fopext_overlay.fab$r_fopext_bits.fab$v_ssio_granted
+#define fab$v_ssio_foc fab$r_jnl_overlay.fab$r_jnl_real_stuff.fab$r_fopext_overlay.fab$r_fopext_bits.fab$v_ssio_foc
+#define fab$l_nam fab$r_nam_overlay.fab$l_nam
+#define fab$l_naml fab$r_nam_overlay.fab$l_naml
+#define fab$b_acmodes fab$r_acmodes_overlay.fab$b_acmodes
+#define fab$v_lnm_mode fab$r_acmodes_overlay.fab$r_acmodes_bits.fab$v_lnm_mode
+#define fab$v_chan_mode fab$r_acmodes_overlay.fab$r_acmodes_bits.fab$v_chan_mode
+#define fab$v_file_mode fab$r_acmodes_overlay.fab$r_acmodes_bits.fab$v_file_mode
+#define fab$v_callers_mode fab$r_acmodes_overlay.fab$r_acmodes_bits.fab$v_callers_mode
+#define fab$b_rcf fab$r_rcf_overlay.fab$b_rcf
+#define fab$v_rcf_ru fab$r_rcf_overlay.fab$r_rcf_bits.fab$v_rcf_ru
+#define fab$v_rcf_ai fab$r_rcf_overlay.fab$r_rcf_bits.fab$v_rcf_ai
+#define fab$v_rcf_bi fab$r_rcf_overlay.fab$r_rcf_bits.fab$v_rcf_bi
+#define FAB$K_BLN 80                    /* length of fab                    */
+#define FAB$C_BLN 80                    /* length of fab                    */
+#define FAB$V_PPF_RAT	6		/* rat value for process-permanent files */
+#define FAB$S_PPF_RAT	8
+#define FAB$V_PPF_IND	14		/* indirect access to process-permanent file */
+#define FAB$V_ASY	0		/* asynchronous operations */
+#define FAB$V_MXV	1		/* maximize version number */
+#define FAB$V_SUP	2		/* supersede existing file */
+#define FAB$V_TMP	3		/* create temporary file */
+#define FAB$V_TMD	4		/* temporary file marked for delete */
+#define FAB$V_DFW	5		/* deferred write (rel and idx) */
+#define FAB$V_SQO	6		/* sequential access only */
+#define FAB$V_RWO	7		/* rewind magnetic tape on open */
+#define FAB$V_POS	8		/* use next magnetic tape position */
+#define FAB$V_WCK	9		/* write checking */
+#define FAB$V_NEF	10		/* not end of file, inihibit eof positioning */
+#define FAB$V_RWC	11		/* rewind magnetic tape on close */
+#define FAB$V_DMO	12		/* dismount mt on close (not implemented) */
+#define FAB$V_SPL	13		/* spool file on close */
+#define FAB$V_SCF	14		/* submit command file on close */
+#define FAB$V_DLT	15		/* delete file */
+#define FAB$V_NFS	16		/* non-file-structured operation */
+#define FAB$V_UFO	17		/* user file open - no rms operation */
+#define FAB$V_PPF	18		/* process permanent file (pio segment) */
+#define FAB$V_INP	19		/* process permanent file is 'input' */
+#define FAB$V_CTG	20		/* contiguous extension */
+#define FAB$V_CBT	21		/* contiguous best try */
+#define FAB$V_SYNCSTS	22		/* Synchronous status notification for asynchronous routines */
+#define FAB$V_RCK	23		/* read checking */
+#define FAB$V_NAM	24		/* use NAM block device, file and/or directory id */
+#define FAB$V_CIF	25		/* create if non-existent */
+#define FAB$V_ESC	27		/* 'escape' to non-standard functions ($modify) */
+#define FAB$V_TEF	28		/* truncate at end-of-file on close (write-accessed seq. disk file only) */
+#define FAB$V_OFP	29		/* output file parse (only name type sticky) */
+#define FAB$V_KFO	30		/* known file open (image activator only release 1) */
+#define FAB$V_PUT	0		/* put access */
+#define FAB$V_GET	1		/* get access */
+#define FAB$V_DEL	2		/* delete access */
+#define FAB$V_UPD	3		/* update access */
+#define FAB$V_TRN	4		/* truncate access */
+#define FAB$V_BIO	5		/* block i/o access */
+#define FAB$V_BRO	6		/* block and record i/o access */
+#define FAB$V_EXE	7		/* execute access (caller must be exec or kernel mode, ufo must also be set) */
+#define FAB$V_SHRPUT	0		/* put access */
+#define FAB$V_SHRGET	1		/* get access */
+#define FAB$V_SHRDEL	2		/* delete access */
+#define FAB$V_SHRUPD	3		/* update access */
+#define FAB$V_MSE	4		/* multi-stream connects enabled */
+#define FAB$V_NIL	5		/* no sharing */
+#define FAB$V_UPI	6		/* user provided interlocking (allows multiple */
+#define FAB$V_ORG	4		/* file organization */
+#define FAB$S_ORG	4
+#define FAB$V_FTN	0		/* FORTRAN carriage control character */
+#define FAB$V_CR	1		/* line feed - record -carriage return */
+#define FAB$V_PRN	2		/* print-file carriage control */
+#define FAB$V_BLK	3		/* records don't cross block boundaries */
+#define FAB$V_MSB	4		/* MSB formatted byte count */
+#define fab$b_dsbmsk	fab$b_acmodes	/* saved for backwards compatibility */
+#define FAB$S_LNM_MODE	2		/* logical names */
+#define FAB$V_LNM_MODE	0
+#define FAB$S_CHAN_MODE	2		/* channel */
+#define FAB$V_CHAN_MODE	2
+#define FAB$S_FILE_MODE	2		/* files accessability */
+#define FAB$V_FILE_MODE	4
+#define FAB$V_RU	1		/* (was 0) recovery unit recovery */
+#define FAB$V_BI	2		/* (was 2) before image recovery */
+#define FAB$V_AI	3		/* (was 1) after image recovery */
+#define FAB _fabdef
+#define FAB fabdef
+#define fab$l_jnl_real_stuff fab$r_jnl_real_stuff
+#define fab$l_jnl_overlay fab$r_jnl_overlay
+#define cc$rms_fab (*decc$ga_rms_fab)
+#define __RABDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define RAB$C_BID 1                     /* code for rab                     */
+#define RAB$M_PPF_RAT 0x3FC0
+#define RAB$M_PPF_IND 0x4000
+#define RAB$M_PPISI 0x8000
+#define RAB$M_ASY 0x1
+#define RAB$M_TPT 0x2
+#define RAB$M_REA 0x4
+#define RAB$M_RRL 0x8
+#define RAB$M_UIF 0x10
+#define RAB$M_MAS 0x20
+#define RAB$M_FDL 0x40
+#define RAB$M_REV 0x80
+#define RAB$M_EOF 0x100
+#define RAB$M_RAH 0x200
+#define RAB$M_WBH 0x400
+#define RAB$M_BIO 0x800
+#define RAB$M_CDK 0x1000
+#define RAB$M_LOA 0x2000
+#define RAB$M_LIM 0x4000
+#define RAB$M_SYNCSTS 0x8000
+#define RAB$M_LOC 0x10000
+#define RAB$M_WAT 0x20000
+#define RAB$M_ULK 0x40000
+#define RAB$M_RLK 0x80000
+#define RAB$M_NLK 0x100000
+#define RAB$M_KGE 0x200000
+#define RAB$M_KGT 0x400000
+#define RAB$M_NXR 0x800000
+#define RAB$M_RNE 0x1000000
+#define RAB$M_TMO 0x2000000
+#define RAB$M_CVT 0x4000000
+#define RAB$M_RNF 0x8000000
+#define RAB$M_ETO 0x10000000
+#define RAB$M_PTA 0x20000000
+#define RAB$M_PMT 0x40000000
+#define RAB$M_CCO 0x80000000
+#define RAB$M_EQNXT 0x200000
+#define RAB$M_NXT 0x400000
+#define RAB$M_NQL 0x1
+#define RAB$M_NODLCKWT 0x2
+#define RAB$M_NODLCKBLK 0x4
+#define RAB$C_SEQ 0                     /* sequential access                */
+#define RAB$C_KEY 1                     /* keyed access                     */
+#define RAB$C_RFA 2                     /* rfa access                       */
+#define RAB$C_STM 3                     /* stream access (valid only for sequential org) */
+#define RAB$C_MAXRAC 2                  /* Maximum RAC value currently supported by RMS */
+#define rab$w_isi rab$r_isi_overlay.rab$w_isi
+#define rab$r_isi_bits	rab$r_isi_overlay.rab$r_isi_bits
+#define rab$v_ppf_rat rab$r_isi_bits.rab$v_ppf_rat
+#define rab$v_ppf_ind rab$r_isi_bits.rab$v_ppf_ind
+#define rab$v_ppisi rab$r_isi_bits.rab$v_ppisi
+#define rab$l_rop rab$r_rop_overlay.rab$l_rop
+#define rab$r_rop_bits0	rab$r_rop_overlay.rab$r_rop_bits0
+#define rab$v_asy rab$r_rop_bits0.rab$v_asy
+#define rab$v_tpt rab$r_rop_bits0.rab$v_tpt
+#define rab$v_rea rab$r_rop_bits0.rab$v_rea
+#define rab$v_rrl rab$r_rop_bits0.rab$v_rrl
+#define rab$v_uif rab$r_rop_bits0.rab$v_uif
+#define rab$v_mas rab$r_rop_bits0.rab$v_mas
+#define rab$v_fdl rab$r_rop_bits0.rab$v_fdl
+#define rab$v_rev rab$r_rop_bits0.rab$v_rev
+#define rab$v_eof rab$r_rop_bits0.rab$v_eof
+#define rab$v_rah rab$r_rop_bits0.rab$v_rah
+#define rab$v_wbh rab$r_rop_bits0.rab$v_wbh
+#define rab$v_bio rab$r_rop_bits0.rab$v_bio
+#define rab$v_cdk rab$r_rop_bits0.rab$v_cdk
+#define rab$v_loa rab$r_rop_bits0.rab$v_loa
+#define rab$v_lim rab$r_rop_bits0.rab$v_lim
+#define rab$v_syncsts rab$r_rop_bits0.rab$v_syncsts
+#define rab$v_loc rab$r_rop_bits0.rab$v_loc
+#define rab$v_wat rab$r_rop_bits0.rab$v_wat
+#define rab$v_ulk rab$r_rop_bits0.rab$v_ulk
+#define rab$v_rlk rab$r_rop_bits0.rab$v_rlk
+#define rab$v_nlk rab$r_rop_bits0.rab$v_nlk
+#define rab$v_kge rab$r_rop_bits0.rab$v_kge
+#define rab$v_kgt rab$r_rop_bits0.rab$v_kgt
+#define rab$v_nxr rab$r_rop_bits0.rab$v_nxr
+#define rab$v_rne rab$r_rop_bits0.rab$v_rne
+#define rab$v_tmo rab$r_rop_bits0.rab$v_tmo
+#define rab$v_cvt rab$r_rop_bits0.rab$v_cvt
+#define rab$v_rnf rab$r_rop_bits0.rab$v_rnf
+#define rab$v_eto rab$r_rop_bits0.rab$v_eto
+#define rab$v_pta rab$r_rop_bits0.rab$v_pta
+#define rab$v_pmt rab$r_rop_bits0.rab$v_pmt
+#define rab$v_cco rab$r_rop_bits0.rab$v_cco
+#define rab$r_rop_bits1	rab$r_rop_overlay.rab$r_rop_bits1
+#define rab$v_eqnxt rab$r_rop_bits1.rab$v_eqnxt
+#define rab$v_nxt rab$r_rop_bits1.rab$v_nxt
+#define rab$r_rop_fields	rab$r_rop_overlay.rab$r_rop_fields
+#define rab$b_rop1 rab$r_rop_fields.rab$b_rop1
+#define rab$b_rop2 rab$r_rop_fields.rab$b_rop2
+#define rab$b_rop3 rab$r_rop_fields.rab$b_rop3
+#define rab$l_stv rab$r_stv_overlay.rab$l_stv
+#define rab$r_stv_fields	rab$r_stv_overlay.rab$r_stv_fields
+#define rab$w_stv0 rab$r_stv_fields.rab$w_stv0
+#define rab$w_stv2 rab$r_stv_fields.rab$w_stv2
+#define rab$w_rfa rab$r_rfa_overlay.rab$w_rfa
+#define rab$r_rfa_fields	rab$r_rfa_overlay.rab$r_rfa_fields
+#define rab$l_rfa0 rab$r_rfa_fields.rab$l_rfa0
+#define rab$w_rfa4 rab$r_rfa_fields.rab$w_rfa4
+#define rab$w_rop_2 rab$r_rop_2_overlay.rab$w_rop_2
+#define rab$r_rop_2_bits0	rab$r_rop_2_overlay.rab$r_rop_2_bits0
+#define rab$v_nql rab$r_rop_2_bits0.rab$v_nql
+#define rab$v_nodlckwt rab$r_rop_2_bits0.rab$v_nodlckwt
+#define rab$v_nodlckblk rab$r_rop_2_bits0.rab$v_nodlckblk
+#define rab$l_kbf rab$r_kbf_overlay.rab$l_kbf
+#define rab$l_pbf rab$r_kbf_overlay.rab$l_pbf
+#define rab$b_ksz rab$r_ksz_overlay.rab$b_ksz
+#define rab$b_psz rab$r_ksz_overlay.rab$b_psz
+#define rab$l_bkt rab$r_bkt_overlay.rab$l_bkt
+#define rab$l_dct rab$r_bkt_overlay.rab$l_dct
+#define rab$w_isi rab$r_isi_overlay.rab$w_isi
+#define rab$v_ppf_rat rab$r_isi_overlay.rab$r_isi_bits.rab$v_ppf_rat
+#define rab$v_ppf_ind rab$r_isi_overlay.rab$r_isi_bits.rab$v_ppf_ind
+#define rab$v_ppisi rab$r_isi_overlay.rab$r_isi_bits.rab$v_ppisi
+#define rab$l_rop rab$r_rop_overlay.rab$l_rop
+#define rab$v_asy rab$r_rop_overlay.rab$r_rop_bits0.rab$v_asy
+#define rab$v_tpt rab$r_rop_overlay.rab$r_rop_bits0.rab$v_tpt
+#define rab$v_rea rab$r_rop_overlay.rab$r_rop_bits0.rab$v_rea
+#define rab$v_rrl rab$r_rop_overlay.rab$r_rop_bits0.rab$v_rrl
+#define rab$v_uif rab$r_rop_overlay.rab$r_rop_bits0.rab$v_uif
+#define rab$v_mas rab$r_rop_overlay.rab$r_rop_bits0.rab$v_mas
+#define rab$v_fdl rab$r_rop_overlay.rab$r_rop_bits0.rab$v_fdl
+#define rab$v_rev rab$r_rop_overlay.rab$r_rop_bits0.rab$v_rev
+#define rab$v_eof rab$r_rop_overlay.rab$r_rop_bits0.rab$v_eof
+#define rab$v_rah rab$r_rop_overlay.rab$r_rop_bits0.rab$v_rah
+#define rab$v_wbh rab$r_rop_overlay.rab$r_rop_bits0.rab$v_wbh
+#define rab$v_bio rab$r_rop_overlay.rab$r_rop_bits0.rab$v_bio
+#define rab$v_cdk rab$r_rop_overlay.rab$r_rop_bits0.rab$v_cdk
+#define rab$v_loa rab$r_rop_overlay.rab$r_rop_bits0.rab$v_loa
+#define rab$v_lim rab$r_rop_overlay.rab$r_rop_bits0.rab$v_lim
+#define rab$v_syncsts rab$r_rop_overlay.rab$r_rop_bits0.rab$v_syncsts
+#define rab$v_loc rab$r_rop_overlay.rab$r_rop_bits0.rab$v_loc
+#define rab$v_wat rab$r_rop_overlay.rab$r_rop_bits0.rab$v_wat
+#define rab$v_ulk rab$r_rop_overlay.rab$r_rop_bits0.rab$v_ulk
+#define rab$v_rlk rab$r_rop_overlay.rab$r_rop_bits0.rab$v_rlk
+#define rab$v_nlk rab$r_rop_overlay.rab$r_rop_bits0.rab$v_nlk
+#define rab$v_kge rab$r_rop_overlay.rab$r_rop_bits0.rab$v_kge
+#define rab$v_kgt rab$r_rop_overlay.rab$r_rop_bits0.rab$v_kgt
+#define rab$v_nxr rab$r_rop_overlay.rab$r_rop_bits0.rab$v_nxr
+#define rab$v_rne rab$r_rop_overlay.rab$r_rop_bits0.rab$v_rne
+#define rab$v_tmo rab$r_rop_overlay.rab$r_rop_bits0.rab$v_tmo
+#define rab$v_cvt rab$r_rop_overlay.rab$r_rop_bits0.rab$v_cvt
+#define rab$v_rnf rab$r_rop_overlay.rab$r_rop_bits0.rab$v_rnf
+#define rab$v_eto rab$r_rop_overlay.rab$r_rop_bits0.rab$v_eto
+#define rab$v_pta rab$r_rop_overlay.rab$r_rop_bits0.rab$v_pta
+#define rab$v_pmt rab$r_rop_overlay.rab$r_rop_bits0.rab$v_pmt
+#define rab$v_cco rab$r_rop_overlay.rab$r_rop_bits0.rab$v_cco
+#define rab$v_eqnxt rab$r_rop_overlay.rab$r_rop_bits1.rab$v_eqnxt
+#define rab$v_nxt rab$r_rop_overlay.rab$r_rop_bits1.rab$v_nxt
+#define rab$b_rop1 rab$r_rop_overlay.rab$r_rop_fields.rab$b_rop1
+#define rab$b_rop2 rab$r_rop_overlay.rab$r_rop_fields.rab$b_rop2
+#define rab$b_rop3 rab$r_rop_overlay.rab$r_rop_fields.rab$b_rop3
+#define rab$l_stv rab$r_stv_overlay.rab$l_stv
+#define rab$w_stv0 rab$r_stv_overlay.rab$r_stv_fields.rab$w_stv0
+#define rab$w_stv2 rab$r_stv_overlay.rab$r_stv_fields.rab$w_stv2
+#define rab$w_rfa rab$r_rfa_overlay.rab$w_rfa
+#define rab$l_rfa0 rab$r_rfa_overlay.rab$r_rfa_fields.rab$l_rfa0
+#define rab$w_rfa4 rab$r_rfa_overlay.rab$r_rfa_fields.rab$w_rfa4
+#define rab$w_rop_2 rab$r_rop_2_overlay.rab$w_rop_2
+#define rab$v_nql rab$r_rop_2_overlay.rab$r_rop_2_bits0.rab$v_nql
+#define rab$v_nodlckwt rab$r_rop_2_overlay.rab$r_rop_2_bits0.rab$v_nodlckwt
+#define rab$v_nodlckblk rab$r_rop_2_overlay.rab$r_rop_2_bits0.rab$v_nodlckblk
+#define rab$l_kbf rab$r_kbf_overlay.rab$l_kbf
+#define rab$l_pbf rab$r_kbf_overlay.rab$l_pbf
+#define rab$b_ksz rab$r_ksz_overlay.rab$b_ksz
+#define rab$b_psz rab$r_ksz_overlay.rab$b_psz
+#define rab$l_bkt rab$r_bkt_overlay.rab$l_bkt
+#define rab$l_dct rab$r_bkt_overlay.rab$l_dct
+#define RAB$K_BLN 68                    /* length of traditional 32-bit rab */
+#define RAB$C_BLN 68                    /* length of traditional 32-bit rab */
+#define RAB$V_PPF_RAT	6		/* rat value for process-permanent files */
+#define RAB$S_PPF_RAT	8
+#define RAB$V_PPF_IND	14		/* indirect access to process-permanent file */
+#define RAB$V_ASY	0		/* asynchronous operations */
+#define RAB$V_TPT	1		/* truncate-on-put - allow sequential put not at eof */
+#define RAB$V_REA	2		/* lock record for read only, allow other readers */
+#define RAB$V_RRL	3		/* read record regardless of lock */
+#define RAB$V_UIF	4		/* update if existent */
+#define RAB$V_MAS	5		/* mass-insert mode */
+#define RAB$V_FDL	6		/* fast record deletion */
+#define RAB$V_REV	7		/* reverse-search */
+#define RAB$V_EOF	8		/* connect to end-of-file */
+#define RAB$V_RAH	9		/* read ahead */
+#define RAB$V_WBH	10		/* write behind */
+#define RAB$V_BIO	11		/* connect for block I/O only */
+#define RAB$V_CDK	12		/* check for duplicate keys on $GET */
+#define RAB$V_LOA	13		/* load buckets according to the file size */
+#define RAB$V_LIM	14		/* compare for key limit reached on $get/$find seq.(idx only) */
+#define RAB$V_SYNCSTS	15		/* Synchronous status notification for asynchronous routines. */
+#define RAB$V_LOC	16		/* use locate mode */
+#define RAB$V_WAT	17		/* wait if record not available */
+#define RAB$V_ULK	18		/* manual unlocking */
+#define RAB$V_RLK	19		/* allow readers for this locked record */
+#define RAB$V_NLK	20		/* do not lock record */
+#define RAB$V_KGE	21		/* key is greater than or equal to */
+#define RAB$V_KGT	22		/* key is greater than */
+#define RAB$V_NXR	23		/* non-existent record processing */
+#define RAB$V_RNE	24		/* read no echo */
+#define RAB$V_TMO	25		/* use time-out period */
+#define RAB$V_CVT	26		/* convert to upper case */
+#define RAB$V_RNF	27		/* read no filter */
+#define RAB$V_ETO	28		/* extended terminal operation */
+#define RAB$V_PTA	29		/* purge type ahead */
+#define RAB$V_PMT	30		/* use prompt buffer */
+#define RAB$V_CCO	31		/* cancel control O on output */
+#define RAB$V_EQNXT 	21		/*  Synonym for KGE */
+#define RAB$V_NXT  	22		/*  Synonym for KGT */
+#define RAB _rabdef
+#define RAB rabdef
+#define cc$rms_rab (*decc$ga_rms_rab)
+#define RAB64$C_BID 1                   /* code for rab                     */
+#define RAB64$M_PPF_RAT 0x3FC0
+#define RAB64$M_PPF_IND 0x4000
+#define RAB64$M_PPISI 0x8000
+#define RAB64$M_ASY 0x1
+#define RAB64$M_TPT 0x2
+#define RAB64$M_REA 0x4
+#define RAB64$M_RRL 0x8
+#define RAB64$M_UIF 0x10
+#define RAB64$M_MAS 0x20
+#define RAB64$M_FDL 0x40
+#define RAB64$M_REV 0x80
+#define RAB64$M_EOF 0x100
+#define RAB64$M_RAH 0x200
+#define RAB64$M_WBH 0x400
+#define RAB64$M_BIO 0x800
+#define RAB64$M_CDK 0x1000
+#define RAB64$M_LOA 0x2000
+#define RAB64$M_LIM 0x4000
+#define RAB64$M_SYNCSTS 0x8000
+#define RAB64$M_LOC 0x10000
+#define RAB64$M_WAT 0x20000
+#define RAB64$M_ULK 0x40000
+#define RAB64$M_RLK 0x80000
+#define RAB64$M_NLK 0x100000
+#define RAB64$M_KGE 0x200000
+#define RAB64$M_KGT 0x400000
+#define RAB64$M_NXR 0x800000
+#define RAB64$M_RNE 0x1000000
+#define RAB64$M_TMO 0x2000000
+#define RAB64$M_CVT 0x4000000
+#define RAB64$M_RNF 0x8000000
+#define RAB64$M_ETO 0x10000000
+#define RAB64$M_PTA 0x20000000
+#define RAB64$M_PMT 0x40000000
+#define RAB64$M_CCO 0x80000000
+#define RAB64$M_EQNXT 0x200000
+#define RAB64$M_NXT 0x400000
+#define RAB64$M_NQL 0x1
+#define RAB64$M_NODLCKWT 0x2
+#define RAB64$M_NODLCKBLK 0x4
+#define RAB64$C_SEQ 0                   /* sequential access                */
+#define RAB64$C_KEY 1                   /* keyed access                     */
+#define RAB64$C_RFA 2                   /* rfa access                       */
+#define RAB64$C_STM 3                   /* stream access (valid only for sequential org) */
+#define RAB64$C_MAXRAC 2                /* Maximum RAC value currently supported by RMS */
+#define RAB64$M_RESERVED29 0x20000000
+#define RAB64$M_RESERVED30 0x40000000
+#define RAB64$M_RESERVED31 0x80000000
+#define RAB$M_RESERVED29 536870912
+#define RAB$M_RESERVED30 1073741824
+#define RAB$M_RESERVED31 -2147483648
+#define rab64$w_isi rab64$r_isi_overlay.rab64$w_isi
+#define rab64$r_isi_bits	rab64$r_isi_overlay.rab64$r_isi_bits
+#define rab64$v_ppf_rat rab64$r_isi_bits.rab64$v_ppf_rat
+#define rab64$v_ppf_ind rab64$r_isi_bits.rab64$v_ppf_ind
+#define rab64$v_ppisi rab64$r_isi_bits.rab64$v_ppisi
+#define rab64$l_rop rab64$r_rop_overlay.rab64$l_rop
+#define rab64$r_rop_bits0	rab64$r_rop_overlay.rab64$r_rop_bits0
+#define rab64$v_asy rab64$r_rop_bits0.rab64$v_asy
+#define rab64$v_tpt rab64$r_rop_bits0.rab64$v_tpt
+#define rab64$v_rea rab64$r_rop_bits0.rab64$v_rea
+#define rab64$v_rrl rab64$r_rop_bits0.rab64$v_rrl
+#define rab64$v_uif rab64$r_rop_bits0.rab64$v_uif
+#define rab64$v_mas rab64$r_rop_bits0.rab64$v_mas
+#define rab64$v_fdl rab64$r_rop_bits0.rab64$v_fdl
+#define rab64$v_rev rab64$r_rop_bits0.rab64$v_rev
+#define rab64$v_eof rab64$r_rop_bits0.rab64$v_eof
+#define rab64$v_rah rab64$r_rop_bits0.rab64$v_rah
+#define rab64$v_wbh rab64$r_rop_bits0.rab64$v_wbh
+#define rab64$v_bio rab64$r_rop_bits0.rab64$v_bio
+#define rab64$v_cdk rab64$r_rop_bits0.rab64$v_cdk
+#define rab64$v_loa rab64$r_rop_bits0.rab64$v_loa
+#define rab64$v_lim rab64$r_rop_bits0.rab64$v_lim
+#define rab64$v_syncsts rab64$r_rop_bits0.rab64$v_syncsts
+#define rab64$v_loc rab64$r_rop_bits0.rab64$v_loc
+#define rab64$v_wat rab64$r_rop_bits0.rab64$v_wat
+#define rab64$v_ulk rab64$r_rop_bits0.rab64$v_ulk
+#define rab64$v_rlk rab64$r_rop_bits0.rab64$v_rlk
+#define rab64$v_nlk rab64$r_rop_bits0.rab64$v_nlk
+#define rab64$v_kge rab64$r_rop_bits0.rab64$v_kge
+#define rab64$v_kgt rab64$r_rop_bits0.rab64$v_kgt
+#define rab64$v_nxr rab64$r_rop_bits0.rab64$v_nxr
+#define rab64$v_rne rab64$r_rop_bits0.rab64$v_rne
+#define rab64$v_tmo rab64$r_rop_bits0.rab64$v_tmo
+#define rab64$v_cvt rab64$r_rop_bits0.rab64$v_cvt
+#define rab64$v_rnf rab64$r_rop_bits0.rab64$v_rnf
+#define rab64$v_eto rab64$r_rop_bits0.rab64$v_eto
+#define rab64$v_pta rab64$r_rop_bits0.rab64$v_pta
+#define rab64$v_pmt rab64$r_rop_bits0.rab64$v_pmt
+#define rab64$v_cco rab64$r_rop_bits0.rab64$v_cco
+#define rab64$r_rop_bits1	rab64$r_rop_overlay.rab64$r_rop_bits1
+#define rab64$v_eqnxt rab64$r_rop_bits1.rab64$v_eqnxt
+#define rab64$v_nxt rab64$r_rop_bits1.rab64$v_nxt
+#define rab64$r_rop_fields	rab64$r_rop_overlay.rab64$r_rop_fields
+#define rab64$b_rop1 rab64$r_rop_fields.rab64$b_rop1
+#define rab64$b_rop2 rab64$r_rop_fields.rab64$b_rop2
+#define rab64$b_rop3 rab64$r_rop_fields.rab64$b_rop3
+#define rab64$l_stv rab64$r_stv_overlay.rab64$l_stv
+#define rab64$r_stv_fields	rab64$r_stv_overlay.rab64$r_stv_fields
+#define rab64$w_stv0 rab64$r_stv_fields.rab64$w_stv0
+#define rab64$w_stv2 rab64$r_stv_fields.rab64$w_stv2
+#define rab64$w_rfa rab64$r_rfa_overlay.rab64$w_rfa
+#define rab64$r_rfa_fields	rab64$r_rfa_overlay.rab64$r_rfa_fields
+#define rab64$l_rfa0 rab64$r_rfa_fields.rab64$l_rfa0
+#define rab64$w_rfa4 rab64$r_rfa_fields.rab64$w_rfa4
+#define rab64$w_rop_2 rab64$r_rop_2_overlay.rab64$w_rop_2
+#define rab64$r_rop_2_bits0	rab64$r_rop_2_overlay.rab64$r_rop_2_bits0
+#define rab64$v_nql rab64$r_rop_2_bits0.rab64$v_nql
+#define rab64$v_nodlckwt rab64$r_rop_2_bits0.rab64$v_nodlckwt
+#define rab64$v_nodlckblk rab64$r_rop_2_bits0.rab64$v_nodlckblk
+#define rab64$l_kbf rab64$r_kbf_overlay.rab64$l_kbf
+#define rab64$l_pbf rab64$r_kbf_overlay.rab64$l_pbf
+#define rab64$b_ksz rab64$r_ksz_overlay.rab64$b_ksz
+#define rab64$b_psz rab64$r_ksz_overlay.rab64$b_psz
+#define rab64$l_bkt rab64$r_bkt_overlay.rab64$l_bkt
+#define rab64$l_dct rab64$r_bkt_overlay.rab64$l_dct
+#define rab64$l_version rab64$r_version64_overlay.rab64$l_version
+#define rab$l_version rab64$r_version64_overlay.rab$l_version
+#define rab64$r_version_fields_1	rab64$r_version64_overlay.rab64$r_version_fields_1
+#define rab64$w_verminor rab64$r_version_fields_1.rab64$w_verminor
+#define rab64$w_vermajor rab64$r_version_fields_1.rab64$w_vermajor
+#define rab64$r_version_fields_2	rab64$r_version64_overlay.rab64$r_version_fields_2
+#define rab$w_verminor rab64$r_version_fields_2.rab$w_verminor
+#define rab$w_vermajor rab64$r_version_fields_2.rab$w_vermajor
+#define rab64$pq_ubf rab64$r_ubf64_overlay.rab64$pq_ubf
+#define rab$pq_ubf rab64$r_ubf64_overlay.rab$pq_ubf
+#define rab64$q_usz rab64$r_usz64_overlay.rab64$q_usz
+#define rab$q_usz rab64$r_usz64_overlay.rab$q_usz
+#define rab64$pq_rbf rab64$r_rbf64_overlay.rab64$pq_rbf
+#define rab$pq_rbf rab64$r_rbf64_overlay.rab$pq_rbf
+#define rab64$q_rsz rab64$r_rsz64_overlay.rab64$q_rsz
+#define rab$q_rsz rab64$r_rsz64_overlay.rab$q_rsz
+#define rab64$pq_kbf rab64$r_kbf64_overlay.rab64$pq_kbf
+#define rab$pq_kbf rab64$r_kbf64_overlay.rab$pq_kbf
+#define rab64$pq_rhb rab64$r_rhb64_overlay.rab64$pq_rhb
+#define rab$pq_rhb rab64$r_rhb64_overlay.rab$pq_rhb
+#define rab64$q_ctx rab64$r_ctx64_overlay.rab64$q_ctx
+#define rab$q_ctx rab64$r_ctx64_overlay.rab$q_ctx
+#define rab64$l_ropext rab64$r_ropext_overlay_rab64.rab64$l_ropext
+#define rab$l_ropext rab64$r_ropext_overlay_rab64.rab$l_ropext
+#define rab64$r_ropext_bits0_1	rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_1
+#define rab64$v_reserved29 rab64$r_ropext_bits0_1.rab64$v_reserved29
+#define rab64$v_reserved30 rab64$r_ropext_bits0_1.rab64$v_reserved30
+#define rab64$v_reserved31 rab64$r_ropext_bits0_1.rab64$v_reserved31
+#define rab64$r_ropext_bits0_2	rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_2
+#define rab$v_reserved29 rab64$r_ropext_bits0_2.rab$v_reserved29
+#define rab$v_reserved30 rab64$r_ropext_bits0_2.rab$v_reserved30
+#define rab$v_reserved31 rab64$r_ropext_bits0_2.rab$v_reserved31
+#define rab64$l_mbf rab64$r_mbf_overlay.rab64$l_mbf
+#define rab$l_mbf rab64$r_mbf_overlay.rab$l_mbf
+#define rab64$l_mbc rab64$r_mbc_overlay.rab64$l_mbc
+#define rab$l_mbc rab64$r_mbc_overlay.rab$l_mbc
+#define rab64$l_reserved_1 rab64$r_reserved_1_overlay.rab64$l_reserved_1
+#define rab$l_reserved_1 rab64$r_reserved_1_overlay.rab$l_reserved_1
+#define rab64$w_isi rab64$r_isi_overlay.rab64$w_isi
+#define rab64$v_ppf_rat rab64$r_isi_overlay.rab64$r_isi_bits.rab64$v_ppf_rat
+#define rab64$v_ppf_ind rab64$r_isi_overlay.rab64$r_isi_bits.rab64$v_ppf_ind
+#define rab64$v_ppisi rab64$r_isi_overlay.rab64$r_isi_bits.rab64$v_ppisi
+#define rab64$l_rop rab64$r_rop_overlay.rab64$l_rop
+#define rab64$v_asy rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_asy
+#define rab64$v_tpt rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_tpt
+#define rab64$v_rea rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_rea
+#define rab64$v_rrl rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_rrl
+#define rab64$v_uif rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_uif
+#define rab64$v_mas rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_mas
+#define rab64$v_fdl rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_fdl
+#define rab64$v_rev rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_rev
+#define rab64$v_eof rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_eof
+#define rab64$v_rah rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_rah
+#define rab64$v_wbh rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_wbh
+#define rab64$v_bio rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_bio
+#define rab64$v_cdk rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_cdk
+#define rab64$v_loa rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_loa
+#define rab64$v_lim rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_lim
+#define rab64$v_syncsts rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_syncsts
+#define rab64$v_loc rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_loc
+#define rab64$v_wat rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_wat
+#define rab64$v_ulk rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_ulk
+#define rab64$v_rlk rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_rlk
+#define rab64$v_nlk rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_nlk
+#define rab64$v_kge rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_kge
+#define rab64$v_kgt rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_kgt
+#define rab64$v_nxr rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_nxr
+#define rab64$v_rne rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_rne
+#define rab64$v_tmo rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_tmo
+#define rab64$v_cvt rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_cvt
+#define rab64$v_rnf rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_rnf
+#define rab64$v_eto rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_eto
+#define rab64$v_pta rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_pta
+#define rab64$v_pmt rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_pmt
+#define rab64$v_cco rab64$r_rop_overlay.rab64$r_rop_bits0.rab64$v_cco
+#define rab64$v_eqnxt rab64$r_rop_overlay.rab64$r_rop_bits1.rab64$v_eqnxt
+#define rab64$v_nxt rab64$r_rop_overlay.rab64$r_rop_bits1.rab64$v_nxt
+#define rab64$b_rop1 rab64$r_rop_overlay.rab64$r_rop_fields.rab64$b_rop1
+#define rab64$b_rop2 rab64$r_rop_overlay.rab64$r_rop_fields.rab64$b_rop2
+#define rab64$b_rop3 rab64$r_rop_overlay.rab64$r_rop_fields.rab64$b_rop3
+#define rab64$l_stv rab64$r_stv_overlay.rab64$l_stv
+#define rab64$w_stv0 rab64$r_stv_overlay.rab64$r_stv_fields.rab64$w_stv0
+#define rab64$w_stv2 rab64$r_stv_overlay.rab64$r_stv_fields.rab64$w_stv2
+#define rab64$w_rfa rab64$r_rfa_overlay.rab64$w_rfa
+#define rab64$l_rfa0 rab64$r_rfa_overlay.rab64$r_rfa_fields.rab64$l_rfa0
+#define rab64$w_rfa4 rab64$r_rfa_overlay.rab64$r_rfa_fields.rab64$w_rfa4
+#define rab64$w_rop_2 rab64$r_rop_2_overlay.rab64$w_rop_2
+#define rab64$v_nql rab64$r_rop_2_overlay.rab64$r_rop_2_bits0.rab64$v_nql
+#define rab64$v_nodlckwt rab64$r_rop_2_overlay.rab64$r_rop_2_bits0.rab64$v_nodlckwt
+#define rab64$v_nodlckblk rab64$r_rop_2_overlay.rab64$r_rop_2_bits0.rab64$v_nodlckblk
+#define rab64$l_kbf rab64$r_kbf_overlay.rab64$l_kbf
+#define rab64$l_pbf rab64$r_kbf_overlay.rab64$l_pbf
+#define rab64$b_ksz rab64$r_ksz_overlay.rab64$b_ksz
+#define rab64$b_psz rab64$r_ksz_overlay.rab64$b_psz
+#define rab64$l_bkt rab64$r_bkt_overlay.rab64$l_bkt
+#define rab64$l_dct rab64$r_bkt_overlay.rab64$l_dct
+#define rab64$l_version rab64$r_version64_overlay.rab64$l_version
+#define rab$l_version rab64$r_version64_overlay.rab$l_version
+#define rab64$w_verminor rab64$r_version64_overlay.rab64$r_version_fields_1.rab64$w_verminor
+#define rab64$w_vermajor rab64$r_version64_overlay.rab64$r_version_fields_1.rab64$w_vermajor
+#define rab$w_verminor rab64$r_version64_overlay.rab64$r_version_fields_2.rab$w_verminor
+#define rab$w_vermajor rab64$r_version64_overlay.rab64$r_version_fields_2.rab$w_vermajor
+#define rab64$pq_ubf rab64$r_ubf64_overlay.rab64$pq_ubf
+#define rab$pq_ubf rab64$r_ubf64_overlay.rab$pq_ubf
+#define rab64$q_usz rab64$r_usz64_overlay.rab64$q_usz
+#define rab$q_usz rab64$r_usz64_overlay.rab$q_usz
+#define rab64$pq_rbf rab64$r_rbf64_overlay.rab64$pq_rbf
+#define rab$pq_rbf rab64$r_rbf64_overlay.rab$pq_rbf
+#define rab64$q_rsz rab64$r_rsz64_overlay.rab64$q_rsz
+#define rab$q_rsz rab64$r_rsz64_overlay.rab$q_rsz
+#define rab64$pq_kbf rab64$r_kbf64_overlay.rab64$pq_kbf
+#define rab$pq_kbf rab64$r_kbf64_overlay.rab$pq_kbf
+#define rab64$pq_rhb rab64$r_rhb64_overlay.rab64$pq_rhb
+#define rab$pq_rhb rab64$r_rhb64_overlay.rab$pq_rhb
+#define rab64$q_ctx rab64$r_ctx64_overlay.rab64$q_ctx
+#define rab$q_ctx rab64$r_ctx64_overlay.rab$q_ctx
+#define rab64$l_ropext rab64$r_ropext_overlay_rab64.rab64$l_ropext
+#define rab$l_ropext rab64$r_ropext_overlay_rab64.rab$l_ropext
+#define rab64$v_reserved29 rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_1.rab64$v_reserved29
+#define rab64$v_reserved30 rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_1.rab64$v_reserved30
+#define rab64$v_reserved31 rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_1.rab64$v_reserved31
+#define rab$v_reserved29 rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_2.rab$v_reserved29
+#define rab$v_reserved30 rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_2.rab$v_reserved30
+#define rab$v_reserved31 rab64$r_ropext_overlay_rab64.rab64$r_ropext_bits0_2.rab$v_reserved31
+#define rab64$l_mbf rab64$r_mbf_overlay.rab64$l_mbf
+#define rab$l_mbf rab64$r_mbf_overlay.rab$l_mbf
+#define rab64$l_mbc rab64$r_mbc_overlay.rab64$l_mbc
+#define rab$l_mbc rab64$r_mbc_overlay.rab$l_mbc
+#define rab64$l_reserved_1 rab64$r_reserved_1_overlay.rab64$l_reserved_1
+#define rab$l_reserved_1 rab64$r_reserved_1_overlay.rab$l_reserved_1
+#define RAB64$K_BLN64 144               /* length of 64-bit rab variant     */
+#define RAB64$C_BLN64 144               /* length of 64-bit rab variant     */
+#define RAB$K_BLN64 144                 /* length of 64-bit rab variant     */
+#define RAB$C_BLN64 144                 /* length of 64-bit rab variant     */
+#define RAB$K_MAXBLN 144                /* current maximum length of rab    */
+#define RAB$C_MAXBLN 144                /* current maximum length of rab    */
+#define RAB64$V_PPF_RAT	6		/* rat value for process-permanent files */
+#define RAB64$S_PPF_RAT	8
+#define RAB64$V_PPF_IND	14		/* indirect access to process-permanent file */
+#define RAB64$V_ASY	0		/* asynchronous operations */
+#define RAB64$V_TPT	1		/* truncate-on-put - allow sequential put not at eof */
+#define RAB64$V_REA	2		/* lock record for read only, allow other readers */
+#define RAB64$V_RRL	3		/* read record regardless of lock */
+#define RAB64$V_UIF	4		/* update if existent */
+#define RAB64$V_MAS	5		/* mass-insert mode */
+#define RAB64$V_FDL	6		/* fast record deletion */
+#define RAB64$V_REV	7		/* reverse-search */
+#define RAB64$V_EOF	8		/* connect to end-of-file */
+#define RAB64$V_RAH	9		/* read ahead */
+#define RAB64$V_WBH	10		/* write behind */
+#define RAB64$V_BIO	11		/* connect for block I/O only */
+#define RAB64$V_CDK	12		/* check for duplicate keys on $GET */
+#define RAB64$V_LOA	13		/* load buckets according to the file size */
+#define RAB64$V_LIM	14		/* compare for key limit reached on $get/$find seq.(idx only) */
+#define RAB64$V_SYNCSTS	15		/* Synchronous status notification for asynchronous routines. */
+#define RAB64$V_LOC	16		/* use locate mode */
+#define RAB64$V_WAT	17		/* wait if record not available */
+#define RAB64$V_ULK	18		/* manual unlocking */
+#define RAB64$V_RLK	19		/* allow readers for this locked record */
+#define RAB64$V_NLK	20		/* do not lock record */
+#define RAB64$V_KGE	21		/* key is greater than or equal to */
+#define RAB64$V_KGT	22		/* key is greater than */
+#define RAB64$V_NXR	23		/* non-existent record processing */
+#define RAB64$V_RNE	24		/* read no echo */
+#define RAB64$V_TMO	25		/* use time-out period */
+#define RAB64$V_CVT	26		/* convert to upper case */
+#define RAB64$V_RNF	27		/* read no filter */
+#define RAB64$V_ETO	28		/* extended terminal operation */
+#define RAB64$V_PTA	29		/* purge type ahead */
+#define RAB64$V_PMT	30		/* use prompt buffer */
+#define RAB64$V_CCO	31		/* cancel control O on output */
+#define RAB64$V_EQNXT 	21		/*  Synonym for KGE */
+#define RAB64$V_NXT  	22		/*  Synonym for KGT */
+#define RAB64 _rab64def
+#define RAB64 rab64def
+#define cc$rms_rab64 (*decc$ga_rms_rab64)
+#define __NAMDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define NAM$C_BID 2                     /* code for nam block               */
+#define NAM$C_MAXRSS 255                /* maximum resultant name string size (network) */
+#define NAM$C_MAXRSSLCL 255             /* maximum resultant name string size (local) */
+#define NAM$M_PWD 0x1
+#define NAM$M_FILL_1 0x2
+#define NAM$M_FILL_2 0x4
+#define NAM$M_SYNCHK 0x8
+#define NAM$M_NOCONCEAL 0x10
+#define NAM$M_SLPARSE 0x20
+#define NAM$M_SRCHXABS 0x40
+#define NAM$M_NO_SHORT_UPCASE 0x80
+#define NAM$C_UFS 0                     /* Unknown file system for remote file access or */
+#define NAM$C_NO_RFS 0                  /*  task-to-task operation          */
+#define NAM$C_RMS11 1                   /* RMS-11                           */
+#define NAM$C_RMS20 2                   /* RMS-20                           */
+#define NAM$C_RMS32 3                   /* RMS-32                           */
+#define NAM$C_FCS11 4                   /* FCS-11                           */
+#define NAM$C_RT11FS 5                  /* RT-11 file system                */
+#define NAM$C_TOPS20FS 7                /* TOPS-20 file system              */
+#define NAM$C_TOPS10FS 8                /* TOPS-10 file system              */
+#define NAM$C_RMS32S 10                 /* RMS-32 subset (e.g., VAXELAN)    */
+#define NAM$C_CPMFS 11                  /* CP/M file system                 */
+#define NAM$C_MS_DOSFS 12               /* MS/DOS file system               */
+#define NAM$C_ULTRIX32_FS 13            /* Ultrix-32 file system            */
+#define NAM$C_ULTRIX11_FS 14            /* Ultrix-11 file system            */
+#define DAP$K_SNADTF_FS 15              /* SNADTF compatable FS             */
+#define NAM$C_DVI 16                    /* length of dvi field              */
+#define NAM$M_IFI 0x10000
+#define NAM$M_SRCHNMF 0x40000000
+#define NAM$M_SVCTX 0x80000000
+#define NAM$K_BLN_V2 56                 /* Version 2 name block length      */
+#define NAM$C_BLN_V2 56                 /* Version 2 name block length      */
+#define NAM$M_EXP_VER 0x1
+#define NAM$M_EXP_TYPE 0x2
+#define NAM$M_EXP_NAME 0x4
+#define NAM$M_WILD_VER 0x8
+#define NAM$M_WILD_TYPE 0x10
+#define NAM$M_WILD_NAME 0x20
+#define NAM$M_EXP_DIR 0x40
+#define NAM$M_EXP_DEV 0x80
+#define NAM$M_WILDCARD 0x100
+#define NAM$M_DIR_LVLS_G7 0x200
+#define NAM$M_WILD_SFDG7 0x400
+#define NAM$M_SEARCH_LIST 0x800
+#define NAM$M_CNCL_DEV 0x1000
+#define NAM$M_ROOT_DIR 0x2000
+#define NAM$M_LOWVER 0x4000
+#define NAM$M_HIGHVER 0x8000
+#define NAM$M_PPF 0x10000
+#define NAM$M_NODE 0x20000
+#define NAM$M_QUOTED 0x40000
+#define NAM$M_GRP_MBR 0x80000
+#define NAM$M_WILD_DIR 0x100000
+#define NAM$M_DIR_LVLS 0xE00000
+#define NAM$M_WILD_UFD 0x1000000
+#define NAM$M_WILD_SFD1 0x2000000
+#define NAM$M_WILD_SFD2 0x4000000
+#define NAM$M_WILD_SFD3 0x8000000
+#define NAM$M_WILD_SFD4 0x10000000
+#define NAM$M_WILD_SFD5 0x20000000
+#define NAM$M_WILD_SFD6 0x40000000
+#define NAM$M_WILD_SFD7 0x80000000
+#define NAM$M_WILD_GRP 0x1000000
+#define NAM$M_WILD_MBR 0x2000000
+#define NAM$M_DID 0x1
+#define NAM$M_FID 0x2
+#define NAM$M_RES_DID 0x4
+#define NAM$M_RES_FID 0x8
+#define NAM$M_RES_ESCAPE 0x10
+#define NAM$M_RES_UNICODE 0x20
+#define nam$b_nop nam$r_nop_overlay.nam$b_nop
+#define nam$r_nop_bits	nam$r_nop_overlay.nam$r_nop_bits
+#define nam$v_pwd nam$r_nop_bits.nam$v_pwd
+#define nam$v_fill_1 nam$r_nop_bits.nam$v_fill_1
+#define nam$v_fill_2 nam$r_nop_bits.nam$v_fill_2
+#define nam$v_synchk nam$r_nop_bits.nam$v_synchk
+#define nam$v_noconceal nam$r_nop_bits.nam$v_noconceal
+#define nam$v_slparse nam$r_nop_bits.nam$v_slparse
+#define nam$v_srchxabs nam$r_nop_bits.nam$v_srchxabs
+#define nam$v_no_short_upcase nam$r_nop_bits.nam$v_no_short_upcase
+#define nam$l_rlf nam$r_rlf_overlay.nam$l_rlf
+#define nam$l_rlf_naml nam$r_rlf_overlay.nam$l_rlf_naml
+#define nam$w_fid nam$r_fid_overlay.nam$w_fid
+#define nam$r_fid_fields	nam$r_fid_overlay.nam$r_fid_fields
+#define nam$w_fid_num nam$r_fid_fields.nam$w_fid_num
+#define nam$w_fid_seq nam$r_fid_fields.nam$w_fid_seq
+#define nam$r_fid_rvn_overlay	nam$r_fid_fields.nam$r_fid_rvn_overlay
+#define nam$w_fid_rvn nam$r_fid_rvn_overlay.nam$w_fid_rvn
+#define nam$r_fid_rvn_fields	nam$r_fid_rvn_overlay.nam$r_fid_rvn_fields
+#define nam$b_fid_rvn nam$r_fid_rvn_fields.nam$b_fid_rvn
+#define nam$b_fid_nmx nam$r_fid_rvn_fields.nam$b_fid_nmx
+#define nam$w_did nam$r_did_overlay.nam$w_did
+#define nam$r_did_fields	nam$r_did_overlay.nam$r_did_fields
+#define nam$w_did_num nam$r_did_fields.nam$w_did_num
+#define nam$w_did_seq nam$r_did_fields.nam$w_did_seq
+#define nam$r_did_rvn_overlay	nam$r_did_fields.nam$r_did_rvn_overlay
+#define nam$w_did_rvn nam$r_did_rvn_overlay.nam$w_did_rvn
+#define nam$r_did_rvn_fields	nam$r_did_rvn_overlay.nam$r_did_rvn_fields
+#define nam$b_did_rvn nam$r_did_rvn_fields.nam$b_did_rvn
+#define nam$b_did_nmx nam$r_did_rvn_fields.nam$b_did_nmx
+#define nam$l_wcc nam$r_wcc_overlay.nam$l_wcc
+#define nam$r_wcc_bits	nam$r_wcc_overlay.nam$r_wcc_bits
+#define nam$v_ifi nam$r_wcc_bits.nam$v_ifi
+#define nam$v_srchnmf nam$r_wcc_bits.nam$v_srchnmf
+#define nam$v_svctx nam$r_wcc_bits.nam$v_svctx
+#define nam$l_fnb nam$r_fnb_overlay.nam$l_fnb
+#define nam$r_fnb_bits0	nam$r_fnb_overlay.nam$r_fnb_bits0
+#define nam$v_exp_ver nam$r_fnb_bits0.nam$v_exp_ver
+#define nam$v_exp_type nam$r_fnb_bits0.nam$v_exp_type
+#define nam$v_exp_name nam$r_fnb_bits0.nam$v_exp_name
+#define nam$v_wild_ver nam$r_fnb_bits0.nam$v_wild_ver
+#define nam$v_wild_type nam$r_fnb_bits0.nam$v_wild_type
+#define nam$v_wild_name nam$r_fnb_bits0.nam$v_wild_name
+#define nam$v_exp_dir nam$r_fnb_bits0.nam$v_exp_dir
+#define nam$v_exp_dev nam$r_fnb_bits0.nam$v_exp_dev
+#define nam$v_wildcard nam$r_fnb_bits0.nam$v_wildcard
+#define nam$v_dir_lvls_g7 nam$r_fnb_bits0.nam$v_dir_lvls_g7
+#define nam$v_wild_sfdg7 nam$r_fnb_bits0.nam$v_wild_sfdg7
+#define nam$v_search_list nam$r_fnb_bits0.nam$v_search_list
+#define nam$v_cncl_dev nam$r_fnb_bits0.nam$v_cncl_dev
+#define nam$v_root_dir nam$r_fnb_bits0.nam$v_root_dir
+#define nam$v_lowver nam$r_fnb_bits0.nam$v_lowver
+#define nam$v_highver nam$r_fnb_bits0.nam$v_highver
+#define nam$v_ppf nam$r_fnb_bits0.nam$v_ppf
+#define nam$v_node nam$r_fnb_bits0.nam$v_node
+#define nam$v_quoted nam$r_fnb_bits0.nam$v_quoted
+#define nam$v_grp_mbr nam$r_fnb_bits0.nam$v_grp_mbr
+#define nam$v_wild_dir nam$r_fnb_bits0.nam$v_wild_dir
+#define nam$v_dir_lvls nam$r_fnb_bits0.nam$v_dir_lvls
+#define nam$r_fnb_bits1	nam$r_fnb_overlay.nam$r_fnb_bits1
+#define nam$v_wild_ufd nam$r_fnb_bits1.nam$v_wild_ufd
+#define nam$v_wild_sfd1 nam$r_fnb_bits1.nam$v_wild_sfd1
+#define nam$v_wild_sfd2 nam$r_fnb_bits1.nam$v_wild_sfd2
+#define nam$v_wild_sfd3 nam$r_fnb_bits1.nam$v_wild_sfd3
+#define nam$v_wild_sfd4 nam$r_fnb_bits1.nam$v_wild_sfd4
+#define nam$v_wild_sfd5 nam$r_fnb_bits1.nam$v_wild_sfd5
+#define nam$v_wild_sfd6 nam$r_fnb_bits1.nam$v_wild_sfd6
+#define nam$v_wild_sfd7 nam$r_fnb_bits1.nam$v_wild_sfd7
+#define nam$r_fnb_bits2	nam$r_fnb_overlay.nam$r_fnb_bits2
+#define nam$v_wild_grp nam$r_fnb_bits2.nam$v_wild_grp
+#define nam$v_wild_mbr nam$r_fnb_bits2.nam$v_wild_mbr
+#define nam$b_nmc nam$r_nmc_overlay.nam$b_nmc
+#define nam$r_nmc_bits	nam$r_nmc_overlay.nam$r_nmc_bits
+#define nam$v_did nam$r_nmc_bits.nam$v_did
+#define nam$v_fid nam$r_nmc_bits.nam$v_fid
+#define nam$v_res_did nam$r_nmc_bits.nam$v_res_did
+#define nam$v_res_fid nam$r_nmc_bits.nam$v_res_fid
+#define nam$v_res_escape nam$r_nmc_bits.nam$v_res_escape
+#define nam$v_res_unicode nam$r_nmc_bits.nam$v_res_unicode
+#define nam$b_nop nam$r_nop_overlay.nam$b_nop
+#define nam$v_pwd nam$r_nop_overlay.nam$r_nop_bits.nam$v_pwd
+#define nam$v_fill_1 nam$r_nop_overlay.nam$r_nop_bits.nam$v_fill_1
+#define nam$v_fill_2 nam$r_nop_overlay.nam$r_nop_bits.nam$v_fill_2
+#define nam$v_synchk nam$r_nop_overlay.nam$r_nop_bits.nam$v_synchk
+#define nam$v_noconceal nam$r_nop_overlay.nam$r_nop_bits.nam$v_noconceal
+#define nam$v_slparse nam$r_nop_overlay.nam$r_nop_bits.nam$v_slparse
+#define nam$v_srchxabs nam$r_nop_overlay.nam$r_nop_bits.nam$v_srchxabs
+#define nam$v_no_short_upcase nam$r_nop_overlay.nam$r_nop_bits.nam$v_no_short_upcase
+#define nam$l_rlf nam$r_rlf_overlay.nam$l_rlf
+#define nam$l_rlf_naml nam$r_rlf_overlay.nam$l_rlf_naml
+#define nam$w_fid nam$r_fid_overlay.nam$w_fid
+#define nam$w_fid_num nam$r_fid_overlay.nam$r_fid_fields.nam$w_fid_num
+#define nam$w_fid_seq nam$r_fid_overlay.nam$r_fid_fields.nam$w_fid_seq
+#define nam$w_fid_rvn nam$r_fid_overlay.nam$r_fid_fields.nam$r_fid_rvn_overlay.nam$w_fid_rvn
+#define nam$b_fid_rvn nam$r_fid_overlay.nam$r_fid_fields.nam$r_fid_rvn_overlay.nam$r_fid_rvn_fields.nam$b_fid_rvn
+#define nam$b_fid_nmx nam$r_fid_overlay.nam$r_fid_fields.nam$r_fid_rvn_overlay.nam$r_fid_rvn_fields.nam$b_fid_nmx
+#define nam$w_did nam$r_did_overlay.nam$w_did
+#define nam$w_did_num nam$r_did_overlay.nam$r_did_fields.nam$w_did_num
+#define nam$w_did_seq nam$r_did_overlay.nam$r_did_fields.nam$w_did_seq
+#define nam$w_did_rvn nam$r_did_overlay.nam$r_did_fields.nam$r_did_rvn_overlay.nam$w_did_rvn
+#define nam$b_did_rvn nam$r_did_overlay.nam$r_did_fields.nam$r_did_rvn_overlay.nam$r_did_rvn_fields.nam$b_did_rvn
+#define nam$b_did_nmx nam$r_did_overlay.nam$r_did_fields.nam$r_did_rvn_overlay.nam$r_did_rvn_fields.nam$b_did_nmx
+#define nam$l_wcc nam$r_wcc_overlay.nam$l_wcc
+#define nam$v_ifi nam$r_wcc_overlay.nam$r_wcc_bits.nam$v_ifi
+#define nam$v_srchnmf nam$r_wcc_overlay.nam$r_wcc_bits.nam$v_srchnmf
+#define nam$v_svctx nam$r_wcc_overlay.nam$r_wcc_bits.nam$v_svctx
+#define nam$l_fnb nam$r_fnb_overlay.nam$l_fnb
+#define nam$v_exp_ver nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_exp_ver
+#define nam$v_exp_type nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_exp_type
+#define nam$v_exp_name nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_exp_name
+#define nam$v_wild_ver nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_wild_ver
+#define nam$v_wild_type nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_wild_type
+#define nam$v_wild_name nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_wild_name
+#define nam$v_exp_dir nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_exp_dir
+#define nam$v_exp_dev nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_exp_dev
+#define nam$v_wildcard nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_wildcard
+#define nam$v_dir_lvls_g7 nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_dir_lvls_g7
+#define nam$v_wild_sfdg7 nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_wild_sfdg7
+#define nam$v_search_list nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_search_list
+#define nam$v_cncl_dev nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_cncl_dev
+#define nam$v_root_dir nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_root_dir
+#define nam$v_lowver nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_lowver
+#define nam$v_highver nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_highver
+#define nam$v_ppf nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_ppf
+#define nam$v_node nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_node
+#define nam$v_quoted nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_quoted
+#define nam$v_grp_mbr nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_grp_mbr
+#define nam$v_wild_dir nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_wild_dir
+#define nam$v_dir_lvls nam$r_fnb_overlay.nam$r_fnb_bits0.nam$v_dir_lvls
+#define nam$v_wild_ufd nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_ufd
+#define nam$v_wild_sfd1 nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_sfd1
+#define nam$v_wild_sfd2 nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_sfd2
+#define nam$v_wild_sfd3 nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_sfd3
+#define nam$v_wild_sfd4 nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_sfd4
+#define nam$v_wild_sfd5 nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_sfd5
+#define nam$v_wild_sfd6 nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_sfd6
+#define nam$v_wild_sfd7 nam$r_fnb_overlay.nam$r_fnb_bits1.nam$v_wild_sfd7
+#define nam$v_wild_grp nam$r_fnb_overlay.nam$r_fnb_bits2.nam$v_wild_grp
+#define nam$v_wild_mbr nam$r_fnb_overlay.nam$r_fnb_bits2.nam$v_wild_mbr
+#define nam$b_nmc nam$r_nmc_overlay.nam$b_nmc
+#define nam$v_did nam$r_nmc_overlay.nam$r_nmc_bits.nam$v_did
+#define nam$v_fid nam$r_nmc_overlay.nam$r_nmc_bits.nam$v_fid
+#define nam$v_res_did nam$r_nmc_overlay.nam$r_nmc_bits.nam$v_res_did
+#define nam$v_res_fid nam$r_nmc_overlay.nam$r_nmc_bits.nam$v_res_fid
+#define nam$v_res_escape nam$r_nmc_overlay.nam$r_nmc_bits.nam$v_res_escape
+#define nam$v_res_unicode nam$r_nmc_overlay.nam$r_nmc_bits.nam$v_res_unicode
+#define NAM$K_BLN_DIRWC 96              /* Not documented optional length   */
+#define NAM$C_BLN_DIRWC 96              /* Not documented optional length   */
+#define NAM$K_BLN 96                    /* Name block length                */
+#define NAM$C_BLN 96                    /* Name block length                */
+#define NAM$V_PWD	0		/* return password if present in nodespec string */
+#define NAM$V_FILL_1	1
+#define NAM$V_FILL_2	2
+#define NAM$V_SYNCHK	3		/* Only do syntax check on $PARSE operation */
+#define NAM$V_NOCONCEAL	4		/* do not conceal device/root directory */
+#define NAM$V_SLPARSE	5		/* parse search list */
+#define NAM$V_SRCHXABS	6		/* fill in attached XABS on $SEARCH ops over the network */
+#define NAM$V_NO_SHORT_UPCASE 7		/* Don't upcase the ESA */
+#define NAM$V_IFI	16		/* Internal file identifier */
+#define NAM$V_SRCHNMF	30		/* no-more-files has been encountered on $SEARCH */
+#define NAM$V_SVCTX	31		/* save context across search calls */
+#define NAM$V_EXP_VER	0		/* version number is explicit */
+#define NAM$V_EXP_TYPE	1		/* file type is explicit */
+#define NAM$V_EXP_NAME	2		/* file name is explicit */
+#define NAM$V_WILD_VER	3		/* version number containes a wild card */
+#define NAM$V_WILD_TYPE	4		/* file type containes a wild card */
+#define NAM$V_WILD_NAME	5		/* file name containes a wild card */
+#define NAM$V_EXP_DIR	6		/* directory spec is explicit */
+#define NAM$V_EXP_DEV	7		/* device name is explicit */
+#define NAM$V_WILDCARD	8		/* file name string includes a wild card */
+#define NAM$V_DIR_LVLS_G7 9		/* Dir levels greater than 7 */
+#define NAM$V_WILD_SFDG7 10		/* A subdir greater than 7 has a wildcard */
+#define NAM$V_SEARCH_LIST 11		/* search list present */
+#define NAM$V_CNCL_DEV	12		/* device name is a concealed device */
+#define NAM$V_ROOT_DIR	13		/* device name incorporates a root directory */
+#define NAM$V_LOWVER	14		/* lower numbered version(s) of the file exist(s) */
+#define NAM$V_HIGHVER	15		/* higher numbered version(s) of the file exist(s) */
+#define NAM$V_PPF	16		/* indirectly accessed process permanent file */
+#define NAM$V_NODE	17		/* file specification includes a node name */
+#define NAM$V_QUOTED	18		/* file spec includes a quoted string */
+#define NAM$V_GRP_MBR	19		/* directory spec is of group-member number format */
+#define NAM$V_WILD_DIR	20		/* directory spec includes a wild card */
+#define NAM$V_DIR_LVLS	21		/* number of subdirectory levels (0 = ufd only) */
+#define NAM$S_DIR_LVLS	3
+#define NAM$V_WILD_UFD	24		/* user file directory spec includes a wild card */
+#define NAM$V_WILD_SFD1	25		/* subfile directory 1 spec includes a wild card */
+#define NAM$V_WILD_SFD2	26		/* sfd2 includes a wild card */
+#define NAM$V_WILD_SFD3	27		/* sfd3 includes a wild card */
+#define NAM$V_WILD_SFD4	28		/* sfd4 includes a wild card */
+#define NAM$V_WILD_SFD5	29		/* sfd5 includes a wild card */
+#define NAM$V_WILD_SFD6	30		/* sfd6 includes a wild card */
+#define NAM$V_WILD_SFD7	31		/* sfd7 includes a wild card */
+#define NAM$V_WILD_GRP	24		/* group containes a wild card */
+#define NAM$V_WILD_MBR	25		/* member containes a wild card */
+#define NAM$V_DID	0		/* Input string is DIDed */
+#define NAM$V_FID	1		/* Input string is FIDed */
+#define NAM$V_RES_DID	2		/* Result or Exp string is DIDded */
+#define NAM$V_RES_FID	3		/* Result or Exp string is FIDded */
+#define NAM$V_RES_ESCAPE 4		/* Result or Exp string has escapes */
+#define NAM$V_RES_UNICODE 5		/* Result or Exp string has ^U */
+#define NAML$V_NO_SHORT_OUTPUT 0	/* Don't write to RSA and ESA */
+#define NAML$V_LONG_RESULT_ESCAPE 0	/* There is an escape characater in the long output */
+#define NAML$V_FILESYS_NAME_UCS2 1	/* The filesys name output is 2-byte Unicode*/
+#define NAML$V_LONG_RESULT_DID 2	/* There is DIDding in the long result or expanded */
+#define NAML$V_LONG_RESULT_FID 3	/* There is FIDding in the long result or expanded */
+#define NAML$V_LONG_RESULT_UNICODE 4	/* There is ^U in the long result or expanded */
+#define NAM _namdef
+#define NAM namdef
+#define cc$rms_nam (*decc$ga_rms_nam)
+#define NAML$C_BID 4                    /* code for naml block              */
+#define NAML$C_MAXRSS 4095              /* maximum resultant name string size  */
+#define NAML$M_PWD 0x1
+#define NAML$M_FILL_1 0x2
+#define NAML$M_FILL_2 0x4
+#define NAML$M_SYNCHK 0x8
+#define NAML$M_NOCONCEAL 0x10
+#define NAML$M_SLPARSE 0x20
+#define NAML$M_SRCHXABS 0x40
+#define NAML$M_NO_SHORT_UPCASE 0x80
+#define NAML$C_UFS 0                    /* Unknown file system for remote file access or */
+#define NAML$C_NO_RFS 0                 /*  task-to-task operation          */
+#define NAML$C_RMS11 1                  /* RMS-11                           */
+#define NAML$C_RMS20 2                  /* RMS-20                           */
+#define NAML$C_RMS32 3                  /* RMS-32                           */
+#define NAML$C_FCS11 4                  /* FCS-11                           */
+#define NAML$C_RT11FS 5                 /* RT-11 file system                */
+#define NAML$C_TOPS20FS 7               /* TOPS-20 file system              */
+#define NAML$C_TOPS10FS 8               /* TOPS-10 file system              */
+#define NAML$C_RMS32S 10                /* RMS-32 subset (e.g., VAXELAN)    */
+#define NAML$C_CPMFS 11                 /* CP/M file system                 */
+#define NAML$C_MS_DOSFS 12              /* MS/DOS file system               */
+#define NAML$C_ULTRIX32_FS 13           /* Ultrix-32 file system            */
+#define NAML$C_ULTRIX11_FS 14           /* Ultrix-11 file system            */
+#define NAML$C_DVI 16                   /* length of dvi field              */
+#define NAML$M_IFI 0x10000
+#define NAML$M_SRCHNMF 0x40000000
+#define NAML$M_SVCTX 0x80000000
+#define NAML$K_BLN_V2 56                /* Version 2 name block length      */
+#define NAML$C_BLN_V2 56                /* Version 2 name block length      */
+#define NAML$M_EXP_VER 0x1
+#define NAML$M_EXP_TYPE 0x2
+#define NAML$M_EXP_NAME 0x4
+#define NAML$M_WILD_VER 0x8
+#define NAML$M_WILD_TYPE 0x10
+#define NAML$M_WILD_NAME 0x20
+#define NAML$M_EXP_DIR 0x40
+#define NAML$M_EXP_DEV 0x80
+#define NAML$M_WILDCARD 0x100
+#define NAML$M_DIR_LVLS_G7 0x200
+#define NAML$M_WILD_SFDG7 0x400
+#define NAML$M_SEARCH_LIST 0x800
+#define NAML$M_CNCL_DEV 0x1000
+#define NAML$M_ROOT_DIR 0x2000
+#define NAML$M_LOWVER 0x4000
+#define NAML$M_HIGHVER 0x8000
+#define NAML$M_PPF 0x10000
+#define NAML$M_NODE 0x20000
+#define NAML$M_QUOTED 0x40000
+#define NAML$M_GRP_MBR 0x80000
+#define NAML$M_WILD_DIR 0x100000
+#define NAML$M_DIR_LVLS 0xE00000
+#define NAML$M_WILD_UFD 0x1000000
+#define NAML$M_WILD_SFD1 0x2000000
+#define NAML$M_WILD_SFD2 0x4000000
+#define NAML$M_WILD_SFD3 0x8000000
+#define NAML$M_WILD_SFD4 0x10000000
+#define NAML$M_WILD_SFD5 0x20000000
+#define NAML$M_WILD_SFD6 0x40000000
+#define NAML$M_WILD_SFD7 0x80000000
+#define NAML$M_WILD_GRP 0x1000000
+#define NAML$M_WILD_MBR 0x2000000
+#define NAML$M_DID 0x1
+#define NAML$M_FID 0x2
+#define NAML$M_RES_DID 0x4
+#define NAML$M_RES_FID 0x8
+#define NAML$M_RES_ESCAPE 0x10
+#define NAML$M_RES_UNICODE 0x20
+#define NAML$M_LONG_RESULT_ESCAPE 0x1
+#define NAML$M_FILESYS_NAME_UCS2 0x2
+#define NAML$M_LONG_RESULT_DID 0x4
+#define NAML$M_LONG_RESULT_FID 0x8
+#define NAML$M_LONG_RESULT_UNICODE 0x10
+#define NAML$M_MP_IN_PATH 0x20
+#define NAML$M_SYMLNK_IN_PATH 0x40
+#define NAML$M_OBJECT_SYMLINK 0x80
+#define NAML$M_IS_DIRECTORY 0x100
+#define NAML$M_NO_SHORT_OUTPUT 0x1
+#define NAML$C_CASE_LOOKUP_BLIND 2      /* case blind                       */
+#define NAML$C_CASE_LOOKUP_SENSITIVE 3  /* case sensitive                   */
+#define NAML$M_OPEN_SPECIAL 0x8
+#define NAML$C_SEARCH_SYMLINK_DEFAULT 0 /* use process default              */
+#define NAML$C_SEARCH_SYMLINK_NONE 1    /* use no symlinks                  */
+#define NAML$C_SEARCH_SYMLINK_ALL 2     /* use symlinks always              */
+#define NAML$C_SEARCH_SYMLINK_NOELLIPS 3 /* use symlinks except in ellipsis */
+#define naml$b_nop naml$r_nop_overlay.naml$b_nop
+#define naml$r_nop_bits	naml$r_nop_overlay.naml$r_nop_bits
+#define naml$v_pwd naml$r_nop_bits.naml$v_pwd
+#define naml$v_fill_1 naml$r_nop_bits.naml$v_fill_1
+#define naml$v_fill_2 naml$r_nop_bits.naml$v_fill_2
+#define naml$v_synchk naml$r_nop_bits.naml$v_synchk
+#define naml$v_noconceal naml$r_nop_bits.naml$v_noconceal
+#define naml$v_slparse naml$r_nop_bits.naml$v_slparse
+#define naml$v_srchxabs naml$r_nop_bits.naml$v_srchxabs
+#define naml$v_no_short_upcase naml$r_nop_bits.naml$v_no_short_upcase
+#define naml$l_rlf naml$r_rlf_overlay.naml$l_rlf
+#define naml$l_rlf_naml naml$r_rlf_overlay.naml$l_rlf_naml
+#define naml$w_fid naml$r_fid_overlay.naml$w_fid
+#define naml$r_fid_fields	naml$r_fid_overlay.naml$r_fid_fields
+#define naml$w_fid_num naml$r_fid_fields.naml$w_fid_num
+#define naml$w_fid_seq naml$r_fid_fields.naml$w_fid_seq
+#define naml$r_fid_rvn_overlay	naml$r_fid_fields.naml$r_fid_rvn_overlay
+#define naml$w_fid_rvn naml$r_fid_rvn_overlay.naml$w_fid_rvn
+#define naml$r_fid_rvn_fields	naml$r_fid_rvn_overlay.naml$r_fid_rvn_fields
+#define naml$b_fid_rvn naml$r_fid_rvn_fields.naml$b_fid_rvn
+#define naml$b_fid_nmx naml$r_fid_rvn_fields.naml$b_fid_nmx
+#define naml$w_did naml$r_did_overlay.naml$w_did
+#define naml$r_did_fields	naml$r_did_overlay.naml$r_did_fields
+#define naml$w_did_num naml$r_did_fields.naml$w_did_num
+#define naml$w_did_seq naml$r_did_fields.naml$w_did_seq
+#define naml$r_did_rvn_overlay	naml$r_did_fields.naml$r_did_rvn_overlay
+#define naml$w_did_rvn naml$r_did_rvn_overlay.naml$w_did_rvn
+#define naml$r_did_rvn_fields	naml$r_did_rvn_overlay.naml$r_did_rvn_fields
+#define naml$b_did_rvn naml$r_did_rvn_fields.naml$b_did_rvn
+#define naml$b_did_nmx naml$r_did_rvn_fields.naml$b_did_nmx
+#define naml$l_wcc naml$r_wcc_overlay.naml$l_wcc
+#define naml$r_wcc_bits	naml$r_wcc_overlay.naml$r_wcc_bits
+#define naml$v_ifi naml$r_wcc_bits.naml$v_ifi
+#define naml$v_srchnmf naml$r_wcc_bits.naml$v_srchnmf
+#define naml$v_svctx naml$r_wcc_bits.naml$v_svctx
+#define naml$l_fnb naml$r_fnb_overlay.naml$l_fnb
+#define naml$r_fnb_bits0	naml$r_fnb_overlay.naml$r_fnb_bits0
+#define naml$v_exp_ver naml$r_fnb_bits0.naml$v_exp_ver
+#define naml$v_exp_type naml$r_fnb_bits0.naml$v_exp_type
+#define naml$v_exp_name naml$r_fnb_bits0.naml$v_exp_name
+#define naml$v_wild_ver naml$r_fnb_bits0.naml$v_wild_ver
+#define naml$v_wild_type naml$r_fnb_bits0.naml$v_wild_type
+#define naml$v_wild_name naml$r_fnb_bits0.naml$v_wild_name
+#define naml$v_exp_dir naml$r_fnb_bits0.naml$v_exp_dir
+#define naml$v_exp_dev naml$r_fnb_bits0.naml$v_exp_dev
+#define naml$v_wildcard naml$r_fnb_bits0.naml$v_wildcard
+#define naml$v_dir_lvls_g7 naml$r_fnb_bits0.naml$v_dir_lvls_g7
+#define naml$v_wild_sfdg7 naml$r_fnb_bits0.naml$v_wild_sfdg7
+#define naml$v_search_list naml$r_fnb_bits0.naml$v_search_list
+#define naml$v_cncl_dev naml$r_fnb_bits0.naml$v_cncl_dev
+#define naml$v_root_dir naml$r_fnb_bits0.naml$v_root_dir
+#define naml$v_lowver naml$r_fnb_bits0.naml$v_lowver
+#define naml$v_highver naml$r_fnb_bits0.naml$v_highver
+#define naml$v_ppf naml$r_fnb_bits0.naml$v_ppf
+#define naml$v_node naml$r_fnb_bits0.naml$v_node
+#define naml$v_quoted naml$r_fnb_bits0.naml$v_quoted
+#define naml$v_grp_mbr naml$r_fnb_bits0.naml$v_grp_mbr
+#define naml$v_wild_dir naml$r_fnb_bits0.naml$v_wild_dir
+#define naml$v_dir_lvls naml$r_fnb_bits0.naml$v_dir_lvls
+#define naml$r_fnb_bits1	naml$r_fnb_overlay.naml$r_fnb_bits1
+#define naml$v_wild_ufd naml$r_fnb_bits1.naml$v_wild_ufd
+#define naml$v_wild_sfd1 naml$r_fnb_bits1.naml$v_wild_sfd1
+#define naml$v_wild_sfd2 naml$r_fnb_bits1.naml$v_wild_sfd2
+#define naml$v_wild_sfd3 naml$r_fnb_bits1.naml$v_wild_sfd3
+#define naml$v_wild_sfd4 naml$r_fnb_bits1.naml$v_wild_sfd4
+#define naml$v_wild_sfd5 naml$r_fnb_bits1.naml$v_wild_sfd5
+#define naml$v_wild_sfd6 naml$r_fnb_bits1.naml$v_wild_sfd6
+#define naml$v_wild_sfd7 naml$r_fnb_bits1.naml$v_wild_sfd7
+#define naml$r_fnb_bits2	naml$r_fnb_overlay.naml$r_fnb_bits2
+#define naml$v_wild_grp naml$r_fnb_bits2.naml$v_wild_grp
+#define naml$v_wild_mbr naml$r_fnb_bits2.naml$v_wild_mbr
+#define naml$b_nmc naml$r_nmc_overlay.naml$b_nmc
+#define naml$r_nmc_bits	naml$r_nmc_overlay.naml$r_nmc_bits
+#define naml$v_did naml$r_nmc_bits.naml$v_did
+#define naml$v_fid naml$r_nmc_bits.naml$v_fid
+#define naml$v_res_did naml$r_nmc_bits.naml$v_res_did
+#define naml$v_res_fid naml$r_nmc_bits.naml$v_res_fid
+#define naml$v_res_escape naml$r_nmc_bits.naml$v_res_escape
+#define naml$v_res_unicode naml$r_nmc_bits.naml$v_res_unicode
+#define naml$l_output_flags naml$r_output_flags_overlay.naml$l_output_flags
+#define naml$r_output_flags_bits	naml$r_output_flags_overlay.naml$r_output_flags_bits
+#define naml$v_long_result_escape naml$r_output_flags_bits.naml$v_long_result_escape
+#define naml$v_filesys_name_ucs2 naml$r_output_flags_bits.naml$v_filesys_name_ucs2
+#define naml$v_long_result_did naml$r_output_flags_bits.naml$v_long_result_did
+#define naml$v_long_result_fid naml$r_output_flags_bits.naml$v_long_result_fid
+#define naml$v_long_result_unicode naml$r_output_flags_bits.naml$v_long_result_unicode
+#define naml$v_mp_in_path naml$r_output_flags_bits.naml$v_mp_in_path
+#define naml$v_symlnk_in_path naml$r_output_flags_bits.naml$v_symlnk_in_path
+#define naml$v_object_symlink naml$r_output_flags_bits.naml$v_object_symlink
+#define naml$v_is_directory naml$r_output_flags_bits.naml$v_is_directory
+#define naml$l_input_flags naml$r_input_flags_overlay.naml$l_input_flags
+#define naml$r_input_flags_bits	naml$r_input_flags_overlay.naml$r_input_flags_bits
+#define naml$v_no_short_output naml$r_input_flags_bits.naml$v_no_short_output
+#define naml$v_case_lookup naml$r_input_flags_bits.naml$v_case_lookup
+#define naml$v_open_special naml$r_input_flags_bits.naml$v_open_special
+#define naml$v_search_symlink naml$r_input_flags_bits.naml$v_search_symlink
+#define naml$b_nop naml$r_nop_overlay.naml$b_nop
+#define naml$v_pwd naml$r_nop_overlay.naml$r_nop_bits.naml$v_pwd
+#define naml$v_fill_1 naml$r_nop_overlay.naml$r_nop_bits.naml$v_fill_1
+#define naml$v_fill_2 naml$r_nop_overlay.naml$r_nop_bits.naml$v_fill_2
+#define naml$v_synchk naml$r_nop_overlay.naml$r_nop_bits.naml$v_synchk
+#define naml$v_noconceal naml$r_nop_overlay.naml$r_nop_bits.naml$v_noconceal
+#define naml$v_slparse naml$r_nop_overlay.naml$r_nop_bits.naml$v_slparse
+#define naml$v_srchxabs naml$r_nop_overlay.naml$r_nop_bits.naml$v_srchxabs
+#define naml$v_no_short_upcase naml$r_nop_overlay.naml$r_nop_bits.naml$v_no_short_upcase
+#define naml$l_rlf naml$r_rlf_overlay.naml$l_rlf
+#define naml$l_rlf_naml naml$r_rlf_overlay.naml$l_rlf_naml
+#define naml$w_fid naml$r_fid_overlay.naml$w_fid
+#define naml$w_fid_num naml$r_fid_overlay.naml$r_fid_fields.naml$w_fid_num
+#define naml$w_fid_seq naml$r_fid_overlay.naml$r_fid_fields.naml$w_fid_seq
+#define naml$w_fid_rvn naml$r_fid_overlay.naml$r_fid_fields.naml$r_fid_rvn_overlay.naml$w_fid_rvn
+#define naml$b_fid_rvn naml$r_fid_overlay.naml$r_fid_fields.naml$r_fid_rvn_overlay.naml$r_fid_rvn_fields.naml$b_fid_rvn
+#define naml$b_fid_nmx naml$r_fid_overlay.naml$r_fid_fields.naml$r_fid_rvn_overlay.naml$r_fid_rvn_fields.naml$b_fid_nmx
+#define naml$w_did naml$r_did_overlay.naml$w_did
+#define naml$w_did_num naml$r_did_overlay.naml$r_did_fields.naml$w_did_num
+#define naml$w_did_seq naml$r_did_overlay.naml$r_did_fields.naml$w_did_seq
+#define naml$w_did_rvn naml$r_did_overlay.naml$r_did_fields.naml$r_did_rvn_overlay.naml$w_did_rvn
+#define naml$b_did_rvn naml$r_did_overlay.naml$r_did_fields.naml$r_did_rvn_overlay.naml$r_did_rvn_fields.naml$b_did_rvn
+#define naml$b_did_nmx naml$r_did_overlay.naml$r_did_fields.naml$r_did_rvn_overlay.naml$r_did_rvn_fields.naml$b_did_nmx
+#define naml$l_wcc naml$r_wcc_overlay.naml$l_wcc
+#define naml$v_ifi naml$r_wcc_overlay.naml$r_wcc_bits.naml$v_ifi
+#define naml$v_srchnmf naml$r_wcc_overlay.naml$r_wcc_bits.naml$v_srchnmf
+#define naml$v_svctx naml$r_wcc_overlay.naml$r_wcc_bits.naml$v_svctx
+#define naml$l_fnb naml$r_fnb_overlay.naml$l_fnb
+#define naml$v_exp_ver naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_exp_ver
+#define naml$v_exp_type naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_exp_type
+#define naml$v_exp_name naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_exp_name
+#define naml$v_wild_ver naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_wild_ver
+#define naml$v_wild_type naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_wild_type
+#define naml$v_wild_name naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_wild_name
+#define naml$v_exp_dir naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_exp_dir
+#define naml$v_exp_dev naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_exp_dev
+#define naml$v_wildcard naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_wildcard
+#define naml$v_dir_lvls_g7 naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_dir_lvls_g7
+#define naml$v_wild_sfdg7 naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_wild_sfdg7
+#define naml$v_search_list naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_search_list
+#define naml$v_cncl_dev naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_cncl_dev
+#define naml$v_root_dir naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_root_dir
+#define naml$v_lowver naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_lowver
+#define naml$v_highver naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_highver
+#define naml$v_ppf naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_ppf
+#define naml$v_node naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_node
+#define naml$v_quoted naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_quoted
+#define naml$v_grp_mbr naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_grp_mbr
+#define naml$v_wild_dir naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_wild_dir
+#define naml$v_dir_lvls naml$r_fnb_overlay.naml$r_fnb_bits0.naml$v_dir_lvls
+#define naml$v_wild_ufd naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_ufd
+#define naml$v_wild_sfd1 naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_sfd1
+#define naml$v_wild_sfd2 naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_sfd2
+#define naml$v_wild_sfd3 naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_sfd3
+#define naml$v_wild_sfd4 naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_sfd4
+#define naml$v_wild_sfd5 naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_sfd5
+#define naml$v_wild_sfd6 naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_sfd6
+#define naml$v_wild_sfd7 naml$r_fnb_overlay.naml$r_fnb_bits1.naml$v_wild_sfd7
+#define naml$v_wild_grp naml$r_fnb_overlay.naml$r_fnb_bits2.naml$v_wild_grp
+#define naml$v_wild_mbr naml$r_fnb_overlay.naml$r_fnb_bits2.naml$v_wild_mbr
+#define naml$b_nmc naml$r_nmc_overlay.naml$b_nmc
+#define naml$v_did naml$r_nmc_overlay.naml$r_nmc_bits.naml$v_did
+#define naml$v_fid naml$r_nmc_overlay.naml$r_nmc_bits.naml$v_fid
+#define naml$v_res_did naml$r_nmc_overlay.naml$r_nmc_bits.naml$v_res_did
+#define naml$v_res_fid naml$r_nmc_overlay.naml$r_nmc_bits.naml$v_res_fid
+#define naml$v_res_escape naml$r_nmc_overlay.naml$r_nmc_bits.naml$v_res_escape
+#define naml$v_res_unicode naml$r_nmc_overlay.naml$r_nmc_bits.naml$v_res_unicode
+#define naml$l_output_flags naml$r_output_flags_overlay.naml$l_output_flags
+#define naml$v_long_result_escape naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_long_result_escape
+#define naml$v_filesys_name_ucs2 naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_filesys_name_ucs2
+#define naml$v_long_result_did naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_long_result_did
+#define naml$v_long_result_fid naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_long_result_fid
+#define naml$v_long_result_unicode naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_long_result_unicode
+#define naml$v_mp_in_path naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_mp_in_path
+#define naml$v_symlnk_in_path naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_symlnk_in_path
+#define naml$v_object_symlink naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_object_symlink
+#define naml$v_is_directory naml$r_output_flags_overlay.naml$r_output_flags_bits.naml$v_is_directory
+#define naml$l_input_flags naml$r_input_flags_overlay.naml$l_input_flags
+#define naml$v_no_short_output naml$r_input_flags_overlay.naml$r_input_flags_bits.naml$v_no_short_output
+#define naml$v_case_lookup naml$r_input_flags_overlay.naml$r_input_flags_bits.naml$v_case_lookup
+#define naml$v_open_special naml$r_input_flags_overlay.naml$r_input_flags_bits.naml$v_open_special
+#define naml$v_search_symlink naml$r_input_flags_overlay.naml$r_input_flags_bits.naml$v_search_symlink
+#define NAML$K_BLN 248                  /* Name block length                */
+#define NAML$C_BLN 248                  /* Name block length                */
+#define NAML _namldef
+#define NAML namldef
+#define cc$rms_naml (*decc$ga_rms_naml)
+#define __XABDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_CXT_VER1 1                /* RMS Context Extraction version 1 */
+#define XAB xabdef
+#define XABDEF1 xabdef1
+#define __XABKEYDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_KEY 21                    /* xabkey id code                   */
+#define XAB$M_DUP 0x1
+#define XAB$M_CHG 0x2
+#define XAB$M_NUL 0x4
+#define XAB$M_IDX_NCMPR 0x8
+#define XAB$M_KEY_NCMPR 0x40
+#define XAB$M_DAT_NCMPR 0x80
+#define XAB$C_STG 0                     /* string                           */
+#define XAB$C_IN2 1                     /* signed 15 bit integer (2 bytes)  */
+#define XAB$C_BN2 2                     /* 2 byte binary                    */
+#define XAB$C_IN4 3                     /* signed 31 bit integer (4 bytes)  */
+#define XAB$C_BN4 4                     /* 4 byte binary                    */
+#define XAB$C_PAC 5                     /* packed decimal (1-16 bytes)      */
+#define XAB$C_IN8 6                     /* signed 63 bit integer (4 bytes)  */
+#define XAB$C_BN8 7                     /* 8 byte binary                    */
+#define XAB$C_COL 8                     /* collated                         */
+#define XAB$C_MAX_ASCEND 8              /* maximum ascending type           */
+#define XAB$C_DSTG 32                   /* descending string                */
+#define XAB$C_DIN2 33                   /*     "      signed word           */
+#define XAB$C_DBN2 34                   /*     "      unsigned word         */
+#define XAB$C_DIN4 35                   /*     "      signed longword       */
+#define XAB$C_DBN4 36                   /*     "      unsigned longword     */
+#define XAB$C_DPAC 37                   /*     "      packed decimal        */
+#define XAB$C_DIN8 38                   /*     "      signed quadword       */
+#define XAB$C_DBN8 39                   /*     "      unsigned quadword     */
+#define XAB$C_DCOL 40                   /*     "      collated              */
+#define XAB$C_MAXDTP 40                 /* max. legal data type             */
+#define XAB$K_KEYLEN_V2 64              /* old xabkey length                */
+#define XAB$C_KEYLEN_V2 64              /* old xabkey length                */
+#define XAB$C_PRG3 3                    /* Prologue version three           */
+#define XAB$C_PRG2 2                    /* Prologue version two             */
+#define XAB$C_PRG1 1                    /* Prologue versoin one             */
+#define XAB$K_KEYLEN_V4 76              /* xabkey length until V5           */
+#define XAB$C_KEYLEN_V4 76              /* xabkey length until V5           */
+#define xab$b_flg xab$r_flg_overlay.xab$b_flg
+#define xab$r_flg_bits0	xab$r_flg_overlay.xab$r_flg_bits0
+#define xab$v_dup xab$r_flg_bits0.xab$v_dup
+#define xab$v_chg xab$r_flg_bits0.xab$v_chg
+#define xab$v_nul xab$r_flg_bits0.xab$v_nul
+#define xab$v_idx_ncmpr xab$r_flg_bits0.xab$v_idx_ncmpr
+#define xab$v_key_ncmpr xab$r_flg_bits0.xab$v_key_ncmpr
+#define xab$r_flg_bits1	xab$r_flg_overlay.xab$r_flg_bits1
+#define xab$v_dat_ncmpr xab$r_flg_bits1.xab$v_dat_ncmpr
+#define xab$w_pos xab$r_pos_overlay.xab$w_pos
+#define xab$r_pos_fields	xab$r_pos_overlay.xab$r_pos_fields
+#define xab$w_pos0 xab$r_pos_fields.xab$w_pos0
+#define xab$w_pos1 xab$r_pos_fields.xab$w_pos1
+#define xab$w_pos2 xab$r_pos_fields.xab$w_pos2
+#define xab$w_pos3 xab$r_pos_fields.xab$w_pos3
+#define xab$w_pos4 xab$r_pos_fields.xab$w_pos4
+#define xab$w_pos5 xab$r_pos_fields.xab$w_pos5
+#define xab$w_pos6 xab$r_pos_fields.xab$w_pos6
+#define xab$w_pos7 xab$r_pos_fields.xab$w_pos7
+#define xab$b_siz xab$r_siz_overlay.xab$b_siz
+#define xab$r_siz_fields	xab$r_siz_overlay.xab$r_siz_fields
+#define xab$b_siz0 xab$r_siz_fields.xab$b_siz0
+#define xab$b_siz1 xab$r_siz_fields.xab$b_siz1
+#define xab$b_siz2 xab$r_siz_fields.xab$b_siz2
+#define xab$b_siz3 xab$r_siz_fields.xab$b_siz3
+#define xab$b_siz4 xab$r_siz_fields.xab$b_siz4
+#define xab$b_siz5 xab$r_siz_fields.xab$b_siz5
+#define xab$b_siz6 xab$r_siz_fields.xab$b_siz6
+#define xab$b_siz7 xab$r_siz_fields.xab$b_siz7
+#define xab$b_typ xab$r_typ_overlay.xab$b_typ
+#define xab$r_typ_fields	xab$r_typ_overlay.xab$r_typ_fields
+#define xab$b_typ0 xab$r_typ_fields.xab$b_typ0
+#define xab$b_typ1 xab$r_typ_fields.xab$b_typ1
+#define xab$b_typ2 xab$r_typ_fields.xab$b_typ2
+#define xab$b_typ3 xab$r_typ_fields.xab$b_typ3
+#define xab$b_typ4 xab$r_typ_fields.xab$b_typ4
+#define xab$b_typ5 xab$r_typ_fields.xab$b_typ5
+#define xab$b_typ6 xab$r_typ_fields.xab$b_typ6
+#define xab$b_typ7 xab$r_typ_fields.xab$b_typ7
+#define xab$b_flg xab$r_flg_overlay.xab$b_flg
+#define xab$v_dup xab$r_flg_overlay.xab$r_flg_bits0.xab$v_dup
+#define xab$v_chg xab$r_flg_overlay.xab$r_flg_bits0.xab$v_chg
+#define xab$v_nul xab$r_flg_overlay.xab$r_flg_bits0.xab$v_nul
+#define xab$v_idx_ncmpr xab$r_flg_overlay.xab$r_flg_bits0.xab$v_idx_ncmpr
+#define xab$v_key_ncmpr xab$r_flg_overlay.xab$r_flg_bits0.xab$v_key_ncmpr
+#define xab$v_dat_ncmpr xab$r_flg_overlay.xab$r_flg_bits1.xab$v_dat_ncmpr
+#define xab$w_pos xab$r_pos_overlay.xab$w_pos
+#define xab$w_pos0 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos0
+#define xab$w_pos1 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos1
+#define xab$w_pos2 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos2
+#define xab$w_pos3 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos3
+#define xab$w_pos4 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos4
+#define xab$w_pos5 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos5
+#define xab$w_pos6 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos6
+#define xab$w_pos7 xab$r_pos_overlay.xab$r_pos_fields.xab$w_pos7
+#define xab$b_siz xab$r_siz_overlay.xab$b_siz
+#define xab$b_siz0 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz0
+#define xab$b_siz1 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz1
+#define xab$b_siz2 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz2
+#define xab$b_siz3 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz3
+#define xab$b_siz4 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz4
+#define xab$b_siz5 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz5
+#define xab$b_siz6 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz6
+#define xab$b_siz7 xab$r_siz_overlay.xab$r_siz_fields.xab$b_siz7
+#define xab$b_typ xab$r_typ_overlay.xab$b_typ
+#define xab$b_typ0 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ0
+#define xab$b_typ1 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ1
+#define xab$b_typ2 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ2
+#define xab$b_typ3 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ3
+#define xab$b_typ4 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ4
+#define xab$b_typ5 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ5
+#define xab$b_typ6 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ6
+#define xab$b_typ7 xab$r_typ_overlay.xab$r_typ_fields.xab$b_typ7
+#define XAB$K_KEYLEN 100                /* xabkey length for V5             */
+#define XAB$C_KEYLEN 100                /* xabkey length for V5             */
+#define XAB$V_DUP	0		/* duplicate key value allowed */
+#define XAB$V_CHG	1		/* may change on update (alternate keys only) */
+#define XAB$V_NUL	2		/* null key value enable (alternate keys only) */
+#define XAB$V_IDX_NCMPR	3		/* indicates index records are not compressed */
+#define XAB$V_KEY_NCMPR	6		/* indicates primary key is not compressed */
+#define XAB$V_DAT_NCMPR	7		/* indicated data record is not compressed */
+#define xab$w_pos	xab$w_pos0
+#define xab$b_siz 	xab$b_siz0
+#define xab$b_typ	xab$b_typ0
+#define XABKEY _xabkeydef
+#define XABKEY xabkeydef
+#define cc$rms_xabkey (*decc$ga_rms_xabkey)
+#define __XABALLDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_ALL 20                    /* xaball id code                   */
+#define XAB$M_HRD 0x1
+#define XAB$M_ONC 0x2
+#define XAB$M_CBT 0x20
+#define XAB$M_CTG 0x80
+#define XAB$C_ANY 0                     /* any allocation o.k.              */
+#define XAB$C_CYL 1                     /* cylinder boundary                */
+#define XAB$C_LBN 2                     /* allocate at specified lbn        */
+#define XAB$C_VBN 3                     /* allocate near specified vbn      */
+#define XAB$C_RFI 4                     /* allocate near related file       */
+#define xab$b_aop xab$r_aop_overlay.xab$b_aop
+#define xab$r_aop_bits	xab$r_aop_overlay.xab$r_aop_bits
+#define xab$v_hrd xab$r_aop_bits.xab$v_hrd
+#define xab$v_onc xab$r_aop_bits.xab$v_onc
+#define xab$v_cbt xab$r_aop_bits.xab$v_cbt
+#define xab$v_ctg xab$r_aop_bits.xab$v_ctg
+#define xab$w_rfi xab$r_rfi_overlay.xab$w_rfi
+#define xab$r_rfi_fields	xab$r_rfi_overlay.xab$r_rfi_fields
+#define xab$w_rfi0 xab$r_rfi_fields.xab$w_rfi0
+#define xab$w_rfi2 xab$r_rfi_fields.xab$w_rfi2
+#define xab$w_rfi4 xab$r_rfi_fields.xab$w_rfi4
+#define xab$b_aop xab$r_aop_overlay.xab$b_aop
+#define xab$v_hrd xab$r_aop_overlay.xab$r_aop_bits.xab$v_hrd
+#define xab$v_onc xab$r_aop_overlay.xab$r_aop_bits.xab$v_onc
+#define xab$v_cbt xab$r_aop_overlay.xab$r_aop_bits.xab$v_cbt
+#define xab$v_ctg xab$r_aop_overlay.xab$r_aop_bits.xab$v_ctg
+#define xab$w_rfi xab$r_rfi_overlay.xab$w_rfi
+#define xab$w_rfi0 xab$r_rfi_overlay.xab$r_rfi_fields.xab$w_rfi0
+#define xab$w_rfi2 xab$r_rfi_overlay.xab$r_rfi_fields.xab$w_rfi2
+#define xab$w_rfi4 xab$r_rfi_overlay.xab$r_rfi_fields.xab$w_rfi4
+#define XAB$K_ALLLEN 32                 /* length of xaball                 */
+#define XAB$C_ALLLEN 32                 /* length of xaball                 */
+#define XAB$V_HRD	0		/* fail if requestd alignmt cannot be performed */
+#define XAB$V_ONC	1		/* locate space on cylinder boundary */
+#define XAB$V_CBT	5		/* contiguous allocation, best try */
+#define XAB$V_CTG	7		/* contiguous allocation */
+#define xab$w_rfi	xab$w_rfi0
+#define XABALL _xaballdef
+#define XABALL xaballdef
+#define cc$rms_xaball (*decc$ga_rms_xaball)
+#define __XABDATDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_DAT 18                    /* xabdat id code                   */
+#define XAB$K_DATLEN 84                 /* length of XABDAT                 */
+#define XAB$C_DATLEN 84                 /* length of XABDAT                 */
+#define XABDAT _xabdatdef
+#define XABDAT xabdatdef
+#define XAB$K_DATLEN_V2 36
+#define XAB$C_DATLEN_V2 36
+#define XAB$K_DATLEN_V54 44
+#define XAB$C_DATLEN_V54 44
+#define XAB$K_DATLEN_PRE_ACCDATES 60
+#define XAB$C_DATLEN_PRE_ACCDATES 60
+#define XAB$K_DATLEN_POST_ACCDATES 84
+#define XAB$C_DATLEN_POST_ACCDATES 84
+#define XAB$K_DATLEN 84
+#define XAB$C_DATLEN 84
+#define cc$rms_xabdat (*decc$ga_rms_xabdat)
+#define __XABFHCDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_FHC 29                    /* xabfhc id code                   */
+#define XAB$M_FTN 0x1
+#define XAB$M_CR 0x2
+#define XAB$M_PRN 0x4
+#define XAB$M_BLK 0x8
+#define XAB$M_GBC_PERCENT 0x1
+#define XAB$M_GBC_DEFAULT 0x2
+#define xab$b_atr xab$r_fill_9_.xab$b_atr
+#define xab$v_ftn xab$r_fill_9_.xab$r_fill_10_.xab$v_ftn
+#define xab$v_cr xab$r_fill_9_.xab$r_fill_10_.xab$v_cr
+#define xab$v_prn xab$r_fill_9_.xab$r_fill_10_.xab$v_prn
+#define xab$v_blk xab$r_fill_9_.xab$r_fill_10_.xab$v_blk
+#define xab$l_hbk xab$r_hbk_overlay.xab$l_hbk
+#define xab$r_hbk_fields	xab$r_hbk_overlay.xab$r_hbk_fields
+#define xab$w_hbk0 xab$r_hbk_fields.xab$w_hbk0
+#define xab$w_hbk2 xab$r_hbk_fields.xab$w_hbk2
+#define xab$l_ebk xab$r_ebk_overlay.xab$l_ebk
+#define xab$r_ebk_fields	xab$r_ebk_overlay.xab$r_ebk_fields
+#define xab$w_ebk0 xab$r_ebk_fields.xab$w_ebk0
+#define xab$w_ebk2 xab$r_ebk_fields.xab$w_ebk2
+#define xab$w_gbc xab$r_gbc16_overlay.xab$w_gbc
+#define xab$w_gbc16 xab$r_gbc16_overlay.xab$w_gbc16
+#define xab$b_recattr_flags xab$r_recattr_flags_overlay.xab$b_recattr_flags
+#define xab$v_gbc_percent xab$r_recattr_flags_overlay.xab$r_recattr_flags_bits.xab$v_gbc_percent
+#define xab$v_gbc_default xab$r_recattr_flags_overlay.xab$r_recattr_flags_bits.xab$v_gbc_default
+#define xab$b_atr xab$r_fill_9_.xab$b_atr
+#define xab$v_ftn xab$r_fill_9_.xab$r_fill_10_.xab$v_ftn
+#define xab$v_cr xab$r_fill_9_.xab$r_fill_10_.xab$v_cr
+#define xab$v_prn xab$r_fill_9_.xab$r_fill_10_.xab$v_prn
+#define xab$v_blk xab$r_fill_9_.xab$r_fill_10_.xab$v_blk
+#define xab$l_hbk xab$r_hbk_overlay.xab$l_hbk
+#define xab$w_hbk0 xab$r_hbk_overlay.xab$r_hbk_fields.xab$w_hbk0
+#define xab$w_hbk2 xab$r_hbk_overlay.xab$r_hbk_fields.xab$w_hbk2
+#define xab$l_ebk xab$r_ebk_overlay.xab$l_ebk
+#define xab$w_ebk0 xab$r_ebk_overlay.xab$r_ebk_fields.xab$w_ebk0
+#define xab$w_ebk2 xab$r_ebk_overlay.xab$r_ebk_fields.xab$w_ebk2
+#define xab$w_gbc xab$r_gbc16_overlay.xab$w_gbc
+#define xab$w_gbc16 xab$r_gbc16_overlay.xab$w_gbc16
+#define xab$b_recattr_flags xab$r_recattr_flags_overlay.xab$b_recattr_flags
+#define xab$v_gbc_percent xab$r_recattr_flags_overlay.xab$r_recattr_flags_bits.xab$v_gbc_percent
+#define xab$v_gbc_default xab$r_recattr_flags_overlay.xab$r_recattr_flags_bits.xab$v_gbc_default
+#define XAB$K_FHCLEN 44                 /* length of xabfhc                 */
+#define XAB$C_FHCLEN 44                 /* length of xabfhc                 */
+#define XABFHC _xabfhcdef
+#define XABFHC xabfhcdef
+#define cc$rms_xabfhc (*decc$ga_rms_xabfhc)
+#define __XABPRODEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_PRO 19                    /* xabpro id code                   */
+#define XAB$M_NOREAD 0x1
+#define XAB$M_NOWRITE 0x2
+#define XAB$M_NOEXE 0x4
+#define XAB$M_NODEL 0x8
+#define xab$v_noread xab$r_xabprodef_bits.xab$v_noread
+#define xab$v_nowrite xab$r_xabprodef_bits.xab$v_nowrite
+#define xab$v_noexe xab$r_xabprodef_bits.xab$v_noexe
+#define xab$v_nodel xab$r_xabprodef_bits.xab$v_nodel
+#define xab$v_noread xab$r_xabprodef_bits.xab$v_noread
+#define xab$v_nowrite xab$r_xabprodef_bits.xab$v_nowrite
+#define xab$v_noexe xab$r_xabprodef_bits.xab$v_noexe
+#define xab$v_nodel xab$r_xabprodef_bits.xab$v_nodel
+#define XAB$M_PROPAGATE 0x1
+#define XAB$K_PROLEN_V3 16              /* V3a xabpro length                */
+#define XAB$C_PROLEN_V3 16              /* V3a xabpro length                */
+#define xab$w_pro xab$r_pro_overlay.xab$w_pro
+#define xab$r_pro_bits	xab$r_pro_overlay.xab$r_pro_bits
+#define xab$v_sys xab$r_pro_bits.xab$v_sys
+#define xab$v_own xab$r_pro_bits.xab$v_own
+#define xab$v_grp xab$r_pro_bits.xab$v_grp
+#define xab$v_wld xab$r_pro_bits.xab$v_wld
+#define xab$b_prot_opt xab$r_prot_opt_overlay.xab$b_prot_opt
+#define xab$r_prot_opt_fields	xab$r_prot_opt_overlay.xab$r_prot_opt_fields
+#define xab$v_propagate xab$r_prot_opt_fields.xab$v_propagate
+#define xab$l_uic xab$r_uic_overlay.xab$l_uic
+#define xab$r_uic_fields	xab$r_uic_overlay.xab$r_uic_fields
+#define xab$w_mbm xab$r_uic_fields.xab$w_mbm
+#define xab$w_grp xab$r_uic_fields.xab$w_grp
+#define xab$q_prot_mode xab$r_prot_mode_overlay.xab$q_prot_mode
+#define xab$r_prot_mode_fields	xab$r_prot_mode_overlay.xab$r_prot_mode_fields
+#define xab$b_prot_mode xab$r_prot_mode_fields.xab$b_prot_mode
+#define xab$w_pro xab$r_pro_overlay.xab$w_pro
+#define xab$v_sys xab$r_pro_overlay.xab$r_pro_bits.xab$v_sys
+#define xab$v_own xab$r_pro_overlay.xab$r_pro_bits.xab$v_own
+#define xab$v_grp xab$r_pro_overlay.xab$r_pro_bits.xab$v_grp
+#define xab$v_wld xab$r_pro_overlay.xab$r_pro_bits.xab$v_wld
+#define xab$b_prot_opt xab$r_prot_opt_overlay.xab$b_prot_opt
+#define xab$v_propagate xab$r_prot_opt_overlay.xab$r_prot_opt_fields.xab$v_propagate
+#define xab$l_uic xab$r_uic_overlay.xab$l_uic
+#define xab$w_mbm xab$r_uic_overlay.xab$r_uic_fields.xab$w_mbm
+#define xab$w_grp xab$r_uic_overlay.xab$r_uic_fields.xab$w_grp
+#define xab$q_prot_mode xab$r_prot_mode_overlay.xab$q_prot_mode
+#define xab$b_prot_mode xab$r_prot_mode_overlay.xab$r_prot_mode_fields.xab$b_prot_mode
+#define XAB$K_PROLEN 88                 /* xabpro length                    */
+#define XAB$C_PROLEN 88                 /* xabpro length                    */
+#define XAB$V_SYS	0		/* system */
+#define XAB$S_SYS	4
+#define XAB$V_OWN	4		/* owner */
+#define XAB$S_OWN	4
+#define XAB$V_GRP	8		/* group */
+#define XAB$S_GRP	4
+#define XAB$V_WLD	12		/* world */
+#define XAB$S_WLD	4
+#define XAB$V_NOREAD	0		/* deny read access */
+#define XAB$V_NOWRITE	1		/* deny write access */
+#define XAB$V_NOEXE	2		/* deny execution access */
+#define XAB$V_NODEL	3		/* deny delete access */
+#define XAB$V_PROPAGATE	0		/* propagate security attributes on $ENTER and $RENAME */
+#define XAB$V_PROPOGATE	0		/* continue mis-spelled name for compatibility */
+#define XAB$M_PROPOGATE	(1 << XAB$V_PROPOGATE)
+#define XABPRO _xabprodef1
+#define XABPRO xabprodef1
+#define cc$rms_xabpro (*decc$ga_rms_xabpro)
+#define __XABSUMDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_SUM 22                    /* xabsum id code                   */
+#define XAB$K_SUMLEN 12                 /* xabsum length                    */
+#define XAB$C_SUMLEN 12                 /* xabsum length                    */
+#define XABSUM _xabsumdef
+#define XABSUM xabsumdef
+#define cc$rms_xabsum (*decc$ga_rms_xabsum)
+#define __XABRDTDEF_LOADED 1
+#define __unknown_params ...
+#define __optional_params ...
+#define __unknown_params
+#define __optional_params ...
+#define __struct struct
+#define __struct variant_struct
+#define __union union
+#define __union variant_union
+#define XAB$C_RDT 30                    /* xabrdt id code                   */
+#define XAB$K_RDTLEN 20                 /* length of rdt xab                */
+#define XAB$C_RDTLEN 20                 /* length of rdt xab                */
+#define XABRDT _xabrdtdef
+#define XABRDT xabrdtdef
+#define cc$rms_xabrdt (*decc$ga_rms_xabrdt)

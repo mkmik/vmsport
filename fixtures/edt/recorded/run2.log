@@ -1,0 +1,709 @@
+$ CREATE/DIRECTORY SYS$SYSDEVICE:[EDT2]
+$ SET DEFAULT SYS$SYSDEVICE:[EDT2]
+$ CREATE A.TXT
+one
+two
+three
+four
+five
+*EXIT*
+$ CREATE B.TXT
+alpha
+beta
+*EXIT*
+$ CREATE INI.EDT
+SET NUMBERS OFF
+SET NONUMBERS
+*EXIT*
+$ CREATE EINI.EDT
+SET NONUMBERS
+SET CASE UPPER
+*EXIT*
+$ CREATE P.TXT
+The quick brown fox jumps over the lazy dog and keeps on running far away
+short
+another line of words that wraps
+*EXIT*
+$ CREATE T.COM
+$ SET NOON
+$ WRITE SYS$OUTPUT "@@ type"
+$ EDIT/EDT/NOJOURNAL A.TXT
+TYPE WHOLE
+TYPE 2
+TYPE 2:4
+TYPE 2 THRU 3
+TYPE 2 FOR 2
+TYPE .
+TYPE BEGIN
+TYPE END
+TYPE REST
+TYPE BEFORE
+TYPE "fo"
+TYPE -"tw"
+TYPE ALL "e"
+TYPE +1
+TYPE -2
+TYPE 9
+TYPE "zz"
+TYPE
+T 3
+3
+TYPE 1,3
+QUIT
+$ SHOW SYMBOL $STATUS
+$ WRITE SYS$OUTPUT "@@ insert"
+$ EDIT/EDT/NOJOURNAL A.TXT
+INSERT 2;new before two
+INSERT 2;another
+TYPE WHOLE
+INSERT END;at end
+INSERT BEGIN;at begin
+TYPE WHOLE
+RESEQUENCE
+TYPE WHOLE
+REPLACE 3;replaced three
+TYPE WHOLE
+DELETE 1
+DELETE 2:3
+TYPE WHOLE
+EXIT
+$ SHOW SYMBOL $STATUS
+$ TYPE A.TXT
+$ WRITE SYS$OUTPUT "@@ substitute"
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+S/o/0/
+S/o/0/ WHOLE
+TYPE WHOLE
+S/zz/y/
+S/e/E/ 1:2 /BRIEF
+S/e/E/ WHOLE /NOTYPE
+TYPE WHOLE
+FIND 1
+SUBSTITUTE NEXT
+SUBSTITUTE NEXT /f/F/
+SN
+S/i/I/WHOLE
+QUIT
+$ WRITE SYS$OUTPUT "@@ buffers"
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+COPY 1:2 TO END
+TYPE WHOLE
+MOVE 1 TO 4
+TYPE WHOLE
+COPY 2 TO =X
+TYPE =X WHOLE
+SHOW BUFFER
+FIND =X
+TYPE WHOLE
+FIND =MAIN
+TYPE .
+WRITE C.TXT 1:3
+INCLUDE B.TXT 2
+TYPE WHOLE
+CLEAR =X
+SHOW BUFFER
+EXIT D.TXT
+$ TYPE C.TXT
+$ TYPE D.TXT
+$ WRITE SYS$OUTPUT "@@ errors"
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+FOO
+TYPE 1:
+TYPE 3:1
+DELETE 99
+TYPE 99
+MOVE 1 TO 1
+SET FOO
+SHOW FOO
+TYPE "unterminated
+EXIT/FOO
+TYPE 1 2
+QUIT
+$ SHOW SYMBOL $STATUS
+$ WRITE SYS$OUTPUT "@@ show"
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+SHOW CASE
+SHOW CURSOR
+SHOW ENTITY
+SHOW LINES
+SHOW MODE
+SHOW NUMBERS
+SHOW QUIET
+SHOW SCREEN
+SHOW SEARCH
+SHOW TAB
+SHOW TRUNCATE
+SHOW VERIFY
+SHOW WORD
+SHOW WRAP
+SHOW VERSION
+SHOW FILES
+SHOW KEY
+SET NUMBERS OFF
+TYPE 1:2
+SET NUMBERS ON
+SET CASE UPPER
+TYPE 1:2
+SET CASE NONE
+SET SEARCH EXACT
+TYPE "ONE"
+SET SEARCH GENERAL
+TYPE "ONE"
+SET VERIFY
+TYPE 1
+SET NOVERIFY
+SET QUIET
+TYPE 99
+SET NOQUIET
+QUIT
+$ WRITE SYS$OUTPUT "@@ fill"
+$ EDIT/EDT/NOJOURNAL P.TXT
+SET WRAP 20
+FILL WHOLE
+TYPE WHOLE
+QUIT
+$ WRITE SYS$OUTPUT "@@ newfile"
+$ EDIT/EDT/NOJOURNAL NEW.TXT
+INSERT;hello
+EXIT
+$ SHOW SYMBOL $STATUS
+$ EDIT/EDT/NOJOURNAL EMPTY.TXT
+TYPE WHOLE
+EXIT
+$ SHOW SYMBOL $STATUS
+$ EDIT/EDT/NOCREATE/NOJOURNAL NONE.TXT
+$ SHOW SYMBOL $STATUS
+$ EDIT/EDT/READ_ONLY/NOJOURNAL A.TXT;1
+S/one/x/
+EXIT
+$ SHOW SYMBOL $STATUS
+$ EDIT/EDT/OUTPUT=OUT.TXT/NOJOURNAL A.TXT;1
+S/one/x/
+EXIT
+$ EDIT/EDT/COMMAND=INI.EDT/NOJOURNAL A.TXT;1
+TYPE 1:2
+QUIT
+$ EDIT/EDT/NOCOMMAND/NOJOURNAL A.TXT;1
+QUIT
+$ WRITE SYS$OUTPUT "@@ eof"
+$ EDIT/EDT/NOJOURNAL B.TXT
+TYPE WHOLE
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY B.TXT
+$ WRITE SYS$OUTPUT "@@ journal"
+$ EDIT/EDT A.TXT;1
+S/one/J/
+QUIT/SAVE
+$ DIRECTORY *.JOU
+$ EDIT/EDT/RECOVER A.TXT;1
+TYPE 1:2
+EXIT
+$ SHOW SYMBOL $STATUS
+$ DIRECTORY *.JOU
+$ EDIT/EDT/JOURNAL=MY.JOU A.TXT;1
+QUIT/SAVE
+$ DIRECTORY *.JOU
+$ TYPE A.TXT
+$ WRITE SYS$OUTPUT "@@ change"
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+CHANGE
+TYPE 1
+QUIT
+$ WRITE SYS$OUTPUT "@@ print"
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+PRINT P1.LIS 2:3
+PRINT P2.LIS
+SET TAB 4
+TAB ADJUST 2 2:3
+TYPE 2:3
+QUIT
+$ TYPE P1.LIS
+$ TYPE P2.LIS
+$ WRITE SYS$OUTPUT "@@ edtini"
+$ COPY EINI.EDT EDTINI.EDT
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+TYPE 1:2
+QUIT
+$ DELETE EDTINI.EDT;*
+$ WRITE SYS$OUTPUT "@@ save"
+$ EDIT/EDT A.TXT;1
+S/two/2/WHOLE
+EXIT/SAVE
+$ DIRECTORY *.JOU
+$ EDIT/EDT/NOJOURNAL A.TXT;1
+SET LINES 10
+SET SCREEN 100
+SHOW SCREEN
+SET WRAP 30
+SHOW WRAP
+SET TRUNCATE
+SHOW TRUNCATE
+SET ENTITY WORD "_ "
+SHOW ENTITY
+SET SEARCH BEGIN
+SHOW SEARCH
+SET CURSOR 2:20
+SHOW CURSOR
+SET MODE CHANGE
+SHOW MODE
+SET KEYPAD VT100
+SHOW KEYPAD
+QUIT
+$ WRITE SYS$OUTPUT "@@ files"
+$ DIRECTORY
+$ WRITE SYS$OUTPUT "@@ end"
+*EXIT*
+$ @T
+@@ type
+    1       one
+    1       one
+    2       two
+    3       three
+    4       four
+    5       five
+[EOB]
+    2       two
+    2       two
+    3       three
+    4       four
+    2       two
+    3       three
+    2       two
+    3       three
+    2       two
+    1       one
+[EOB]
+[EOB]
+    1       one
+    2       two
+    3       three
+    4       four
+    5       five
+    4       four
+    2       two
+    1       one
+    3       three
+    5       five
+    2       two
+    1       one
+[EOB]
+String was not found
+[EOB]
+[EOB]
+    3       three
+    3       three
+    1       one
+    3       three
+
+  $STATUS == "%X00000001"
+@@ insert
+    1       one
+    2       two
+    2       two
+    1       one
+    1.1     new before two
+    1.2     another
+    2       two
+    3       three
+    4       four
+    5       five
+[EOB]
+[EOB]
+    1       one
+    0.1     at begin
+    1       one
+    1.1     new before two
+    1.2     another
+    2       two
+    3       three
+    4       four
+    5       five
+    6       at end
+[EOB]
+9 lines resequenced
+    1       at begin
+    2       one
+    3       new before two
+    4       another
+    5       two
+    6       three
+    7       four
+    8       five
+    9       at end
+[EOB]
+1 line deleted
+    4       another
+    1       at begin
+    2       one
+    3       replaced three
+    4       another
+    5       two
+    6       three
+    7       four
+    8       five
+    9       at end
+[EOB]
+1 line deleted
+    2       one
+2 lines deleted
+    4       another
+    4       another
+    5       two
+    6       three
+    7       four
+    8       five
+    9       at end
+[EOB]
+SYS$SYSDEVICE:[EDT2]A.TXT;2 6 lines
+  $STATUS == "%X00000001"
+another
+two
+three
+four
+five
+at end
+@@ substitute
+    1       one
+    1       0ne
+1 substitution
+    2       tw0
+    4       f0ur
+2 substitutions
+    1       0ne
+    2       tw0
+    3       three
+    4       f0ur
+    5       five
+[EOB]
+No substitutions
+    1       0nE
+1 substitution
+4 substitutions
+    1       0nE
+    2       tw0
+    3       thrEE
+    4       f0ur
+    5       fivE
+[EOB]
+    1       0nE
+    4       F0ur
+ ^
+Unrecognized command
+    5       fIvE
+1 substitution
+
+@@ buffers
+    1       one
+2 lines copied
+    1       one
+    2       two
+    3       three
+    4       four
+    5       five
+    6       one
+    7       two
+[EOB]
+1 line moved
+    2       two
+    3       three
+    3.1     one
+    4       four
+    5       five
+    6       one
+    7       two
+[EOB]
+1 line copied
+    1       two
+[EOB]
+=X      1       lines
+ MAIN   7       lines
+ PASTE  No      lines
+    1       two
+[EOB]
+    2       two
+SYS$SYSDEVICE:[EDT2]C.TXT;1 2 lines
+    0.1     alpha
+    0.2     beta
+    2       two
+    3       three
+    3.1     one
+    4       four
+    5       five
+    6       one
+    7       two
+[EOB]
+       ^
+Invalid buffer name
+ X      1       lines
+=MAIN   9       lines
+ PASTE  No      lines
+SYS$SYSDEVICE:[EDT2]D.TXT;1 9 lines
+two
+three
+alpha
+beta
+two
+three
+one
+four
+five
+one
+two
+@@ errors
+    1       one
+ ^
+Unrecognized command
+    1       one
+    3       three
+No lines deleted
+[EOB]
+[EOB]
+1 line moved
+     ^
+Invalid parameter for SET or SHOW
+      ^
+Invalid parameter for SET or SHOW
+String was not found
+    2       two
+      ^
+Unrecognized command option
+        ^
+Unexpected characters after end of command
+
+  $STATUS == "%X00000001"
+@@ show
+    1       one
+None
+7:14
+            ^
+Entity must be WORD, SENTENCE, PARAGRAPH or PAGE
+22
+Line
+numbers
+noquiet
+80
+general begin unbounded
+notab
+truncate
+noverify
+delimiter 
+nowrap
+V3.12-04                              Copyright 2015 VMS Software, Inc.
+Input  File: A.TXT;1
+Output File: A.TXT;1
+         ^
+That key is not definable
+             ^
+Unexpected characters after end of command
+    1       one
+    2       two
+             ^
+Unexpected characters after end of command
+    1       one
+    2       two
+String was not found
+    1       one
+    1       one
+    1       one
+[EOB]
+
+@@ fill
+    1       The quick brown fox jumps over the lazy dog and keeps on running far
+ away
+    0.1     The quick brown fox
+    0.2     jumps over the lazy
+    0.3     dog and keeps on
+    0.4     running far away
+    1.4     short another line
+    2.4     of words that wraps 
+[EOB]
+
+@@ newfile
+Input file does not exist
+[EOB]
+[EOB]
+SYS$SYSDEVICE:[EDT2]NEW.TXT;1 1 line
+  $STATUS == "%X00000001"
+Input file does not exist
+[EOB]
+[EOB]
+SYS$SYSDEVICE:[EDT2]EMPTY.TXT;1 No lines
+  $STATUS == "%X00000001"
+Input file does not exist
+%EDT-W-INPFILNEX, Input file does not exist
+  $STATUS == "%X00858148"
+    1       one
+    1       x
+1 substitution
+File specification required
+
+  $STATUS == "%X00000001"
+    1       one
+    1       x
+1 substitution
+SYS$SYSDEVICE:[EDT2]OUT.TXT;1 5 lines
+ SET NUMBERS OFF
+             ^
+Unexpected characters after end of command
+one
+one
+two
+
+    1       one
+
+@@ eof
+    1       alpha
+    1       alpha
+    2       beta
+[EOB]
+
+  $STATUS == "%X00000001"
+
+Directory SYS$SYSDEVICE:[EDT2]
+
+B.TXT;1             
+
+Total of 1 file.
+@@ journal
+    1       one
+    1       J
+1 substitution
+
+
+Directory SYS$SYSDEVICE:[EDT2]
+
+A.JOU;1             
+
+Total of 1 file.
+S/one/J/
+    1       J
+QUIT/SAVE
+
+    1       J
+    1       J
+    2       two
+SYS$SYSDEVICE:[EDT2]A.TXT;3 5 lines
+  $STATUS == "%X00000001"
+%DIRECT-W-NOFILES, no files found
+    1       one
+
+
+Directory SYS$SYSDEVICE:[EDT2]
+
+MY.JOU;1            
+
+Total of 1 file.
+J
+two
+three
+four
+five
+@@ change
+    1       one
+Change mode can be entered only from a terminal
+    1       one
+
+@@ print
+    1       one
+    2           two
+    3           three
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    2       two
+    3       three
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    1       one
+    2       two
+    3       three
+    4       four
+    5       five
+@@ edtini
+one
+one
+two
+
+@@ save
+    1       one
+    2       2
+1 substitution
+SYS$SYSDEVICE:[EDT2]A.TXT;4 5 lines
+
+Directory SYS$SYSDEVICE:[EDT2]
+
+A.JOU;1             MY.JOU;1            
+
+Total of 2 files.
+    1       one
+100
+30
+truncate
+            ^
+Entity must be WORD, SENTENCE, PARAGRAPH or PAGE
+general begin unbounded
+Numeric value illegal
+7:9
+Change
+            ^
+Unexpected characters after end of command
+keypad
+
+@@ files
+
+Directory SYS$SYSDEVICE:[EDT2]
+
+A.JOU;1             A.TXT;4             A.TXT;3             A.TXT;2            
+A.TXT;1             B.TXT;1             C.TXT;1             D.TXT;1            
+EINI.EDT;1          EMPTY.TXT;1         INI.EDT;1           MY.JOU;1           
+NEW.TXT;1           OUT.TXT;1           P.TXT;1             P1.LIS;1           
+P2.LIS;1            T.COM;1             
+
+Total of 18 files.
+@@ end
+$ 

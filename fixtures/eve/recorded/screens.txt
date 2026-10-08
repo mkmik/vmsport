@@ -1,0 +1,957 @@
+@@ open_exit
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines read from file SYS$SYSDEVICE:[EVE]T.TXT;1
+cursor 24,1
+@@ new_file
+status %X13F2AF01
+ 1|abc
+ 2|def
+ 3|[End of file]
+22| Buffer: NEW.TXT                                     | Write | Insert | Forward
+24|2 lines written to file SYS$SYSDEVICE:[EVE]NEW.TXT;1
+cursor 24,1
+@@ type_down
+status %X13F2AF01
+ 1|Helloline one
+ 2|line Worldtwo
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ overstrike
+status %X13F2AF01
+ 1|XYne one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                   | Write | Overstrike | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ overstrike_f14
+status %X13F2AF01
+ 1|lXYZe one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ return_split
+status %X13F2AF01
+ 1|alpha
+ 2| beta  gamma, delta.epsilon
+ 4|X
+ 5|  indented words here
+ 6|last
+ 7|[End of file]
+22| Buffer: WD.TXT                                  | Write | Overstrike | Forward
+24|6 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ delete_key
+status %X13F2AF01
+ 1|alpha beta  gamma, delta.epsilo  ndented words here
+ 2|last
+ 3|[End of file]
+22| Buffer: WD.TXT                                      | Write | Insert | Forward
+24|2 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ past_eol
+status %X13F2AF01
+ 1|short   X
+ 2|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy◆
+ 3|a       b       c
+ 4|[End of file]
+22| Buffer: W.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2
+cursor 24,1
+@@ down_to_short
+status %X13F2AF01
+ 1|short     X
+ 2|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy◆
+ 3|a       b       c
+ 4|[End of file]
+22| Buffer: W.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2
+cursor 24,1
+@@ left_at_start
+status %X13F2AF01
+ 1|line one
+ 2|Xline two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ up_at_top
+status %X13F2AF01
+ 1|Xline one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ down_at_end
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 6|X
+ 7|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|6 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ erase_word
+status %X13F2AF01
+ 1|beta
+ 2|  words here
+ 3|last
+ 4|[End of file]
+22| Buffer: WD.TXT                                      | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ ctrl_j
+status %X13F2AF01
+ 1|alpha delta.epsilon
+ 2|  words here last
+ 3|[End of file]
+22| Buffer: WD.TXT                                      | Write | Insert | Forward
+24|2 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ erase_char_line
+status %X13F2AF01
+ 1|  indented words here
+ 2|last
+ 3|[End of file]
+22| Buffer: WD.TXT                                      | Write | Insert | Forward
+24|2 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ erase_prev_word
+status %X13F2AF01
+ 1|alpha gamma, delta.epsilon
+ 2|  indented words here
+ 3|last
+ 4|[End of file]
+22| Buffer: WD.TXT                                      | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ restore
+status %X13F2AF01
+ 1|beta  gamma, delta.epsilon
+ 2|alpha   indented words here
+ 3|last
+ 4|[End of file]
+22| Buffer: WD.TXT                                      | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ f11_f12_f14
+status %X13F2AF01
+ 1|ZWalpha bXeta  gamma, delta.epsilon
+ 2|  indented words here
+ 3|last
+ 4|[End of file]
+22| Buffer: WD.TXT                                  | Write | Overstrike | Reverse
+24|3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ f12_forward
+status %X13F2AF01
+ 1|alpha beta  gamma, delta.epsilonX
+ 2|  indented words hereY
+ 3|last
+ 4|[End of file]
+22| Buffer: WD.TXT                                      | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]WD.TXT;2
+cursor 24,1
+@@ ctrl_e_h
+status %X13F2AF01
+ 1|line oneE
+ 2|Hline two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ find_far
+status %X13F2AF01
+ 1|line 41
+ 2|line 42
+ 3|line 43
+ 4|line 44
+ 5|line 45
+ 6|line 46
+ 7|line 47
+ 8|line 48
+ 9|line 49
+10|line 50
+11|line 51
+12|line 52
+13|line 53
+14|line 54
+15|Xline 55
+16|line 56
+17|line 57
+18|line 58
+19|line 59
+20|line 60
+21|[End of file]
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ find_next
+status %X13F2AF01
+ 1|line one
+ 2|Xline two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ find_none
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|Could not find: zzz
+cursor 24,1
+@@ find_nothing
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|Nothing to find.
+cursor 24,1
+@@ find_case
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|Could not find: Line
+cursor 24,1
+@@ find_reverse
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third Xline
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Reverse
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ wildcard
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|Xthe third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ replace_yna
+status %X13F2AF01
+ 1|row one
+ 2|line two
+ 3|the third row
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ replace_all
+status %X13F2AF01
+ 1|row one
+ 2|row two
+ 3|the third row
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ replace_quit
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|Replaced 0 occurrences.
+cursor 24,1
+@@ replace_last
+status %X13F2AF01
+ 1|line one
+ 2|row
+ 3| two
+ 4|the third line
+ 5|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ replace_prompts
+status %X13F2AF01
+ 1|row one
+ 2|row two
+ 3|the third row
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ select_remove
+status %X13F2AF01
+ 1|one
+ 2|line line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ select_store
+status %X13F2AF01
+ 1|line one
+ 2|lineline two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ select_cancel
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|Selection canceled.
+cursor 24,1
+@@ remove_none
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|No selection active.
+cursor 24,1
+@@ select_shown
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|Move the text cursor to select text.
+cursor 24,1
+@@ case_words
+status %X13F2AF01
+ 1|LINE one
+ 2|line Two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ center
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|                               the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ fill
+status %X13F2AF01
+ 1|This is a paragraph of short lines that FILL should join.
+ 3|Second paragraph here.
+ 4|[End of file]
+22| Buffer: P.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]P.TXT;2
+cursor 24,1
+@@ fill_range
+status %X13F2AF01
+ 1|This is a paragraph
+ 2|of short lines that FILL should join.
+ 4|Second paragraph here.
+ 5|[End of file]
+22| Buffer: P.TXT                                       | Write | Insert | Forward
+24|4 lines written to file SYS$SYSDEVICE:[EVE]P.TXT;2
+cursor 24,1
+@@ wrap
+status %X13F2AF01
+ 1|aaa bbb ccc ddd eee
+ 2|fff ggg hhh iii
+ 3|[End of file]
+22| Buffer: NEW2.TXT                                    | Write | Insert | Forward
+24|2 lines written to file SYS$SYSDEVICE:[EVE]NEW2.TXT;1
+cursor 24,1
+@@ left_margin
+status %X13F2AF01
+ 1|line one
+ 2|    new
+ 4|line two
+ 5|the third line
+ 6|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|5 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ tab_in
+status %X13F2AF01
+ 1|short
+ 2|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy◆
+ 3|a  X    b       c
+ 4|[End of file]
+22| Buffer: W.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2
+cursor 24,1
+@@ set_tabs
+status %X13F2AF01
+ 1|    xline one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ scroll_down
+status %X13F2AF01
+ 1|line 6
+ 2|line 7
+ 3|line 8
+ 4|line 9
+ 5|line 10
+ 6|line 11
+ 7|line 12
+ 8|line 13
+ 9|line 14
+10|line 15
+11|line 16
+12|line 17
+13|line 18
+14|line 19
+15|line 20
+16|line 21
+17|line 22
+18|line 23
+19|line 24
+20|line 25
+21|Xline 26
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ line_far
+status %X13F2AF01
+ 1|line 20
+ 2|line 21
+ 3|line 22
+ 4|line 23
+ 5|line 24
+ 6|line 25
+ 7|line 26
+ 8|line 27
+ 9|line 28
+10|line 29
+11|line 30
+12|line 31
+13|line 32
+14|line 33
+15|line 34
+16|line 35
+17|line 36
+18|line 37
+19|line 38
+20|line 39
+21|Xline 40
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ line_near
+status %X13F2AF01
+ 1|line 1
+ 2|line 2
+ 3|line 3
+ 4|line 4
+ 5|line 5
+ 6|line 6
+ 7|line 7
+ 8|line 8
+ 9|line 9
+10|line 10
+11|line 11
+12|line 12
+13|line 13
+14|line 14
+15|Xline 15
+16|line 16
+17|line 17
+18|line 18
+19|line 19
+20|line 20
+21|line 21
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ screens
+status %X13F2AF01
+ 1|Xline 20
+ 2|line 21
+ 3|line 22
+ 4|line 23
+ 5|line 24
+ 6|line 25
+ 7|line 26
+ 8|line 27
+ 9|line 28
+10|line 29
+11|line 30
+12|line 31
+13|line 32
+14|line 33
+15|line 34
+16|line 35
+17|line 36
+18|line 37
+19|line 38
+20|line 39
+21|line 40
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ next_screen_end
+status %X13F2AF01
+ 1|line 41
+ 2|line 42
+ 3|line 43
+ 4|line 44
+ 5|line 45
+ 6|line 46
+ 7|line 47
+ 8|line 48
+ 9|line 49
+10|line 50
+11|line 51
+12|line 52
+13|line 53
+14|line 54
+15|line 55
+16|line 56
+17|line 57
+18|line 58
+19|line 59
+20|line 60
+21|X
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|61 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ bottom_up
+status %X13F2AF01
+ 1|Xline 36
+ 2|line 37
+ 3|line 38
+ 4|line 39
+ 5|line 40
+ 6|line 41
+ 7|line 42
+ 8|line 43
+ 9|line 44
+10|line 45
+11|line 46
+12|line 47
+13|line 48
+14|line 49
+15|line 50
+16|line 51
+17|line 52
+18|line 53
+19|line 54
+20|line 55
+21|line 56
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ long_line
+status %X13F2AF01
+ 1|short
+ 2|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyy◆
+ 3|a       b       c
+ 4|[End of file]
+22| Buffer: W.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]W.TXT;2
+cursor 24,1
+@@ top_bottom
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|You are already at the bottom of the buffer.
+cursor 24,1
+@@ line_past_end
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|X
+ 5|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ what_line
+status %X13F2AF01
+ 1|line 1
+ 2|line 2
+ 3|line 3
+ 4|line 4
+ 5|line 5
+ 6|line 6
+ 7|line 7
+ 8|line 8
+ 9|line 9
+10|line 10
+11|line 11
+12|line 12
+13|line 13
+14|line 14
+15|line 15
+16|line 16
+17|line 17
+18|line 18
+19|line 19
+20|line 20
+21|line 21
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|You are on line 3 out of 60 (5%).
+cursor 24,1
+@@ mark_goto
+status %X13F2AF01
+ 1|line 1
+ 2|line 2
+ 3|line 3
+ 4|Xline 4
+ 5|line 5
+ 6|line 6
+ 7|line 7
+ 8|line 8
+ 9|line 9
+10|line 10
+11|line 11
+12|line 12
+13|line 13
+14|line 14
+15|line 15
+16|line 16
+17|line 17
+18|line 18
+19|line 19
+20|line 20
+21|line 21
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ two_windows
+status %X13F2AF01
+ 1|line 52
+ 2|line 53
+ 3|line 54
+ 4|line 55
+ 5|line 56
+ 6|line 57
+ 7|line 58
+ 8|line 59
+ 9|line 60
+10|X
+11| Buffer: L.TXT                                       | Write | Insert | Forward
+12|line 1
+13|line 2
+14|line 3
+15|line 4
+16|line 5
+17|line 6
+18|line 7
+19|line 8
+20|line 9
+21|line 10
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|61 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ split_one
+status %X13F2AF01
+ 1|ABCDline 1
+ 2|line 2
+ 3|line 3
+ 4|line 4
+ 5|line 5
+ 6|line 6
+ 7|line 7
+ 8|line 8
+ 9|line 9
+10|line 10
+11|line 11
+12|line 12
+13|line 13
+14|line 14
+15|line 15
+16|line 16
+17|line 17
+18|line 18
+19|line 19
+20|line 20
+21|line 21
+22| Buffer: L.TXT                                       | Write | Insert | Forward
+24|60 lines written to file SYS$SYSDEVICE:[EVE]L.TXT;2
+cursor 24,1
+@@ buffers
+status %X13F2AF01
+ 1| Buffer name                   Lines  Attributes
+ 3|  T.TXT                            3
+ 4|  FOO                              1  Modified
+22| Buffer: BUFFER LIST             Use SELECT to view or REMOVE to delete buffers
+23|Write Buffer FOO?
+cursor 24,1
+@@ get_file
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+cursor 24,1
+@@ include_file
+status %X13F2AF01
+ 1|line one
+ 2|This is a paragraph
+ 3|of short lines that
+ 4|FILL should join.
+ 6|Second paragraph here.
+ 7|line two
+ 8|the third line
+ 9|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|8 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ write_save
+status %X13F2AF01
+ 1|XYline one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]W2.TXT;2
+cursor 24,1
+@@ dcl
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+11| Buffer: T.TXT                                       | Write | Insert | Forward
+13|show default
+14|  SYS$SYSDEVICE:[EVE]
+22| Buffer: DCL                                     | Read-only | Insert | Forward
+24|Subprocess activated
+cursor 24,1
+@@ quit_plain
+status %X13F2AF59
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+cursor 24,1
+@@ quit_yes
+status %X13F2AF59
+ 1|Xline one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+23|Buffer modifications will not be saved, continue quitting [Yes]? y
+cursor 24,1
+@@ quit_no
+status %X13F2AF01
+ 1|Xline one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ exit_unnamed
+status %X13F2AF01
+ 1|abc
+ 2|[End of file]
+22| Buffer: FOO                                         | Write | Insert | Forward
+23|Type filename for buffer FOO (press RETURN to not write it): FOO.TXT
+24|1 line written to file SYS$SYSDEVICE:[EVE]FOO.TXT;1
+cursor 24,1
+@@ read_only
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                             | Read-only | Unmodifiable | Forward
+24|Attempt to change unmodifiable buffer T.TXT
+cursor 24,1
+@@ start_position
+status %X13F2AF01
+ 1|line one
+ 2|liXne two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ learn
+status %X13F2AF01
+ 1|ababline one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ define_key
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|X
+ 5|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ repeat
+status %X13F2AF01
+ 1|aaabline one
+ 2|line two
+ 3|the Xthird line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ ambiguous
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+16| Buffer: T.TXT                                       | Write | Insert | Forward
+17| Quit                                   Quote
+22| Buffer: $CHOICES$
+23|Command: q
+24|Ambiguous command name: q
+cursor 24,1
+@@ ambiguous_then
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|Don't understand command: mobottom
+cursor 24,1
+@@ unknown
+status %X13F2AF01
+ 1|YX
+ 2|line one
+ 3|line two
+ 4|the third line
+ 5|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ keypad_edt
+status %X13F2AF01
+ 1|line line two
+ 2|the third line
+ 3|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|2 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ ctrl_l
+status %X13F2AF01
+ 1|␌
+ 2|line one
+ 3|line two
+ 4|the third line
+ 5|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ wrap_default
+status %X13F2AF01
+ 1|aaaa bbbb cccc dddd eeee ffff gggg hhhh iiii jjjj kkkk llll mmmm nnnn oooo pppp
+ 2|qqqq
+ 3|[End of file]
+22| Buffer: NEW3.TXT                                    | Write | Insert | Forward
+24|2 lines written to file SYS$SYSDEVICE:[EVE]NEW3.TXT;1
+cursor 24,1
+@@ void_delete
+status %X13F2AF01
+ 1|line one X
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ void_return
+status %X13F2AF01
+ 1|line one
+ 2|X
+ 3|line two
+ 4|the third line
+ 5|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|4 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1
+@@ dcl_twice
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+11| Buffer: T.TXT                                       | Write | Insert | Forward
+13|show default
+14|  SYS$SYSDEVICE:[EVE]
+16|show default
+17|  SYS$SYSDEVICE:[EVE]
+22| Buffer: DCL                                     | Read-only | Insert | Forward
+cursor 24,1
+@@ exit_other
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+23|Type filename for buffer FOO (press RETURN to not write it): FOO.TXT
+24|1 line written to file SYS$SYSDEVICE:[EVE]FOO.TXT;1
+cursor 24,1
+@@ center_odd
+status %X13F2AF01
+ 1|                             This is a paragraph
+ 2|of short lines that
+ 3|FILL should join.
+ 5|Second paragraph here.
+ 6|[End of file]
+22| Buffer: P.TXT                                       | Write | Insert | Forward
+24|5 lines written to file SYS$SYSDEVICE:[EVE]P.TXT;2
+cursor 24,1
+@@ center_margins
+status %X13F2AF01
+ 1|line one
+ 2|line two
+ 3|                      the third line
+ 4|[End of file]
+22| Buffer: T.TXT                                       | Write | Insert | Forward
+24|3 lines written to file SYS$SYSDEVICE:[EVE]T.TXT;2
+cursor 24,1

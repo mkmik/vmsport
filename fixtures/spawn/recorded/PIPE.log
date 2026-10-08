@@ -1,0 +1,40 @@
+@@ pipe search
+alpha
+beta
+gamma
+status 10000001
+@@ pipe write
+one two
+@@ pipe sequence keeps symbols?
+  Y = 5   Hex = 00000005  Octal = 00000000005
+  Y = 5   Hex = 00000005  Octal = 00000000005
+@@ pipe and
+first
+second
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+ \NOSUCHVERB\
+status 00000000
+@@ pipe or
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+ \NOSUCHVERB\
+or branch
+ok
+@@ pipe redirect out
+  $STATUS == "%X00010001"
+@@ pipe redirect in
+beta
+@@ pipe subshell
+a1
+b1
+@@ pipe status of last
+%SEARCH-I-NOMATCHES, no strings matched
+status 18D78053
+@@ pipe read
+got [piped text]
+@@ pipe error redirect
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+ \NOSUCHVERB\
+%DCL-W-IVVERB, unrecognized command verb - check validity and spelling
+ \NOSUCHVERB\
+@@ pipe three
+gamma
