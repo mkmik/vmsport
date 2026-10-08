@@ -6,7 +6,7 @@ for how the pieces fit ([m2.md](docs/design/m2.md): images and the C ABI;
 [m3.md](docs/design/m3.md): RMS, sharing and images as devices).
 
 ```sh
-cargo build
+cargo build                                       # or just `cargo run --bin dcl`: it builds the rest
 target/debug/dcl                                  # a DCL session
 target/debug/dcl -c 'DIRECTORY/SIZE [.crates]'    # one command
 target/debug/dcl LOGIN.COM P1 P2                  # @LOGIN.COM
